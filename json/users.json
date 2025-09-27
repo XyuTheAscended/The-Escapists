@@ -1,0 +1,20 @@
+{
+  "users": [
+    {
+      "userName": "John",
+      "password": "passworD123",
+      "currSave": "248cea78-82be-4bc1-99e8-9d242b6f09af",
+      "saves": [
+        "248cea78-82be-4bc1-99e8-9d242b6f09af"
+      ]
+    },
+    {
+      "userName": "Jane",
+      "password": "Password321",
+      "currSave": "f7b9f0df-7ef8-401b-9696-dab58b815e13",
+      "saves": [
+        "f7b9f0df-7ef8-401b-9696-dab58b815e13"
+      ]
+    }
+  ]
+}
