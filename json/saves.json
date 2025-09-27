@@ -29,6 +29,33 @@
           "aaca9c16-16ca-4c6d-b024-d456796a4a03": false
         }
       }
+    },
+
+    {
+      "progressId": "f7b9f0df-7ef8-401b-9696-dab58b815e13",
+      "currentRoom": "Cell",
+      "completedRooms": [],
+      "inventory": {
+        "items": [
+          {
+              "itemId": 2,
+              "name": "Crowbar",
+              "description": "The classic tool for a crazy criminal."
+          }
+        ]
+      },
+      "achievements": [],
+      "difficulty": 1,
+      "remainingTime": 3690,
+      "completedPuzzles": {
+        "Cell": {
+          "CellDoorLock": false
+        },
+        "Hallway": {
+          "KeyCode": false,
+          "WallRiddle": false
+        }
+      }
     }
   ]
 }
