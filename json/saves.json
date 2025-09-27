@@ -1,0 +1,34 @@
+{
+  "saves": [
+    {
+      "progressId": "248cea78-82be-4bc1-99e8-9d242b6f09af",
+      "currentRoom": "Hallway",
+      "completedRooms": ["Cell"],
+      "inventory": {
+        "items": [
+        {
+            "itemId": 1,
+            "name": "Rusty Key",
+            "description": "A heavy key mottled with rust.  It is cool to the touch."
+        }
+        ]
+      },
+      "achievements": [
+        {
+            "1": "First Puzzle"
+        }
+      ],
+      "difficulty": 2,
+      "remainingTime": 1650,
+      "completedPuzzles": {
+        "Cell": {
+          "758a5a2c-a44d-491c-a6ae-f17d080ca806": true
+        },
+        "Hallway": {
+          "3b93a3a8-e122-4bce-95e8-c0e592316d8a": true,
+          "aaca9c16-16ca-4c6d-b024-d456796a4a03": false
+        }
+      }
+    }
+  ]
+}
