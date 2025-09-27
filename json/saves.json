@@ -22,11 +22,11 @@
       "remainingTime": 1650,
       "completedPuzzles": {
         "Cell": {
-          "758a5a2c-a44d-491c-a6ae-f17d080ca806": true
+          "CellDoorLock": true
         },
         "Hallway": {
-          "3b93a3a8-e122-4bce-95e8-c0e592316d8a": true,
-          "aaca9c16-16ca-4c6d-b024-d456796a4a03": false
+          "KeyCode": true,
+          "WallRiddle": false
         }
       }
     },
