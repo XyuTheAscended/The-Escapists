@@ -9,7 +9,7 @@ public class Achievement {
     private String description;
     private ArrayList<Achievement> userAchievements;
     private HashMap<int, String> allAchievements;
-}
+
 
 public Achievement(User user){
 
@@ -17,4 +17,6 @@ public Achievement(User user){
 
 public void addAchievement(){
     
+}
+
 }

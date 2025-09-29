@@ -9,7 +9,7 @@ public class User {
     private String password;
     private Progress currSave;
     private ArrayList<Progress> saves;
-}
+
 
 public User(String userName, String password){
     this.userName = userName;
@@ -49,5 +49,7 @@ public void changeCurrSave(int saveIndex){
 }
 
 public boolean auth(String username, String password){
+
+}
 
 }

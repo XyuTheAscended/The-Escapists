@@ -3,7 +3,7 @@ import java.util.List;
 
 public class Inventory {
     private List<Item> items;
-}
+
 
 public Inventory(){
 
@@ -19,4 +19,6 @@ public void removeItem(Item item){
 
 public List<Item> getItems(){
     
+}
+
 }

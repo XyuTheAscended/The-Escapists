@@ -5,7 +5,7 @@ import Coding.Gameplay.InteractItems.Puzzle;
 
 public class Room {
     private List<Puzzle> puzzles;
-}
+
 
 public Room(){
 
@@ -16,5 +16,7 @@ public boolean canInteract(EnvironmentProp environmentProp){
 }
 
 public void addPuzzle(Puzzle puzzle){
+
+}
 
 }

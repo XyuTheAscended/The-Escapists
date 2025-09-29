@@ -6,7 +6,7 @@ public class Puzzle {
     private String userGuess;
     private String description;
     private String name;
-}
+
 
 public Puzzle(String answer, String description, String puzzleName){
 
@@ -21,5 +21,7 @@ public boolean checkAnswer(String guess){
 }
 
 public boolean checkItem(Item item){
+
+}
 
 }

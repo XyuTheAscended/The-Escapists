@@ -17,7 +17,7 @@ public class Progress {
     private int difficulty;
     private int remainingTime;
     private HashMap<String, HashMap<String, Boolean>>
-}
+
 
 public Progress(){
 
@@ -73,4 +73,6 @@ public int setRemainingTime(int time){
 
 public int getRemainingTime(){
     
+}
+
 }

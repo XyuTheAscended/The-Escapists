@@ -5,7 +5,7 @@ public class Timer {
     private int remainingTime;
     private boolean isRunning;
     private static Timer timer;
-}
+
 
 private Timer(int startTime){
     this.startTime = startTime;
@@ -28,5 +28,7 @@ public void reset(){
 }
 
 public int getRemainingTime(){
+
+}
 
 }

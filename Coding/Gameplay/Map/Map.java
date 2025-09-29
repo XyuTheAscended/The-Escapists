@@ -6,7 +6,7 @@ public class Map {
     private boolean isOpen;
     private Room currentRoom;
     private ArrayList<Room> rooms;
-}
+
 
 public Map(){
 
@@ -30,4 +30,6 @@ public Room getCurrentRoom(){
 
 public void setCurrentRoom(Room room){
     
+}
+
 }

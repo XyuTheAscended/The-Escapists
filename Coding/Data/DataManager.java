@@ -2,7 +2,7 @@ package Coding.Data;
 
 public class DataManager {
     private static DataManager dataManager;
-}
+
 
 private DataManager(){
 
@@ -30,4 +30,6 @@ public Progress loadProgress(UUID progressId){
 
 public void saveProgress(Progress progress){
     
+}
+
 }

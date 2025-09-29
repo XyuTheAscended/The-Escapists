@@ -13,7 +13,7 @@ public class GameFacade {
     private Leaderboard leaderboard;
     private HashMap<int, String> allAchievements;
     private int difficulty;
-}
+
 
 public GameFacade(){
 
@@ -85,4 +85,6 @@ public void save(){
 
 public void loadSave(int saveIndex){
     
+}
+
 }
