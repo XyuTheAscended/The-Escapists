@@ -1,0 +1,31 @@
+# === Java ===
+*.class
+*.log
+*.ctxt
+*.jar
+*.war
+*.ear
+
+# Compiled output
+/bin/
+/out/
+/build/
+/target/
+
+# === IntelliJ IDEA ===
+.idea/
+/*.iml
+*.ipr
+*.iws
+
+# IntelliJ build output
+
+# === VS Code ===
+.vscode/
+
+# === OS files ===
+.DS_Store
+Thumbs.db
+
+# === JavaFX SDK (don’t commit huge SDKs) ===
+javafx-sdk*/
