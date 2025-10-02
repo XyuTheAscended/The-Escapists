@@ -1,9 +1,12 @@
 package com.model.Coding.Gameplay;
 
 import java.util.HashMap;
+import java.util.UUID;
 
-import Coding.Gameplay.InteractItems.Inventory;
+import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Progress.Achievement;
+import com.model.Coding.Progress.Leaderboard;
+import com.model.Coding.User.User;
 
 public class GameFacade {
     private static GameFacade gameFacade;
@@ -11,80 +14,100 @@ public class GameFacade {
     private String currentState;
     private boolean isPaused;
     private Leaderboard leaderboard;
-    private HashMap<int, String> allAchievements;
+    private HashMap<Integer, String> allAchievements;
     private int difficulty;
+    private Inventory inventory;
 
 
-public GameFacade(){
+    public GameFacade(){
 
-}
+    }
 
-public GameFacade(UUID progressId, User user){
+    public GameFacade(UUID progressId, User user){
 
-}
+    }
 
-public static GameFacade getInstance(){
+    public static GameFacade getInstance(){
+        return gameFacade;
+    }
 
-}
+    public void startGame(User user){
 
-public void startGame(User user){
+    }
 
-}
+    public void pause(){
 
-public void pause(){
+    }
 
-}
+    public void resume(){
 
-public void resume(){
+    }
 
-}
+    public boolean isPaused(){
+        return true;
+    }
 
-public boolean isPaused(){
+    public Leaderboard getLeaderboard(){
+        return leaderboard;
+    }
 
-}
+    public Inventory getInventory(){
+        return inventory;
+    }
 
-public Leaderboard getLeaderboard(){
+    public void addAchievement(Achievement achievement){
 
-}
+    }
 
-public Inventory getInventory(){
+    public void openMap(){
 
-}
+    }
 
-public void addAchievement(Achievement achievement){
+    public void closeMap(){
 
-}
+    }
 
-public void openMap(){
+    public void setDifficulty(int level){
 
-}
+    }
 
-public void closeMap(){
+    public User login(String userName, String password){
+        return currentUser;
+    }
 
-}
+    public User register(String userName, String password){
+        return currentUser;
+    }
 
-public void setDifficulty(int level){
+    public void logout(){
 
-}
+    }
 
-public User login(String userName, String password){
+    public void save(){
 
-}
+    }
 
-public User register(String userName, String password){
-
-}
-
-public void logout(){
-
-}
-
-public void save(){
-
-}
-
-public void loadSave(int saveIndex){
+    public void loadSave(int saveIndex){
     
-}
+    }
 
+    // temp testing method
+    public static void main(String[] args) {
+        GameFacade gf = new GameFacade();
+        gf.addAchievement(null);
+        gf.closeMap();
+        gf.startGame(null);
+        gf.pause();
+        gf.resume();
+        gf.isPaused();
+        gf.getLeaderboard();
+        gf.getInventory();
+        gf.openMap();
+        gf.setDifficulty(0);
+        gf.login(null, null);
+        gf.register(null, null);
+        gf.logout();
+        gf.save();
+        gf.loadSave(0);
+    }
 }

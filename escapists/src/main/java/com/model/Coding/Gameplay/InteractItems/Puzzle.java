@@ -8,20 +8,34 @@ public class Puzzle {
     private String name;
 
 
-public Puzzle(String answer, String description, String puzzleName){
+    public Puzzle(String answer, String description, String name){
+        this.answer = answer;
+        this.description = description;
+        this.name = name;
+    }
 
-}
+    public String userAnswer(String guess){
+        userGuess = guess;
+        return "";
+    }
 
-public String userAnswer(String guess){
+    public boolean checkAnswer(String guess){
+        return true;
+    }
 
-}
+    public boolean checkItem(Item item){
+        return true;
+    }
 
-public boolean checkAnswer(String guess){
+    public String getAnswer() {
+        return answer;
+    }
 
-}
-
-public boolean checkItem(Item item){
-
-}
-
+    // temp testing method
+    public static void main(String[] args) {
+        Puzzle puzzle = new Puzzle("1234", "Enter the correct number", "Keypad");
+        puzzle.checkAnswer("1234");
+        puzzle.userAnswer("");
+        puzzle.checkItem(null);
+    }
 }
