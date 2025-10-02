@@ -1,4 +1,4 @@
-package Coding.Gameplay;
+package com.model.Coding.Gameplay;
 
 public class Character {
     private String name;

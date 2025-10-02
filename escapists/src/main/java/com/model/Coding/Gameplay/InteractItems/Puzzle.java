@@ -1,4 +1,4 @@
-package Coding.Gameplay.InteractItems;
+package com.model.Coding.Gameplay.InteractItems;
 
 public class Puzzle {
     private boolean isCompleted;

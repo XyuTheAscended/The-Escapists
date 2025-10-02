@@ -1,4 +1,4 @@
-package Coding.Gameplay.Map;
+package com.model.Coding.Gameplay.Map;
 
 import java.util.ArrayList;
 

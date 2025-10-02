@@ -1,4 +1,4 @@
-package Coding.Data;
+package com.model.Coding.Data;
 
 public class DataWriter {
     

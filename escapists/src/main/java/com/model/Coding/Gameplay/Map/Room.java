@@ -1,7 +1,7 @@
-package Coding.Gameplay.Map;
+package com.model.Coding.Gameplay.Map;
 import java.util.List;
-import Coding.Gameplay.InteractItems.EnvironmentProp;
-import Coding.Gameplay.InteractItems.Puzzle;
+import com.model.Coding.Gameplay.InteractItems.EnvironmentProp;
+import com.model.Coding.Gameplay.InteractItems.Puzzle;
 
 public class Room {
     private List<Puzzle> puzzles;

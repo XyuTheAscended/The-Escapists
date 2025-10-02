@@ -1,4 +1,4 @@
-package Coding.User;
+package com.model.Coding.User;
 import java.util.ArrayList;
 
 

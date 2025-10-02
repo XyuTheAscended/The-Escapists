@@ -1,9 +1,9 @@
-package Coding.Gameplay;
+package com.model.Coding.Gameplay;
 
 import java.util.HashMap;
 
 import Coding.Gameplay.InteractItems.Inventory;
-import Coding.Progress.Achievement;
+import com.model.Coding.Progress.Achievement;
 
 public class GameFacade {
     private static GameFacade gameFacade;

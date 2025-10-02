@@ -1,4 +1,4 @@
-package Coding.Data;
+package com.model.Coding.Data;
 import java.util.ArrayList;
 
 public class DataLoader {

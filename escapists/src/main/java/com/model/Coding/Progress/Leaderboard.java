@@ -1,4 +1,4 @@
-package Coding.Progress;
+package com.model.Coding.Progress;
 
 import java.util.HashMap;
 

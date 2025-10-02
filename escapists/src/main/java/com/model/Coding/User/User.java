@@ -1,8 +1,8 @@
-package Coding.User;
+package com.model.Coding.User;
 import java.util.ArrayList;
 import java.util.List;
 
-import Coding.Progress.Progress;
+import com.model.Coding.Progress.Progress;
 
 public class User {
     private String userName;
