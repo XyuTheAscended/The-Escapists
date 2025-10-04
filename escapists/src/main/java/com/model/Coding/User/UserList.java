@@ -4,30 +4,33 @@ import java.util.ArrayList;
 
 public class UserList {
     private ArrayList<User> users;
+    private static UserList userList; 
 
+    private UserList(){
+        users = new ArrayList<User>();
+    }
 
-private UserList(){
-    
-}
+    public UserList getInstance(){
+        if (userList == null) {
+            userList = new UserList();
+        }
+        return userList;
+    }
 
-public UserList getInstance(){
+    public void createUser(User user){
 
-}
+    }
 
-public void createUser(User user){
+    public ArrayList<User> getUsers(){
+        return new ArrayList<User>();
+    }
 
-}
+    public User getUser(String userName){
+        return new User(userName, "password");
+    }
 
-public ArrayList<User> getUsers(){
-
-}
-
-public User getUser(String userName){
-
-}
-
-public boolean checkAvailability(String desiredUserName){
-
-}
+    public boolean checkAvailability(String desiredUserName){
+        return false;
+    }
 
 }

@@ -1,16 +1,30 @@
 package com.model.Coding.Data;
 import java.util.ArrayList;
+import java.util.UUID;
+
+import com.model.Coding.Progress.Progress;
 
 public class DataLoader {
-    
 
+  private static DataLoader dataLoader;
 
-public ArrayList<Users> getUsers(){
+  private DataLoader() {
 
-}
+  }
 
-public Progress loadProgress(UUID progressId){
-    
-}
+  public static DataLoader getInstance() {
+    if (dataLoader == null) {
+      dataLoader = new DataLoader();
+    }
+    return dataLoader;
+  }
+
+  public ArrayList<User> getUsers(){
+    return new ArrayList<User>();
+  }
+
+  public Progress loadProgress(UUID progressId){
+      return new Progress(); 
+  }
 
 }
