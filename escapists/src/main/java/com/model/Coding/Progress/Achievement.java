@@ -8,7 +8,7 @@ public class Achievement {
     private String name;
     private String description;
     private ArrayList<Achievement> userAchievements;
-    private HashMap<int, String> allAchievements;
+    private HashMap<Integer, String> allAchievements;
 
 
 public Achievement(User user){

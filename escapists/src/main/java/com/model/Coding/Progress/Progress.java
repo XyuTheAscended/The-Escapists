@@ -16,7 +16,7 @@ public class Progress {
     private ArrayList<Achievement> achievements;
     private int difficulty;
     private int remainingTime;
-    private HashMap<String, HashMap<String, Boolean>>
+    private HashMap<String, HashMap<String, Boolean>> completedPuzzles;
 
 
 public Progress(){
@@ -24,7 +24,7 @@ public Progress(){
 }
 
 public UUID getProgressId(){
-
+    return null;
 }
 
 public void setCurrentRoom(Room room){
@@ -32,7 +32,7 @@ public void setCurrentRoom(Room room){
 }
 
 public Room getCurrentRoom(){
-
+    return null;
 }
 
 public void markRoomCompleted(Room room){
@@ -48,7 +48,7 @@ public void markPuzzleCompleted(Puzzle puzzle){
 }
 
 public int getCompletedPuzzles(){
-
+    return 0;
 }
 
 public void getInventory(){
@@ -56,7 +56,7 @@ public void getInventory(){
 }
 
 public ArrayList<Achievement> getAchievements(){
-
+    return new ArrayList<>();
 }
 
 public void setDifficulty(int leve){
@@ -64,15 +64,15 @@ public void setDifficulty(int leve){
 }
 
 public int getDifficulty(){
-
+    return 0;
 }
 
 public int setRemainingTime(int time){
-
+    return 0;
 }
 
 public int getRemainingTime(){
-    
+    return 0;
 }
 
 }
