@@ -7,29 +7,37 @@ public class Map {
     private Room currentRoom;
     private ArrayList<Room> rooms;
 
+    public Map(){
 
-public Map(){
+    }
 
-}
+    public void openMap(){
 
-public void openMap(){
+    }
 
-}
+    public void closeMap(){
 
-public void closeMap(){
+    }
 
-}
+    public void toggleMap(){
 
-public void toggleMap(){
+    }
 
-}
+    public Room getCurrentRoom(){
+        return new Room();
+    }
 
-public Room getCurrentRoom(){
-
-}
-
-public void setCurrentRoom(Room room){
+    public void setCurrentRoom(Room room){
     
-}
+    }
 
+    // temp testing method
+    public static void main(String[] args) {
+        Map map = new Map();
+        map.openMap();
+        map.closeMap();
+        map.toggleMap();
+        map.getCurrentRoom();
+        map.setCurrentRoom(null);
+    }
 }

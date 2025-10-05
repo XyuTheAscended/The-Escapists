@@ -7,16 +7,22 @@ public class Room {
     private List<Puzzle> puzzles;
 
 
-public Room(){
+    public Room(){
 
-}
+    }
 
-public boolean canInteract(EnvironmentProp environmentProp){
+    public boolean canInteract(EnvironmentProp environmentProp){
+        return true;
+    }
 
-}
+    public void addPuzzle(Puzzle puzzle){
 
-public void addPuzzle(Puzzle puzzle){
+    }
 
-}
-
+    // temp testing method
+    public static void main(String[] args) {
+        Room room = new Room();
+        room.canInteract(null);
+        room.addPuzzle(null);
+    }
 }
