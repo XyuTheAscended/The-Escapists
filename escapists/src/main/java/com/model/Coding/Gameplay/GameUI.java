@@ -4,6 +4,8 @@ import com.model.Coding.Gameplay.InteractItems.Puzzle;
 
 import java.util.Objects;
 
+// this is just a console based test UI for the game. this is where we test our program, and we can hard code
+// certain scenarios to test.
 public class GameUI {
 
     private Puzzle puzzle;

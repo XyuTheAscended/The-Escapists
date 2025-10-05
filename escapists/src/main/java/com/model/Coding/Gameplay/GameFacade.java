@@ -48,11 +48,11 @@ public class GameFacade {
     }
 
     public Leaderboard getLeaderboard(){
-        return leaderboard;
+        return new Leaderboard();
     }
 
     public Inventory getInventory(){
-        return inventory;
+        return new Inventory();
     }
 
     public void addAchievement(Achievement achievement){
@@ -72,11 +72,11 @@ public class GameFacade {
     }
 
     public User login(String userName, String password){
-        return currentUser;
+        return new User("bobby", "bobby1");
     }
 
     public User register(String userName, String password){
-        return currentUser;
+        return new User("amy", "amy1");
     }
 
     public void logout(){

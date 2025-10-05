@@ -24,7 +24,7 @@ public class Map {
     }
 
     public Room getCurrentRoom(){
-        return currentRoom;
+        return new Room();
     }
 
     public void setCurrentRoom(Room room){

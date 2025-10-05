@@ -28,7 +28,7 @@ public class Puzzle {
     }
 
     public String getAnswer() {
-        return answer;
+        return "";
     }
 
     // temp testing method
