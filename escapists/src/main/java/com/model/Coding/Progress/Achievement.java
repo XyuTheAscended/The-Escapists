@@ -1,22 +1,22 @@
 package com.model.Coding.Progress;
+
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import Coding.User.User;
+import com.model.Coding.User.User;
 
 public class Achievement {
     private String name;
     private String description;
     private ArrayList<Achievement> userAchievements;
-    private HashMap<int, String> allAchievements;
+    private HashMap<Integer, String> allAchievements;
+    private User user;
 
+    public Achievement(User user) {
+        this.user = user;
+        this.userAchievements = new ArrayList<>();
+        this.allAchievements = new HashMap<>();
+    }
 
-public Achievement(User user){
-
-}
-
-public void addAchievement(){
-    
-}
-
+    public void addAchievement() {
+    }
 }

@@ -15,6 +15,7 @@ public void interact(Inventory playerInventory){
 }
 
 public Item getItem(){
+    return item;
     
 }
 

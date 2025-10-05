@@ -18,7 +18,7 @@ public void removeItem(Item item){
 }
 
 public List<Item> getItems(){
-    
+    return items;
 }
 
 }

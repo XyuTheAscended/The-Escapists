@@ -38,4 +38,8 @@ public class Puzzle {
         puzzle.userAnswer("");
         puzzle.checkItem(null);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> main

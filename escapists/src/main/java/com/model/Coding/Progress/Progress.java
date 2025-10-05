@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import Coding.Gameplay.InteractItems.Inventory;
-import Coding.Gameplay.Map.Room;
+import com.model.Coding.Gameplay.InteractItems.Inventory;
+import com.model.Coding.Gameplay.Map.Room;
 
 public class Progress {
     private UUID progressId;
@@ -16,63 +16,61 @@ public class Progress {
     private ArrayList<Achievement> achievements;
     private int difficulty;
     private int remainingTime;
-    private HashMap<String, HashMap<String, Boolean>>
+    private HashMap<String, HashMap<String, Boolean>> completedPuzzles;
 
+    public Progress() {
+        this.progressId = UUID.randomUUID();
+        this.completedRooms = new ArrayList<>();
+        this.achievements = new ArrayList<>();
+        this.completedPuzzles = new HashMap<>();
+        this.difficulty = 0;
+        this.remainingTime = 0;
+    }
 
-public Progress(){
+    public UUID getProgressId() {
+        return progressId;
+    }
 
-}
+    public void setCurrentRoom(Room room) {
+        this.currentRoom = room;
+    }
 
-public UUID getProgressId(){
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
 
-}
+    public void markRoomCompleted(Room room) {
+    }
 
-public void setCurrentRoom(Room room){
+    public List<Room> getCompletedRooms() {
+        return new ArrayList<>(completedRooms);
+    }
 
-}
+    public int getCompletedPuzzlesCount() {
+        return completedPuzzles.size();
+    }
 
-public Room getCurrentRoom(){
+    public Inventory getInventory() {
+        return inventory;
+    }
 
-}
+    public ArrayList<Achievement> getAchievements() {
+        return new ArrayList<>(achievements);
+    }
 
-public void markRoomCompleted(Room room){
+    public void setDifficulty(int level) {
+        this.difficulty = level;
+    }
 
-}
+    public int getDifficulty() {
+        return difficulty;
+    }
 
-public void getCompletedRooms(){
+    public void setRemainingTime(int time) {
+        this.remainingTime = time;
+    }
 
-}
-
-public void markPuzzleCompleted(Puzzle puzzle){
-
-}
-
-public int getCompletedPuzzles(){
-
-}
-
-public void getInventory(){
-
-}
-
-public ArrayList<Achievement> getAchievements(){
-
-}
-
-public void setDifficulty(int leve){
-
-}
-
-public int getDifficulty(){
-
-}
-
-public int setRemainingTime(int time){
-
-}
-
-public int getRemainingTime(){
-    
-}
-
+    public int getRemainingTime() {
+        return remainingTime;
+    }
 }

@@ -1,25 +1,24 @@
 package com.model.Coding.Progress;
 
 import java.util.HashMap;
+import com.model.Coding.User.User;
 
 public class Leaderboard {
-    private HashMap<int, String> times;
+    private HashMap<User, String> times;
 
+    public Leaderboard() {
+        times = new HashMap<>();
+    }
 
-public Leaderboard(){
+    public void addTime(String time, User user) {
+        times.put(user, time);
+    }
 
-}
+    public HashMap<User, String> getTimes() {
+        return new HashMap<>(times);
+    }
 
-public void addTime(String time, User user){
-
-}
-
-public HashMap<User, String> getTimes(){
-
-}
-
-public String getUserTime(User user){
-    
-}
-
+    public String getUserTime(User user) {
+        return times.get(user);
+    }
 }
