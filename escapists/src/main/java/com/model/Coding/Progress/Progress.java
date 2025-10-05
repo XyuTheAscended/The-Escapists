@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-import Coding.Gameplay.InteractItems.Inventory;
-import Coding.Gameplay.Map.Room;
+import com.model.Coding.Gameplay.InteractItems.Inventory;
+import com.model.Coding.Gameplay.Map.Room;
 
 public class Progress {
     private UUID progressId;
