@@ -1,24 +1,27 @@
 package com.model.Coding.Gameplay.InteractItems;
-import java.util.List;
+import java.util.ArrayList;
 
 public class Inventory {
-    private List<Item> items;
+    private ArrayList<Item> items;
 
+    public Inventory(){
+        items = new ArrayList<>();
+    }
 
-public Inventory(){
+    public void addItem(Item item){
+        items.add(item);
+    }
 
-}
+    public void removeItem(Item item){
+        items.remove(item);
+    }
 
-public void addItem(Item item){
+    public ArrayList<Item> getItems(){
+        return items;
+    }
 
-}
-
-public void removeItem(Item item){
-
-}
-
-public List<Item> getItems(){
-    return items;
-}
-
+    // gets a certain item from the inventory
+    public Item getItem(int index) {
+        return items.get(index);
+    }
 }
