@@ -11,14 +11,17 @@ public Item(int itemId, String name, String description){
 }
 
 public int getItemId(){
+    return itemId;
 
 }
 
 public String getName(){
+    return name;
 
 }
 
 public String getDescription(){
+    return description;
     
 }
 

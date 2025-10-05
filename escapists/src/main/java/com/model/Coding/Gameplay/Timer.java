@@ -12,6 +12,7 @@ private Timer(int startTime){
 }
 
 public static Timer getInstance(){
+    return timer;
 
 }
 
@@ -28,6 +29,7 @@ public void reset(){
 }
 
 public int getRemainingTime(){
+    return remainingTime;
 
 }
 
