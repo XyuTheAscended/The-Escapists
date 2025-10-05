@@ -1,4 +1,5 @@
 package com.model.Coding.Data;
+import com.model.Coding.User.User;
 
 public class DataWriter {
   private static DataWriter dataWriter;
