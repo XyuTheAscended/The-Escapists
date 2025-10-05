@@ -18,61 +18,59 @@ public class Progress {
     private int remainingTime;
     private HashMap<String, HashMap<String, Boolean>> completedPuzzles;
 
+    public Progress() {
+        this.progressId = UUID.randomUUID();
+        this.completedRooms = new ArrayList<>();
+        this.achievements = new ArrayList<>();
+        this.completedPuzzles = new HashMap<>();
+        this.difficulty = 0;
+        this.remainingTime = 0;
+    }
 
-public Progress(){
+    public UUID getProgressId() {
+        return progressId;
+    }
 
-}
+    public void setCurrentRoom(Room room) {
+        this.currentRoom = room;
+    }
 
-public UUID getProgressId(){
-    return null;
-}
+    public Room getCurrentRoom() {
+        return currentRoom;
+    }
 
-public void setCurrentRoom(Room room){
+    public void markRoomCompleted(Room room) {
+    }
 
-}
+    public List<Room> getCompletedRooms() {
+        return new ArrayList<>(completedRooms);
+    }
 
-public Room getCurrentRoom(){
-    return null;
-}
+    public int getCompletedPuzzlesCount() {
+        return completedPuzzles.size();
+    }
 
-public void markRoomCompleted(Room room){
+    public Inventory getInventory() {
+        return inventory;
+    }
 
-}
+    public ArrayList<Achievement> getAchievements() {
+        return new ArrayList<>(achievements);
+    }
 
-public void getCompletedRooms(){
+    public void setDifficulty(int level) {
+        this.difficulty = level;
+    }
 
-}
+    public int getDifficulty() {
+        return difficulty;
+    }
 
-public void markPuzzleCompleted(Puzzle puzzle){
+    public void setRemainingTime(int time) {
+        this.remainingTime = time;
+    }
 
-}
-
-public int getCompletedPuzzles(){
-    return 0;
-}
-
-public void getInventory(){
-
-}
-
-public ArrayList<Achievement> getAchievements(){
-    return new ArrayList<>();
-}
-
-public void setDifficulty(int leve){
-
-}
-
-public int getDifficulty(){
-    return 0;
-}
-
-public int setRemainingTime(int time){
-    return 0;
-}
-
-public int getRemainingTime(){
-    return 0;
-}
-
+    public int getRemainingTime() {
+        return remainingTime;
+    }
 }

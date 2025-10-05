@@ -1,8 +1,8 @@
+package com.model.Coding.User;
+
 import java.util.ArrayList;
 import java.util.List;
-
 import com.model.Coding.Progress.Progress;
-
 
 public class User {
     private String userName;
@@ -10,45 +10,46 @@ public class User {
     private Progress currSave;
     private ArrayList<Progress> saves;
 
-public User(String userName, String password) {
-    this.userName = userName;
-    this.password = password;
-}
+    public User(String userName, String password) {
+        this.userName = userName;
+        this.password = password;
+        this.saves = new ArrayList<>();
+    }
 
-public String getUserName() {
-    return null; 
-}
+    public String getUserName() {
+        return userName;
+    }
 
-public void setUserName(String username) {
-    
-}
+    public void setUserName(String username) {
+        this.userName = username;
+    }
 
-public String getPassword() {
-    return null;
-}
+    public String getPassword() {
+        return password;
+    }
 
-public void setPassword(String password) {
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-}
+    public void addSave(Progress save) {
+        saves.add(save);
+    }
 
-public void addSave(Progress save) {
+    public List<Progress> getSaves() {
+        return new ArrayList<>(saves);
+    }
 
-}
+    public void pushSaves() {
+    }
 
-public List<Progress> getSaves() {
-    return new ArrayList<>();
-}
+    public void changeCurrSave(int saveIndex) {
+        if (saveIndex >= 0 && saveIndex < saves.size()) {
+            currSave = saves.get(saveIndex);
+        }
+    }
 
-public void pushSaves() {
-
-}
-
-public void changeCurrSave(int saveIndex) {
-
-}
-
-public boolean auth(String username, String password) {
-    return false;
-}
-
+    public boolean auth(String username, String password) {
+        return this.userName.equals(username) && this.password.equals(password);
+    }
 }
