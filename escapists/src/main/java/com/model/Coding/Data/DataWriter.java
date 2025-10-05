@@ -1,5 +1,6 @@
 package com.model.Coding.Data;
 import com.model.Coding.User.User;
+import com.model.Coding.Progress.Progress;
 
 public class DataWriter {
   private static DataWriter dataWriter;

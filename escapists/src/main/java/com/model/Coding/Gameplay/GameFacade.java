@@ -3,8 +3,9 @@ import com.model.Coding.User.User;
 
 import java.util.HashMap;
 
-import Coding.Gameplay.InteractItems.Inventory;
+import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Progress.Achievement;
+import com.model.Coding.Progress.Leaderboard;
 
 public class GameFacade {
     private static GameFacade gameFacade;
