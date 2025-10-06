@@ -86,13 +86,18 @@ public class GameFacade {
                 user = potUser;
             }
         }
-        if (user == null || !user.getPassword().equals(password)) { return null; } 
+        if (user == null || !user.auth(userName, password)) { return null; } // looking at implementation here im realizing checking username in auth method is redundant
 
         return user;
     }
 
     public User register(String userName, String password){
-        return new User("amy", "amy1");
+        UserList userList = UserList.getInstance(); 
+        if (!userList.checkAvailability(userName)) { 
+            return null; 
+        }
+
+        return userList.createUser(userName, password);
     }
 
     public void logout(){
