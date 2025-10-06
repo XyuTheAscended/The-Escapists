@@ -1,8 +1,9 @@
 package com.model.Coding;
 
 import java.util.Scanner;
-import com.model.Coding.User.User;
+
 import com.model.Coding.Data.DataWriter;
+import com.model.Coding.User.User;
 
 public class Main {
     public static void main(String[] args) throws Exception {

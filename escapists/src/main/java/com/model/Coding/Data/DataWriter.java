@@ -1,16 +1,17 @@
 package com.model.Coding.Data;
 
-import com.model.Coding.User.User;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
+import com.model.Coding.User.User;
+
 public class DataWriter {
-    private static final String USER_FILE = "users.json";
+    private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
     private static DataWriter dataWriter;
 
     private DataWriter() { }

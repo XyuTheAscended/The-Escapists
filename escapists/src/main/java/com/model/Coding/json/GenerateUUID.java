@@ -1,3 +1,5 @@
+package com.model.Coding.json;
+
 import java.util.UUID;
 
 public class GenerateUUID {
