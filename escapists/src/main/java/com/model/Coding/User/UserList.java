@@ -8,20 +8,34 @@ public class UserList {
     private ArrayList<User> users;
     private static UserList userList; 
 
-    private UserList() {
-        DataManager dataMan = DataManager.getInstance();
-        users = dataMan.getUsers();
+    private static final DataManager dataManager; // made this property so i dont have to keep calling getInstance for this thing
+    static {
+        dataManager = DataManager.getInstance();
     }
 
-    public UserList getInstance(){
+    private UserList() {
+        users = dataManager.getUsers();
+    }
+
+    public static UserList getInstance(){
         if (userList == null) {
             userList = new UserList();
         }
         return userList;
     }
 
-    public void createUser(User user){
-
+    /**
+     * Creates a new user by using user class and data manager for syncing newly created user to data base
+     * no checks for username availability here. they're expected to be done before this method is called
+     * @param userName
+     * @param password
+     * @return User that was created
+     */
+    public User createUser(String userName, String password) {
+        User newUser = new User(userName, password); 
+        dataManager.addUser(newUser);
+        users.add(newUser);
+        return newUser;
     }
 
     public ArrayList<User> getUsers(){

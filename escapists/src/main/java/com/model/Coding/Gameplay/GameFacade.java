@@ -7,6 +7,7 @@ import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Progress.Achievement;
 import com.model.Coding.Progress.Leaderboard;
 import com.model.Coding.User.User;
+import com.model.Coding.User.UserList;
 
 public class GameFacade {
     private static GameFacade gameFacade;
@@ -71,8 +72,23 @@ public class GameFacade {
 
     }
 
-    public User login(String userName, String password){
-        return new User("bobby", "bobby1");
+    /**
+     * Logs in a preexisting
+     * @param userName
+     * @param password
+     * @return User data that we have logged in to access 
+     */
+    public User login(String userName, String password) {
+        UserList userList = UserList.getInstance(); 
+        User user = null; 
+        for (User potUser : userList.getUsers()) {
+            if (potUser.getUserName().equals(userName)) {
+                user = potUser;
+            }
+        }
+        if (user == null || !user.getPassword().equals(password)) { return null; } 
+
+        return user;
     }
 
     public User register(String userName, String password){
