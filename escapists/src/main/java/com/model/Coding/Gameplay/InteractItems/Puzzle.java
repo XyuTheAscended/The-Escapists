@@ -68,4 +68,9 @@ public class Puzzle {
         System.out.println("Enter answer: ");
         riddle.checkAnswer(riddle.userAnswer(scanner.nextLine()));
     }
+
+    public boolean contains(Puzzle puzzle) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'contains'");
+    }
 }

@@ -1,22 +1,27 @@
 package com.model.Coding.Gameplay.Map;
-import java.util.List;
 import com.model.Coding.Gameplay.InteractItems.EnvironmentProp;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
+import java.util.ArrayList;
 
 public class Room {
-    private List<Puzzle> puzzles;
+    private ArrayList<Puzzle> puzzles;
 
 
     public Room(){
-
+        puzzles = new ArrayList<>();
     }
 
     public boolean canInteract(EnvironmentProp environmentProp){
-        return true;
+        if (environmentProp == null){
+            return false;
+        }
+                return true;
     }
 
     public void addPuzzle(Puzzle puzzle){
-
+        if (puzzle != null && !puzzle.contains(puzzle)) {
+            puzzles.add(puzzle);
+        }
     }
 
     // temp testing method
