@@ -1,5 +1,44 @@
 {
-    "items" : {
-        ""
+
+  "items" : {
+        "requiredItem1" : {
+            "keys" : [
+                {
+                    "name" : "Goldkey",
+                    "color" : "Gold",
+                    "description" : "A key that opens a golden lock."
+                },
+
+                {
+                    "name" : "Bluekey",
+                    "color" : "Blue",
+                    "description" : "A keep that opens a blue lock."
+                },
+
+                {
+                    "name" : "Redkey",
+                    "color" : "Red",
+                    "description" : "A keep that opens a red lock."
+                },
+
+                {
+                    "name" : "Orangekey",
+                    "color" : "Orange",
+                    "description" : "A keep that opens a orange lock."
+                },
+
+                {
+                    "name" : "Silverkey",
+                    "color" : "Silver",
+                    "description" :"A keep that opens a silver lock."
+                },
+
+                {
+                    "name" : ""
+                }
+            ]
+
     }
+}
+
 }
