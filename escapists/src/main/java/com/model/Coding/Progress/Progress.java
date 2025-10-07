@@ -2,7 +2,6 @@ package com.model.Coding.Progress;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 import com.model.Coding.Gameplay.InteractItems.Inventory;
@@ -11,7 +10,7 @@ import com.model.Coding.Gameplay.Map.Room;
 public class Progress {
     private UUID progressId;
     private Room currentRoom;
-    private List<Room> completedRooms;
+    private ArrayList<Room> completedRooms;
     private Inventory inventory;
     private ArrayList<Achievement> achievements;
     private int difficulty;
@@ -42,7 +41,7 @@ public class Progress {
     public void markRoomCompleted(Room room) {
     }
 
-    public List<Room> getCompletedRooms() {
+    public ArrayList<Room> getCompletedRooms() {
         return new ArrayList<>(completedRooms);
     }
 
