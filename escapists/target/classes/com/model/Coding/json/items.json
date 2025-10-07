@@ -12,29 +12,55 @@
                 {
                     "name" : "Bluekey",
                     "color" : "Blue",
-                    "description" : "A keep that opens a blue lock."
+                    "description" : "A key that opens a blue lock."
                 },
 
                 {
                     "name" : "Redkey",
                     "color" : "Red",
-                    "description" : "A keep that opens a red lock."
+                    "description" : "A key that opens a red lock."
                 },
 
                 {
                     "name" : "Orangekey",
                     "color" : "Orange",
-                    "description" : "A keep that opens a orange lock."
+                    "description" : "A key that opens a orange lock."
                 },
 
                 {
                     "name" : "Silverkey",
                     "color" : "Silver",
-                    "description" :"A keep that opens a silver lock."
+                    "description" :"A key that opens a silver lock."
                 },
 
                 {
-                    "name" : ""
+                    "name" : "Blackkey",
+                    "color" : "Black",
+                    "description" : "A key that opens a black lock."
+                },
+
+                {
+                    "name" : "Purplekey",
+                    "color" : "Purple",
+                    "description" : "A key that opens a purple lock."
+                },
+
+                {
+                    "name" : "Greenkey",
+                    "color" : "Green",
+                    "description" : "A key that opens a green lock."
+                },
+
+                {
+                    "name" : "Whitekey",
+                    "color" : "White",
+                    "description" : "A key that opens a white lock"
+                },
+
+                {
+                    "name" : "Pinkkey",
+                    "color" : "Pink",
+                    "description" : "A key that opens a pink lock."
                 }
             ]
 
