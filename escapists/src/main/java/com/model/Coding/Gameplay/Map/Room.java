@@ -20,7 +20,7 @@ public class Room {
     }
 
     public void addPuzzle(Puzzle puzzle){
-        if (puzzle != null && !puzzle.contains(puzzle)) {
+        if (puzzle != null && !puzzles.contains(puzzle)) {
             puzzles.add(puzzle);
         }
     }

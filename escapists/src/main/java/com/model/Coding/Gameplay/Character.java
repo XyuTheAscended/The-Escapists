@@ -6,11 +6,9 @@ public class Character {
     protected String characterName;
     protected Item item;
 
-
     public Character(String name, Item item){
         this.characterName = name;
         this.item = item;
-    
     }
 
     // expand this for each character
@@ -19,9 +17,6 @@ public class Character {
     }
 
     public Item interact(){
-        // for testing, delete later
-        System.out.println("Interacted with " + characterName);
-
         return item;
     }
 }

@@ -10,7 +10,6 @@ public class Puzzle {
     private String description;
     private String name;
 
-
     public Puzzle(String answer, String description, String name){
         this.answer = answer;
         this.description = description;
@@ -26,16 +25,11 @@ public class Puzzle {
     public boolean checkAnswer(String guess){
         if(guess.equals(answer.trim().toLowerCase().replaceAll("\\s+", ""))) {
             isCompleted = true;
-            // delete later
-            System.out.println("Correct");
             return true;
         }
-        // delete later
-        System.out.println("Wrong");
         return false;
     }
 
-    // check to see if we need to add getters and setters to SCRUM board
     public String getAnswer() {
         return answer;
     }
@@ -67,10 +61,5 @@ public class Puzzle {
         System.out.println(riddle.getDescription());
         System.out.println("Enter answer: ");
         riddle.checkAnswer(riddle.userAnswer(scanner.nextLine()));
-    }
-
-    public boolean contains(Puzzle puzzle) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'contains'");
     }
 }

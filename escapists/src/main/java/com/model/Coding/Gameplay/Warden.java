@@ -25,4 +25,8 @@ public class Warden extends Character {
     public boolean getHasItem() {
         return hasItem;
     }
+
+    public String getRoomID() {
+        return roomID;
+    }
 }
