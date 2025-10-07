@@ -34,7 +34,6 @@ public class User {
 
     public void addSave(Progress save) {
         saves.add(save);
-        currSave = save;
     }
 
     public List<Progress> getSaves() {
