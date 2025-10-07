@@ -24,4 +24,12 @@ public class Inventory {
     public Item getItem(int index) {
         return items.get(index);
     }
+
+    public String displayInventory() {
+        String stringInven = "";
+        for (Item item: items) {
+            stringInven += (" | " + item.getName() + " | ");
+        }
+        return ("[" + stringInven + "]");
+    }
 }
