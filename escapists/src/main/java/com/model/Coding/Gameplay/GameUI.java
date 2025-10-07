@@ -15,15 +15,10 @@ public class GameUI {
     }
 
     public void scenario1() {
-        if(puzzle.checkAnswer(null)) {
+        if (puzzle.checkAnswer(null)) {
             System.out.println("Answer is right");
         }
         System.out.println("Answer is not right");
-
-        if(puzzle.checkItem(null)) {
-            System.out.println("Correct item");
-        }
-        System.out.println("Incorrect item");
     }
 
     public void scenario2() {
