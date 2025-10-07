@@ -1,6 +1,7 @@
 package com.model.Coding.Gameplay.Map;
 import com.model.Coding.Gameplay.InteractItems.EnvironmentProp;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
+
 import java.util.ArrayList;
 
 public class Room {
