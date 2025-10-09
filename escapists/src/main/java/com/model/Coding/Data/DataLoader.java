@@ -151,10 +151,6 @@ public Progress loadProgress(UUID progressId) {
                 JSONObject saveJson = (JSONObject) saveObj;
                 String idStr = (String) saveJson.get("progressId");
                 if (idStr != null && idStr.equals(progressId.toString())) {
-                    Progress progress = new Progress();
-
-                    progress.setDifficulty(((Long) saveJson.get("difficulty")).intValue());
-                    progress.setRemainingTime(((Long) saveJson.get("remainingTime")).intValue());
 
                     JSONArray completedRooms = (JSONArray) saveJson.get("completedRooms");
                     if (completedRooms != null) {
@@ -163,8 +159,8 @@ public Progress loadProgress(UUID progressId) {
                     }
 
                     JSONObject completedPuzzles = (JSONObject) saveJson.get("completedPuzzles");
+                    HashMap<String, HashMap<String, Boolean>> puzzles = new HashMap<>();
                     if (completedPuzzles != null) {
-                        HashMap<String, HashMap<String, Boolean>> puzzles = new HashMap<>();
                         for (Object roomKey : completedPuzzles.keySet()) {
                             JSONObject puzzlesJson = (JSONObject) completedPuzzles.get(roomKey);
                             HashMap<String, Boolean> puzzleMap = new HashMap<>();
@@ -185,6 +181,9 @@ public Progress loadProgress(UUID progressId) {
                     if (achievementsJson != null) {
                     }
 
+                    Progress progress = new Progress(UUID.fromString(idStr), puzzles);
+                    progress.setDifficulty(((Long) saveJson.get("difficulty")).intValue());
+                    progress.setRemainingTime(((Long) saveJson.get("remainingTime")).intValue());
                     return progress;
                 }
             }

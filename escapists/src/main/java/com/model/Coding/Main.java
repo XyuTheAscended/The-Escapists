@@ -8,9 +8,10 @@ import com.model.Coding.User.User;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-        for (User user : DataLoader.getInstance().getUsers()) {
-            System.out.println(user + "\n-----------------------------------");
-        }
+        // code for testing out data loader
+        // for (User user : DataLoader.getInstance().getUsers()) {
+        //     System.out.println(user + "\n-----------------------------------");
+        // }
 
         Scanner scanner = new Scanner(System.in);
 
