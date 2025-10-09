@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.UUID;
 import com.model.Coding.User.User;
 
+import javafx.scene.chart.PieChart.Data;
+
 import com.model.Coding.Progress.Progress;
 
 public class DataManager {
@@ -23,11 +25,11 @@ public class DataManager {
     }
 
     public ArrayList<User> getUsers(){ 
-        return new ArrayList<User>();
+        return dataLoader.getUsers();
     }
 
     public void addUser(User user){
-        
+        dataWriter.addUser(user);
     }
 
     public void updateUser(User user){
