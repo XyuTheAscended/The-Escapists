@@ -18,12 +18,43 @@ public class Progress {
     private HashMap<String, HashMap<String, Boolean>> completedPuzzles;
 
     public Progress() {
-        this.progressId = UUID.randomUUID();
+        initProgress(UUID.randomUUID(), new HashMap<>());
+    }
+
+    public Progress(UUID progressId, HashMap<String, HashMap<String, Boolean>> completedPuzzles) { 
+        // use when we're loading progress, cause it already has an id
+        initProgress(progressId, completedPuzzles);
+    }
+
+    private void initProgress(UUID progressId, HashMap<String, HashMap<String, Boolean>> completedPuzzles) {
+        this.progressId = progressId;
         this.completedRooms = new ArrayList<>();
         this.achievements = new ArrayList<>();
-        this.completedPuzzles = new HashMap<>();
+        this.completedPuzzles = completedPuzzles;
         this.difficulty = 0;
         this.remainingTime = 0;
+    }
+
+    public String toString() {
+        String text = "";
+        text += "Progress ID: " + progressId + "\n";
+        text += "Difficulty: " + difficulty + "\n";
+        text += "Remaining Time: " + remainingTime + " seconds\n";
+
+        text += "Completed Puzzles:\n";
+        if (completedPuzzles != null && !completedPuzzles.isEmpty()) {
+            for (var categoryEntry : completedPuzzles.entrySet()) {
+                text += "  " + categoryEntry.getKey() + ":\n";
+                for (var puzzleEntry : categoryEntry.getValue().entrySet()) {
+                    text += "    " + puzzleEntry.getKey() + " -> " 
+                        + (puzzleEntry.getValue() ? "yes" : "no") + "\n";
+                }
+            }
+        } else {
+            text += "  None\n";
+        }
+
+        return text;
     }
 
     public UUID getProgressId() {
