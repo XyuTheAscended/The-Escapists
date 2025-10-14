@@ -6,10 +6,11 @@ import java.util.ArrayList;
 
 public class Room {
     private ArrayList<Puzzle> puzzles;
+    private String name;
 
-
-    public Room(){
+    public Room(String name){
         puzzles = new ArrayList<>();
+        this.name = name;
     }
 
     public boolean canInteract(EnvironmentProp environmentProp){
@@ -25,9 +26,13 @@ public class Room {
         }
     }
 
+    public String getName() {
+        return name;
+    }
+
     // temp testing method
     public static void main(String[] args) {
-        Room room = new Room();
+        Room room = new Room("Cell");
         room.canInteract(null);
         room.addPuzzle(null);
     }
