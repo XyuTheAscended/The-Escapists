@@ -1,9 +1,10 @@
 package com.model.Coding.Gameplay;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.UUID;
 
 import com.model.Coding.Gameplay.InteractItems.Inventory;
+import com.model.Coding.Gameplay.Map.Map;
 import com.model.Coding.Progress.Achievement;
 import com.model.Coding.Progress.Leaderboard;
 import com.model.Coding.User.User;
@@ -15,9 +16,10 @@ public class GameFacade {
     private String currentState;
     private boolean isPaused;
     private Leaderboard leaderboard;
-    private HashMap<Integer, String> allAchievements;
+    private ArrayList<Achievement> allAchievements;
     private int difficulty;
     private Inventory inventory;
+    private Map map;
 
 
     public GameFacade(){
@@ -57,19 +59,19 @@ public class GameFacade {
     }
 
     public void addAchievement(Achievement achievement){
-
+        allAchievements.add(achievement);
     }
 
     public void openMap(){
-
+        map.openMap();
     }
 
     public void closeMap(){
-
+        map.closeMap();
     }
 
     public void setDifficulty(int level){
-
+        this.difficulty = level;
     }
 
     /**
