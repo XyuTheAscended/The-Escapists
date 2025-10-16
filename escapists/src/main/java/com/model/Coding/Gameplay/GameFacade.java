@@ -78,17 +78,15 @@ public class GameFacade {
      * @param password
      * @return User data that we have logged in to access 
      */
-    public User login(String userName, String password) {
+    public boolean login(String userName, String password) {
         UserList userList = UserList.getInstance(); 
-        User user = null; 
-        for (User potUser : userList.getUsers()) {
-            if (potUser.getUserName().equals(userName)) {
-                user = potUser;
-            }
+        User user = userList.getUser(userName);
+        if (user == null || !user.auth(userName, password)) { // looking at implementation here im realizing checking username in auth method is redundant
+            return false; 
+        } else {
+            currentUser = user; 
+            return true; 
         }
-        if (user == null || !user.auth(userName, password)) { return null; } // looking at implementation here im realizing checking username in auth method is redundant
-
-        return user;
     }
 
     public User register(String userName, String password){
@@ -101,7 +99,9 @@ public class GameFacade {
     }
 
     public void logout(){
+        if (currentUser == null) return;
 
+        currentUser = null; 
     }
 
     public void save(){
