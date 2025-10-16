@@ -1,5 +1,6 @@
 package com.model.Coding.Progress;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import com.model.Coding.User.User;
 
@@ -15,7 +16,7 @@ public class Leaderboard {
     }
 
     public HashMap<User, String> getTimes() {
-        return new HashMap<>(times);
+        return times;
     }
 
     public String getUserTime(User user) {
