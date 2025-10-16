@@ -81,14 +81,13 @@ public class GameFacade {
      * @return User data that we have logged in to access 
      */
     public boolean login(String userName, String password) {
-        UserList userList = UserList.getInstance(); 
-        User user = userList.getUser(userName);
-        if (user == null || !user.auth(userName, password)) { // looking at implementation here im realizing checking username in auth method is redundant
-            return false; 
-        } else {
-            currentUser = user; 
-            return true; 
+        User temp = UserList.getInstance().getUser(userName, password);
+
+        if(temp == null) {
+            return false;
         }
+        currentUser = temp;
+        return true;
     }
 
     public User register(String userName, String password){
@@ -112,6 +111,10 @@ public class GameFacade {
 
     public void loadSave(int saveIndex){
     
+    }
+
+    public User getCurrUser() {
+        return currentUser;
     }
 
     // temp testing method

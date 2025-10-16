@@ -50,6 +50,14 @@ public class UserList {
         return null; 
     }
 
+    public User getUser(String userName, String password) {
+        for (User user : users) {
+            if (user.getUserName().equals(userName) && user.getPassword().equals(password))
+                return user;
+        }
+        return null;
+    }
+
     public boolean checkAvailability(String desiredUserName) {
         // not efficient at all if we were to have a bunch of users but cant do anything about it cus we dont use SQL
         for (User user : users) {
