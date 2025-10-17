@@ -44,9 +44,6 @@ public class DataManager {
     public Progress loadProgress(UUID progressId) {
         return new Progress();
     }
-    public void saveProgress(Progress progress) {
-
-    }
 
     @SuppressWarnings("unchecked")
     private void changeCurrSaveJSON(JSONObject saveJson, Progress progress) {
