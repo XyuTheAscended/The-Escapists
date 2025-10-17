@@ -27,7 +27,6 @@ public class GameFacade {
     private Inventory inventory;
     private Map map; 
 
-
     private GameFacade() {
         currentState = "Inactive"; 
         isPaused = false;
@@ -44,16 +43,39 @@ public class GameFacade {
 
     }
 
-    public void pause(){
+    public void pause() {
+        if (isPaused) {
+            System.out.println("Game is already paused.");
+            return;
+        }
 
+        isPaused = true;
+
+        if (Timer.getInstance() != null) {
+            Timer.getInstance().pause();
+        }
+
+        System.out.println("Game paused.");
     }
 
-    public void resume(){
+    public void resume() {
+        if (!isPaused) {
+            System.out.println("Game is not paused.");
+            return;
+        }
 
+        isPaused = false;
+
+        if (Timer.getInstance() != null) {
+            Timer.getInstance().resume();
+        }
+
+        System.out.println("Game resumed.");
     }
 
-    public boolean isPaused(){
-        return true;
+
+    public boolean isPaused() {
+        return isPaused;
     }
 
     public Leaderboard getLeaderboard(){
@@ -135,7 +157,7 @@ public class GameFacade {
     }
 
     // temp testing method
-    public static void main(String[] args) {
+     public static void main(String[] args) {
         GameFacade gf = new GameFacade();
         gf.addAchievement(null);
         gf.closeMap();

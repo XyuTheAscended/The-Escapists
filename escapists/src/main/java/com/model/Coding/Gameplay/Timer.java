@@ -7,20 +7,24 @@ public class Timer {
     private static Timer timer;
     private Thread timerThread;
 
-
-    private Timer(int startTime){
+    private Timer(int startTime) {
         this.startTime = startTime;
         this.remainingTime = startTime;
     }
 
-    public static Timer getInstance(int startTime){
-        if(timer == null) {
+    // Parameter version for initialization
+    public static Timer getInstance(int startTime) {
+        if (timer == null) {
             timer = new Timer(startTime);
         }
         return timer;
     }
 
-    public void start(){
+    public static Timer getInstance() {
+        return timer;
+    }
+
+    public void start() {
         if (isRunning) return;
         isRunning = true;
 
@@ -45,11 +49,11 @@ public class Timer {
         timerThread.start();
     }
 
-    public void pause(){
+    public void pause() {
         isRunning = false;
     }
 
-    public void reset(){
+    public void reset() {
         isRunning = false;
         remainingTime = startTime;
     }
@@ -58,20 +62,7 @@ public class Timer {
         start();
     }
 
-    public int getRemainingTime(){
+    public int getRemainingTime() {
         return remainingTime;
-    }
-
-    // temp testing method
-    public static void main(String[] args) throws InterruptedException {
-        Timer timer = getInstance(10);
-        timer.start();
-
-        Thread.sleep(4000);
-        timer.pause();
-
-        Thread.sleep(4000);
-        timer.resume();
-
     }
 }
