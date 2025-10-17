@@ -71,7 +71,7 @@ public class GameUI {
     }
 
     public void successfulLogin() {
-        GameFacade gf = new GameFacade();
+        GameFacade gf = GameFacade.getInstance();
 
         if(gf.login("John", "passworD123")){
             System.out.println(gf.getCurrUser().toString());
@@ -82,7 +82,7 @@ public class GameUI {
     }
 
     public void unsuccessfulLogin() {
-        GameFacade gf = new GameFacade();
+        GameFacade gf = GameFacade.getInstance();
 
         if(gf.login("dsa;lijfidsajf", "dsakfa")){
             System.out.println(gf.getCurrUser().toString());
@@ -97,7 +97,7 @@ public class GameUI {
         //gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
-        //gameUI.successfulLogin();
-        gameUI.unsuccessfulLogin();
+        gameUI.successfulLogin();
+        // gameUI.unsuccessfulLogin();
     }
 }

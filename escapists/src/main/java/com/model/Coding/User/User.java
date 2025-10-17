@@ -99,6 +99,10 @@ public class User {
         }
     }
 
+    public Progress getCurrSave() {
+        return currSave; 
+    }
+
     public boolean auth(String username, String password) {
         return this.userName.equals(username) && this.password.equals(password);
     }

@@ -1,6 +1,8 @@
 package com.model.Coding.Gameplay;
 
 import java.util.ArrayList;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 import com.model.Coding.Gameplay.InteractItems.Inventory;
@@ -9,29 +11,32 @@ import com.model.Coding.Progress.Achievement;
 import com.model.Coding.Progress.Leaderboard;
 import com.model.Coding.User.User;
 import com.model.Coding.User.UserList;
+import com.model.Coding.Progress.Progress;
 
 public class GameFacade {
     private static GameFacade gameFacade;
-    private User currentUser;
-    private String currentState;
+
+    private ArrayList<Achievement> allAchievements;
+    private String currentState; // WHAT ARE THE StATES?
     private boolean isPaused;
     private Leaderboard leaderboard;
-    private ArrayList<Achievement> allAchievements;
+
+    private User currentUser;
     private int difficulty;
     private Inventory inventory;
-    private Map map;
+    private Map map; 
 
 
-    public GameFacade(){
+    private GameFacade() {
+        currentState = "Inactive"; 
+        isPaused = false;
+        leaderboard = Leaderboard.getInstance(); 
 
-    }
-
-    public GameFacade(UUID progressId, User user){
-
+        gameFacade = this;
     }
 
     public static GameFacade getInstance(){
-        return gameFacade;
+        return gameFacade != null ? gameFacade : new GameFacade();
     }
 
     public void startGame(User user){
@@ -51,7 +56,7 @@ public class GameFacade {
     }
 
     public Leaderboard getLeaderboard(){
-        return new Leaderboard();
+        return Leaderboard.getInstance();
     }
 
     public Inventory getInventory(){
@@ -59,14 +64,17 @@ public class GameFacade {
     }
 
     public void addAchievement(Achievement achievement){
+        if (allAchievements == null) return; 
         allAchievements.add(achievement);
     }
 
     public void openMap(){
+        if (map == null) return; 
         map.openMap();
     }
 
     public void closeMap(){
+        if (map == null) return; 
         map.closeMap();
     }
 
@@ -109,8 +117,15 @@ public class GameFacade {
 
     }
 
-    public void loadSave(int saveIndex){
-    
+    // Loads current save under current user
+    public void loadCurrSave(){
+        if (currentUser == null) return;
+        Progress save = currentUser.getCurrSave();
+        if (save == null) return;  
+
+        this.difficulty = save.getDifficulty();
+        this.inventory = save.getInventory();
+        this.map = new Map(); // PLACEhOLDER BECAUSE IDK WHAT WE'RE DOING WITH IT
     }
 
     public User getCurrUser() {
@@ -132,8 +147,8 @@ public class GameFacade {
         gf.setDifficulty(0);
         gf.login(null, null);
         gf.register(null, null);
-        gf.logout();
         gf.save();
-        gf.loadSave(0);
+        gf.loadCurrSave();
+        gf.logout();
     }
 }
