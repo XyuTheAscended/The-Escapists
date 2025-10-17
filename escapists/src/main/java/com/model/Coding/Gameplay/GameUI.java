@@ -67,11 +67,34 @@ public class GameUI {
         System.out.println(warden.speak("You may proceed"));
     }
 
+    public void successfulLogin() {
+        GameFacade gf = GameFacade.getInstance();
+
+        if(gf.login("John", "passworD123")){
+            System.out.println(gf.getCurrUser().toString());
+        }
+        else {
+            System.out.println("Login Failed");
+        }
+    }
+
+    public void unsuccessfulLogin() {
+        GameFacade gf = GameFacade.getInstance();
+
+        if(gf.login("dsa;lijfidsajf", "dsakfa")){
+            System.out.println(gf.getCurrUser().toString());
+        }
+        else {
+            System.out.println("Login Failed");
+        }
+    }
+
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
         //gameUI.scenario1();
         //gameUI.scenario2();
-
-        gameUI.scenario3();
+        //gameUI.scenario3();
+        gameUI.successfulLogin();
+        // gameUI.unsuccessfulLogin();
     }
 }

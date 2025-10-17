@@ -5,10 +5,16 @@ import java.util.HashMap;
 import com.model.Coding.User.User;
 
 public class Leaderboard {
+    private static Leaderboard leaderboard; 
     private HashMap<User, String> times;
 
-    public Leaderboard() {
-        times = new HashMap<>();
+    private Leaderboard() {
+        this.times = new HashMap<>();
+        leaderboard = this; 
+    }
+
+    public static Leaderboard getInstance() {
+        return leaderboard != null ? leaderboard : new Leaderboard(); 
     }
 
     public void addTime(String time, User user) {
