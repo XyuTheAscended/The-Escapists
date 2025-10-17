@@ -130,4 +130,20 @@ public class User {
     public boolean auth(String username, String password) {
         return this.userName.equals(username) && this.password.equals(password);
     }
+
+    public void addCompletionTime(int difficulty, int seconds) {
+        Integer difficultyObj = Integer.valueOf(difficulty);
+        Integer secondsObj = Integer.valueOf(seconds);
+
+        if (completionTimes.get(difficulty) == null) 
+            completionTimes.put(difficultyObj, new ArrayList<Integer>()); 
+        ArrayList<Integer> timesForDifficulty = completionTimes.get(difficulty);
+        timesForDifficulty.add(secondsObj); 
+        
+    }
+
+    public ArrayList<Integer> getCompletionTimes(int difficulty) {
+        Integer difficultyKey = Integer.valueOf(difficulty);
+        return completionTimes.get(difficultyKey);
+    }
 }

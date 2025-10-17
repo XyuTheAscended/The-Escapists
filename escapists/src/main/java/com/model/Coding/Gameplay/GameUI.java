@@ -3,6 +3,7 @@ package com.model.Coding.Gameplay;
 import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
+import com.model.Coding.Progress.Leaderboard;
 import com.model.Coding.User.User;
 import com.model.Coding.User.UserList;
 
@@ -73,7 +74,7 @@ public class GameUI {
     public void successfulLogin() {
         GameFacade gf = GameFacade.getInstance();
 
-        if(gf.login("Testuser", "Password")){
+        if(gf.login("John", "passworD123")){
             System.out.println(gf.getCurrUser().toString());
         }
         else {
@@ -92,12 +93,18 @@ public class GameUI {
         }
     }
 
+    public void displayLeaderboard() {
+        User user = GameFacade.getInstance().getCurrUser();
+        System.out.println(Leaderboard.getInstance().getFormattedOrderedTimes(user, 1));
+    }
+
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
         //gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
         gameUI.successfulLogin();
+        gameUI.displayLeaderboard(); 
         // gameUI.unsuccessfulLogin();
     }
 }
