@@ -57,6 +57,7 @@ public class DataWriter {
             newUser.put("password", user.getPassword());
             newUser.put("currSave", null);
             newUser.put("saves", new JSONArray());
+            newUser.put("completionTimes", new JSONObject());
 
             // Add new user
             usersArray.add(newUser);
