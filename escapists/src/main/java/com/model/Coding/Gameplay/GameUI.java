@@ -73,7 +73,7 @@ public class GameUI {
     public void successfulLogin() {
         GameFacade gf = GameFacade.getInstance();
 
-        if(gf.login("John", "passworD123")){
+        if(gf.login("Testuser", "Password")){
             System.out.println(gf.getCurrUser().toString());
         }
         else {

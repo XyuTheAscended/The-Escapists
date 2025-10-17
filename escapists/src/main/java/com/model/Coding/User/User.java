@@ -1,7 +1,9 @@
 package com.model.Coding.User;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.UUID;
 import com.model.Coding.Progress.Progress;
 
@@ -10,14 +12,16 @@ public class User {
     private String password;
     private Progress currSave;
     private ArrayList<Progress> saves;
+    private HashMap<Integer, ArrayList<Integer>> completionTimes; // array list of times in seconds keyed by difficulty level
 
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
         this.saves = new ArrayList<>();
+        this.completionTimes = new HashMap<>();
     }
 
-    public User(String userName, String password, ArrayList<Progress> saves, UUID currSaveId) {
+    public User(String userName, String password, ArrayList<Progress> saves, UUID currSaveId, HashMap<Integer, ArrayList<Integer>> completionTimes) {
         this.userName = userName;
         this.password = password;
         this.saves = saves;
@@ -27,6 +31,8 @@ public class User {
                 this.currSave = save;
             }
         }
+
+        this.completionTimes = completionTimes;
     }
 
     /**
@@ -62,6 +68,19 @@ public class User {
             info += "  No saves available.\n";
         }
 
+        info += "\nAll Completion Times:\n";
+        if (completionTimes.size() == 0) 
+            info += "    " + "No Completion times available" + "\n"; 
+        else {
+            for (Entry<Integer, ArrayList<Integer>> entry : completionTimes.entrySet()) {
+                Integer difficulty = entry.getKey();
+                ArrayList<Integer> times = entry.getValue();
+
+                info += "    " + "Difficulty " + difficulty + ": " + times + "\n";
+            }
+        }
+        
+
         return info;
     }
 
@@ -79,6 +98,11 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public void createSave() {
+        Progress save = new Progress(); 
+        addSave(save);
     }
 
     public void addSave(Progress save) {

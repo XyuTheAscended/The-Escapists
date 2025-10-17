@@ -83,8 +83,33 @@ public class DataLoader {
 
 
     return savesList;
-
   }
+
+
+  private HashMap<Integer, ArrayList<Integer>> getCompletionTimesFromUser(JSONObject userJsonObj) {
+    JSONObject timesTable = (JSONObject) userJsonObj.get("completionTimes");
+    HashMap<Integer, ArrayList<Integer>> completionTimes = new HashMap<>();
+    if (timesTable != null) {
+      for (Object difficulty : timesTable.keySet()) {
+        ArrayList<Integer> timesList = new ArrayList<Integer>();
+        completionTimes.put(Integer.valueOf((String) difficulty), timesList);
+        JSONArray timesArray = (JSONArray) timesTable.get(difficulty); 
+        if (timesArray != null) {
+          for (Object timeObj : timesArray) {
+            Integer time = ((Number) timeObj).intValue(); 
+            timesList.add(time);
+          }
+        } 
+
+      }
+    }
+    
+
+
+    return completionTimes;
+  }
+
+
 
   public ArrayList<User> getUsers(){
     ArrayList<User> users = new ArrayList<User>(); 
@@ -117,9 +142,11 @@ public class DataLoader {
           if (pass == null) continue; 
 
           ArrayList<Progress> saves = getProgressSavesFromUser(obj); 
+          HashMap<Integer, ArrayList<Integer>> completionTimes = getCompletionTimesFromUser(obj);
+
           if (saves.size() > 0) {
             UUID currSaveId = UUID.fromString((String) obj.get("currSave")); 
-            users.add(new User(userName, pass, saves, currSaveId));
+            users.add(new User(userName, pass, saves, currSaveId, completionTimes));
           } else {
             users.add(new User(userName, pass));
           }
@@ -133,67 +160,67 @@ public class DataLoader {
 
   }
 
-@SuppressWarnings("unchecked")
-public Progress loadProgress(UUID progressId) {
-    JSONParser parser = new JSONParser();
+  @SuppressWarnings("unchecked")
+  public Progress loadProgress(UUID progressId) {
+      JSONParser parser = new JSONParser();
 
-    try (FileReader reader = new FileReader("escapists/src/main/java/com/model/Coding/json/users.json")) {
-        JSONObject root = (JSONObject) parser.parse(reader);
-        JSONArray usersArray = (JSONArray) root.get("users");
-        if (usersArray == null) return null;
+      try (FileReader reader = new FileReader("escapists/src/main/java/com/model/Coding/json/users.json")) {
+          JSONObject root = (JSONObject) parser.parse(reader);
+          JSONArray usersArray = (JSONArray) root.get("users");
+          if (usersArray == null) return null;
 
-        for (Object userObj : usersArray) {
-            JSONObject userJson = (JSONObject) userObj;
-            JSONArray savesArray = (JSONArray) userJson.get("saves");
-            if (savesArray == null) continue;
+          for (Object userObj : usersArray) {
+              JSONObject userJson = (JSONObject) userObj;
+              JSONArray savesArray = (JSONArray) userJson.get("saves");
+              if (savesArray == null) continue;
 
-            for (Object saveObj : savesArray) {
-                JSONObject saveJson = (JSONObject) saveObj;
-                String idStr = (String) saveJson.get("progressId");
-                if (idStr != null && idStr.equals(progressId.toString())) {
+              for (Object saveObj : savesArray) {
+                  JSONObject saveJson = (JSONObject) saveObj;
+                  String idStr = (String) saveJson.get("progressId");
+                  if (idStr != null && idStr.equals(progressId.toString())) {
 
-                    JSONArray completedRooms = (JSONArray) saveJson.get("completedRooms");
-                    if (completedRooms != null) {
-                        for (Object roomName : completedRooms) {
-                        }
-                    }
+                      JSONArray completedRooms = (JSONArray) saveJson.get("completedRooms");
+                      if (completedRooms != null) {
+                          for (Object roomName : completedRooms) {
+                          }
+                      }
 
-                    JSONObject completedPuzzles = (JSONObject) saveJson.get("completedPuzzles");
-                    HashMap<String, HashMap<String, Boolean>> puzzles = new HashMap<>();
-                    if (completedPuzzles != null) {
-                        for (Object roomKey : completedPuzzles.keySet()) {
-                            JSONObject puzzlesJson = (JSONObject) completedPuzzles.get(roomKey);
-                            HashMap<String, Boolean> puzzleMap = new HashMap<>();
-                            for (Object puzzleKey : puzzlesJson.keySet()) {
-                                puzzleMap.put((String) puzzleKey, (Boolean) puzzlesJson.get(puzzleKey));
-                            }
-                            puzzles.put((String) roomKey, puzzleMap);
-                        }
-                    }
+                      JSONObject completedPuzzles = (JSONObject) saveJson.get("completedPuzzles");
+                      HashMap<String, HashMap<String, Boolean>> puzzles = new HashMap<>();
+                      if (completedPuzzles != null) {
+                          for (Object roomKey : completedPuzzles.keySet()) {
+                              JSONObject puzzlesJson = (JSONObject) completedPuzzles.get(roomKey);
+                              HashMap<String, Boolean> puzzleMap = new HashMap<>();
+                              for (Object puzzleKey : puzzlesJson.keySet()) {
+                                  puzzleMap.put((String) puzzleKey, (Boolean) puzzlesJson.get(puzzleKey));
+                              }
+                              puzzles.put((String) roomKey, puzzleMap);
+                          }
+                      }
 
-                    // Inventory - need more work before full implementation
-                    JSONObject inventoryJson = (JSONObject) saveJson.get("inventory");
-                    if (inventoryJson != null) {
-                    }
+                      // Inventory - need more work before full implementation
+                      JSONObject inventoryJson = (JSONObject) saveJson.get("inventory");
+                      if (inventoryJson != null) {
+                      }
 
-                    // Achievements - need more work before full implementation
-                    JSONArray achievementsJson = (JSONArray) saveJson.get("achievements");
-                    if (achievementsJson != null) {
-                    }
+                      // Achievements - need more work before full implementation
+                      JSONArray achievementsJson = (JSONArray) saveJson.get("achievements");
+                      if (achievementsJson != null) {
+                      }
 
-                    Progress progress = new Progress(UUID.fromString(idStr), puzzles);
-                    progress.setDifficulty(((Long) saveJson.get("difficulty")).intValue());
-                    progress.setRemainingTime(((Long) saveJson.get("remainingTime")).intValue());
-                    return progress;
-                }
-            }
-        }
+                      Progress progress = new Progress(UUID.fromString(idStr), puzzles);
+                      progress.setDifficulty(((Long) saveJson.get("difficulty")).intValue());
+                      progress.setRemainingTime(((Long) saveJson.get("remainingTime")).intValue());
+                      return progress;
+                  }
+              }
+          }
 
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+      } catch (Exception e) {
+          e.printStackTrace();
+      }
 
-    return null;
-}
+      return null;
+  }
 
 }

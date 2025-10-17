@@ -22,6 +22,7 @@ public class GameFacade {
     private Leaderboard leaderboard;
 
     private User currentUser;
+    private Progress activeProgress; 
     private int difficulty;
     private Inventory inventory;
     private Map map; 
@@ -121,8 +122,9 @@ public class GameFacade {
     public void loadCurrSave(){
         if (currentUser == null) return;
         Progress save = currentUser.getCurrSave();
-        if (save == null) return;  
+        if (save == null) currentUser.createSave();;  
 
+        this.activeProgress = save; 
         this.difficulty = save.getDifficulty();
         this.inventory = save.getInventory();
         this.map = new Map(); // PLACEhOLDER BECAUSE IDK WHAT WE'RE DOING WITH IT

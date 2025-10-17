@@ -1,1 +1,138 @@
-{"users":[{"password":"passworD123","saves":[{"difficulty":2,"currentRoom":"Hallway","achievements":[{"1":"First Puzzle"}],"progressId":"248cea78-82be-4bc1-99e8-9d242b6f09af","completedRooms":["Cell"],"completedPuzzles":{"Cell":{"CellDoorLock":true},"Hallway":{"KeyCode":true,"WallRiddle":false}},"inventory":{"items":[{"itemId":1,"name":"Rusty Key","description":"A heavy key mottled with rust.  It is cool to the touch."}]},"remainingTime":1650}],"userName":"John","currSave":"248cea78-82be-4bc1-99e8-9d242b6f09af"},{"password":"Password321","saves":[{"difficulty":1,"currentRoom":"Cell","achievements":[],"progressId":"f7b9f0df-7ef8-401b-9696-dab58b815e13","completedRooms":[],"completedPuzzles":{"Cell":{"CellDoorLock":false},"Hallway":{"KeyCode":false,"WallRiddle":false}},"inventory":{"items":[{"itemId":2,"name":"Crowbar","description":"The classic tool for a crazy criminal."}]},"remainingTime":3690}],"userName":"Jane","currSave":"f7b9f0df-7ef8-401b-9696-dab58b815e13"},{"password":"Password","saves":[],"userName":"Testuser","currSave":null},{"password":"password123","saves":[{"difficulty":2,"currentRoom":"Unknown","achievements":[],"progressId":"3ecb2bf7-010b-46d2-a6be-13348fe69eee","completedRooms":[],"completedPuzzles":{},"inventory":{"items":[]},"remainingTime":300}],"userName":"Tester","currSave":"3ecb2bf7-010b-46d2-a6be-13348fe69eee"},{"password":null,"saves":[],"userName":null,"currSave":null}]}
+{
+  "users": [
+    {
+      "password": "passworD123",
+      "saves": [
+        {
+          "difficulty": 2,
+          "currentRoom": "Hallway",
+          "achievements": [
+            {
+              "1": "First Puzzle"
+            }
+          ],
+          "progressId": "248cea78-82be-4bc1-99e8-9d242b6f09af",
+          "completedRooms": [
+            "Cell"
+          ],
+          "completedPuzzles": {
+            "Cell": {
+              "CellDoorLock": true
+            },
+            "Hallway": {
+              "KeyCode": true,
+              "WallRiddle": false
+            }
+          },
+          "inventory": {
+            "items": [
+              {
+                "itemId": 1,
+                "name": "Rusty Key",
+                "description": "A heavy key mottled with rust.  It is cool to the touch."
+              }
+            ]
+          },
+          "remainingTime": 1650
+        }
+      ],
+      "completionTimes": {
+        "1": [
+          1234,
+          1802,
+          2204
+        ],
+        "2": [
+          1234,
+          1802,
+          2204
+        ]
+      },
+      "userName": "John",
+      "currSave": "248cea78-82be-4bc1-99e8-9d242b6f09af"
+    },
+    {
+      "password": "Password321",
+      "saves": [
+        {
+          "difficulty": 1,
+          "currentRoom": "Cell",
+          "achievements": [],
+          "progressId": "f7b9f0df-7ef8-401b-9696-dab58b815e13",
+          "completedRooms": [],
+          "completedPuzzles": {
+            "Cell": {
+              "CellDoorLock": false
+            },
+            "Hallway": {
+              "KeyCode": false,
+              "WallRiddle": false
+            }
+          },
+          "inventory": {
+            "items": [
+              {
+                "itemId": 2,
+                "name": "Crowbar",
+                "description": "The classic tool for a crazy criminal."
+              }
+            ]
+          },
+          "remainingTime": 3690
+        }
+      ],
+      "completionTimes": {
+        "1": [
+          1234,
+          1802,
+          2204
+        ],
+        "2": [
+          1234,
+          1802,
+          2204
+        ]
+      },
+      "userName": "Jane",
+      "currSave": "f7b9f0df-7ef8-401b-9696-dab58b815e13"
+    },
+    {
+      "password": "Password",
+      "saves": [],
+      "completionTimes": {},
+      "userName": "Testuser",
+      "currSave": null
+    },
+    {
+      "password": "password123",
+      "saves": [
+        {
+          "difficulty": 2,
+          "currentRoom": "Unknown",
+          "achievements": [],
+          "progressId": "3ecb2bf7-010b-46d2-a6be-13348fe69eee",
+          "completedRooms": [],
+          "completedPuzzles": {},
+          "inventory": {
+            "items": []
+          },
+          "remainingTime": 300
+        }
+      ],
+      "completionTimes": {
+        "1": [
+          1234,
+          1802,
+          2204
+        ],
+        "2": [
+          1234,
+          1802,
+          2204
+        ]
+      },
+      "userName": "Tester",
+      "currSave": "3ecb2bf7-010b-46d2-a6be-13348fe69eee"
+    }
+  ]
+}
