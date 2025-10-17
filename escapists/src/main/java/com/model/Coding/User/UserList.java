@@ -60,6 +60,7 @@ public class UserList {
 
     public boolean checkAvailability(String desiredUserName) {
         // not efficient at all if we were to have a bunch of users but cant do anything about it cus we dont use SQL
+        if (desiredUserName == null) return false; 
         for (User user : users) {
             if (user.getUserName().equals(desiredUserName))
                 return false;
