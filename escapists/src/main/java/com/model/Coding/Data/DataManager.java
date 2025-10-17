@@ -42,8 +42,13 @@ public class DataManager {
     }
 
     public Progress loadProgress(UUID progressId) {
-        return new Progress();
+        if (progressId == null) {
+            System.out.println("Cannot load null progress");
+            return null;
+        }
+        return dataLoader.loadProgress(progressId);
     }
+
 
     @SuppressWarnings("unchecked")
     private void changeCurrSaveJSON(JSONObject saveJson, Progress progress) {

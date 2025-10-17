@@ -110,16 +110,33 @@ public class User {
         currSave = save;
     }
 
-    public List<Progress> getSaves() {
+    public ArrayList<Progress> getSaves() {
         return new ArrayList<>(saves);
     }
 
     public void pushSaves() {
-    }
+            if (saves == null || saves.isEmpty()) {
+                System.out.println("No saves to push for " + userName);
+                return;
+            }
+
+            com.model.Coding.Data.DataManager dataManager = com.model.Coding.Data.DataManager.getInstance();
+
+            for (Progress save : saves) {
+                dataManager.saveProgress(this, save);
+            }
+            System.out.println("Saves pushed for " + userName);
+        }
 
     public void changeCurrSave(int saveIndex) {
         if (saveIndex >= 0 && saveIndex < saves.size()) {
             currSave = saves.get(saveIndex);
+            System.out.println("Current save changed to index " + saveIndex + " for " + userName);
+
+            com.model.Coding.Data.DataManager dataManager = com.model.Coding.Data.DataManager.getInstance();
+            dataManager.saveProgress(this, currSave);
+        } else {
+            System.out.println("Invalid save index: " + saveIndex);
         }
     }
 
