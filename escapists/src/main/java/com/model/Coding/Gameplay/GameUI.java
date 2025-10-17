@@ -95,7 +95,8 @@ public class GameUI {
 
     public void displayLeaderboard() {
         User user = GameFacade.getInstance().getCurrUser();
-        System.out.println(Leaderboard.getInstance().getFormattedOrderedTimes(user, 1));
+        int diff = 1;
+        System.out.println("User's top times for D"+diff+": " + Leaderboard.getInstance().getFormattedOrderedTimes(user, diff));
     }
 
     public static void main(String[] args) {
