@@ -42,6 +42,10 @@ public class Puzzle {
         return name;
     }
 
+    public void setIsCompleted() {
+        this.isCompleted = true;
+    }
+
     public boolean getIsCompleted() {
         return isCompleted;
     }

@@ -83,7 +83,7 @@ public class GameFacade {
     }
 
     public Inventory getInventory(){
-        return new Inventory();
+        return inventory;
     }
 
     public void addAchievement(Achievement achievement){

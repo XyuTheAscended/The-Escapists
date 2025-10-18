@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import com.model.Coding.Gameplay.InteractItems.Inventory;
+import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 
 public class Progress {
@@ -70,6 +71,14 @@ public class Progress {
     }
 
     public void markRoomCompleted(Room room) {
+        completedRooms.add(room);
+    }
+
+    public void setPuzzleCompleted(Room room, Puzzle puzzle, boolean bool) {
+        String roomName = room.getName();
+        String puzzleName = puzzle.getName();
+        completedPuzzles.putIfAbsent(roomName, new HashMap<>());
+        completedPuzzles.get(roomName).put(puzzleName, bool);
     }
 
     public ArrayList<Room> getCompletedRooms() {
@@ -103,4 +112,17 @@ public class Progress {
     public int getRemainingTime() {
         return remainingTime;
     }
+
+    public boolean allPuzzlesCompleted(Room room) {
+        HashMap<String, Boolean> puzzles = completedPuzzles.get(room.getName());
+        if (puzzles == null || puzzles.isEmpty()) return false;
+
+        for (Boolean completed : puzzles.values()) {
+            if (!Boolean.TRUE.equals(completed)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
