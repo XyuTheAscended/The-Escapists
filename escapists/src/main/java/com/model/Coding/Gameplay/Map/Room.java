@@ -29,6 +29,10 @@ public class Room {
         }
     }
 
+    public ArrayList<Puzzle> getPuzzles() {
+        return puzzles;
+    }
+
     public Puzzle getPuzzle(String puzzleName) {
         for (Puzzle puzzle : puzzles) {
             if (puzzle.getName().equals(puzzleName)) return puzzle;
@@ -38,6 +42,10 @@ public class Room {
 
     public String getName() {
         return name;
+    }
+
+    public Exit[] getExits() {
+        return exits; 
     }
 
     // method assumes that ALL prereq puzzles have already been added to the current room; wont work otherwise
@@ -74,6 +82,17 @@ public class Room {
         } 
     }
 
+    public boolean canBeEntered(Room from) {
+        Exit[] fromsExits = from.getExits();
+        for (Exit fromExit : fromsExits) {
+            boolean exitMatchesThisRoom = fromExit.getNextRoom().getName().equals(this.name);
+            if (exitMatchesThisRoom) {
+               return fromExit.isOpen();
+            }
+        }
+        return false;
+    }
+
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ROOM: ").append(name).append("\n");
@@ -83,7 +102,7 @@ public class Room {
             sb.append("  NONE\n");
         } else {
             for (Puzzle p : puzzles) {
-                sb.append("  - ").append(p.getName()).append("\n");
+                sb.append("  - ").append(p.getName()+": "+p.getIsCompleted()).append("\n");
             }
         }
 
@@ -101,7 +120,7 @@ public class Room {
                     sb.append("NONE");
                 } else {
                     for (Puzzle p : e.getPrereqPuzzles()) {
-                        sb.append(p.getName()).append(" ");
+                        sb.append(p.getName()).append(", ");
                     }
                 }
                 sb.append("\n    Open: ").append(e.isOpen()).append("\n");

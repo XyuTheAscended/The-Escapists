@@ -189,14 +189,37 @@ public class GameUI {
         }
     }
 
+    private void roomTransitionTest() {
+        GameFacade gf = GameFacade.getInstance();
+        gf.login("John", "passworD123");
+        gf.startGame();
+
+        Progress currSave = gf.getCurrUser().getCurrSave();
+        Room startRoom = gf.getCurrRoom(); 
+        ArrayList<Puzzle> puzzles = startRoom.getPuzzles();
+        System.out.println("BEFORE--------------------\n" + startRoom);
+        currSave.setPuzzleCompleted(startRoom, puzzles.get(1), true);
+        // currSave.setPuzzleCompleted(startRoom, puzzles.get(2), true); // uncomment this to be able to proceed in next room (this will make it so enough puzzle have been complete)
+        System.out.println("AFTER--------------------\n" + startRoom);
+        Room nextRoom = startRoom.getExits()[0].getNextRoom();
+        if (nextRoom != null && nextRoom.canBeEntered(startRoom)) {
+            System.out.println("...Exiting to " + nextRoom.getName());
+            gf.setCurrRoom(nextRoom.getName());
+            System.out.println("NEXT ROOM UNLOCKED---------------\n" + nextRoom);
+        } else {
+            System.out.println("Cannot proceed.");
+        }
+    }
+
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
         //gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
-        gameUI.successfulLogin();
+        // gameUI.successfulLogin();
         //gameUI.displayLeaderboard();
         // gameUI.unsuccessfulLogin();
         // gameUI.roomWithPuzzles();
+        gameUI.roomTransitionTest();
     }
 }

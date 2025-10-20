@@ -20,10 +20,13 @@ public class GameFacade {
     private static GameFacade gameFacade;
 
     private ArrayList<Achievement> allAchievements;
+
+    // stuff initialized in constructor
     private String currentState; // WHAT ARE THE StATES?
     private boolean isPaused;
     private Leaderboard leaderboard;
 
+    // stuff initalized when save is loaded
     private User currentUser;
     private Progress activeProgress; 
     private int difficulty;
@@ -42,7 +45,15 @@ public class GameFacade {
         return gameFacade != null ? gameFacade : new GameFacade();
     }
 
-    public void startGame(User user){
+    public void startGame(){
+        if (currentUser == null) {
+            System.err.println("Cant start the game without a currnent user...");
+            return;
+        }
+
+        loadCurrSave();
+        
+
 
     }
 
@@ -152,7 +163,22 @@ public class GameFacade {
         this.activeProgress = save; 
         this.difficulty = save.getDifficulty();
         this.inventory = save.getInventory();
-        this.map = new Map(); // PLACEhOLDER BECAUSE IDK WHAT WE'RE DOING WITH IT
+        this.map = new Map();
+        this.map.setCurrentRoom("Cell"); // NOTE: hardcoded for now but ill change it later i promise !!
+    }
+
+    // wrapper funcs for map's currRoom management methods
+    public Room getCurrRoom() {
+        return (map != null) ? this.map.getCurrentRoom() : null;
+    }
+
+    public void setCurrRoom(String roomName) {
+        if (map == null) return;
+        map.setCurrentRoom(roomName);
+    }
+
+    public ArrayList<Room> getRooms() {
+        return (map != null) ? this.map.getRooms() : null;
     }
 
     public User getCurrUser() {
@@ -177,7 +203,5 @@ public class GameFacade {
         // gf.save();
         // gf.loadCurrSave();
         // gf.logout();
-        ArrayList<Room> rooms = DataManager.getInstance().loadRooms();
-        System.out.println(rooms.get(1));
     }
 }
