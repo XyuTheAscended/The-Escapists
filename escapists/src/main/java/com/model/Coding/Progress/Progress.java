@@ -78,7 +78,9 @@ public class Progress {
         String roomName = room.getName();
         String puzzleName = puzzle.getName();
         completedPuzzles.putIfAbsent(roomName, new HashMap<>());
+        if (bool) puzzle.setIsCompleted(bool);
         completedPuzzles.get(roomName).put(puzzleName, bool);
+        room.updateExits(); // exits updated here in case the completed puzzle is meant to trigger an opening
     }
 
     public ArrayList<Room> getCompletedRooms() {

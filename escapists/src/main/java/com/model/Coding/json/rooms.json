@@ -18,7 +18,10 @@
           "requiredItem": "Eating Utencils",
           "description": "Play a tune on your cell bars like a xylophone, and maybe some cultured guards might reward you."
         }
-      ]
+      ], 
+      "exits": {
+        "Hallway": ["CellDoorLock", "CellBarJingle"]
+      }
     },
     "Hallway": {
       "puzzles": [

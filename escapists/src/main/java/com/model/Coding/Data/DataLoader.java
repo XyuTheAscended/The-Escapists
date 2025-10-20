@@ -19,6 +19,7 @@ public class DataLoader {
 
   private static DataLoader dataLoader;
   private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
+  private static final String ROOMS_FILE = "escapists/src/main/java/com/model/Coding/json/rooms.json";
 
   private DataLoader() {
 

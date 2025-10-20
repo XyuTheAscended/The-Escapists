@@ -141,7 +141,6 @@ public class GameUI {
                         System.out.println("\n" + cellMate.speak("Here is the blue key."));
                         System.out.println("Inventory Updated: " + inven.displayInventory());
                         prog.setPuzzleCompleted(cell, riddle, true);
-                        riddle.setIsCompleted();
                         break;
                     } else {
                         System.out.println("Incorrect — try again.");
@@ -163,7 +162,6 @@ public class GameUI {
                     if (keypad.checkAnswer(keypad.userAnswer(answer))) {
                         System.out.println("Keypad Completed");
                         prog.setPuzzleCompleted(cell, keypad, true);
-                        keypad.setIsCompleted();
                         break;
                     } else {
                         System.out.println("Incorrect — try again.");

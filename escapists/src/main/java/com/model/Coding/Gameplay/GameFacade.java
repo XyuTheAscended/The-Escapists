@@ -158,21 +158,21 @@ public class GameFacade {
 
     // temp testing method
      public static void main(String[] args) {
-        GameFacade gf = new GameFacade();
-        gf.addAchievement(null);
-        gf.closeMap();
-        gf.startGame(null);
-        gf.pause();
-        gf.resume();
-        gf.isPaused();
-        gf.getLeaderboard();
-        gf.getInventory();
-        gf.openMap();
-        gf.setDifficulty(0);
-        gf.login(null, null);
-        gf.register(null, null);
-        gf.save();
-        gf.loadCurrSave();
-        gf.logout();
+        GameFacade gf = GameFacade.getInstance();
+        // gf.addAchievement(null);
+        // gf.closeMap();
+        // gf.startGame(null);
+        // gf.pause();
+        // gf.resume();
+        // gf.isPaused();
+        // gf.getLeaderboard();
+        // gf.getInventory();
+        // gf.openMap();
+        // gf.setDifficulty(0);
+        // gf.login(null, null);
+        // gf.register(null, null);
+        // gf.save();
+        // gf.loadCurrSave();
+        // gf.logout();
     }
 }
