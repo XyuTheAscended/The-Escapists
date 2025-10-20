@@ -194,9 +194,9 @@ public class GameUI {
         //gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
-        //gameUI.successfulLogin();
+        gameUI.successfulLogin();
         //gameUI.displayLeaderboard();
         // gameUI.unsuccessfulLogin();
-        gameUI.roomWithPuzzles();
+        // gameUI.roomWithPuzzles();
     }
 }

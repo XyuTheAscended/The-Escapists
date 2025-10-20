@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
+import com.model.Coding.Data.DataLoader;
+import com.model.Coding.Data.DataManager;
 import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.Map.Map;
+import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Achievement;
 import com.model.Coding.Progress.Leaderboard;
 import com.model.Coding.User.User;
@@ -174,5 +177,7 @@ public class GameFacade {
         // gf.save();
         // gf.loadCurrSave();
         // gf.logout();
+        ArrayList<Room> rooms = DataManager.getInstance().loadRooms();
+        System.out.println(rooms.get(1));
     }
 }

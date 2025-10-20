@@ -13,6 +13,10 @@ import java.io.FileReader;
 import java.util.Iterator;
 
 import com.model.Coding.User.User;
+import com.model.Coding.Gameplay.InteractItems.ItemPuzzle;
+import com.model.Coding.Gameplay.InteractItems.Puzzle;
+import com.model.Coding.Gameplay.Map.Exit;
+import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
 
 public class DataLoader {
@@ -161,10 +165,102 @@ public class DataLoader {
 
   }
 
+  public ArrayList<Room> loadRooms(){
+    HashMap<String, Room> rooms = new HashMap<>(); 
+
+    try {
+      File file = new File(ROOMS_FILE);
+      JSONParser parser = new JSONParser();
+      JSONObject root;
+      JSONObject roomsTable;
+
+      // Read file if exists
+      if (file.exists() && file.length() > 0) {
+        FileReader reader = new FileReader(file);
+        root = (JSONObject) parser.parse(reader);
+        reader.close();
+
+        roomsTable = (JSONObject) root.get("rooms");
+        
+        // first loop over roomsTable initializes room objects
+        for (Object roomNameObj : roomsTable.keySet()) {
+          JSONObject roomJSObj = (JSONObject) roomsTable.get(roomNameObj); 
+          
+          JSONArray puzzlesArray = (JSONArray) roomJSObj.get("puzzles");
+          Room newRoom = new Room((String) roomNameObj); 
+          
+          for (Object puzzleEntry : puzzlesArray) {
+            JSONObject puzzleJSObj = (JSONObject) puzzleEntry;
+
+            String name = (String) puzzleJSObj.get("name");
+            String desc = (String) puzzleJSObj.get("description");
+        
+            String answer = (String) puzzleJSObj.get("answer");
+            // String reqItemName = (String) puzzleJSObj.get("requiredItem");
+
+            Puzzle puzzle;
+            // if (reqItemObj != null) {
+              // more item implementation required to finish this
+              // Item reqItem = ???
+              // puzzle = new ItemPuzzle(reqItem);
+            // } else {
+            //  ...
+            // }
+
+            puzzle = new Puzzle(answer, desc, name);
+            newRoom.addPuzzle(puzzle);
+          }
+
+          rooms.put(newRoom.getName(), newRoom);
+        }
+
+        // rooms and their puzzles must be loaded before we loop a second time to add their exits
+        for (Object roomNameObj : roomsTable.keySet()) {
+          JSONObject roomJSObj = (JSONObject) roomsTable.get(roomNameObj); 
+          
+          Room room = rooms.get((String) roomNameObj); 
+          if (room == null) System.err.println("Impossible situation: Room was not found for " + (String) roomNameObj);
+          
+          JSONObject exitsTable = (JSONObject) roomJSObj.get("exits");
+          if (exitsTable != null) {
+            Exit[] exits = new Exit[exitsTable.size()];
+            int exitInd = 0;
+            for (Object exitRoomNameObj : exitsTable.keySet()) {
+              String exitRoomName = (String) exitRoomNameObj;
+              Room exitRoom = rooms.get(exitRoomName);
+              if (exitRoom == null) System.err.print("Impossible situation: Room was not found for " + (String) roomNameObj);
+
+              JSONArray exitPrereqs = (JSONArray) exitsTable.get(exitRoomNameObj);
+              Puzzle[] prereqPuzzles = new Puzzle[exitPrereqs.size()];
+              int prereqInd = 0;
+              for (Object prereqNameObj : exitPrereqs) {
+                String prereqName = (String) prereqNameObj;
+                Puzzle puzzle = room.getPuzzle(prereqName);
+                if (puzzle == null) System.err.print("Prereq Puzzle not found in " + (String) roomNameObj);
+                prereqPuzzles[prereqInd++] = puzzle;
+              }
+
+              Exit exit = new Exit(exitRoom, prereqPuzzles);
+              exits[exitInd++] = exit;
+            }
+
+            room.setExits(exits);
+          }
+        }
+
+
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+    return new ArrayList<>(rooms.values()); 
+
+  }
+
   @SuppressWarnings("unchecked")
   public Progress loadProgress(UUID progressId) {
       JSONParser parser = new JSONParser();
-
       try (FileReader reader = new FileReader("escapists/src/main/java/com/model/Coding/json/users.json")) {
           JSONObject root = (JSONObject) parser.parse(reader);
           JSONArray usersArray = (JSONArray) root.get("users");

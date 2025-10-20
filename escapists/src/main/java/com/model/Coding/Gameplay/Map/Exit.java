@@ -20,4 +20,12 @@ public class Exit {
   public Puzzle[] getPrereqPuzzles() {
     return prereqPuzzles; 
   }
+
+  public boolean isOpen() {
+    return open;
+  }
+
+  public Room getNextRoom() {
+    return nextRoom;
+  }
 }

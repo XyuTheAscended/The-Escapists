@@ -13,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 import com.model.Coding.Progress.Progress;
 import com.model.Coding.User.User;
 import com.model.Coding.Data.DataLoader;
+import com.model.Coding.Gameplay.Map.Room;
 
 
 public class DataManager {
@@ -47,6 +48,10 @@ public class DataManager {
             return null;
         }
         return dataLoader.loadProgress(progressId);
+    }
+
+    public ArrayList<Room> loadRooms() {
+        return dataLoader.loadRooms();
     }
 
 

@@ -29,6 +29,13 @@ public class Room {
         }
     }
 
+    public Puzzle getPuzzle(String puzzleName) {
+        for (Puzzle puzzle : puzzles) {
+            if (puzzle.getName().equals(puzzleName)) return puzzle;
+        }
+        return null; 
+    } 
+
     public String getName() {
         return name;
     }
@@ -65,6 +72,43 @@ public class Room {
             }
             exit.setOpen(exitShouldBeOpen);
         } 
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("ROOM: ").append(name).append("\n");
+
+        sb.append("PUZZLES:\n");
+        if (puzzles == null || puzzles.isEmpty()) {
+            sb.append("  NONE\n");
+        } else {
+            for (Puzzle p : puzzles) {
+                sb.append("  - ").append(p.getName()).append("\n");
+            }
+        }
+
+        sb.append("EXITS:\n");
+        if (exits == null || exits.length == 0) {
+            sb.append("  NONE\n");
+        } else {
+            for (Exit e : exits) {
+                sb.append("    To: ")
+                .append(e.getNextRoom() != null ? e.getNextRoom().getName() : "NOWHERE")
+                .append("\n");
+
+                sb.append("    Prerequisite Puzzles: ");
+                if (e.getPrereqPuzzles() == null || e.getPrereqPuzzles().length == 0) {
+                    sb.append("NONE");
+                } else {
+                    for (Puzzle p : e.getPrereqPuzzles()) {
+                        sb.append(p.getName()).append(" ");
+                    }
+                }
+                sb.append("\n    Open: ").append(e.isOpen()).append("\n");
+            }
+        }
+
+        return sb.toString();
     }
 
     // temp testing method
