@@ -71,7 +71,11 @@ public class Progress {
     }
 
     public void markRoomCompleted(Room room) {
+        if (room == null) return;
+
+        if (!completedRooms.contains(room)) {
         completedRooms.add(room);
+        }
     }
 
     public void setPuzzleCompleted(Room room, Puzzle puzzle, boolean bool) {
@@ -85,6 +89,17 @@ public class Progress {
 
     public ArrayList<Room> getCompletedRooms() {
         return new ArrayList<>(completedRooms);
+    }
+
+    public HashMap<String, HashMap<String, Boolean>> getCompletedPuzzles() {
+    HashMap<String, HashMap<String, Boolean>> copy = new HashMap<>();
+
+    for (String roomName : completedPuzzles.keySet()) {
+        HashMap<String, Boolean> puzzles = completedPuzzles.get(roomName);
+        copy.put(roomName, new HashMap<>(puzzles));
+    }
+
+    return copy;
     }
 
     public int getCompletedPuzzlesCount() {
