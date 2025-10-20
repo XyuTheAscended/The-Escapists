@@ -172,9 +172,10 @@ public class GameFacade {
         return (map != null) ? this.map.getCurrentRoom() : null;
     }
 
-    public void setCurrRoom(String roomName) {
+    public void setCurrRoom(Room room) {
         if (map == null) return;
-        map.setCurrentRoom(roomName);
+        map.setCurrentRoom(room);
+        this.activeProgress.setCurrentRoom(room);
     }
 
     public ArrayList<Room> getRooms() {

@@ -67,6 +67,7 @@ public class Room {
 
 
     public void updateExits() {
+        if (exits == null) return; 
         for (int i = 0; i < exits.length; i++) {
             Exit exit = exits[i];
             Puzzle[] prereqs = exit.getPrereqPuzzles();
@@ -80,17 +81,6 @@ public class Room {
             }
             exit.setOpen(exitShouldBeOpen);
         } 
-    }
-
-    public boolean canBeEntered(Room from) {
-        Exit[] fromsExits = from.getExits();
-        for (Exit fromExit : fromsExits) {
-            boolean exitMatchesThisRoom = fromExit.getNextRoom().getName().equals(this.name);
-            if (exitMatchesThisRoom) {
-               return fromExit.isOpen();
-            }
-        }
-        return false;
     }
 
     public String toString() {

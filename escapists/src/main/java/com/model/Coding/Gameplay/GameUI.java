@@ -3,6 +3,7 @@ package com.model.Coding.Gameplay;
 import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
+import com.model.Coding.Gameplay.Map.Exit;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Leaderboard;
 import com.model.Coding.Progress.Progress;
@@ -198,13 +199,14 @@ public class GameUI {
         Room startRoom = gf.getCurrRoom(); 
         ArrayList<Puzzle> puzzles = startRoom.getPuzzles();
         System.out.println("BEFORE--------------------\n" + startRoom);
-        currSave.setPuzzleCompleted(startRoom, puzzles.get(1), true);
-        // currSave.setPuzzleCompleted(startRoom, puzzles.get(2), true); // uncomment this to be able to proceed in next room (this will make it so enough puzzle have been complete)
+        currSave.setPuzzleCompleted(startRoom, puzzles.get(0), true);
+        // currSave.setPuzzleCompleted(startRoom, puzzles.get(1), true); // uncomment this to be able to proceed in next room (this will make it so enough puzzle have been complete)
         System.out.println("AFTER--------------------\n" + startRoom);
-        Room nextRoom = startRoom.getExits()[0].getNextRoom();
-        if (nextRoom != null && nextRoom.canBeEntered(startRoom)) {
+        Exit firstExit = startRoom.getExits()[0];
+        if (firstExit != null && firstExit.isOpen()) {
+            Room nextRoom = firstExit.getNextRoom();
             System.out.println("...Exiting to " + nextRoom.getName());
-            gf.setCurrRoom(nextRoom.getName());
+            gf.setCurrRoom(nextRoom);
             System.out.println("NEXT ROOM UNLOCKED---------------\n" + nextRoom);
         } else {
             System.out.println("Cannot proceed.");
@@ -219,7 +221,7 @@ public class GameUI {
         // gameUI.successfulLogin();
         //gameUI.displayLeaderboard();
         // gameUI.unsuccessfulLogin();
-        // gameUI.roomWithPuzzles();
-        gameUI.roomTransitionTest();
+        gameUI.roomWithPuzzles();
+        // gameUI.roomTransitionTest();
     }
 }

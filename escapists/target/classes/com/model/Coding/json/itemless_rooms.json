@@ -8,19 +8,13 @@
           "description": "A faucet with a secret if you twist its knobs the right amounts."
         },
         {
-          "name": "CellDoorLock",
-          "requiredItem": "Rusty Key",
-          "description": "A lock that may only be unlocked open, or perhaps broken"
-        },
-        {
           "name": "CellBarJingle",
           "answer": "C-E-A-C",
-          "requiredItem": "Eating Utencils",
           "description": "Play a tune on your cell bars like a xylophone, and maybe some cultured guards might reward you."
         }
       ], 
       "exits": {
-        "Hallway": ["CellDoorLock", "CellBarJingle"]
+        "Hallway": ["LooseFaucet", "CellBarJingle"]
       }
     },
     "Hallway": {
