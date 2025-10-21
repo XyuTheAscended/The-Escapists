@@ -90,10 +90,10 @@ public class GameUI {
         inven.addItem(key3);
 
         DandDPuzzle dndPuzzle = new DandDPuzzle(null, null, null, itemReqs);
-        dndPuzzle.DandDItem(key1, inven);
-        // dndPuzzle.DandDItem(key2, inven);
-        dndPuzzle.DandDItem(key3, inven);
-        System.out.println(dndPuzzle.checkCompletion() ? "Complete!" : "Not complete");
+        dndPuzzle.insertDNDItem(key1, inven);
+        dndPuzzle.insertDNDItem(key2, inven);
+        dndPuzzle.insertDNDItem(key3, inven);
+        System.out.println(dndPuzzle.allItemsPlaced() ? "Complete!" : "Not complete");
         
     }
 

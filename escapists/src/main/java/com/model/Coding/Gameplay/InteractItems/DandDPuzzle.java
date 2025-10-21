@@ -12,7 +12,7 @@ public class DandDPuzzle extends Puzzle {
         this.placedItems = new ArrayList<>();
     }
 
-    public boolean DandDItem(Item item, Inventory playerInventory) {
+    public boolean insertDNDItem(Item item, Inventory playerInventory) {
         if (item == null || playerInventory == null){
             return false;
         }
@@ -20,7 +20,7 @@ public class DandDPuzzle extends Puzzle {
         if (!requiredItems.contains(item) || placedItems.contains(item)) {
             return false; 
         }
-        
+
         boolean hasItem = false;
         for (Item invItem : playerInventory.getItems()){
             if (invItem.getItemId() == item.getItemId()) {
@@ -36,15 +36,13 @@ public class DandDPuzzle extends Puzzle {
         placedItems.add(item);
         playerInventory.removeItem(item);
 
-        // checkCompletion();
         return true;
     }
 
-    public boolean checkCompletion() {
+    public boolean allItemsPlaced() {
         if (placedItems.size() != requiredItems.size()){
             return false;
         }
-
 
         for (Item required : requiredItems) {
             boolean found = false;
