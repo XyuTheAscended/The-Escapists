@@ -1,5 +1,6 @@
 package com.model.Coding.Gameplay;
 
+import com.model.Coding.Gameplay.InteractItems.DandDPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
@@ -72,6 +73,28 @@ public class GameUI {
         inven.removeItem(key);
         System.out.println("Inventory Updated: " + inven.displayInventory());
         System.out.println(warden.speak("You may proceed"));
+    }
+
+    public void dragAndDropScenario() {
+        Item key1 = new Item(1, "Blue Key", "Open the door.");
+        Item key2 = new Item(2, "Red Key", "Open the door.");
+        Item key3 = new Item(3, "Green Key", "Open the door.");
+        ArrayList<Item> itemReqs = new ArrayList<>();
+        itemReqs.add(key1);
+        itemReqs.add(key2);
+        itemReqs.add(key3);
+
+        Inventory inven = new Inventory();
+        inven.addItem(key1);
+        inven.addItem(key2);
+        inven.addItem(key3);
+
+        DandDPuzzle dndPuzzle = new DandDPuzzle(null, null, null, itemReqs);
+        dndPuzzle.insertDNDItem(key1, inven);
+        dndPuzzle.insertDNDItem(key2, inven);
+        dndPuzzle.insertDNDItem(key3, inven);
+        System.out.println(dndPuzzle.allItemsPlaced() ? "Complete!" : "Not complete");
+        
     }
 
     public void successfulLogin() {
@@ -215,13 +238,14 @@ public class GameUI {
 
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
+        gameUI.dragAndDropScenario();
         //gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
         // gameUI.successfulLogin();
         //gameUI.displayLeaderboard();
         // gameUI.unsuccessfulLogin();
-        gameUI.roomWithPuzzles();
+        // gameUI.roomWithPuzzles();
         // gameUI.roomTransitionTest();
     }
 }
