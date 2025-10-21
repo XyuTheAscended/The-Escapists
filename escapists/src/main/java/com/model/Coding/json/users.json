@@ -105,37 +105,6 @@
       "completionTimes": {},
       "userName": "Testuser",
       "currSave": null
-    },
-    {
-      "password": "password123",
-      "saves": [
-        {
-          "difficulty": 2,
-          "currentRoom": "Unknown",
-          "achievements": [],
-          "progressId": "3ecb2bf7-010b-46d2-a6be-13348fe69eee",
-          "completedRooms": [],
-          "completedPuzzles": {},
-          "inventory": {
-            "items": []
-          },
-          "remainingTime": 300
-        }
-      ],
-      "completionTimes": {
-        "1": [
-          1234,
-          1802,
-          2204
-        ],
-        "2": [
-          1234,
-          1802,
-          2204
-        ]
-      },
-      "userName": "Tester",
-      "currSave": "3ecb2bf7-010b-46d2-a6be-13348fe69eee"
     }
   ]
 }

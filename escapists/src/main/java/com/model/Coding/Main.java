@@ -2,6 +2,7 @@ package com.model.Coding;
 
 import java.util.UUID;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.model.Coding.Data.DataManager;
 import com.model.Coding.Data.DataLoader;
@@ -17,7 +18,7 @@ public class Main {
         DataWriter writer = DataWriter.getInstance();
 
         System.out.println("=== TEST START ===");
-    
+
         User testUser = new User("Tester", "password123");
         manager.addUser(testUser);
         System.out.println("User added: " + testUser.getUserName());
@@ -41,6 +42,9 @@ public class Main {
             System.out.println("Progress loaded.");
             System.out.println("Difficulty: " + loadedProgress.getDifficulty());
             System.out.println("Remaining Time: " + loadedProgress.getRemainingTime());
+            System.out.println("Current Room: " + loadedProgress.getCurrentRoom());
+            System.out.println("Achievements: " + loadedProgress.getAchievements());
+            System.out.println("Puzzles Completed: " + loadedProgress.getCompletedPuzzlesCount());
         } else {
             System.out.println("Failed to load progress");
         }
