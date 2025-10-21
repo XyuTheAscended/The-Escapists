@@ -25,6 +25,15 @@ public class Inventory {
         return items.get(index);
     }
 
+    public boolean hasItem(Item item) {
+        for (Item invItem : items){
+            if (invItem.equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public String displayInventory() {
         String stringInven = "";
         for (Item item: items) {

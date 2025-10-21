@@ -21,13 +21,7 @@ public class DandDPuzzle extends Puzzle {
             return false; 
         }
 
-        boolean hasItem = false;
-        for (Item invItem : playerInventory.getItems()){
-            if (invItem.getItemId() == item.getItemId()) {
-                hasItem = true;
-                break;
-            }
-        }
+        boolean hasItem = playerInventory.hasItem(item);
 
         if (!hasItem){
             return false;
@@ -47,7 +41,7 @@ public class DandDPuzzle extends Puzzle {
         for (Item required : requiredItems) {
             boolean found = false;
             for (Item placed : placedItems) {
-                if (placed.getItemId() == required.getItemId()){
+                if (placed.equals(required)){
                     found = true;
                     break;
                 }
