@@ -22,6 +22,10 @@ public class Item {
 
     }
 
+    public boolean equals(Item otherItem) {
+        return this.itemId == otherItem.itemId;
+    }
+
     public String getDescription(){
         return description;
     

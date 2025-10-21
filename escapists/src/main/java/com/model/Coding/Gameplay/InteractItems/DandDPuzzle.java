@@ -1,57 +1,58 @@
 package com.model.Coding.Gameplay.InteractItems;
 import java.util.ArrayList;
-public class DandDPuzzle {
+import com.model.Coding.Gameplay.InteractItems.Puzzle;
+
+public class DandDPuzzle extends Puzzle {
     private ArrayList<Item> requiredItems;
     private ArrayList<Item> placedItems;
 
     public DandDPuzzle(String answer, String description, String name, ArrayList<Item> requiredItems){
-        super();
+        super(answer, description, name);
         this.requiredItems = requiredItems;
         this.placedItems = new ArrayList<>();
     }
 
-    public boolean DandDItem(Item item, Inventory playerInventory) {
+    public boolean insertDNDItem(Item item, Inventory playerInventory) {
         if (item == null || playerInventory == null){
             return false;
         }
-        boolean hasItem = false;
-        for (Item invItem : playerInventory.getItems()){
-            if (invItem.getItemId() == item.getItemId()) {
-                hasItem = true;
-                break;
-            }
+
+        if (!requiredItems.contains(item) || placedItems.contains(item)) {
+            return false; 
         }
+
+        boolean hasItem = playerInventory.hasItem(item);
 
         if (!hasItem){
             return false;
         }
 
-        if (!placedItems.contains(item)) {
-            placedItems.add(item);
-            playerInventory.removeItem(item);
-        }
+        placedItems.add(item);
+        playerInventory.removeItem(item);
 
-        checkCompletion();
         return true;
     }
 
-    private void checkCompletion() {
+    public boolean allItemsPlaced() {
         if (placedItems.size() != requiredItems.size()){
-            return;
+            return false;
         }
 
         for (Item required : requiredItems) {
             boolean found = false;
             for (Item placed : placedItems) {
-                if (placed.getItemId() == required.getItemId()){
+                if (placed.equals(required)){
                     found = true;
                     break;
                 }
             }
+
             if (!found){
-                return;
+                return false;
             }
         }
+
+        return true;
     }
 
     public ArrayList<Item> getPlacedItems(){
