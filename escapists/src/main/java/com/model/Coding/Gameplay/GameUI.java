@@ -112,6 +112,7 @@ public class GameUI {
         Inventory inven = new Inventory();
         Character cellMate = new Character("Cell Mate", key);
         Warden warden = new Warden("Warden", null, null);
+        Timer timer  = Timer.getInstance(1800);
 
         cell.addPuzzle(riddle);
         cell.addPuzzle(keypad);
@@ -124,7 +125,7 @@ public class GameUI {
                 ".\nPuzzles to complete: Riddle & Keypad. \nType their name to enter the puzzle.");
         while (!prog.getCompletedRooms().contains(cell)) {
             String input = scan.nextLine();
-
+            timer.start();
             if (input.equalsIgnoreCase("riddle") && !riddle.getIsCompleted()) {
                 while (true) {
                     System.out.println("\n" + riddle.getName());
@@ -188,6 +189,10 @@ public class GameUI {
                 System.out.println("\nEnter a puzzle (not previously completed puzzle(s)):");
             }
         }
+        timer.pause();
+        int minutes = timer.getRemainingTime() / 60;
+        int seconds = timer.getRemainingTime() % 60;
+        System.out.printf("Congratulations! Your time was: %02d:%02d%n", minutes, seconds);
     }
 
     private void roomTransitionTest() {

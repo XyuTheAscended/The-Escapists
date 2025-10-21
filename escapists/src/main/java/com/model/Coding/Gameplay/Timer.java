@@ -32,7 +32,7 @@ public class Timer {
             while (isRunning && remainingTime > 0) {
                 int minutes = remainingTime / 60;
                 int seconds = remainingTime % 60;
-                System.out.printf("Time remaining: %02d:%02d%n", minutes, seconds);
+                // System.out.printf("Time remaining: %02d:%02d%n", minutes, seconds);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
