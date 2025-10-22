@@ -236,9 +236,24 @@ public class GameUI {
         }
     }
 
+    private void hookRoom(Room room) {
+
+    }
+
+    private void interactionLoop() {
+        
+    }
+
+    public void gameLoopTest() {
+
+    }
+
+
+
+
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
-        gameUI.dragAndDropScenario();
+        // gameUI.dragAndDropScenario();
         //gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
