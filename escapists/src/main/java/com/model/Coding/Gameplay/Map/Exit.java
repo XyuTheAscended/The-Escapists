@@ -28,4 +28,9 @@ public class Exit {
   public Room getNextRoom() {
     return nextRoom;
   }
+
+  public String toString() {
+    // null room means exit leads to outside of prison (so end state)
+    return "To: " + (nextRoom != null ? nextRoom.getName() : "OUTSIDE") + " |" + (open ? "O" : "X") + "|";  
+  }
 }

@@ -92,7 +92,7 @@ public class Room {
             sb.append("  NONE\n");
         } else {
             for (Puzzle p : puzzles) {
-                sb.append("  - ").append(p.getName()+": "+p.getIsCompleted()).append("\n");
+                sb.append("  - ").append(p).append("\n");
             }
         }
 
@@ -101,8 +101,7 @@ public class Room {
             sb.append("  NONE\n");
         } else {
             for (Exit e : exits) {
-                sb.append("    To: ")
-                .append(e.getNextRoom() != null ? e.getNextRoom().getName() : "NOWHERE")
+                sb.append(e)
                 .append("\n");
 
                 sb.append("    Prerequisite Puzzles: ");
@@ -113,7 +112,6 @@ public class Room {
                         sb.append(p.getName()).append(", ");
                     }
                 }
-                sb.append("\n    Open: ").append(e.isOpen()).append("\n");
             }
         }
 

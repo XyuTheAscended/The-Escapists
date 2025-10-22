@@ -5,6 +5,7 @@ public class ItemPuzzle extends Puzzle {
 
     public ItemPuzzle(Item requiredItem){
         super("", "", "");
+        this.puzzleType = PuzzleType.ITEM;
         this.requiredItem = requiredItem;
     }
 

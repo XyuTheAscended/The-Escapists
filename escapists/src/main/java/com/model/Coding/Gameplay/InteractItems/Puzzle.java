@@ -9,6 +9,13 @@ public class Puzzle {
     private String userGuess;
     private String description;
     private String name;
+    protected PuzzleType puzzleType = PuzzleType.GENERIC;
+
+    public static enum PuzzleType {
+        GENERIC,
+        ITEM,
+        DND
+    }
 
     public Puzzle(String answer, String description, String name){
         this.answer = answer;
@@ -48,6 +55,14 @@ public class Puzzle {
 
     public boolean getIsCompleted() {
         return isCompleted;
+    }
+
+    public PuzzleType getPuzzleType() {
+        return puzzleType;
+    }
+
+    public String toString() {
+        return name + ": " + (isCompleted ? "Done =)" : "Not -_-");
     }
 
     // temp testing method

@@ -1,5 +1,8 @@
 package com.model.Coding.Gameplay;
 
+import com.model.Coding.Data.DataLoader;
+import com.model.Coding.Data.DataManager;
+import com.model.Coding.Data.DataWriter;
 import com.model.Coding.Gameplay.InteractItems.DandDPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.InteractItems.Item;
@@ -11,9 +14,12 @@ import com.model.Coding.Progress.Progress;
 import com.model.Coding.User.User;
 import com.model.Coding.User.UserList;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.UUID;
 
 // this is just a console based test UI for the game. this is where we test our program, and we can hard code
 // certain scenarios to test.
@@ -75,6 +81,50 @@ public class GameUI {
         System.out.println(warden.speak("You may proceed"));
     }
 
+    public void displayProgress() {
+        DataManager manager = DataManager.getInstance();
+        DataLoader loader = DataLoader.getInstance();
+        DataWriter writer = DataWriter.getInstance();
+
+        System.out.println("=== TEST START ===");
+
+        User testUser = new User("Tester", "password123");
+        manager.addUser(testUser);
+        System.out.println("User added: " + testUser.getUserName());
+
+        Progress progress = new Progress();
+        progress.setDifficulty(2);
+        progress.setRemainingTime(300);
+        UUID progressId = progress.getProgressId();
+        System.out.println("Generated UUID: " + progressId);
+
+        testUser.addSave(progress);
+        System.out.println("Save added to user " + testUser.getUserName());
+
+        manager.saveProgress(testUser, progress);
+        System.out.println("GameFacade save method simulated..");
+
+        System.out.println("\nLoaded progressId from JSON.");
+        Progress loadedProgress = loader.loadProgress(progressId);
+
+        if (loadedProgress != null) {
+            System.out.println("Progress loaded.");
+            System.out.println("Difficulty: " + loadedProgress.getDifficulty());
+            System.out.println("Remaining Time: " + loadedProgress.getRemainingTime());
+            System.out.println("Current Room: " + loadedProgress.getCurrentRoom());
+            System.out.println("Achievements: " + loadedProgress.getAchievements());
+            System.out.println("Puzzles Completed: " + loadedProgress.getCompletedPuzzlesCount());
+        } else {
+            System.out.println("Failed to load progress");
+        }
+
+        ArrayList<User> allUsers = manager.getUsers();
+        System.out.println("\nUsers Loaded:");
+        for (User u : allUsers) {
+            System.out.println("- " + u.getUserName() + " | Saves: " + u.getSaves().size());
+        }
+    }
+    
     public void dragAndDropScenario() {
         Item key1 = new Item(1, "Blue Key", "Open the door.");
         Item key2 = new Item(2, "Red Key", "Open the door.");
@@ -135,6 +185,7 @@ public class GameUI {
         Inventory inven = new Inventory();
         Character cellMate = new Character("Cell Mate", key);
         Warden warden = new Warden("Warden", null, null);
+        Timer timer  = Timer.getInstance(1800);
 
         cell.addPuzzle(riddle);
         cell.addPuzzle(keypad);
@@ -147,7 +198,7 @@ public class GameUI {
                 ".\nPuzzles to complete: Riddle & Keypad. \nType their name to enter the puzzle.");
         while (!prog.getCompletedRooms().contains(cell)) {
             String input = scan.nextLine();
-
+            timer.start();
             if (input.equalsIgnoreCase("riddle") && !riddle.getIsCompleted()) {
                 while (true) {
                     System.out.println("\n" + riddle.getName());
@@ -211,6 +262,10 @@ public class GameUI {
                 System.out.println("\nEnter a puzzle (not previously completed puzzle(s)):");
             }
         }
+        timer.pause();
+        int minutes = timer.getRemainingTime() / 60;
+        int seconds = timer.getRemainingTime() % 60;
+        System.out.printf("Congratulations! Your time was: %02d:%02d%n", minutes, seconds);
     }
 
     private void roomTransitionTest() {
@@ -236,9 +291,140 @@ public class GameUI {
         }
     }
 
+
+    private void fakeConsoleClear() {
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.contains("windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (Exception e) {
+            // fallback
+            System.out.print("\n".repeat(50));
+        }
+    }
+
+    private boolean genericPuzzleLoop(Puzzle puzzle) {
+        String answer = scan.nextLine().trim();
+        while (!answer.equalsIgnoreCase("no")) {
+            if (puzzle.checkAnswer(puzzle.userAnswer(answer))) {
+                System.out.println("Puzzle Completed");
+                return true;
+            } else {
+                System.out.println("Incorrect... try again.");
+            }
+
+            answer = scan.nextLine().trim();
+        }
+
+        return false;
+    }
+
+    private boolean promptPuzzle(Puzzle puzzle) { // returns true if puzzle was complete
+        System.out.println("Puzzle u selected: " + puzzle.getName());
+
+        switch (puzzle.getPuzzleType()) {
+            case GENERIC:
+                System.out.println("About: " + puzzle.getDescription() + " (Answer: "+puzzle.getAnswer()+")");
+                System.out.println("Enter answer (type \"no\" to give up): ");
+
+                boolean didntFail = genericPuzzleLoop(puzzle);
+                if (didntFail) return true; 
+
+                break;
+            case ITEM:
+                
+                break;
+            case DND:
+                
+                break;
+            default:
+                return false;
+        }
+
+        return false;
+    }
+
+    final String BARS = "============================================";
+    private Room hookInteractions(Room room, Progress currSave) {
+        ArrayList<Puzzle> puzzles = room.getPuzzles();
+        Exit[] exits = room.getExits();
+
+        Exit exit2Use = null;
+        while (exit2Use == null) {
+            System.out.println(room);
+            System.out.println(BARS);
+            System.out.println("What do you want to do now?");
+            System.out.println("-> Type in the name of the puzzle or exit you want to use");
+            String input = scan.nextLine().trim(); 
+            Puzzle puzzleSelected = puzzles.stream()
+                .filter(p -> p.getName().equalsIgnoreCase(input))
+                .findFirst()
+                .orElse(null);
+            if (puzzleSelected != null) {
+                fakeConsoleClear();
+                // prompt input specific for this puzzle now
+                boolean completed = promptPuzzle(puzzleSelected);
+                if (completed) {
+                    System.out.println("Good job!");
+                    currSave.setPuzzleCompleted(room, puzzleSelected, completed);
+                } 
+                fakeConsoleClear();
+                continue; 
+            }
+            
+            Exit exitSelected = Arrays.stream(exits)
+                .filter(e -> 
+                    (e.getNextRoom() != null && e.getNextRoom().getName().equalsIgnoreCase(input)) 
+                    || (e.getNextRoom() == null && input.equalsIgnoreCase("OUTSIDE")))
+                .findFirst()
+                .orElse(null);
+
+            if (exitSelected != null) {
+                fakeConsoleClear();
+                if (exitSelected.isOpen()) {
+                    System.out.println("Exiting...");
+                    exit2Use = exitSelected;
+                } else {
+                    System.out.println("That exit isn't open! >=(");
+                }
+                continue;
+            } else {
+                fakeConsoleClear();
+                System.out.println("Invalid input...");
+                continue;
+            }
+
+            
+        }
+
+        return exit2Use.getNextRoom();
+    }
+
+    public void gameLoopTest() {
+        GameFacade gf = GameFacade.getInstance();
+        gf.login("John", "passworD123");
+        gf.startGame();
+
+        while (gf.getCurrRoom() != null) { // we should make null rooms signify that player has reached an ending
+            Room startRoom = gf.getCurrRoom(); 
+            Progress currSave = gf.getCurrUser().getCurrSave();
+            Room nextRoom = hookInteractions(startRoom, currSave);
+            gf.setCurrRoom(nextRoom);
+        }
+
+        System.out.println("Game is over.");
+    }
+
+
+
+
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
-        gameUI.dragAndDropScenario();
+        // gameUI.displayProgress();
+        //gameUI.dragAndDropScenario();
         //gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
@@ -247,5 +433,6 @@ public class GameUI {
         // gameUI.unsuccessfulLogin();
         // gameUI.roomWithPuzzles();
         // gameUI.roomTransitionTest();
+        gameUI.gameLoopTest();
     }
 }
