@@ -15,7 +15,10 @@ public class Character {
     public String speak(String dialogue ){
         return (characterName + ": " + dialogue);
     }
-
+/**
+ * Character can interact with items
+ * @return
+*/
     public Item interact(){
         return item;
     }
