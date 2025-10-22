@@ -219,7 +219,7 @@ public class DataLoader {
           JSONObject roomJSObj = (JSONObject) roomsTable.get(roomNameObj); 
           
           Room room = rooms.get((String) roomNameObj); 
-          if (room == null) System.err.println("Impossible situation: Room was not found for " + (String) roomNameObj);
+          if (room == null) throw new RuntimeException("Impossible situation: Room was not found for " + (String) roomNameObj);
           
           JSONObject exitsTable = (JSONObject) roomJSObj.get("exits");
           if (exitsTable != null) {
@@ -228,7 +228,7 @@ public class DataLoader {
             for (Object exitRoomNameObj : exitsTable.keySet()) {
               String exitRoomName = (String) exitRoomNameObj;
               Room exitRoom = rooms.get(exitRoomName);
-              if (exitRoom == null) System.err.print("Impossible situation: Room was not found for " + (String) roomNameObj);
+              if (exitRoom == null && !exitRoomName.equals("OUTSIDE")) throw new RuntimeException("Impossible situation: Room was not found for " + (String) roomNameObj);
 
               JSONArray exitPrereqs = (JSONArray) exitsTable.get(exitRoomNameObj);
               Puzzle[] prereqPuzzles = new Puzzle[exitPrereqs.size()];
@@ -236,7 +236,7 @@ public class DataLoader {
               for (Object prereqNameObj : exitPrereqs) {
                 String prereqName = (String) prereqNameObj;
                 Puzzle puzzle = room.getPuzzle(prereqName);
-                if (puzzle == null) System.err.print("Prereq Puzzle not found in " + (String) roomNameObj);
+                if (puzzle == null) throw new RuntimeException("Prereq Puzzle not found in " + (String) roomNameObj);
                 prereqPuzzles[prereqInd++] = puzzle;
               }
 

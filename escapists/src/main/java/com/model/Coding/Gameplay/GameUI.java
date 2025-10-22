@@ -415,7 +415,7 @@ public class GameUI {
             gf.setCurrRoom(nextRoom);
         }
 
-        System.out.println("Game is over.");
+        System.out.println("Game is over. You escaped!");
     }
 
 
