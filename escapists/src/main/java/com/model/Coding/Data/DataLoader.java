@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.util.Iterator;
 
 import com.model.Coding.User.User;
+import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.ItemPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Exit;
@@ -23,7 +24,7 @@ public class DataLoader {
 
   private static DataLoader dataLoader;
   private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
-  private static final String ROOMS_FILE = "escapists/src/main/java/com/model/Coding/json/itemless_rooms.json"; // change to real rooms.json later when items are fully implemented
+  private static final String ROOMS_FILE = "escapists/src/main/java/com/model/Coding/json/rooms.json"; 
 
   private DataLoader() {
 
@@ -196,18 +197,27 @@ public class DataLoader {
             String desc = (String) puzzleJSObj.get("description");
         
             String answer = (String) puzzleJSObj.get("answer");
-            // String reqItemName = (String) puzzleJSObj.get("requiredItem");
+            JSONArray itemReqs = (JSONArray) roomJSObj.get("requiredItems");
+            int itemReqsSize = itemReqs.size();
 
-            Puzzle puzzle;
-            // if (reqItemObj != null) {
-              // more item implementation required to finish this
-              // Item reqItem = ???
-              // puzzle = new ItemPuzzle(reqItem);
-            // } else {
-            //  ...
-            // }
+            if (answer == null && (itemReqs == null || itemReqs.get(0) == null)) {
+              throw new RuntimeException("Puzzle " + name + " problem: Answerless puzzles at least need one required item");
+            }
 
-            puzzle = new Puzzle(answer, desc, name);
+            Puzzle puzzle = null;
+            if (itemReqs != null && itemReqsSize > 0) {
+              if (itemReqsSize == 1) { // standard item puzzle case 
+                // in future, json should store more comprehensive item data than just the name
+                String itemName = (String) itemReqs.get(0);
+                Item.cacheItem(itemName, desc);
+                
+              } else { // dnd puzzle case since there are multiple item reqs
+
+              }
+            } else {
+              puzzle = new Puzzle(answer, desc, name);
+            }
+
             newRoom.addPuzzle(puzzle);
           }
 

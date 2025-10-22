@@ -49,7 +49,7 @@ public class GameUI {
     // player solves a puzzle, character gives item to inventory, inventory gives item to warden.
     // maybe put all of this in one room
     public void scenario3() {
-        Item key = new Item(123, "Blue Key", "Open the door.");
+        Item key = Item.cacheItem("Blue Key", "Open the door.");
         Inventory inven = new Inventory();
         Character character = new Character("Character", key);
         Warden warden = new Warden("Warden", null, null);
@@ -126,9 +126,9 @@ public class GameUI {
     }
     
     public void dragAndDropScenario() {
-        Item key1 = new Item(1, "Blue Key", "Open the door.");
-        Item key2 = new Item(2, "Red Key", "Open the door.");
-        Item key3 = new Item(3, "Green Key", "Open the door.");
+        Item key1 = Item.cacheItem("Blue Key", "Open the door.");
+        Item key2 = Item.cacheItem("Red Key", "Open the door.");
+        Item key3 = Item.cacheItem("Green Key", "Open the door.");
         ArrayList<Item> itemReqs = new ArrayList<>();
         itemReqs.add(key1);
         itemReqs.add(key2);
@@ -181,7 +181,7 @@ public class GameUI {
         Puzzle keypad = new Puzzle("1234", "Enter the correct code: ", "Keypad");
         Room cell = new Room("Cell");
         Progress prog = new Progress();
-        Item key = new Item(123, "Blue Key", "Open the door.");
+        Item key = Item.cacheItem("Blue Key", "Open the door.");
         Inventory inven = new Inventory();
         Character cellMate = new Character("Cell Mate", key);
         Warden warden = new Warden("Warden", null, null);
@@ -367,11 +367,11 @@ public class GameUI {
                 fakeConsoleClear();
                 // prompt input specific for this puzzle now
                 boolean completed = promptPuzzle(puzzleSelected);
+                fakeConsoleClear();
                 if (completed) {
                     System.out.println("Good job!");
                     currSave.setPuzzleCompleted(room, puzzleSelected, completed);
                 } 
-                fakeConsoleClear();
                 continue; 
             }
             
@@ -424,7 +424,7 @@ public class GameUI {
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
         // gameUI.displayProgress();
-        //gameUI.dragAndDropScenario();
+        // gameUI.dragAndDropScenario();
         //gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
@@ -433,6 +433,6 @@ public class GameUI {
         // gameUI.unsuccessfulLogin();
         // gameUI.roomWithPuzzles();
         // gameUI.roomTransitionTest();
-        gameUI.gameLoopTest();
+        // gameUI.gameLoopTest();
     }
 }
