@@ -10,11 +10,19 @@ public class Leaderboard {
     private Leaderboard() {
         leaderboard = this; 
     }
-
+/**
+ * Gets instance of leaderboard
+ * @return
+*/
     public static Leaderboard getInstance() {
         return leaderboard != null ? leaderboard : new Leaderboard(); 
     }
-
+/**
+ * Gets the users completion time and difficulty.
+ * @param user
+ * @param difficulty
+ * @return
+*/
     public ArrayList<String> getFormattedOrderedTimes(User user, int difficulty) {
         ArrayList<Integer> times = user.getCompletionTimes(difficulty);
         times.sort(null); // defaultly goes from smallest to greatest
