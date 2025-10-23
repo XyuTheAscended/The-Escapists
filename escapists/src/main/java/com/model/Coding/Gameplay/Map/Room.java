@@ -135,10 +135,4 @@ public class Room {
 
         return sb.toString();
     }
-
-    // temp testing method
-    public static void main(String[] args) {
-        Room room = new Room("Cell");
-        room.addPuzzle(null);
-    }
 }

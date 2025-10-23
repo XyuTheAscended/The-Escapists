@@ -62,13 +62,4 @@ public class Map {
         }
         System.err.println(roomName + " not a room! cannot beset as current room");
     }
-
-    // temp testing method
-    // public static void main(String[] args) {
-    //     Map map = new Map();
-    //     map.openMap();
-    //     map.closeMap();
-    //     map.getCurrentRoom();
-    //     map.setCurrentRoom(null);
-    // }
 }
