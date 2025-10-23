@@ -11,8 +11,9 @@ public class ItemPuzzle extends Puzzle {
      * ItemPuzzle constructor. Calls super and initializes requiredItem
      * @param requiredItem The item required for the puzzle
      */
-    public ItemPuzzle(Item requiredItem){
-        super("", "", "");
+    public ItemPuzzle(String answer, String description, String name, Item requiredItem){
+        super(answer, description, name);
+        this.puzzleType = PuzzleType.ITEM;
         this.requiredItem = requiredItem;
     }
 
@@ -24,8 +25,8 @@ public class ItemPuzzle extends Puzzle {
     public boolean requiredItem(Item item){
         if (item == null || requiredItem == null) {
             return false;
-        }
-        return item.getItemId() == requiredItem.getItemId();
+        return item.equals(requiredItem);
+        
     }
 
     /**
@@ -42,6 +43,11 @@ public class ItemPuzzle extends Puzzle {
                 return true;
             }
         }  
-    return false;
+        return false;
     }
+
+    public Item getRequiredItem() {
+        return requiredItem;
+    }
+
 }

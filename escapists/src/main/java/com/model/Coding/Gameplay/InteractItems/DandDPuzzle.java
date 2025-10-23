@@ -19,6 +19,7 @@ public class DandDPuzzle extends Puzzle {
     */
     public DandDPuzzle(String answer, String description, String name, ArrayList<Item> requiredItems){
         super(answer, description, name);
+        this.puzzleType = PuzzleType.DND;
         this.requiredItems = requiredItems;
         this.placedItems = new ArrayList<>();
     }

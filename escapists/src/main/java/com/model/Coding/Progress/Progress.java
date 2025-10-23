@@ -34,6 +34,7 @@ public class Progress {
         this.completedPuzzles = completedPuzzles;
         this.difficulty = 0;
         this.remainingTime = 0;
+        this.inventory = new Inventory(); // will be initialized from json in future
     }
 
     public String toString() {

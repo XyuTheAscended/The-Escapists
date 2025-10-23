@@ -9,7 +9,9 @@
         },
         {
           "name": "CellDoorLock",
-          "requiredItem": "Rusty Key",
+          "requiredItems": [
+            "Steel Key"
+          ],
           "description": "A lock that may only be unlocked open, or perhaps broken"
         },
         {
@@ -40,7 +42,10 @@
           "answer": "Human",
           "description": "What creature walks on 4 feet in the morning, 2 feet at noon, and 3 in the evening?"
         }
-      ]
+      ],
+      "exits": {
+        "OUTSIDE": []
+      }
     }
   }
 }

@@ -40,6 +40,8 @@ public class Puzzle {
      * @return Boolean, true if correct, false otherwise
      */
     public boolean checkAnswer(String guess){
+        if (answer == null) return true;
+        
         if(guess.equals(answer.trim().toLowerCase().replaceAll("\\s+", ""))) {
             isCompleted = true;
             return true;
@@ -85,5 +87,30 @@ public class Puzzle {
     */
     public boolean getIsCompleted() {
         return isCompleted;
+    }
+
+    public PuzzleType getPuzzleType() {
+        return puzzleType;
+    }
+
+    public String toString() {
+        return name + ": " + (isCompleted ? "Done =)" : "Not -_-");
+    }
+
+    // temp testing method
+    public static void main(String[] args) {
+        Puzzle puzzle = new Puzzle("1234", "Enter the correct number", "Keypad");
+        System.out.println(puzzle.getName());
+        System.out.println(puzzle.getDescription());
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter correct passcode: ");
+        puzzle.checkAnswer(puzzle.userAnswer(scanner.nextLine()));
+        System.out.println();
+
+        Puzzle riddle = new Puzzle("A cold", "What can you catch, but cannot throw?", "Riddle");
+        System.out.println(riddle.getName());
+        System.out.println(riddle.getDescription());
+        System.out.println("Enter answer: ");
+        riddle.checkAnswer(riddle.userAnswer(scanner.nextLine()));
     }
 }

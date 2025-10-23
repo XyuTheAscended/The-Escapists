@@ -14,6 +14,8 @@ import java.io.FileReader;
 import java.util.Iterator;
 
 import com.model.Coding.User.User;
+import com.model.Coding.Gameplay.InteractItems.DandDPuzzle;
+import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.ItemPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Exit;
@@ -25,9 +27,9 @@ import com.model.Coding.Progress.Progress;
  */
 public class DataLoader {
 
-    private static DataLoader dataLoader;
-    private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
-    private static final String ROOMS_FILE = "escapists/src/main/java/com/model/Coding/json/itemless_rooms.json"; // change to real rooms.json later when items are fully implemented
+  private static DataLoader dataLoader;
+  private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
+  private static final String ROOMS_FILE = "escapists/src/main/java/com/model/Coding/json/rooms.json"; 
 
     private DataLoader() {
 
@@ -208,59 +210,74 @@ public class DataLoader {
                     for (Object puzzleEntry : puzzlesArray) {
                         JSONObject puzzleJSObj = (JSONObject) puzzleEntry;
 
-                        String name = (String) puzzleJSObj.get("name");
-                        String desc = (String) puzzleJSObj.get("description");
+            String name = (String) puzzleJSObj.get("name");
+            String desc = (String) puzzleJSObj.get("description");
+        
+            String answer = (String) puzzleJSObj.get("answer");
+            JSONArray itemReqs = (JSONArray) puzzleJSObj.get("requiredItems");
+            int itemReqsSize = itemReqs != null ? itemReqs.size() : 0;
 
-                        String answer = (String) puzzleJSObj.get("answer");
-                        // String reqItemName = (String) puzzleJSObj.get("requiredItem");
+            if (answer == null && (itemReqs == null || itemReqs.get(0) == null)) {
+              throw new RuntimeException("Puzzle " + name + " problem: Answerless puzzles at least need one required item");
+            }
 
-                        Puzzle puzzle;
-                        // if (reqItemObj != null) {
-                        // more item implementation required to finish this
-                        // Item reqItem = ???
-                        // puzzle = new ItemPuzzle(reqItem);
-                        // } else {
-                        //  ...
-                        // }
+            Puzzle puzzle = null;
+            if (itemReqs != null && itemReqsSize > 0) {
+              if (itemReqsSize == 1) { // standard item puzzle case 
+                // in future, json should store more comprehensive item data than just the name
+                String itemName = (String) itemReqs.get(0);
+                Item itemReq = Item.cacheItem(itemName, desc);
 
-                        puzzle = new Puzzle(answer, desc, name);
-                        newRoom.addPuzzle(puzzle);
-                    }
+                // note that answer and desc may be null for item puzzles
+                puzzle = new ItemPuzzle(answer, desc, name, itemReq);
+                
+              } else { // dnd puzzle case since there are multiple item reqs
+                ArrayList<Item> dndItemsList = new ArrayList<>();
+                for (int i = 0; i < itemReqs.size(); i++) {
+                  String itemName = (String) itemReqs.get(i);
+                  Item itemReq = Item.cacheItem(itemName, desc);
+                  dndItemsList.add(itemReq);
+                }
+
+                // note that answer and desc may ALSO be null for DnD puzzles
+                puzzle = new DandDPuzzle(answer, desc, name, dndItemsList);
+                
+              }
+            } else {
+              puzzle = new Puzzle(answer, desc, name);
+            }
+
+            newRoom.addPuzzle(puzzle);
+          }
 
                     rooms.put(newRoom.getName(), newRoom);
                 }
 
-                /* rooms and their puzzles must be loaded before we loop a second time to add their exits  */
-                for (Object roomNameObj : roomsTable.keySet()) {
-                    JSONObject roomJSObj = (JSONObject) roomsTable.get(roomNameObj);
+        // rooms and their puzzles must be loaded before we loop a second time to add their exits
+        for (Object roomNameObj : roomsTable.keySet()) {
+          JSONObject roomJSObj = (JSONObject) roomsTable.get(roomNameObj); 
+          
+          Room room = rooms.get((String) roomNameObj); 
+          if (room == null) throw new RuntimeException("Impossible situation: Room was not found for " + (String) roomNameObj);
+          
+          JSONObject exitsTable = (JSONObject) roomJSObj.get("exits");
+          if (exitsTable != null) {
+            Exit[] exits = new Exit[exitsTable.size()];
+            int exitInd = 0;
+            for (Object exitRoomNameObj : exitsTable.keySet()) {
+              String exitRoomName = (String) exitRoomNameObj;
+              Room exitRoom = rooms.get(exitRoomName);
+              if (exitRoom == null && !exitRoomName.equals("OUTSIDE")) throw new RuntimeException("Impossible situation: Room was not found for " + (String) roomNameObj);
 
-                    Room room = rooms.get((String) roomNameObj);
-                    if (room == null) {
-                        System.err.println("Impossible situation: Room was not found for " + (String) roomNameObj);
-                    }
-
-                    JSONObject exitsTable = (JSONObject) roomJSObj.get("exits");
-                    if (exitsTable != null) {
-                        Exit[] exits = new Exit[exitsTable.size()];
-                        int exitInd = 0;
-                        for (Object exitRoomNameObj : exitsTable.keySet()) {
-                            String exitRoomName = (String) exitRoomNameObj;
-                            Room exitRoom = rooms.get(exitRoomName);
-                            if (exitRoom == null) {
-                                System.err.print("Impossible situation: Room was not found for " + (String) roomNameObj);
-                            }
-
-                            JSONArray exitPrereqs = (JSONArray) exitsTable.get(exitRoomNameObj);
-                            Puzzle[] prereqPuzzles = new Puzzle[exitPrereqs.size()];
-                            int prereqInd = 0;
-                            for (Object prereqNameObj : exitPrereqs) {
-                                String prereqName = (String) prereqNameObj;
-                                Puzzle puzzle = room.getPuzzle(prereqName);
-                                if (puzzle == null) {
-                                    System.err.print("Prereq Puzzle not found in " + (String) roomNameObj);
-                                }
-                                prereqPuzzles[prereqInd++] = puzzle;
-                            }
+              JSONArray exitPrereqs = (JSONArray) exitsTable.get(exitRoomNameObj);
+              Puzzle[] prereqPuzzles = new Puzzle[exitPrereqs.size()];
+              int prereqInd = 0;
+              for (Object prereqNameObj : exitPrereqs) {
+                String prereqName = (String) prereqNameObj;
+                Puzzle puzzle = room.getPuzzle(prereqName);
+                if (puzzle == null) throw new RuntimeException("Prereq Puzzle not found in " + (String) roomNameObj);
+                prereqPuzzles[prereqInd++] = puzzle;
+              }
 
                             Exit exit = new Exit(exitRoom, prereqPuzzles);
                             exits[exitInd++] = exit;

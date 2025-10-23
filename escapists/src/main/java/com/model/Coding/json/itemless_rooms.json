@@ -14,7 +14,7 @@
         }
       ], 
       "exits": {
-        "Hallway": ["LooseFaucet", "CellBarJingle"]
+        "Hallway": []
       }
     },
     "Hallway": {
@@ -34,7 +34,10 @@
           "answer": "Human",
           "description": "What creature walks on 4 feet in the morning, 2 feet at noon, and 3 in the evening?"
         }
-      ]
+      ],
+      "exits": {
+        "OUTSIDE": ["KeyCode"]
+      }
     }
   }
 }

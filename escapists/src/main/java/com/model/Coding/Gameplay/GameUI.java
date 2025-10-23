@@ -6,7 +6,9 @@ import com.model.Coding.Data.DataWriter;
 import com.model.Coding.Gameplay.InteractItems.DandDPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.InteractItems.Item;
+import com.model.Coding.Gameplay.InteractItems.ItemPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
+import com.model.Coding.Gameplay.InteractItems.Puzzle.PuzzleType;
 import com.model.Coding.Gameplay.Map.Exit;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Leaderboard;
@@ -14,15 +16,18 @@ import com.model.Coding.Progress.Progress;
 import com.model.Coding.User.User;
 import com.model.Coding.User.UserList;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.UUID;
 
+
 // this is just a console based test UI for the game. this is where we test our program, and we can hard code
 // certain scenarios to test.
 public class GameUI {
-
+    private static GameFacade GF = GameFacade.getInstance();
     private Puzzle puzzle;
     private Scanner scan = new Scanner(System.in);
 
@@ -47,7 +52,7 @@ public class GameUI {
     // player solves a puzzle, character gives item to inventory, inventory gives item to warden.
     // maybe put all of this in one room
     public void scenario3() {
-        Item key = new Item(123, "Blue Key", "Open the door.");
+        Item key = Item.cacheItem("Blue Key", "Open the door.");
         Inventory inven = new Inventory();
         Character character = new Character("Character", key);
         Warden warden = new Warden("Warden", null, null);
@@ -124,9 +129,9 @@ public class GameUI {
     }
     
     public void dragAndDropScenario() {
-        Item key1 = new Item(1, "Blue Key", "Open the door.");
-        Item key2 = new Item(2, "Red Key", "Open the door.");
-        Item key3 = new Item(3, "Green Key", "Open the door.");
+        Item key1 = Item.cacheItem("Blue Key", "Open the door.");
+        Item key2 = Item.cacheItem("Red Key", "Open the door.");
+        Item key3 = Item.cacheItem("Green Key", "Open the door.");
         ArrayList<Item> itemReqs = new ArrayList<>();
         itemReqs.add(key1);
         itemReqs.add(key2);
@@ -135,7 +140,7 @@ public class GameUI {
         Inventory inven = new Inventory();
         inven.addItem(key1);
         inven.addItem(key2);
-        inven.addItem(key3);
+        // inven.addItem(key3);
 
         DandDPuzzle dndPuzzle = new DandDPuzzle(null, null, null, itemReqs);
         dndPuzzle.insertDNDItem(key1, inven);
@@ -146,10 +151,9 @@ public class GameUI {
     }
 
     public void successfulLogin() {
-        GameFacade gf = GameFacade.getInstance();
 
-        if(gf.login("John", "passworD123")){
-            System.out.println(gf.getCurrUser().toString());
+        if(GF.login("John", "passworD123")){
+            System.out.println(GF.getCurrUser().toString());
         }
         else {
             System.out.println("Login Failed");
@@ -157,10 +161,9 @@ public class GameUI {
     }
 
     public void unsuccessfulLogin() {
-        GameFacade gf = GameFacade.getInstance();
 
-        if(gf.login("dsa;lijfidsajf", "dsakfa")){
-            System.out.println(gf.getCurrUser().toString());
+        if(GF.login("dsa;lijfidsajf", "dsakfa")){
+            System.out.println(GF.getCurrUser().toString());
         }
         else {
             System.out.println("Login Failed");
@@ -174,12 +177,11 @@ public class GameUI {
     }
 
     public void roomWithPuzzles() {
-        GameFacade gf = GameFacade.getInstance();
         Puzzle riddle = new Puzzle("A cold", "What can you catch, but cannot throw?", "Riddle");
         Puzzle keypad = new Puzzle("1234", "Enter the correct code: ", "Keypad");
         Room cell = new Room("Cell");
         Progress prog = new Progress();
-        Item key = new Item(123, "Blue Key", "Open the door.");
+        Item key = Item.cacheItem("Blue Key", "Open the door.");
         Inventory inven = new Inventory();
         Character cellMate = new Character("Cell Mate", key);
         Warden warden = new Warden("Warden", null, null);
@@ -267,12 +269,11 @@ public class GameUI {
     }
 
     private void roomTransitionTest() {
-        GameFacade gf = GameFacade.getInstance();
-        gf.login("John", "passworD123");
-        gf.startGame();
+        GF.login("John", "passworD123");
+        GF.startGame();
 
-        Progress currSave = gf.getCurrUser().getCurrSave();
-        Room startRoom = gf.getCurrRoom(); 
+        Progress currSave = GF.getCurrUser().getCurrSave();
+        Room startRoom = GF.getCurrRoom(); 
         ArrayList<Puzzle> puzzles = startRoom.getPuzzles();
         System.out.println("BEFORE--------------------\n" + startRoom);
         currSave.setPuzzleCompleted(startRoom, puzzles.get(0), true);
@@ -282,32 +283,16 @@ public class GameUI {
         if (firstExit != null && firstExit.isOpen()) {
             Room nextRoom = firstExit.getNextRoom();
             System.out.println("...Exiting to " + nextRoom.getName());
-            gf.setCurrRoom(nextRoom);
+            GF.setCurrRoom(nextRoom);
             System.out.println("NEXT ROOM UNLOCKED---------------\n" + nextRoom);
         } else {
             System.out.println("Cannot proceed.");
         }
     }
 
-    private void hookRoom(Room room) {
-
-    }
-
-    private void interactionLoop() {
-        
-    }
-
-    public void gameLoopTest() {
-
-    }
-
-
-
-
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
-        gameUI.displayProgress();
-        //gameUI.dragAndDropScenario();
+        gameUI.dragAndDropScenario();
         //gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
@@ -316,5 +301,6 @@ public class GameUI {
         // gameUI.unsuccessfulLogin();
         // gameUI.roomWithPuzzles();
         // gameUI.roomTransitionTest();
+        gameUI.gameLoopTest();
     }
 }
