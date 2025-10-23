@@ -290,6 +290,201 @@ public class GameUI {
         }
     }
 
+    private void fakeConsoleClear() {
+        try {
+            String os = System.getProperty("os.name").toLowerCase();
+            if (os.contains("windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (Exception e) {
+            // fallback
+            System.out.print("\n".repeat(50));
+        }
+    }
+
+    private boolean genericPuzzleLoop(Puzzle puzzle) {
+        String answer = scan.nextLine().trim();
+        while (!answer.equalsIgnoreCase("no")) {
+            if (puzzle.checkAnswer(puzzle.userAnswer(answer))) {
+                System.out.println("Puzzle Completed");
+                return true;
+            } else {
+                System.out.println("Incorrect... try again.");
+            }
+
+            answer = scan.nextLine().trim();
+        }
+
+        return false;
+    }
+
+    private boolean itemPuzzleLoop(ItemPuzzle puzzle) {
+        System.out.println("What item do you want to use for this puzzle? (say no to give up)");
+        System.out.println(GF.getInventory().displayInventory());
+        String usedItemName = scan.nextLine().trim();
+        boolean gotItem = false;
+        Inventory inv = GF.getInventory();
+        while (!usedItemName.equalsIgnoreCase("no")) {
+            if (!inv.hasItem(usedItemName)) {
+                System.out.println("You dont have a " + usedItemName);
+            } else {
+                if (puzzle.requiredItem(inv.getItem(usedItemName))) {
+                    System.out.println("Correct item inserted.");
+                    gotItem = true;
+                    break;
+                } else {
+                    System.out.println("Useless... try again.");
+                }
+
+            }
+
+
+            usedItemName = scan.nextLine().trim();
+        }
+        if (!gotItem) {
+            return false; 
+        }
+
+        if (puzzle.getAnswer() == null) {
+            System.out.println("Puzzle is completed because the item was all you needed"); // this never has time to be printed lol
+            return true;
+        }
+
+        System.out.println("Enter answer (type \"no\" to give up): ");
+        String answer = scan.nextLine().trim();
+        while (!answer.equalsIgnoreCase("no")) {
+            if (puzzle.checkAnswer(puzzle.userAnswer(answer))) {
+                System.out.println("Puzzle Completed");
+                return true;
+            } else {
+                System.out.println("Incorrect... try again.");
+            }
+
+            answer = scan.nextLine().trim();
+        }
+
+        return false;
+    }
+
+    private boolean promptPuzzle(Puzzle puzzle) { // returns true if puzzle was complete
+        System.out.println("Puzzle u selected: " + puzzle.getName());
+
+        String description = puzzle.getDescription();
+        description = description == null ? 
+            (puzzle.getPuzzleType() == Puzzle.PuzzleType.ITEM ? "Item required" : "Multiple items required") 
+            : description;
+        String answer = puzzle.getAnswer();
+        answer = answer == null ? "Answerless. Just requires item(s)" : answer;
+        
+        System.out.println("About: " + puzzle.getDescription() + " (Answer: "+puzzle.getAnswer()+")");
+        
+        switch (puzzle.getPuzzleType()) {
+            case GENERIC:
+                System.out.println("Enter answer (type \"no\" to give up): ");
+
+                boolean didntFail = genericPuzzleLoop(puzzle);
+                if (didntFail) return true; 
+
+                break;
+            case ITEM:
+                Inventory inv = GF.getInventory();
+                didntFail = itemPuzzleLoop((ItemPuzzle) puzzle);
+                if (didntFail) return true; 
+
+                break;
+            case DND:
+                
+                break;
+            default:
+                return false;
+        }
+
+        return false;
+    }
+
+    final String BARS = "============================================";
+    private Room hookInteractions(Room room, Progress currSave) {
+        ArrayList<Puzzle> puzzles = room.getPuzzles();
+        Exit[] exits = room.getExits();
+
+        Exit exit2Use = null;
+        while (exit2Use == null) {
+            System.out.println("\n" + room);
+            System.out.println(BARS);
+            System.out.println("What do you want to do now?");
+            System.out.println("-> Type in the name of the puzzle or exit you want to use");
+            String input = scan.nextLine().trim(); 
+            Puzzle puzzleSelected = puzzles.stream()
+                .filter(p -> p.getName().equalsIgnoreCase(input))
+                .findFirst()
+                .orElse(null);
+            if (puzzleSelected != null) {
+                fakeConsoleClear();
+                if (puzzleSelected.getIsCompleted()) {
+                    System.out.println(puzzleSelected.getName() + " is already complete. Do something else.");
+                    continue;
+                }
+                // prompt input specific for this puzzle now
+                boolean completed = promptPuzzle(puzzleSelected);
+                fakeConsoleClear();
+                if (completed) {
+                    System.out.println("Good job!");
+                    currSave.setPuzzleCompleted(room, puzzleSelected, completed);
+                } 
+                continue; 
+            }
+            
+            Exit exitSelected = Arrays.stream(exits)
+                .filter(e -> 
+                    (e.getNextRoom() != null && e.getNextRoom().getName().equalsIgnoreCase(input)) 
+                    || (e.getNextRoom() == null && input.equalsIgnoreCase("OUTSIDE")))
+                .findFirst()
+                .orElse(null);
+
+            if (exitSelected != null) {
+                fakeConsoleClear();
+                if (exitSelected.isOpen()) {
+                    System.out.println("Exiting...");
+                    exit2Use = exitSelected;
+                } else {
+                    System.out.println("That exit isn't open! >=(");
+                }
+                continue;
+            } else {
+                fakeConsoleClear();
+                System.out.println("Invalid input...");
+                continue;
+            }
+
+            
+        }
+
+        return exit2Use.getNextRoom();
+    }
+
+    public void gameLoopTest() {
+        GF.login("John", "passworD123");
+        GF.startGame();
+        
+
+        // TEMPorARY HARDCODED INVEnTORY
+        for (Item item : Item.allItemsEver) {
+            GF.getInventory().addItem(item);
+        }
+
+        while (GF.getCurrRoom() != null) { // we should make null rooms signify that player has reached an ending
+            Room startRoom = GF.getCurrRoom(); 
+            Progress currSave = GF.getCurrUser().getCurrSave();
+            Room nextRoom = hookInteractions(startRoom, currSave);
+            GF.setCurrRoom(nextRoom);
+        }
+
+        System.out.println("Game is over. You escaped!");
+    }
+
+
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
         gameUI.dragAndDropScenario();
