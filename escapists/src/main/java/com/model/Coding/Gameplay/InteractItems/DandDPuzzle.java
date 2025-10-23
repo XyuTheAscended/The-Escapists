@@ -2,15 +2,20 @@ package com.model.Coding.Gameplay.InteractItems;
 import java.util.ArrayList;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 
+/**
+ * A drag and drop puzzle
+ * @author
+ */
 public class DandDPuzzle extends Puzzle {
     private ArrayList<Item> requiredItems;
     private ArrayList<Item> placedItems;
+
     /**
      * Sets the variables in constructor
-     * @param answer
-     * @param description
-     * @param name
-     * @param requiredItems
+     * @param answer Answer to the puzzle
+     * @param description Description of the puzzle
+     * @param name Name of the puzzle
+     * @param requiredItems Required items
     */
     public DandDPuzzle(String answer, String description, String name, ArrayList<Item> requiredItems){
         super(answer, description, name);
@@ -20,9 +25,9 @@ public class DandDPuzzle extends Puzzle {
 
     /**
      * Insertion for the DNDItem
-     * @param item
-     * @param playerInventory
-     * @return
+     * @param item Item being inserted
+     * @param playerInventory The players inventory
+     * @return Boolean, true of item is inserted, false otherwise
     */
     public boolean insertDNDItem(Item item, Inventory playerInventory) {
         if (item == null || playerInventory == null){
@@ -45,10 +50,10 @@ public class DandDPuzzle extends Puzzle {
         return true;
     }
 
-/**
- * Checks if all the items are placed
- * @return
-*/
+    /**
+     * Checks if all the items are placed
+     * @return Boolean, true if all the items are places, false otherwise
+    */
     public boolean allItemsPlaced() {
         if (placedItems.size() != requiredItems.size()){
             return false;
@@ -73,15 +78,16 @@ public class DandDPuzzle extends Puzzle {
 
     /**
      * gets placed items
-     * @return
+     * @return ArrayList of placed items
     */
     public ArrayList<Item> getPlacedItems(){
         return placedItems;
     }
-/**
- * gets required items
- * @return
-*/
+
+    /**
+     * gets required items
+     * @return ArrayList of required items
+    */
     public ArrayList<Item> getRequiredItems(){
         return requiredItems;
     }

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 import com.model.Coding.Data.DataManager;
 
+/**
+ * Map
+ * @author
+ */
 public class Map {
     private boolean isOpen = false;
     private Room currentRoom;
@@ -18,37 +22,42 @@ public class Map {
     public void openMap(){
         isOpen = true;
     }
-/**
- * Closes the map
-*/
+
+    /**
+     * Closes the map
+    */
     public void closeMap(){
         isOpen = false;
     }
-/**
- * Adds the rooms to the map
- * @param room
-*/
+
+    /**
+     * Adds the rooms to the map
+     * @param room
+    */
     public void addRoomToMap(Room room){
         rooms.add(room);
     }
-/**
- * Gets the current room user is in
- * @return
-*/
+
+    /**
+     * Gets the current room user is in
+     * @return
+    */
     public Room getCurrentRoom(){
         return currentRoom;
     }
-/**
- * Gets all rooms
- * @return
-*/
+
+    /**
+     * Gets all rooms
+     * @return
+    */
     public ArrayList<Room> getRooms() {
         return rooms;
     }
-/**
- * Sets the room the user is in
- * @param room
-*/
+
+    /**
+     * Sets the room the user is in
+     * @param room
+    */
     public void setCurrentRoom(Room room){
         currentRoom = room;
     }

@@ -4,25 +4,34 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import com.model.Coding.User.User;
 
+/**
+ * Leader that displays the top times from each user
+ * @author
+ */
 public class Leaderboard {
-    private static Leaderboard leaderboard; 
+    private static Leaderboard leaderboard;
 
+    /**
+     * Initializes leaderboard
+     */
     private Leaderboard() {
         leaderboard = this; 
     }
-/**
- * Gets instance of leaderboard
- * @return
-*/
+
+    /**
+     * Gets instance of leaderboard
+     * @return Leaderboard
+    */
     public static Leaderboard getInstance() {
         return leaderboard != null ? leaderboard : new Leaderboard(); 
     }
-/**
- * Gets the users completion time and difficulty.
- * @param user
- * @param difficulty
- * @return
-*/
+
+    /**
+     * Gets the users completion time and difficulty.
+     * @param user Respective user
+     * @param difficulty Game difficulty
+     * @return ArrayList of the users top times
+    */
     public ArrayList<String> getFormattedOrderedTimes(User user, int difficulty) {
         ArrayList<Integer> times = user.getCompletionTimes(difficulty);
         times.sort(null); // defaultly goes from smallest to greatest
@@ -37,8 +46,6 @@ public class Leaderboard {
             String formatted = String.format("%02d:%02d:%02d", hours, minutes, seconds);
             formattedTimes.add(formatted);
         }
-        
         return formattedTimes;
     }
-
 }

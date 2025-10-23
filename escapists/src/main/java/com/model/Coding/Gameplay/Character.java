@@ -1,11 +1,19 @@
 package com.model.Coding.Gameplay;
 import com.model.Coding.Gameplay.InteractItems.Item;
 
-// characters speak to you and maybe give you an item
+/**
+ * A NPC Character
+ * @author
+ */
 public class Character {
     protected String characterName;
     protected Item item;
 
+    /**
+     * Initializes characterName and item
+     * @param name Name of the character
+     * @param item Item the character has
+     */
     public Character(String name, Item item){
         this.characterName = name;
         this.item = item;
@@ -15,10 +23,10 @@ public class Character {
     public String speak(String dialogue ){
         return (characterName + ": " + dialogue);
     }
-/**
- * Character can interact with items
- * @return
-*/
+    /**
+     * Character can interact with items
+     * @return Item object
+    */
     public Item interact(){
         return item;
     }
