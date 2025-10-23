@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.util.Iterator;
 
 import com.model.Coding.User.User;
+import com.model.Coding.Gameplay.InteractItems.DandDPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.ItemPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
@@ -197,8 +198,8 @@ public class DataLoader {
             String desc = (String) puzzleJSObj.get("description");
         
             String answer = (String) puzzleJSObj.get("answer");
-            JSONArray itemReqs = (JSONArray) roomJSObj.get("requiredItems");
-            int itemReqsSize = itemReqs.size();
+            JSONArray itemReqs = (JSONArray) puzzleJSObj.get("requiredItems");
+            int itemReqsSize = itemReqs != null ? itemReqs.size() : 0;
 
             if (answer == null && (itemReqs == null || itemReqs.get(0) == null)) {
               throw new RuntimeException("Puzzle " + name + " problem: Answerless puzzles at least need one required item");
@@ -209,10 +210,22 @@ public class DataLoader {
               if (itemReqsSize == 1) { // standard item puzzle case 
                 // in future, json should store more comprehensive item data than just the name
                 String itemName = (String) itemReqs.get(0);
-                Item.cacheItem(itemName, desc);
+                Item itemReq = Item.cacheItem(itemName, desc);
+
+                // note that answer and desc may be null for item puzzles
+                puzzle = new ItemPuzzle(answer, desc, name, itemReq);
                 
               } else { // dnd puzzle case since there are multiple item reqs
+                ArrayList<Item> dndItemsList = new ArrayList<>();
+                for (int i = 0; i < itemReqs.size(); i++) {
+                  String itemName = (String) itemReqs.get(i);
+                  Item itemReq = Item.cacheItem(itemName, desc);
+                  dndItemsList.add(itemReq);
+                }
 
+                // note that answer and desc may ALSO be null for DnD puzzles
+                puzzle = new DandDPuzzle(answer, desc, name, dndItemsList);
+                
               }
             } else {
               puzzle = new Puzzle(answer, desc, name);

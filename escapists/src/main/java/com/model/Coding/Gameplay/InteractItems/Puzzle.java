@@ -30,6 +30,8 @@ public class Puzzle {
     }
 
     public boolean checkAnswer(String guess){
+        if (answer == null) return true;
+        
         if(guess.equals(answer.trim().toLowerCase().replaceAll("\\s+", ""))) {
             isCompleted = true;
             return true;

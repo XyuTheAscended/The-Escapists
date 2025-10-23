@@ -9,9 +9,8 @@
         },
         {
           "name": "CellDoorLock",
-          "answer": "Open seasame",
           "requiredItems": [
-            
+            "Steel Key"
           ],
           "description": "A lock that may only be unlocked open, or perhaps broken"
         },

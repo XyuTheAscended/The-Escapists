@@ -6,7 +6,9 @@ import com.model.Coding.Data.DataWriter;
 import com.model.Coding.Gameplay.InteractItems.DandDPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.InteractItems.Item;
+import com.model.Coding.Gameplay.InteractItems.ItemPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
+import com.model.Coding.Gameplay.InteractItems.Puzzle.PuzzleType;
 import com.model.Coding.Gameplay.Map.Exit;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Leaderboard;
@@ -24,7 +26,7 @@ import java.util.UUID;
 // this is just a console based test UI for the game. this is where we test our program, and we can hard code
 // certain scenarios to test.
 public class GameUI {
-
+    private static GameFacade GF = GameFacade.getInstance();
     private Puzzle puzzle;
     private Scanner scan = new Scanner(System.in);
 
@@ -137,7 +139,7 @@ public class GameUI {
         Inventory inven = new Inventory();
         inven.addItem(key1);
         inven.addItem(key2);
-        inven.addItem(key3);
+        // inven.addItem(key3);
 
         DandDPuzzle dndPuzzle = new DandDPuzzle(null, null, null, itemReqs);
         dndPuzzle.insertDNDItem(key1, inven);
@@ -148,10 +150,9 @@ public class GameUI {
     }
 
     public void successfulLogin() {
-        GameFacade gf = GameFacade.getInstance();
 
-        if(gf.login("John", "passworD123")){
-            System.out.println(gf.getCurrUser().toString());
+        if(GF.login("John", "passworD123")){
+            System.out.println(GF.getCurrUser().toString());
         }
         else {
             System.out.println("Login Failed");
@@ -159,10 +160,9 @@ public class GameUI {
     }
 
     public void unsuccessfulLogin() {
-        GameFacade gf = GameFacade.getInstance();
 
-        if(gf.login("dsa;lijfidsajf", "dsakfa")){
-            System.out.println(gf.getCurrUser().toString());
+        if(GF.login("dsa;lijfidsajf", "dsakfa")){
+            System.out.println(GF.getCurrUser().toString());
         }
         else {
             System.out.println("Login Failed");
@@ -176,7 +176,6 @@ public class GameUI {
     }
 
     public void roomWithPuzzles() {
-        GameFacade gf = GameFacade.getInstance();
         Puzzle riddle = new Puzzle("A cold", "What can you catch, but cannot throw?", "Riddle");
         Puzzle keypad = new Puzzle("1234", "Enter the correct code: ", "Keypad");
         Room cell = new Room("Cell");
@@ -269,12 +268,11 @@ public class GameUI {
     }
 
     private void roomTransitionTest() {
-        GameFacade gf = GameFacade.getInstance();
-        gf.login("John", "passworD123");
-        gf.startGame();
+        GF.login("John", "passworD123");
+        GF.startGame();
 
-        Progress currSave = gf.getCurrUser().getCurrSave();
-        Room startRoom = gf.getCurrRoom(); 
+        Progress currSave = GF.getCurrUser().getCurrSave();
+        Room startRoom = GF.getCurrRoom(); 
         ArrayList<Puzzle> puzzles = startRoom.getPuzzles();
         System.out.println("BEFORE--------------------\n" + startRoom);
         currSave.setPuzzleCompleted(startRoom, puzzles.get(0), true);
@@ -284,7 +282,7 @@ public class GameUI {
         if (firstExit != null && firstExit.isOpen()) {
             Room nextRoom = firstExit.getNextRoom();
             System.out.println("...Exiting to " + nextRoom.getName());
-            gf.setCurrRoom(nextRoom);
+            GF.setCurrRoom(nextRoom);
             System.out.println("NEXT ROOM UNLOCKED---------------\n" + nextRoom);
         } else {
             System.out.println("Cannot proceed.");
@@ -322,12 +320,68 @@ public class GameUI {
         return false;
     }
 
+    private boolean itemPuzzleLoop(ItemPuzzle puzzle) {
+        System.out.println("What item do you want to use for this puzzle? (say no to give up)");
+        System.out.println(GF.getInventory().displayInventory());
+        String usedItemName = scan.nextLine().trim();
+        boolean gotItem = false;
+        Inventory inv = GF.getInventory();
+        while (!usedItemName.equalsIgnoreCase("no")) {
+            if (!inv.hasItem(usedItemName)) {
+                System.out.println("You dont have a " + usedItemName);
+            } else {
+                if (puzzle.requiredItem(inv.getItem(usedItemName))) {
+                    System.out.println("Correct item inserted.");
+                    gotItem = true;
+                    break;
+                } else {
+                    System.out.println("Useless... try again.");
+                }
+
+            }
+
+
+            usedItemName = scan.nextLine().trim();
+        }
+        if (!gotItem) {
+            return false; 
+        }
+
+        if (puzzle.getAnswer() == null) {
+            System.out.println("Puzzle is completed because the item was all you needed"); // this never has time to be printed lol
+            return true;
+        }
+
+        System.out.println("Enter answer (type \"no\" to give up): ");
+        String answer = scan.nextLine().trim();
+        while (!answer.equalsIgnoreCase("no")) {
+            if (puzzle.checkAnswer(puzzle.userAnswer(answer))) {
+                System.out.println("Puzzle Completed");
+                return true;
+            } else {
+                System.out.println("Incorrect... try again.");
+            }
+
+            answer = scan.nextLine().trim();
+        }
+
+        return false;
+    }
+
     private boolean promptPuzzle(Puzzle puzzle) { // returns true if puzzle was complete
         System.out.println("Puzzle u selected: " + puzzle.getName());
 
+        String description = puzzle.getDescription();
+        description = description == null ? 
+            (puzzle.getPuzzleType() == Puzzle.PuzzleType.ITEM ? "Item required" : "Multiple items required") 
+            : description;
+        String answer = puzzle.getAnswer();
+        answer = answer == null ? "Answerless. Just requires item(s)" : answer;
+        
+        System.out.println("About: " + puzzle.getDescription() + " (Answer: "+puzzle.getAnswer()+")");
+        
         switch (puzzle.getPuzzleType()) {
             case GENERIC:
-                System.out.println("About: " + puzzle.getDescription() + " (Answer: "+puzzle.getAnswer()+")");
                 System.out.println("Enter answer (type \"no\" to give up): ");
 
                 boolean didntFail = genericPuzzleLoop(puzzle);
@@ -335,7 +389,10 @@ public class GameUI {
 
                 break;
             case ITEM:
-                
+                Inventory inv = GF.getInventory();
+                didntFail = itemPuzzleLoop((ItemPuzzle) puzzle);
+                if (didntFail) return true; 
+
                 break;
             case DND:
                 
@@ -354,7 +411,7 @@ public class GameUI {
 
         Exit exit2Use = null;
         while (exit2Use == null) {
-            System.out.println(room);
+            System.out.println("\n" + room);
             System.out.println(BARS);
             System.out.println("What do you want to do now?");
             System.out.println("-> Type in the name of the puzzle or exit you want to use");
@@ -365,6 +422,10 @@ public class GameUI {
                 .orElse(null);
             if (puzzleSelected != null) {
                 fakeConsoleClear();
+                if (puzzleSelected.getIsCompleted()) {
+                    System.out.println(puzzleSelected.getName() + " is already complete. Do something else.");
+                    continue;
+                }
                 // prompt input specific for this puzzle now
                 boolean completed = promptPuzzle(puzzleSelected);
                 fakeConsoleClear();
@@ -404,15 +465,20 @@ public class GameUI {
     }
 
     public void gameLoopTest() {
-        GameFacade gf = GameFacade.getInstance();
-        gf.login("John", "passworD123");
-        gf.startGame();
+        GF.login("John", "passworD123");
+        GF.startGame();
+        
 
-        while (gf.getCurrRoom() != null) { // we should make null rooms signify that player has reached an ending
-            Room startRoom = gf.getCurrRoom(); 
-            Progress currSave = gf.getCurrUser().getCurrSave();
+        // TEMPorARY HARDCODED INVEnTORY
+        for (Item item : Item.allItemsEver) {
+            GF.getInventory().addItem(item);
+        }
+
+        while (GF.getCurrRoom() != null) { // we should make null rooms signify that player has reached an ending
+            Room startRoom = GF.getCurrRoom(); 
+            Progress currSave = GF.getCurrUser().getCurrSave();
             Room nextRoom = hookInteractions(startRoom, currSave);
-            gf.setCurrRoom(nextRoom);
+            GF.setCurrRoom(nextRoom);
         }
 
         System.out.println("Game is over. You escaped!");
@@ -433,6 +499,6 @@ public class GameUI {
         // gameUI.unsuccessfulLogin();
         // gameUI.roomWithPuzzles();
         // gameUI.roomTransitionTest();
-        // gameUI.gameLoopTest();
+        gameUI.gameLoopTest();
     }
 }

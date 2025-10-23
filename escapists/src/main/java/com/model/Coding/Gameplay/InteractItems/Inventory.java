@@ -25,9 +25,29 @@ public class Inventory {
         return items.get(index);
     }
 
+    public Item getItem(String itemName) {
+        for (Item item : items) {
+            // case is ignored here as well when search for items 
+            // (this will break if two items ever have similar names but different cases but that should be impossible)
+            if (item.getName().equalsIgnoreCase(itemName)) 
+                return item;
+        }
+        return null;
+    }
+
     public boolean hasItem(Item item) {
         for (Item invItem : items){
             if (invItem.equals(item)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean hasItem(String itemName) {
+        for (Item invItem : items){
+            // Case is ignored when searching for an item because it should be impossible to have two items with same name but diff case loaded
+            if (invItem.getName().equalsIgnoreCase(itemName)) { 
                 return true;
             }
         }
