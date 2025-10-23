@@ -289,6 +289,31 @@ public class GameUI {
         }
     }
 
+    public void leniDuplicateUser() {
+        GameFacade gf = GameFacade.getInstance();
+
+        // Leni's brother's account
+        gf.register("LRivers", "BrotherPassword");
+
+        // Leni tries to make account with same username
+        User leni = gf.register("LRivers", "Password");
+
+        if(leni == null) {
+            System.out.println("Registration failed. Username already taken");
+        }
+    }
+
+    // Leni registers and logs in with new username
+    public void leniLogIn() {
+        GameFacade gf = GameFacade.getInstance();
+        gf.register("Leni", "LeniPassword");
+        if (gf.login("Leni", "LeniPassword")) {
+            System.out.println("Successful Login\n" + gf.getCurrUser().toString());
+        } else {
+            System.out.println("Unsuccessful Login");
+        }
+    }
+
     // BIG WORK IN PROGRESS. NOT DONE
     public void enterAnEscapeRoom() {
 
@@ -304,7 +329,7 @@ public class GameUI {
             input = scan.nextLine();
 
 
-            if (input.equalsIgnoreCase("exit")) break;
+            if (input.equalsIgnoreCase("4")) break;
 
             // Register
             if (input.equalsIgnoreCase("1")) {
@@ -351,6 +376,9 @@ public class GameUI {
         // gameUI.unsuccessfulLogin();
         // gameUI.roomWithPuzzles();
         // gameUI.roomTransitionTest();
-        gameUI.enterAnEscapeRoom();
+
+        //gameUI.leniDuplicateUser();
+        gameUI.leniLogIn();
+        //gameUI.enterAnEscapeRoom();
     }
 }
