@@ -23,7 +23,7 @@ public class ItemPuzzle extends Puzzle {
      * @return
      */
     public boolean requiredItem(Item item){
-        if (item == null || requiredItem == null) {
+        if (item == null || requiredItem == null) 
             return false;
         return item.equals(requiredItem);
         
