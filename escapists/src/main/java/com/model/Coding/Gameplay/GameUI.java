@@ -1,5 +1,8 @@
 package com.model.Coding.Gameplay;
 
+import com.model.Coding.Data.DataLoader;
+import com.model.Coding.Data.DataManager;
+import com.model.Coding.Data.DataWriter;
 import com.model.Coding.Gameplay.InteractItems.DandDPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.InteractItems.Item;
@@ -14,6 +17,7 @@ import com.model.Coding.User.UserList;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.UUID;
 
 // this is just a console based test UI for the game. this is where we test our program, and we can hard code
 // certain scenarios to test.
@@ -75,6 +79,50 @@ public class GameUI {
         System.out.println(warden.speak("You may proceed"));
     }
 
+    public void displayProgress() {
+        DataManager manager = DataManager.getInstance();
+        DataLoader loader = DataLoader.getInstance();
+        DataWriter writer = DataWriter.getInstance();
+
+        System.out.println("=== TEST START ===");
+
+        User testUser = new User("Tester", "password123");
+        manager.addUser(testUser);
+        System.out.println("User added: " + testUser.getUserName());
+
+        Progress progress = new Progress();
+        progress.setDifficulty(2);
+        progress.setRemainingTime(300);
+        UUID progressId = progress.getProgressId();
+        System.out.println("Generated UUID: " + progressId);
+
+        testUser.addSave(progress);
+        System.out.println("Save added to user " + testUser.getUserName());
+
+        manager.saveProgress(testUser, progress);
+        System.out.println("GameFacade save method simulated..");
+
+        System.out.println("\nLoaded progressId from JSON.");
+        Progress loadedProgress = loader.loadProgress(progressId);
+
+        if (loadedProgress != null) {
+            System.out.println("Progress loaded.");
+            System.out.println("Difficulty: " + loadedProgress.getDifficulty());
+            System.out.println("Remaining Time: " + loadedProgress.getRemainingTime());
+            System.out.println("Current Room: " + loadedProgress.getCurrentRoom());
+            System.out.println("Achievements: " + loadedProgress.getAchievements());
+            System.out.println("Puzzles Completed: " + loadedProgress.getCompletedPuzzlesCount());
+        } else {
+            System.out.println("Failed to load progress");
+        }
+
+        ArrayList<User> allUsers = manager.getUsers();
+        System.out.println("\nUsers Loaded:");
+        for (User u : allUsers) {
+            System.out.println("- " + u.getUserName() + " | Saves: " + u.getSaves().size());
+        }
+    }
+    
     public void dragAndDropScenario() {
         Item key1 = new Item(1, "Blue Key", "Open the door.");
         Item key2 = new Item(2, "Red Key", "Open the door.");
@@ -135,6 +183,7 @@ public class GameUI {
         Inventory inven = new Inventory();
         Character cellMate = new Character("Cell Mate", key);
         Warden warden = new Warden("Warden", null, null);
+        Timer timer  = Timer.getInstance(1800);
 
         cell.addPuzzle(riddle);
         cell.addPuzzle(keypad);
@@ -147,7 +196,7 @@ public class GameUI {
                 ".\nPuzzles to complete: Riddle & Keypad. \nType their name to enter the puzzle.");
         while (!prog.getCompletedRooms().contains(cell)) {
             String input = scan.nextLine();
-
+            timer.start();
             if (input.equalsIgnoreCase("riddle") && !riddle.getIsCompleted()) {
                 while (true) {
                     System.out.println("\n" + riddle.getName());
@@ -211,6 +260,10 @@ public class GameUI {
                 System.out.println("\nEnter a puzzle (not previously completed puzzle(s)):");
             }
         }
+        timer.pause();
+        int minutes = timer.getRemainingTime() / 60;
+        int seconds = timer.getRemainingTime() % 60;
+        System.out.printf("Congratulations! Your time was: %02d:%02d%n", minutes, seconds);
     }
 
     private void roomTransitionTest() {
@@ -253,7 +306,8 @@ public class GameUI {
 
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
-        // gameUI.dragAndDropScenario();
+        gameUI.displayProgress();
+        //gameUI.dragAndDropScenario();
         //gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();

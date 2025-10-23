@@ -15,7 +15,9 @@ import com.model.Coding.User.User;
 import com.model.Coding.Data.DataLoader;
 import com.model.Coding.Gameplay.Map.Room;
 
-
+/**
+ * Coordinates data loading and writing operations.
+ */
 public class DataManager {
 
     private static DataManager dataManager;
@@ -27,6 +29,11 @@ public class DataManager {
         dataWriter = DataWriter.getInstance();
     }
 
+    /**
+     * Returns instance.
+     *
+     * @return DataManager instance
+     */
     public static DataManager getInstance() {
         if (dataManager == null) {
             dataManager = new DataManager();
@@ -34,14 +41,30 @@ public class DataManager {
         return dataManager;
     }
 
+    /**
+     * Loads all users via DataLoader.
+     *
+     * @return list of users
+     */
     public ArrayList<User> getUsers() {
         return dataLoader.getUsers();
     }
 
+    /**
+     * Adds user to persistent storage.
+     *
+     * @param user user to add
+     */
     public void addUser(User user) {
         dataWriter.addUser(user);
     }
 
+    /**
+     * Loads progress by ID.
+     *
+     * @param progressId progress identifier
+     * @return progress object or null if not found
+     */
     public Progress loadProgress(UUID progressId) {
         if (progressId == null) {
             System.out.println("Cannot load null progress");
@@ -50,10 +73,14 @@ public class DataManager {
         return dataLoader.loadProgress(progressId);
     }
 
+    /**
+     * Loads all rooms via DataLoader.
+     *
+     * @return list of rooms
+     */
     public ArrayList<Room> loadRooms() {
         return dataLoader.loadRooms();
     }
-
 
     @SuppressWarnings("unchecked")
     private void changeCurrSaveJSON(JSONObject saveJson, Progress progress) {
@@ -62,15 +89,14 @@ public class DataManager {
         saveJson.put("difficulty", progress.getDifficulty());
         saveJson.put("remainingTime", progress.getRemainingTime());
 
-        // Current room
+        /* Current room */
         if (progress.getCurrentRoom() != null) {
-            saveJson.put("currentRoom", progress.getCurrentRoom().toString()); 
-        }
-        else {
+            saveJson.put("currentRoom", progress.getCurrentRoom().toString());
+        } else {
             saveJson.put("currentRoom", "Unknown");
         }
 
-        // Completed rooms
+        /* Completed rooms */
         JSONArray completedRoomsArray = new JSONArray();
 
         if (progress.getCompletedRooms() != null) {
@@ -78,11 +104,11 @@ public class DataManager {
         }
         saveJson.put("completedRooms", completedRoomsArray);
 
-        // Completed puzzles
+        /* Completed Puzzles */
         JSONObject completedPuzzlesJson = new JSONObject();
         saveJson.put("completedPuzzles", completedPuzzlesJson);
 
-        // Inventory
+        /* Inventory */
         JSONObject inventoryJson = new JSONObject();
         JSONArray itemsArray = new JSONArray();
 
@@ -101,7 +127,7 @@ public class DataManager {
         inventoryJson.put("items", itemsArray);
         saveJson.put("inventory", inventoryJson);
 
-        // Achievements (need to update this)
+        /* Achievements */
         JSONArray achievementsArray = new JSONArray();
         if (progress.getAchievements() != null) {
             progress.getAchievements().forEach(achievement -> {
@@ -114,8 +140,14 @@ public class DataManager {
 
         saveJson.put("achievements", achievementsArray);
     }
-    
+
+    /**
+     * Loads all rooms via DataLoader.
+     *
+     * @return list of rooms
+     */
     private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
+
     @SuppressWarnings("unchecked")
     public void saveProgress(User user, Progress progress) {
         if (user == null || progress == null) {
@@ -130,7 +162,7 @@ public class DataManager {
             JSONObject root;
             JSONArray usersArray;
 
-            // Read JSON file
+            /* Read JSON file  */
             if (file.exists() && file.length() > 0) {
                 FileReader reader = new FileReader(file);
                 root = (JSONObject) parser.parse(reader);
@@ -141,8 +173,8 @@ public class DataManager {
                 System.out.println("No user file -- cannot save.");
                 return;
             }
-    
-            // Find user in JSON
+
+            /* Find user in JSON  */
             for (Object userObj : usersArray) {
                 JSONObject userJson = (JSONObject) userObj;
                 if (user.getUserName().equals(userJson.get("userName"))) {
@@ -170,10 +202,10 @@ public class DataManager {
 
                     }
 
-                    // Update current save pointer
+                    /* Update current save pointer */
                     userJson.put("currSave", progress.getProgressId().toString());
 
-                    // Write back to file
+                    /* Write back to file */
                     FileWriter writer = new FileWriter(filePath);
                     root.put("users", usersArray);
                     writer.write(root.toJSONString());
@@ -192,7 +224,6 @@ public class DataManager {
             e.printStackTrace();
 
         }
-
 
     }
 }

@@ -1,49 +1,65 @@
 package com.model.Coding.Gameplay.Map;
-import com.model.Coding.Gameplay.InteractItems.EnvironmentProp;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 
 import java.util.ArrayList;
 
+/**
+ * A room
+ * @author Mason Adams
+ */
 public class Room {
     private ArrayList<Puzzle> puzzles;
     private String name;
-    private Exit[] exits; 
+    private Exit[] exits;
 
+    /**
+     * Initializes puzzles ArrayList and name.
+     * @param name Name of the room
+     */
     public Room(String name){
         puzzles = new ArrayList<>();
         this.name = name;
     }
 
-    public boolean canInteract(EnvironmentProp environmentProp){ // probably should remove this method cause idk what wed ever use it for
-        // if (environmentProp == null){
-        //     return false;
-        // }
-        //     return true;
-
-        return environmentProp != null;
-    }
-
+    /**
+     * Adds a puzzle to the room via the puzzles ArrayList
+     * @param puzzle Puzzle object
+     */
     public void addPuzzle(Puzzle puzzle){
         if (puzzle != null && !puzzles.contains(puzzle)) {
             puzzles.add(puzzle);
         }
     }
 
+    /**
+     * Returns the list of puzzles in the room
+     * @return ArrayList of puzzles
+     */
     public ArrayList<Puzzle> getPuzzles() {
         return puzzles;
     }
 
+    /**
+     * Retrieves a puzzle from the puzzles ArrayList
+     * @param puzzleName String of the name of the puzzle
+     * @return Puzzle object
+     */
     public Puzzle getPuzzle(String puzzleName) {
         for (Puzzle puzzle : puzzles) {
             if (puzzle.getName().equals(puzzleName)) return puzzle;
         }
         return null; 
-    } 
+    }
 
+    /**
+     * Retrieves the name of the room
+     * @return String containing the name of the room
+     */
     public String getName() {
         return name;
     }
 
+    // ion know the rest lol
     public Exit[] getExits() {
         return exits; 
     }
@@ -118,12 +134,5 @@ public class Room {
         }
 
         return sb.toString();
-    }
-
-    // temp testing method
-    public static void main(String[] args) {
-        Room room = new Room("Cell");
-        room.canInteract(null);
-        room.addPuzzle(null);
     }
 }

@@ -16,9 +16,12 @@ import com.model.Coding.User.User;
 import com.model.Coding.User.UserList;
 import com.model.Coding.Progress.Progress;
 
+/**
+ * Game facade to handle interaction between UI and backend
+ * @author
+ */
 public class GameFacade {
     private static GameFacade gameFacade;
-
     private ArrayList<Achievement> allAchievements;
 
     // stuff initialized in constructor
@@ -31,8 +34,11 @@ public class GameFacade {
     private Progress activeProgress; 
     private int difficulty;
     private Inventory inventory;
-    private Map map; 
+    private Map map;
 
+    /**
+     * GameFacade constructor. Initializes currentState, isPaused, leaderboard, and gameFacade
+     */
     private GameFacade() {
         currentState = "Inactive"; 
         isPaused = false;
@@ -41,22 +47,28 @@ public class GameFacade {
         gameFacade = this;
     }
 
+    /**
+     * Gets instance of gameFacade
+     * @return GameFacade
+     */
     public static GameFacade getInstance(){
         return gameFacade != null ? gameFacade : new GameFacade();
     }
 
+    /**
+     * Starts the game
+     */
     public void startGame(){
         if (currentUser == null) {
             System.err.println("Cant start the game without a currnent user...");
             return;
         }
-
         loadCurrSave();
-        
-
-
     }
 
+    /**
+     * Pauses the game
+     */
     public void pause() {
         if (isPaused) {
             System.out.println("Game is already paused.");
@@ -72,6 +84,9 @@ public class GameFacade {
         System.out.println("Game paused.");
     }
 
+    /**
+     * Resume the game
+     */
     public void resume() {
         if (!isPaused) {
             System.out.println("Game is not paused.");
@@ -83,46 +98,70 @@ public class GameFacade {
         if (Timer.getInstance() != null) {
             Timer.getInstance().resume();
         }
-
         System.out.println("Game resumed.");
     }
 
-
+    /**
+     * Gets isPaused
+     * @return Boolean, true if it's paused, false otherwise
+     */
     public boolean isPaused() {
         return isPaused;
     }
 
+    /**
+     * Gets the leaderboard
+     * @return Leaderboard
+     */
     public Leaderboard getLeaderboard(){
         return Leaderboard.getInstance();
     }
 
+    /**
+     * Gets the inventory
+     * @return Inventory
+     */
     public Inventory getInventory(){
         return inventory;
     }
 
+    /**
+     * Adds achievement to allAchievements
+     * @param achievement The achievement object being added
+     */
     public void addAchievement(Achievement achievement){
         if (allAchievements == null) return; 
         allAchievements.add(achievement);
     }
 
+    /**
+     * Opens the map
+     */
     public void openMap(){
         if (map == null) return; 
         map.openMap();
     }
 
+    /**
+     * Closes the map
+     */
     public void closeMap(){
         if (map == null) return; 
         map.closeMap();
     }
 
+    /**
+     * Sets game difficulty
+     * @param level Leve of difficulty
+     */
     public void setDifficulty(int level){
         this.difficulty = level;
     }
 
     /**
-     * Logs in a preexisting
-     * @param userName
-     * @param password
+     * Logs in a preexisting user
+     * @param userName User's username
+     * @param password User's password
      * @return User data that we have logged in to access 
      */
     public boolean login(String userName, String password) {
@@ -135,6 +174,12 @@ public class GameFacade {
         return true;
     }
 
+    /**
+     * Registers a new user
+     * @param userName User's username
+     * @param password User's password
+     * @return User object
+     */
     public User register(String userName, String password){
         UserList userList = UserList.getInstance(); 
         if (!userList.checkAvailability(userName)) { 
@@ -144,17 +189,21 @@ public class GameFacade {
         return userList.createUser(userName, password);
     }
 
+    /**
+     * Logs the current user out
+     */
     public void logout(){
         if (currentUser == null) return;
-
         currentUser = null; 
     }
-
+    // idk
     public void save(){
 
     }
 
-    // Loads current save under current user
+    /**
+     * Loads current save under current user
+     */
     public void loadCurrSave(){
         if (currentUser == null) return;
         Progress save = currentUser.getCurrSave();
@@ -167,42 +216,37 @@ public class GameFacade {
         this.map.setCurrentRoom("Cell"); // NOTE: hardcoded for now but ill change it later i promise !!
     }
 
-    // wrapper funcs for map's currRoom management methods
+    /**
+     * Wrapper funcs for map's currRoom management methods
+     * @return Current room
+     */
     public Room getCurrRoom() {
         return (map != null) ? this.map.getCurrentRoom() : null;
     }
 
+    /**
+     * Sets the current room
+     * @param room Room to be set to
+     */
     public void setCurrRoom(Room room) {
         if (map == null) return;
         map.setCurrentRoom(room);
         this.activeProgress.setCurrentRoom(room);
     }
 
+    /**
+     * Gets the ArrayList of rooms
+     * @return ArrayList of rooms
+     */
     public ArrayList<Room> getRooms() {
         return (map != null) ? this.map.getRooms() : null;
     }
 
+    /**
+     * Gets the current user
+     * @return Object of the current user
+     */
     public User getCurrUser() {
         return currentUser;
-    }
-
-    // temp testing method
-     public static void main(String[] args) {
-        GameFacade gf = GameFacade.getInstance();
-        // gf.addAchievement(null);
-        // gf.closeMap();
-        // gf.startGame(null);
-        // gf.pause();
-        // gf.resume();
-        // gf.isPaused();
-        // gf.getLeaderboard();
-        // gf.getInventory();
-        // gf.openMap();
-        // gf.setDifficulty(0);
-        // gf.login(null, null);
-        // gf.register(null, null);
-        // gf.save();
-        // gf.loadCurrSave();
-        // gf.logout();
     }
 }
