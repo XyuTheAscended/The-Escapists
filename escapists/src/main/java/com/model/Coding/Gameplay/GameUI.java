@@ -15,6 +15,7 @@ import com.model.Coding.Progress.Leaderboard;
 import com.model.Coding.Progress.Progress;
 import com.model.Coding.User.User;
 import com.model.Coding.User.UserList;
+import com.model.Coding.Speech.Speak;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -355,6 +356,8 @@ public class GameUI {
                 gf.setDifficulty(1);
 
                 if (input2.equals("1")) {
+                    // the story/plot
+                    presentStory();
                     gameLoopTest();
 
                 }
@@ -363,6 +366,19 @@ public class GameUI {
             }
         }
         System.out.println("Exiting game");
+    }
+
+    private void presentStory() {
+        String plot = "\nYou wake up in a cold, dimly lit cell—falsely accused, locked away for a " +
+                "crime you didn’t commit.\nThe walls echo with the whispers of injustice, and your only " +
+                "ally is a cellmate who claims to know a way out.\nBribing the warden, outsmarting the " +
+                "guards, and uncovering the secrets buried within these prison walls are your only " +
+                "chances at freedom.\nEvery room hides a challenge, every choice a consequence. " +
+                "Can you escape—and uncover the truth behind your imprisonment—before the prison closes " +
+                "in on you?";
+
+        System.out.println(plot);
+        Speak.speak(plot);
     }
 
     private void fakeConsoleClear() {
