@@ -290,6 +290,81 @@ public class GameUI {
         }
     }
 
+    public void leniDuplicateUser() {
+        GameFacade gf = GameFacade.getInstance();
+
+        // Leni's brother's account
+        gf.register("LRivers", "BrotherPassword");
+
+        // Leni tries to make account with same username
+        User leni = gf.register("LRivers", "Password");
+
+        if(leni == null) {
+            System.out.println("Registration failed. Username already taken");
+        }
+    }
+
+    // Leni registers and logs in with new username
+    public void leniLogIn() {
+        GameFacade gf = GameFacade.getInstance();
+        gf.register("Leni", "LeniPassword");
+        if (gf.login("Leni", "LeniPassword")) {
+            System.out.println("Successful Login\n" + gf.getCurrUser().toString());
+        } else {
+            System.out.println("Unsuccessful Login");
+        }
+    }
+
+    // BIG WORK IN PROGRESS. NOT DONE
+    public void enterAnEscapeRoom() {
+
+        System.out.println("| Enter An Escape Room & Hearing the Story Scenario! |");
+        GameFacade gf = GameFacade.getInstance();
+
+
+        String input = null;
+        while (true) {
+            assert false;
+            System.out.println("| Main Menu |\nEnter the corresponding number for the option!\n1) Register\n2) Log-in\n" +
+                    "3) Play\n4) Exit");
+            input = scan.nextLine();
+
+
+            if (input.equalsIgnoreCase("4")) break;
+
+            // Register
+            if (input.equalsIgnoreCase("1")) {
+                User user = gf.register("Leni", "LeniPassword");
+                if (user == null) {
+                    System.out.println("Register failed. Try again");
+                }
+                System.out.println("Register Complete. Please log in to your new account");
+            }
+
+            // Log-in
+            else if (input.equalsIgnoreCase("2")) {
+                if (gf.login("Leni", "LeniPassword")) {
+                    System.out.println(gf.getCurrUser().toString());
+                } else {
+                    System.out.println("Login Failed");
+                }
+            } else if (input.equalsIgnoreCase("3")) {
+                // enter game
+                System.out.println("Rooms to play:\n1) Escape from prison");
+                String input2 = scan.nextLine();
+                gf.setDifficulty(1);
+
+                if (input2.equals("1")) {
+                    gameLoopTest();
+
+                }
+            } else {
+                System.out.println("Please enter correct option");
+            }
+        }
+        System.out.println("Exiting game");
+    }
+
     private void fakeConsoleClear() {
         try {
             String os = System.getProperty("os.name").toLowerCase();
@@ -389,7 +464,6 @@ public class GameUI {
 
                 break;
             case ITEM:
-                Inventory inv = GF.getInventory();
                 didntFail = itemPuzzleLoop((ItemPuzzle) puzzle);
                 if (didntFail) return true; 
 
@@ -465,9 +539,13 @@ public class GameUI {
     }
 
     public void gameLoopTest() {
-        GF.login("John", "passworD123");
+        if (GF.getCurrUser() == null) {
+            System.out.println("Can't play without a logged in user...");
+            return;
+            // GF.login("John", "passworD123");
+        }
+
         GF.startGame();
-        
 
         // TEMPorARY HARDCODED INVEnTORY
         for (Item item : Item.allItemsEver) {
@@ -487,7 +565,8 @@ public class GameUI {
 
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
-        gameUI.dragAndDropScenario();
+        // gameUI.displayProgress();
+        //gameUI.dragAndDropScenario();
         //gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
@@ -496,6 +575,10 @@ public class GameUI {
         // gameUI.unsuccessfulLogin();
         // gameUI.roomWithPuzzles();
         // gameUI.roomTransitionTest();
-        gameUI.gameLoopTest();
+
+        // gameUI.leniDuplicateUser();
+        // gameUI.leniLogIn();
+        gameUI.enterAnEscapeRoom();
+        // gameUI.gameLoopTest();
     }
 }

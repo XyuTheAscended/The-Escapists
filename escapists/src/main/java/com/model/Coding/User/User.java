@@ -7,6 +7,10 @@ import java.util.Map.Entry;
 import java.util.UUID;
 import com.model.Coding.Progress.Progress;
 
+/**
+ * A user
+ * @author
+ */
 public class User {
     private String userName;
     private String password;
@@ -14,6 +18,11 @@ public class User {
     private ArrayList<Progress> saves;
     private HashMap<Integer, ArrayList<Integer>> completionTimes; // array list of times in seconds keyed by difficulty level
 
+    /**
+     * Initializes user and user variables
+     * @param userName User's username
+     * @param password User's password
+     */
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
@@ -21,6 +30,14 @@ public class User {
         this.completionTimes = new HashMap<>();
     }
 
+    /**
+     * Creates a user when loaded from Json along with their information
+     * @param userName User's username
+     * @param password User's password
+     * @param saves User's saves
+     * @param currSaveId User's current save ID
+     * @param completionTimes User's ArrayList of completion times
+     */
     public User(String userName, String password, ArrayList<Progress> saves, UUID currSaveId, HashMap<Integer, ArrayList<Integer>> completionTimes) {
         this.userName = userName;
         this.password = password;
@@ -79,41 +96,69 @@ public class User {
                 info += "    " + "Difficulty " + difficulty + ": " + times + "\n";
             }
         }
-        
-
         return info;
     }
 
+    /**
+     * Gets user's username
+     * @return User's username
+     */
     public String getUserName() {
         return userName;
     }
 
+    /**
+     * Sets user's username
+     * @param username User's username
+     */
     public void setUserName(String username) {
         this.userName = username;
     }
 
+    /**
+     * Gets user's password
+     * @return User's password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Sets user's password
+     * @param password User's password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Creates a save for the user
+     */
     public void createSave() {
         Progress save = new Progress(); 
         addSave(save);
     }
 
+    /**
+     * Adds save to save and sets current save to save that's passed in
+     * @param save Progress class ties to user
+     */
     public void addSave(Progress save) {
         saves.add(save);
         currSave = save;
     }
 
+    /**
+     * Gets user's saves
+     * @return ArrayList of saves
+     */
     public ArrayList<Progress> getSaves() {
         return new ArrayList<>(saves);
     }
 
+    /**
+     * Saves users progress to json files
+     */
     public void pushSaves() {
             if (saves == null || saves.isEmpty()) {
                 System.out.println("No saves to push for " + userName);
@@ -128,6 +173,10 @@ public class User {
             System.out.println("Saves pushed for " + userName);
         }
 
+    /**
+     * Changes user's current save
+     * @param saveIndex Index of save in saves
+     */
     public void changeCurrSave(int saveIndex) {
         if (saveIndex >= 0 && saveIndex < saves.size()) {
             currSave = saves.get(saveIndex);
@@ -140,14 +189,29 @@ public class User {
         }
     }
 
+    /**
+     * Gets user's current save
+     * @return User's save as a Progress class.
+     */
     public Progress getCurrSave() {
         return currSave; 
     }
 
+    /**
+     * Authenticates user for login process
+     * @param username User's username
+     * @param password User's password
+     * @return True if authenticates, false if not
+     */
     public boolean auth(String username, String password) {
         return this.userName.equals(username) && this.password.equals(password);
     }
 
+    /**
+     * Adds user's completion time to completionTimes
+     * @param difficulty Level of difficulty game was completed on
+     * @param seconds Time (in seconds) of completion time
+     */
     public void addCompletionTime(int difficulty, int seconds) {
         Integer difficultyObj = Integer.valueOf(difficulty);
         Integer secondsObj = Integer.valueOf(seconds);
@@ -159,6 +223,11 @@ public class User {
         
     }
 
+    /**
+     * Gets ArrayList of completion times
+     * @param difficulty Difficulty of game completed on
+     * @return ArrayList of completion times
+     */
     public ArrayList<Integer> getCompletionTimes(int difficulty) {
         Integer difficultyKey = Integer.valueOf(difficulty);
         return completionTimes.get(difficultyKey);

@@ -218,7 +218,7 @@ public class DataLoader {
                         int itemReqsSize = itemReqs != null ? itemReqs.size() : 0;
 
                         if (answer == null && (itemReqs == null || itemReqs.get(0) == null)) {
-                        throw new RuntimeException("Puzzle " + name + " problem: Answerless puzzles at least need one required item");
+                            throw new RuntimeException("Puzzle " + name + " problem: Answerless puzzles at least need one required item");
                         }
 
                         Puzzle puzzle = null;

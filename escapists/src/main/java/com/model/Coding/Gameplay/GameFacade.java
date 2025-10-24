@@ -206,8 +206,8 @@ public class GameFacade {
      */
     public void loadCurrSave(){
         if (currentUser == null) return;
+        if (currentUser.getCurrSave() == null) currentUser.createSave(); // creating save automatically sets the curr save to the newly created one
         Progress save = currentUser.getCurrSave();
-        if (save == null) currentUser.createSave();;  
 
         this.activeProgress = save; 
         this.difficulty = save.getDifficulty();
