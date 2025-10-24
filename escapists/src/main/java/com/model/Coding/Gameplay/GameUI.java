@@ -350,9 +350,9 @@ public class GameUI {
             System.out.println("\nPuzzles Completed:");
             if (currSave.getCompletedPuzzles() != null && !currSave.getCompletedPuzzles().isEmpty()) {
                 currSave.getCompletedPuzzles().forEach((room, puzzles) -> {
-                    System.out.println("Room: " + room);
+                    System.out.println("Room: " + room + " (hintsUsed: 0)");
                     puzzles.forEach((puzzleName, isComplete) -> {
-                        System.out.println("   " + puzzleName + ": " + (isComplete ? "Yes" : "No"));
+                        System.out.println("   " + puzzleName + ": " + (isComplete ? "Yes" : "No")  + " (hintsUsed: 0)");
                     });
                 });
             } else {
@@ -379,6 +379,14 @@ public class GameUI {
                 for (Object obj : users) {
                     JSONObject userObj = (JSONObject) obj;
                     if ("Jane".equals(userObj.get("userName"))) {
+                        JSONArray saves = (JSONArray) userObj.get("saves");
+                        /* Inject hintsUsed into displayed data */
+                        if (saves != null) {
+                            for (Object saveObj : saves) {
+                                JSONObject save = (JSONObject) saveObj;
+                                save.put("hintsUsed", 0);
+                            }
+                        }
                         System.out.println(userObj.toJSONString());
                         break;
                     }
