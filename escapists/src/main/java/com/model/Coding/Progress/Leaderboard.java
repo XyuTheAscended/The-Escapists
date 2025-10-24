@@ -30,7 +30,7 @@ public class Leaderboard {
         return leaderboard != null ? leaderboard : new Leaderboard(); 
     }
     
-    public Integer getUserBestTime(User user, int difficulty) {
+    private Integer getUserBestTime(User user, int difficulty) {
         ArrayList<Integer> times = user.getCompletionTimes(difficulty);
         Integer best = null; 
         if (times != null) {
@@ -38,7 +38,9 @@ public class Leaderboard {
                 if (best == null || timeInt < best) // smaller time = better
                     best = timeInt; 
             }
-        }
+        } /*else { // this case happens when a user has never played a certain difficulty before, so they have no arraylist value for it at their hashmap
+            System.out.println("Why does " + user.getUserName() + " have no completion times?");
+        }*/
 
         return best;
     } 

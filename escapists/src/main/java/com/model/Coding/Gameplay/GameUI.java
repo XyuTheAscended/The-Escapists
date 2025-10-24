@@ -190,7 +190,7 @@ public class GameUI {
         Inventory inven = new Inventory();
         Character cellMate = new Character("Cell Mate", key);
         Warden warden = new Warden("Warden", null, null);
-        Timer timer  = Timer.getInstance(1800);
+        Timer timer  = Timer.getInstance();
 
         cell.addPuzzle(riddle);
         cell.addPuzzle(keypad);
@@ -203,7 +203,7 @@ public class GameUI {
                 ".\nPuzzles to complete: Riddle & Keypad. \nType their name to enter the puzzle.");
         while (!prog.getCompletedRooms().contains(cell)) {
             String input = scan.nextLine();
-            timer.start();
+            timer.start(1800);
             if (input.equalsIgnoreCase("riddle") && !riddle.getIsCompleted()) {
                 while (true) {
                     System.out.println("\n" + riddle.getName());
@@ -275,6 +275,7 @@ public class GameUI {
 
     private void roomTransitionTest() {
         GF.login("John", "passworD123");
+        GF.setDifficulty(1);
         GF.startGame();
 
         Progress currSave = GF.getCurrUser().getCurrSave();
@@ -716,6 +717,8 @@ public class GameUI {
             // GF.login("John", "passworD123");
         }
 
+        int diff = 1;
+        GF.setDifficulty(diff);
         GF.startGame();
 
         // TEMPorARY HARDCODED INVEnTORY
@@ -732,7 +735,10 @@ public class GameUI {
             GF.setCurrRoom(nextRoom);
         }
 
+        GF.pause();
+        GF.getCurrUser().addCompletionTime(diff, GF.getTimePassed());
         System.out.println("Game is over. You escaped!");
+        displayLeaderboard();
     }
 
 
@@ -744,14 +750,14 @@ public class GameUI {
         //gameUI.scenario2();
         //gameUI.scenario3();
         // gameUI.successfulLogin();
-        gameUI.displayLeaderboard();
+        // gameUI.displayLeaderboard();
         // gameUI.unsuccessfulLogin();
         // gameUI.roomWithPuzzles();
         // gameUI.roomTransitionTest();
 
         // gameUI.leniDuplicateUser();
         // gameUI.leniLogIn();
-        // gameUI.enterAnEscapeRoom(true);
+        gameUI.enterAnEscapeRoom(true);
         // gameUI.logoutAndShowPersistence();
         // gameUI.gameLoopTest();
     }

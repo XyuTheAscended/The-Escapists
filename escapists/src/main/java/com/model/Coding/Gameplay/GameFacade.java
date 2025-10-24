@@ -32,7 +32,7 @@ public class GameFacade {
     // stuff initalized when save is loaded
     private User currentUser;
     private Progress activeProgress; 
-    private int difficulty;
+    private int difficulty = 0;
     private Inventory inventory;
     private Map map;
 
@@ -64,6 +64,15 @@ public class GameFacade {
             return;
         }
         loadCurrSave();
+        if (difficulty == 0) {
+            System.out.println("Defaulting difficulty to 1");
+            this.setDifficulty(1);
+        }
+        Timer.getInstance().start(1800 / difficulty);;
+    }
+
+    public int getTimePassed() {
+        return Timer.getInstance().getTimePassed();
     }
 
     /**

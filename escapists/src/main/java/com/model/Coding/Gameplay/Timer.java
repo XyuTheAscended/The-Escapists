@@ -15,37 +15,59 @@ public class Timer {
      * Initializes startTime and remainingTime
      * @param startTime Start time (in seconds)
      */
-    private Timer(int startTime) {
-        this.startTime = startTime;
-        this.remainingTime = startTime;
+    private Timer() {
+        
     }
 
     /**
      * If timer doesn't exist, it created one. If it does, it returns the timer
-     * @param startTime Start time (in seconds)
      * @return Timer object
      */
-    public static Timer getInstance(int startTime) {
+    public static Timer getInstance() {
         if (timer == null) {
-            timer = new Timer(startTime);
+            timer = new Timer();
         }
         return timer;
     }
 
     /**
-     * Returns instance of the timer
-     * @return Timer object
+     * Starts the timer
+     * @param startTime time in seconds timer starts at
      */
-    public static Timer getInstance() {
-        return timer;
+    public void start(int startTime) {
+        if (isRunning) return;
+        isRunning = true;
+
+        this.startTime = startTime;
+        this.remainingTime = startTime;
+
+        timerThread = new Thread(() -> {
+            while (isRunning && remainingTime > 0) {
+                int minutes = remainingTime / 60;
+                int seconds = remainingTime % 60;
+                // System.out.printf("Time remaining: %02d:%02d%n", minutes, seconds);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
+                remainingTime--;
+            }
+
+            if (remainingTime == 0) {
+                System.out.println("Time's up!");
+                isRunning = false;
+            }
+        });
+        timerThread.start();
     }
 
-    /**
-     * Starts the timer
-     */
     public void start() {
         if (isRunning) return;
         isRunning = true;
+
+        if (this.remainingTime < 0)
+            throw new RuntimeException("This remaining time is not possible. what?");
 
         timerThread = new Thread(() -> {
             while (isRunning && remainingTime > 0) {
@@ -96,5 +118,9 @@ public class Timer {
      */
     public int getRemainingTime() {
         return remainingTime;
+    }
+
+    public int getTimePassed() {
+        return startTime - remainingTime;
     }
 }
