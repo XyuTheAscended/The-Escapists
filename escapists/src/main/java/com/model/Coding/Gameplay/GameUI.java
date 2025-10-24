@@ -425,7 +425,7 @@ public class GameUI {
     }
 
     // BIG WORK IN PROGRESS. NOT DONE
-    public void enterAnEscapeRoom() {
+    public void enterAnEscapeRoom(boolean skipIntro) {
 
         System.out.println("| Enter An Escape Room & Hearing the Story Scenario! |");
         GameFacade gf = GameFacade.getInstance();
@@ -465,7 +465,9 @@ public class GameUI {
 
                 if (input2.equals("1")) {
                     // the story/plot
-                    presentStory();
+                    if (!skipIntro) {
+                        presentStory();
+                    }
                     gameLoopTest();
 
                 }
@@ -567,6 +569,49 @@ public class GameUI {
         return false;
     }
 
+    private boolean dndPuzzleLoop(DandDPuzzle puzzle) {
+        System.out.println("What items shall you drag into this thing? (say no to give up)");
+        System.out.println(GF.getInventory().displayInventory());
+        String usedItemName = scan.nextLine().trim();
+        boolean gotItems = false;
+        Inventory inv = GF.getInventory();
+        while (!usedItemName.equalsIgnoreCase("no") && !gotItems) {
+            if (!inv.hasItem(usedItemName)) {
+                System.out.println("You dont have a " + usedItemName);
+            } else {
+                if (puzzle.insertDNDItem(inv.getItem(usedItemName), inv)) {
+                    System.out.println("A correct item inserted.");
+                    gotItems = puzzle.allItemsPlaced();
+                    if (!gotItems) {
+                        System.out.print("But we need more!");
+                        int reqCount = puzzle.getRequiredItems().size();
+                        int placedCount = puzzle.getPlacedItems().size();
+                        System.out.println(" Items left: " + placedCount+"/"+reqCount);
+                        continue;
+                    } else {
+                        break;
+                    }
+                } else {
+                    System.out.println("Useless... try again.");
+                }
+            }
+
+
+            usedItemName = scan.nextLine().trim();
+        }
+        if (!gotItems) {
+            return false; 
+        }
+
+        // implement answer handling later
+        // if (puzzle.getAnswer() == null) {
+        //     System.out.println("Puzzle is completed because the item was all you needed"); // this never has time to be printed lol
+        //     return true;
+        // }
+
+        return true;
+    }
+
     private boolean promptPuzzle(Puzzle puzzle) { // returns true if puzzle was complete
         System.out.println("Puzzle u selected: " + puzzle.getName());
 
@@ -593,6 +638,8 @@ public class GameUI {
 
                 break;
             case DND:
+                didntFail = dndPuzzleLoop((DandDPuzzle) puzzle);
+                if (didntFail) return true; 
                 
                 break;
             default:
@@ -673,7 +720,9 @@ public class GameUI {
 
         // TEMPorARY HARDCODED INVEnTORY
         for (Item item : Item.allItemsEver) {
-            GF.getInventory().addItem(item);
+            if (!GF.getInventory().hasItem(item.getName())) {
+                GF.getInventory().addItem(item);
+            }
         }
 
         while (GF.getCurrRoom() != null) { // we should make null rooms signify that player has reached an ending
@@ -702,8 +751,8 @@ public class GameUI {
 
         // gameUI.leniDuplicateUser();
         // gameUI.leniLogIn();
-        //gameUI.enterAnEscapeRoom();
-        gameUI.logoutAndShowPersistence();
+        gameUI.enterAnEscapeRoom(true);
+        // gameUI.logoutAndShowPersistence();
         // gameUI.gameLoopTest();
     }
 }
