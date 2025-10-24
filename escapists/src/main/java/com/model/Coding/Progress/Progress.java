@@ -21,6 +21,7 @@ public class Progress {
     private int difficulty;
     private int remainingTime;
     private HashMap<String, HashMap<String, Boolean>> completedPuzzles;
+    private String currentRoomName;
 
     /**
      * Initializes progress
@@ -51,6 +52,7 @@ public class Progress {
         this.completedPuzzles = completedPuzzles;
         this.difficulty = 0;
         this.remainingTime = 0;
+        
         this.inventory = new Inventory(); // will be initialized from json in future
     }
 
@@ -224,5 +226,13 @@ public class Progress {
             }
         }
         return true;
+    }
+
+    public String getCurrentRoomName() {
+    return currentRoomName;
+    }
+
+    public void setCurrentRoomName(String roomName) {
+        this.currentRoomName = roomName;
     }
 }

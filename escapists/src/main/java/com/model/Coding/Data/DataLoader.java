@@ -90,7 +90,12 @@ public class DataLoader {
                     Progress progress = new Progress(UUID.fromString(idStr), puzzles);
                     progress.setDifficulty(((Long) saveJson.get("difficulty")).intValue());
                     progress.setRemainingTime(((Long) saveJson.get("remainingTime")).intValue());
+                    String currRoomName = (String) saveJson.get("currentRoom");
+                    if (currRoomName != null) {
+                        progress.setCurrentRoomName(currRoomName);
+                    }
                     savesList.add(progress);
+                    
 
                 }
             }

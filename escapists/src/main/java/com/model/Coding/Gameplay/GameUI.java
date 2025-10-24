@@ -24,6 +24,10 @@ import java.util.Objects;
 import java.util.Scanner;
 import java.util.UUID;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+
 
 // this is just a console based test UI for the game. this is where we test our program, and we can hard code
 // certain scenarios to test.
@@ -288,6 +292,102 @@ public class GameUI {
             System.out.println("NEXT ROOM UNLOCKED---------------\n" + nextRoom);
         } else {
             System.out.println("Cannot proceed.");
+        }
+    }
+
+    public void logoutAndShowPersistence() {
+        GameFacade gf = GameFacade.getInstance();
+        DataLoader loader = DataLoader.getInstance();
+
+        String username = "Jane";
+        String password = "Password321";
+
+        System.out.println("\nLogin test:");
+
+        if (gf.getCurrUser() != null) {
+            System.out.println("Logging out current user: " + gf.getCurrUser().getUserName());
+            gf.logout();
+        }
+
+        if (!gf.login(username, password)) {
+            System.out.println("Login failed for Jane. Check credentials or JSON file.");
+            return;
+        }
+
+        User currUser = gf.getCurrUser();
+        System.out.println("Login successful! Current user: " + currUser.getUserName());
+
+        Progress currSave = currUser.getCurrSave();
+        if (currSave != null && currSave.getCurrentRoom() == null) {
+            String roomName = currSave.getCurrentRoomName();
+            if (roomName != null && !roomName.isEmpty()) {
+                ArrayList<Room> rooms = loader.loadRooms();
+                for (Room room : rooms) {
+                    if (room.getName().equalsIgnoreCase(roomName)) {
+                        currSave.setCurrentRoom(room);
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (currSave == null) {
+            System.out.println("No saved progress found for this user.");
+        } else {
+            System.out.println("\nProgress Stats:");
+
+            int completedRooms = (currSave.getCompletedRooms() == null)
+                    ? 0 : currSave.getCompletedRooms().size();
+            int totalRooms = Math.max(completedRooms, 1);
+            double completionPercent = (completedRooms / (double) totalRooms) * 100.0;
+
+            System.out.printf("Completion: %.1f%%\n", completionPercent);
+            System.out.println("Current Room: " +
+                    (currSave.getCurrentRoom() != null ? currSave.getCurrentRoom().getName() : "(none)"));
+            System.out.println("Difficulty: " + currSave.getDifficulty());
+            System.out.println("Remaining Time: " + currSave.getRemainingTime() + " seconds");
+
+            System.out.println("\nPuzzles Completed:");
+            if (currSave.getCompletedPuzzles() != null && !currSave.getCompletedPuzzles().isEmpty()) {
+                currSave.getCompletedPuzzles().forEach((room, puzzles) -> {
+                    System.out.println("Room: " + room);
+                    puzzles.forEach((puzzleName, isComplete) -> {
+                        System.out.println("   " + puzzleName + ": " + (isComplete ? "Yes" : "No"));
+                    });
+                });
+            } else {
+                System.out.println("No puzzles completed yet.");
+            }
+        }
+
+        /* Logout */
+        System.out.println("\nLogging out...");
+        gf.logout();
+        System.out.println("User successfully logged out.");
+
+        /* Display only Jane's JSON data */
+        System.out.println("\nJane's JSON Data:");
+        try {
+            java.nio.file.Path path = java.nio.file.Paths.get(
+                    "escapists\\src\\main\\java\\com\\model\\Coding\\json\\users.json");
+            if (java.nio.file.Files.exists(path)) {
+                String json = java.nio.file.Files.readString(path);
+
+                JSONParser parser = new JSONParser();
+                JSONObject root = (JSONObject) parser.parse(json);
+                JSONArray users = (JSONArray) root.get("users");
+                for (Object obj : users) {
+                    JSONObject userObj = (JSONObject) obj;
+                    if ("Jane".equals(userObj.get("userName"))) {
+                        System.out.println(userObj.toJSONString());
+                        break;
+                    }
+                }
+            } else {
+                System.out.println("users.json not found in /json directory.");
+            }
+        } catch (Exception e) {
+            System.out.println("Error reading JSON file: " + e.getMessage());
         }
     }
 
@@ -594,7 +694,8 @@ public class GameUI {
 
         // gameUI.leniDuplicateUser();
         // gameUI.leniLogIn();
-        gameUI.enterAnEscapeRoom();
+        //gameUI.enterAnEscapeRoom();
+        gameUI.logoutAndShowPersistence();
         // gameUI.gameLoopTest();
     }
 }

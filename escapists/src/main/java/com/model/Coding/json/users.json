@@ -1,1 +1,162 @@
-{"users":[{"password":"passworD123","saves":[{"difficulty":2,"currentRoom":"Hallway","achievements":[{"1":"First Puzzle"}],"progressId":"248cea78-82be-4bc1-99e8-9d242b6f09af","completedRooms":["Cell"],"completedPuzzles":{"Cell":{"CellDoorLock":true},"Hallway":{"KeyCode":true,"WallRiddle":false}},"inventory":{"items":[{"itemId":1,"name":"Rusty Key","description":"A heavy key mottled with rust.  It is cool to the touch."}]},"remainingTime":1650}],"completionTimes":{"1":[1234,1802,2204,34,4802,3004],"2":[1234,1802,2204]},"userName":"John","currSave":"248cea78-82be-4bc1-99e8-9d242b6f09af"},{"password":"Password321","saves":[{"difficulty":1,"currentRoom":"Cell","achievements":[],"progressId":"f7b9f0df-7ef8-401b-9696-dab58b815e13","completedRooms":[],"completedPuzzles":{"Cell":{"CellDoorLock":false},"Hallway":{"KeyCode":false,"WallRiddle":false}},"inventory":{"items":[{"itemId":2,"name":"Crowbar","description":"The classic tool for a crazy criminal."}]},"remainingTime":3690}],"completionTimes":{"1":[1234,1802,2204],"2":[1234,1802,2204]},"userName":"Jane","currSave":"f7b9f0df-7ef8-401b-9696-dab58b815e13"},{"password":"Password","saves":[],"completionTimes":{},"userName":"Testuser","currSave":null},{"password":"password123","saves":[{"difficulty":2,"currentRoom":"Unknown","achievements":[],"progressId":"21cac487-301d-4a01-93e6-1495ddc62f46","completedRooms":[],"completedPuzzles":{},"inventory":{"items":[]},"remainingTime":300},{"difficulty":2,"currentRoom":"Unknown","achievements":[],"progressId":"336fa5e8-d880-4f33-9fd3-eff67e3ba252","completedRooms":[],"completedPuzzles":{},"inventory":{"items":[]},"remainingTime":300},{"difficulty":2,"currentRoom":"Unknown","achievements":[],"progressId":"2e4adff7-a09c-48d2-b02b-b329816879cd","completedRooms":[],"completedPuzzles":{},"inventory":{"items":[]},"remainingTime":300}],"completionTimes":{},"userName":"Tester","currSave":"2e4adff7-a09c-48d2-b02b-b329816879cd"},{"password":"password123","saves":[],"completionTimes":{},"userName":"Tester","currSave":null},{"password":"password123","saves":[],"completionTimes":{},"userName":"Tester","currSave":null},{"password":"LeniPassword","saves":[],"completionTimes":{},"userName":"Leni","currSave":null},{"password":"BrotherPassword","saves":[],"completionTimes":{},"userName":"LRivers","currSave":null}]}
+{
+    "users": [
+        {
+            "password": "passworD123",
+            "saves": [
+                {
+                    "difficulty": 2,
+                    "currentRoom": "Unknown",
+                    "achievements": [],
+                    "progressId": "248cea78-82be-4bc1-99e8-9d242b6f09af",
+                    "completedRooms": [],
+                    "completedPuzzles": {},
+                    "inventory": {
+                        "items": []
+                    },
+                    "remainingTime": 1650
+                }
+            ],
+            "completionTimes": {
+                "1": [
+                    1234,
+                    1802,
+                    2204,
+                    34,
+                    4802,
+                    3004
+                ],
+                "2": [
+                    1234,
+                    1802,
+                    2204
+                ]
+            },
+            "userName": "John",
+            "currSave": "248cea78-82be-4bc1-99e8-9d242b6f09af"
+        },
+        {
+            "password": "Password321",
+            "saves": [
+                {
+                    "difficulty": 1,
+                    "currentRoom": "Cell",
+                    "achievements": [],
+                    "progressId": "f7b9f0df-7ef8-401b-9696-dab58b815e13",
+                    "completedRooms": [],
+                    "completedPuzzles": {
+                        "Cell": {
+                            "CellDoorLock": false
+                        },
+                        "Hallway": {
+                            "KeyCode": false,
+                            "WallRiddle": false
+                        }
+                    },
+                    "inventory": {
+                        "items": [
+                            {
+                                "itemId": 2,
+                                "name": "Crowbar",
+                                "description": "The classic tool for a crazy criminal."
+                            }
+                        ]
+                    },
+                    "remainingTime": 3690
+                }
+            ],
+            "completionTimes": {
+                "1": [
+                    1234,
+                    1802,
+                    2204
+                ],
+                "2": [
+                    1234,
+                    1802,
+                    2204
+                ]
+            },
+            "userName": "Jane",
+            "currSave": "f7b9f0df-7ef8-401b-9696-dab58b815e13"
+        },
+        {
+            "password": "Password",
+            "saves": [],
+            "completionTimes": {},
+            "userName": "Testuser",
+            "currSave": null
+        },
+        {
+            "password": "password123",
+            "saves": [
+                {
+                    "difficulty": 2,
+                    "currentRoom": "Unknown",
+                    "achievements": [],
+                    "progressId": "21cac487-301d-4a01-93e6-1495ddc62f46",
+                    "completedRooms": [],
+                    "completedPuzzles": {},
+                    "inventory": {
+                        "items": []
+                    },
+                    "remainingTime": 300
+                },
+                {
+                    "difficulty": 2,
+                    "currentRoom": "Unknown",
+                    "achievements": [],
+                    "progressId": "336fa5e8-d880-4f33-9fd3-eff67e3ba252",
+                    "completedRooms": [],
+                    "completedPuzzles": {},
+                    "inventory": {
+                        "items": []
+                    },
+                    "remainingTime": 300
+                },
+                {
+                    "difficulty": 2,
+                    "currentRoom": "Unknown",
+                    "achievements": [],
+                    "progressId": "2e4adff7-a09c-48d2-b02b-b329816879cd",
+                    "completedRooms": [],
+                    "completedPuzzles": {},
+                    "inventory": {
+                        "items": []
+                    },
+                    "remainingTime": 300
+                }
+            ],
+            "completionTimes": {},
+            "userName": "Tester",
+            "currSave": "2e4adff7-a09c-48d2-b02b-b329816879cd"
+        },
+        {
+            "password": "password123",
+            "saves": [],
+            "completionTimes": {},
+            "userName": "Tester",
+            "currSave": null
+        },
+        {
+            "password": "password123",
+            "saves": [],
+            "completionTimes": {},
+            "userName": "Tester",
+            "currSave": null
+        },
+        {
+            "password": "LeniPassword",
+            "saves": [],
+            "completionTimes": {},
+            "userName": "Leni",
+            "currSave": null
+        },
+        {
+            "password": "BrotherPassword",
+            "saves": [],
+            "completionTimes": {},
+            "userName": "LRivers",
+            "currSave": null
+        }
+    ]
+}
