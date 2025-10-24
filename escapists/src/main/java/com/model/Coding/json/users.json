@@ -126,16 +126,20 @@
                     "remainingTime": 300
                 }
             ],
-            "completionTimes": {},
+            "completionTimes": {
+                "1": [
+                    1069,
+                    1502,
+                    3204
+                ],
+                "2": [
+                    1234,
+                    1802,
+                    2204
+                ]
+            },
             "userName": "Tester",
             "currSave": "2e4adff7-a09c-48d2-b02b-b329816879cd"
-        },
-        {
-            "password": "password123",
-            "saves": [],
-            "completionTimes": {},
-            "userName": "Tester",
-            "currSave": null
         },
         {
             "password": "password123",

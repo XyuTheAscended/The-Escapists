@@ -1,8 +1,12 @@
 package com.model.Coding.Progress;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
 import com.model.Coding.User.User;
+import com.model.Coding.User.UserList;
 
 /**
  * Leader that displays the top times from each user
@@ -25,6 +29,19 @@ public class Leaderboard {
     public static Leaderboard getInstance() {
         return leaderboard != null ? leaderboard : new Leaderboard(); 
     }
+    
+    public Integer getUserBestTime(User user, int difficulty) {
+        ArrayList<Integer> times = user.getCompletionTimes(difficulty);
+        Integer best = null; 
+        if (times != null) {
+            for (Integer timeInt : times) {
+                if (best == null || timeInt < best) // smaller time = better
+                    best = timeInt; 
+            }
+        }
+
+        return best;
+    } 
 
     /**
      * Gets the users completion time and difficulty.
@@ -32,19 +49,25 @@ public class Leaderboard {
      * @param difficulty Game difficulty
      * @return ArrayList of the users top times
     */
-    public ArrayList<String> getFormattedOrderedTimes(User user, int difficulty) {
-        ArrayList<Integer> times = user.getCompletionTimes(difficulty);
-        times.sort(null); // defaultly goes from smallest to greatest
+    public ArrayList<String> getFormattedOrderedTimes(int difficulty) {
+        ArrayList<Map.Entry<String, Integer>> times = new ArrayList<>();
+        for (User user : UserList.getInstance().getUsers()) {
+            Integer bestTime = getUserBestTime(user, difficulty);
+            if (bestTime != null) times.add(new AbstractMap.SimpleEntry<String,Integer>(user.getUserName(), bestTime));
+        }
+        times.sort(Map.Entry.comparingByValue()); // defaultly goes from smallest to greatest
 
         ArrayList<String> formattedTimes = new ArrayList<>();
-        for (Integer secondsObj : times) {
-            int totalSeconds = Integer.valueOf(secondsObj);
+        int index = 0;
+        for (Map.Entry<String, Integer> time : times) {
+            int totalSeconds = Integer.valueOf(time.getValue());
             int hours = totalSeconds / 3600;
             int minutes = (totalSeconds % 3600) / 60;
             int seconds = totalSeconds % 60;
-
+            
+            String userName = time.getKey();
             String formatted = String.format("%02d:%02d:%02d", hours, minutes, seconds);
-            formattedTimes.add(formatted);
+            formattedTimes.add(++index + ". " + userName + ": " + formatted);
         }
         return formattedTimes;
     }

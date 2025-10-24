@@ -176,9 +176,9 @@ public class GameUI {
     }
 
     public void displayLeaderboard() {
-        User user = GameFacade.getInstance().getCurrUser();
+        // User user = GameFacade.getInstance().getCurrUser();
         int diff = 1;
-        System.out.println("User's top times for D"+diff+": " + Leaderboard.getInstance().getFormattedOrderedTimes(user, diff));
+        System.out.println("Top times for D"+diff+": " + Leaderboard.getInstance().getFormattedOrderedTimes(diff));
     }
 
     public void roomWithPuzzles() {
@@ -744,14 +744,14 @@ public class GameUI {
         //gameUI.scenario2();
         //gameUI.scenario3();
         // gameUI.successfulLogin();
-        //gameUI.displayLeaderboard();
+        gameUI.displayLeaderboard();
         // gameUI.unsuccessfulLogin();
         // gameUI.roomWithPuzzles();
         // gameUI.roomTransitionTest();
 
         // gameUI.leniDuplicateUser();
         // gameUI.leniLogIn();
-        gameUI.enterAnEscapeRoom(true);
+        // gameUI.enterAnEscapeRoom(true);
         // gameUI.logoutAndShowPersistence();
         // gameUI.gameLoopTest();
     }
