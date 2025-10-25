@@ -90,7 +90,7 @@ public class GameFacade {
             Timer.getInstance().pause();
         }
 
-        System.out.println("Game paused.");
+        // System.out.println("Game paused.");
     }
 
     /**
@@ -98,7 +98,7 @@ public class GameFacade {
      */
     public void resume() {
         if (!isPaused) {
-            System.out.println("Game is not paused.");
+            // System.out.println("Game is not paused.");
             return;
         }
 
@@ -107,7 +107,7 @@ public class GameFacade {
         if (Timer.getInstance() != null) {
             Timer.getInstance().resume();
         }
-        System.out.println("Game resumed.");
+        // System.out.println("Game resumed.");
     }
 
     /**

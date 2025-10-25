@@ -123,4 +123,15 @@ public class Timer {
     public int getTimePassed() {
         return startTime - remainingTime;
     }
+
+    public String getTimePassedFormatted() {
+        int totalSeconds = getTimePassed();
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
+            
+        String formatted = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+
+        return formatted;
+    }
 }

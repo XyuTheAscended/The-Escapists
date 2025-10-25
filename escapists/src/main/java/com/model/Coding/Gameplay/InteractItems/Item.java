@@ -42,7 +42,11 @@ public class Item {
     }
 
     public static Item searchForItem(String name, boolean caseSensitive) {
-        for (Item item : allItemsEver) {
+        return searchForItemInList(allItemsEver, name, caseSensitive);
+    }
+
+    public static Item searchForItemInList(ArrayList<Item> list, String name, boolean caseSensitive) {
+        for (Item item : list) {
             if (caseSensitive) { 
                 if (item.getName().equals(name)) 
                     return item;

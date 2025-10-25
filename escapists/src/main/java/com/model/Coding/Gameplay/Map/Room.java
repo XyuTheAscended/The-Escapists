@@ -1,5 +1,9 @@
 package com.model.Coding.Gameplay.Map;
+import com.model.Coding.Gameplay.InteractItems.DandDPuzzle;
+import com.model.Coding.Gameplay.InteractItems.Item;
+import com.model.Coding.Gameplay.InteractItems.ItemPuzzle;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
+import com.model.Coding.Gameplay.InteractItems.Puzzle.PuzzleType;
 
 import java.util.ArrayList;
 
@@ -11,6 +15,7 @@ public class Room {
     private ArrayList<Puzzle> puzzles;
     private String name;
     private Exit[] exits;
+    private ArrayList<Item> itemsForThisRoom = new ArrayList<>();
 
     /**
      * Initializes puzzles ArrayList and name.
@@ -28,7 +33,27 @@ public class Room {
     public void addPuzzle(Puzzle puzzle){
         if (puzzle != null && !puzzles.contains(puzzle)) {
             puzzles.add(puzzle);
+
+            Puzzle.PuzzleType pT = puzzle.getPuzzleType(); 
+            if (pT == Puzzle.PuzzleType.ITEM) {
+                ItemPuzzle itemPuz = (ItemPuzzle) puzzle;
+                Item itemReq = itemPuz.getRequiredItem();
+                if (Item.searchForItemInList(itemsForThisRoom, itemReq.getName(), false) == null) {
+                    itemsForThisRoom.add(itemReq);
+                }
+            } else if (pT == Puzzle.PuzzleType.DND) {
+                DandDPuzzle dndPuz = (DandDPuzzle) puzzle;
+                for (Item itemReq : dndPuz.getRequiredItems()) {
+                    if (Item.searchForItemInList(itemsForThisRoom, itemReq.getName(), false) == null) {
+                        itemsForThisRoom.add(itemReq);
+                    }
+                }
+            }
         }
+    }
+
+    public ArrayList<Item> getItemsForThisRoom() {
+        return itemsForThisRoom;
     }
 
     /**
@@ -112,12 +137,12 @@ public class Room {
             }
         }
 
-        sb.append("EXITS:\n");
+        sb.append("EXITS:");
         if (exits == null || exits.length == 0) {
             sb.append("  NONE\n");
         } else {
             for (Exit e : exits) {
-                sb.append(e)
+                sb.append("\n"+e)
                 .append("\n");
 
                 sb.append("    Prerequisite Puzzles: ");

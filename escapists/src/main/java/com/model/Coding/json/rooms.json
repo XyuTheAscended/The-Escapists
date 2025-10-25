@@ -3,16 +3,14 @@
     "Cell": {
       "puzzles": [
         {
-          "name": "LooseFaucet",
-          "answer": "45-90",
-          "description": "A faucet with a secret if you twist its knobs the right amounts."
+          "name": "Toilet",
+          "answer": "3",
+          "description": "A toilet with a secret if you flush it enough times."
         },
         {
           "name": "CellDoorLock",
           "requiredItems": [
-            "Steel Key",
-            "Bronze Key",
-            "Yellow Key"
+            "Bronze Key"
           ],
           "description": "A lock that may only be unlocked open, or perhaps broken"
         },
@@ -24,7 +22,27 @@
         }
       ], 
       "exits": {
-        "Hallway": ["CellDoorLock", "CellBarJingle"]
+        "Hallway": ["CellDoorLock", "CellBarJingle"],
+        "Sewage": ["Toilet"]
+      }
+    },
+    "Sewage": {
+      "puzzles": [
+        {
+          "name": "StoneDoor", 
+          "requiredItems": [
+            "Pickaxe"
+          ],
+          "description": "A door that cannot be opened by peaceful means"
+        }, 
+        {
+          "name": "WallRiddle",
+          "answer": "Human",
+          "description": "You hear a mysterious voice echoing in the hallways: \"What creature walks on 4 feet in the morning, 2 feet at noon, and 3 in the evening?\""
+        }
+      ],
+      "exits": {
+        "OUTSIDE": ["WallRiddle", "StoneDoor"]
       }
     },
     "Hallway": {
@@ -40,13 +58,17 @@
           "description": "Wires hooked up to a keypad. Cutting the right one might do something."
         },
         {
-          "name": "WallRiddle",
-          "answer": "Human",
-          "description": "What creature walks on 4 feet in the morning, 2 feet at noon, and 3 in the evening?"
+          "name": "BreakerBox",
+          "requiredItems": [
+            "Blue Breaker",
+            "Red Breaker",
+            "Yellow Breaker"
+          ],
+          "description": "Wires hooked up to a keypad. Cutting the right one might do something."
         }
       ],
       "exits": {
-        "OUTSIDE": []
+        "OUTSIDE": ["SecurityWires", "KeyCode"]
       }
     }
   }

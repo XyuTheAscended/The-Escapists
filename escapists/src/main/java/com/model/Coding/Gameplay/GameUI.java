@@ -588,7 +588,6 @@ public class GameUI {
                         int reqCount = puzzle.getRequiredItems().size();
                         int placedCount = puzzle.getPlacedItems().size();
                         System.out.println(" Items left: " + placedCount+"/"+reqCount);
-                        continue;
                     } else {
                         break;
                     }
@@ -655,12 +654,15 @@ public class GameUI {
         ArrayList<Puzzle> puzzles = room.getPuzzles();
         Exit[] exits = room.getExits();
 
+        ArrayList<Item> lootPool = new ArrayList<>(room.getItemsForThisRoom());
+
         Exit exit2Use = null;
         while (exit2Use == null) {
             System.out.println("\n" + room);
             System.out.println(BARS);
             System.out.println("What do you want to do now?");
             System.out.println("-> Type in the name of the puzzle or exit you want to use");
+            System.out.println("-> Or type \"Loot\" to search for items");
             String input = scan.nextLine().trim(); 
             Puzzle puzzleSelected = puzzles.stream()
                 .filter(p -> p.getName().equalsIgnoreCase(input))
@@ -698,13 +700,24 @@ public class GameUI {
                     System.out.println("That exit isn't open! >=(");
                 }
                 continue;
-            } else {
+            } 
+            
+            if (input.equalsIgnoreCase("Loot")) {
                 fakeConsoleClear();
-                System.out.println("Invalid input...");
+                if (lootPool.size() > 0)  {
+                    for (Item item : lootPool) {
+                        System.out.println("Found a " + item.getName());
+                        GF.getInventory().addItem(item);
+                    }
+                    lootPool.clear(); // empty this thing
+                } else {
+                    System.out.println("You find nothing.");
+                }
                 continue;
             }
 
-            
+            fakeConsoleClear();
+            System.out.println("Invalid input...");
         }
 
         return exit2Use.getNextRoom();
@@ -722,11 +735,11 @@ public class GameUI {
         GF.startGame();
 
         // TEMPorARY HARDCODED INVEnTORY
-        for (Item item : Item.allItemsEver) {
-            if (!GF.getInventory().hasItem(item.getName())) {
-                GF.getInventory().addItem(item);
-            }
-        }
+        // for (Item item : Item.allItemsEver) {
+        //     if (!GF.getInventory().hasItem(item.getName())) {
+        //         GF.getInventory().addItem(item);
+        //     }
+        // }
 
         while (GF.getCurrRoom() != null) { // we should make null rooms signify that player has reached an ending
             Room startRoom = GF.getCurrRoom(); 
@@ -737,7 +750,7 @@ public class GameUI {
 
         GF.pause();
         GF.getCurrUser().addCompletionTime(diff, GF.getTimePassed());
-        System.out.println("Game is over. You escaped!");
+        System.out.println("Game is over. You escaped in " + Timer.getInstance().getTimePassedFormatted() + "!");
         displayLeaderboard();
     }
 
@@ -757,7 +770,7 @@ public class GameUI {
 
         // gameUI.leniDuplicateUser();
         // gameUI.leniLogIn();
-        gameUI.enterAnEscapeRoom(true);
+        // gameUI.enterAnEscapeRoom(false);
         // gameUI.logoutAndShowPersistence();
         // gameUI.gameLoopTest();
     }
