@@ -16,6 +16,7 @@ import com.model.Coding.User.User;
 
 /**
  * Writes user and progress data to JSON files.
+ * @author Liam and Jeffen
  */
 public class DataWriter {
 
@@ -145,6 +146,11 @@ public class DataWriter {
 
     @SuppressWarnings("unchecked")
 
+    /**
+     * Method for changing current save assigned to a user
+     * @param saveJson
+     * @param progress
+     */
     private void changeCurrSaveJSON(JSONObject saveJson, Progress progress) {
         saveJson.clear();
 
@@ -217,6 +223,12 @@ public class DataWriter {
 
     }
 
+    /**
+     * Method for creating a certificate based on some basic statistics. its a text files stored in docs folder of this project
+     * @param difficulty difficulty player played at
+     * @param hintsUsed how many hints used to complete the game
+     * @param score score is calculated where this method is called
+     */
     public void createCertificate(int difficulty, int hintsUsed, int score) {
         String fileName = "escapist_certificate.txt";
 

@@ -31,6 +31,9 @@ public class DataLoader {
   private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
   private static final String ROOMS_FILE = "escapists/src/main/java/com/model/Coding/json/rooms.json"; 
 
+    /**
+     * Empty constructor for data loader
+     */
     private DataLoader() {
 
     }
@@ -47,7 +50,11 @@ public class DataLoader {
         return dataLoader;
     }
 
-    // pretty much exact code from load progress method. may wanna be reused there
+    /**
+     * Retrieves a list of saves from a user entry in the json file
+     * @param userJsonObj user json data object
+     * @return list of saves/progresses
+     */
     private ArrayList<Progress> getProgressSavesFromUser(JSONObject userJsonObj) {
         JSONArray savesArray = (JSONArray) userJsonObj.get("saves");
         ArrayList<Progress> savesList = new ArrayList<Progress>();
@@ -68,6 +75,11 @@ public class DataLoader {
         return savesList;
     }
 
+    /**
+     * Creates the hashmap user objects use to store their completion times during run time. derived from json files
+     * @param userJsonObj User json data we're getting hashmaps from
+     * @return the hashmap
+     */
     private HashMap<Integer, ArrayList<Integer>> getCompletionTimesFromUser(JSONObject userJsonObj) {
         JSONObject timesTable = (JSONObject) userJsonObj.get("completionTimes");
         HashMap<Integer, ArrayList<Integer>> completionTimes = new HashMap<>();
@@ -265,6 +277,12 @@ public class DataLoader {
 
     }
 
+    /**
+     * Helper method to retrieve Progress instances when other methods need to do so
+     * @param saveJson the progress json data, which is supposed to be stored under user data entries in Json
+     * @param progIdStr the progress UUID also derived from the json data
+     * @return the progress instance that we process out of the json data stuff
+     */
     private Progress getProgressFromSaveJson(JSONObject saveJson, String progIdStr) {
         JSONArray completedRooms = (JSONArray) saveJson.get("completedRooms");
         if (completedRooms != null) {

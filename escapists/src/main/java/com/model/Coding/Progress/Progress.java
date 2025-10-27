@@ -10,7 +10,7 @@ import com.model.Coding.Gameplay.Map.Room;
 
 /**
  * Tracks the progress of the user throughout the game
- * @author
+ * @author Liam
  */
 public class Progress {
     private UUID progressId;

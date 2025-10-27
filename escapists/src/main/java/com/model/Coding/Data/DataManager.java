@@ -17,6 +17,7 @@ import com.model.Coding.Gameplay.Map.Room;
 
 /**
  * Coordinates data loading and writing operations.
+ * @author Liam and Jeffen
  */
 public class DataManager {
 
@@ -24,6 +25,9 @@ public class DataManager {
     private DataLoader dataLoader;
     private DataWriter dataWriter;
 
+    /**
+     * Constructor that creates datamanager and initializes the classes that it is a facade for
+     */
     private DataManager() {
         dataLoader = DataLoader.getInstance();
         dataWriter = DataWriter.getInstance();
@@ -143,7 +147,8 @@ public class DataManager {
 
     /**
      * Saves all rooms progress via DataWriter.
-     *
+     * Originally was using copy and pasted code from data writer, but then we just commented it all out
+     * and used the data writer instead
      */
     private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
 
@@ -228,10 +233,20 @@ public class DataManager {
 
     }
 
+    /**
+     * Wrapper method for updating users using data writer
+     * @param user
+     */
     public void updateUser(User user) {
         DataWriter.getInstance().updateUser(user);
     }
 
+    /**
+     * Wrapper method for calling data writer's certification functionality
+     * @param difficulty
+     * @param hintsUsed
+     * @param score
+     */
     public void createCertificate(int difficulty, int hintsUsed, int score) {
         DataWriter.getInstance().createCertificate(difficulty, hintsUsed, score);
     }

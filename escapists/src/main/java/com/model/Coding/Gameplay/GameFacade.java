@@ -18,7 +18,7 @@ import com.model.Coding.Progress.Progress;
 
 /**
  * Game facade to handle interaction between UI and backend
- * @author
+ * @author Jeffen and Mason mostly I think
  */
 public class GameFacade {
     private static GameFacade gameFacade;
@@ -55,6 +55,11 @@ public class GameFacade {
         return gameFacade != null ? gameFacade : new GameFacade();
     }
 
+    /**
+     * Function for determining if the current save can be continued from. we use it to check if we should make
+     * a new save for the player or create a new one in some other methods where this thing is called
+     * @return boolean stating if save can be continued from
+     */
     public boolean currSaveIsContinuable() {
         return currentUser != null &&
             currentUser.getCurrSave() != null && 
@@ -77,6 +82,9 @@ public class GameFacade {
         this.map.loadFromSave(save); 
     }
 
+    /**
+     * Actual clean up helper function used by endGame method
+     */
     public void unloadCurrSave() {
         this.difficulty = 0; 
         this.inventory = null;
@@ -113,6 +121,9 @@ public class GameFacade {
         }
     }
 
+    /**
+     * Cleans up variables at end of game. ensures everything is ready for next game if player chooses to start a new one
+     */
     public void endGame() {
         if (currentUser == null) throw new RuntimeException("Can't end the game without a user");
         if (activeProgress == null) throw new RuntimeException("CAnt end without an active progress/save");
@@ -120,6 +131,10 @@ public class GameFacade {
         Timer.getInstance().reset();
     }
 
+    /**
+     * Wrapper over a timer func based on getting how much time passed since the match/game started 
+     * @return time that has passed
+     */
     public int getTimePassed() {
         return Timer.getInstance().getTimePassed();
     }
@@ -218,8 +233,12 @@ public class GameFacade {
             activeProgress.setDifficulty(level);
     }
 
+    /**
+     * Retrieves difficulty of current game going on
+     * @return the difficulty level
+     */
     public int getDifficulty() {
-        return this.difficulty;
+        return this.difficulty; 
     }
 
     /**
@@ -261,7 +280,9 @@ public class GameFacade {
         currentUser = null; 
     }
 
-    // idk
+    /*
+     * Writes saves and updates completedTimes list under user data
+     */
     public void save(){
         if (currentUser == null) return;
         if (activeProgress == null) return;
