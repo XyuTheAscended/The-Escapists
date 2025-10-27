@@ -3,6 +3,7 @@ package com.model.Coding.Data;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -19,6 +20,7 @@ import com.model.Coding.User.User;
 public class DataWriter {
 
     private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
+    private static final String CERT_LOCATION = "escapists/../docs";
     private static DataWriter dataWriter;
 
     private DataWriter() {
@@ -213,6 +215,31 @@ public class DataWriter {
         saveJson.put("achievements", achievementsArray);
 
 
+    }
+
+    public void createCertificate(int difficulty, int hintsUsed, int score) {
+        String fileName = "escapist_certificate.txt";
+
+        // MAKE THE DIRECTORY IF IT DOESN'T EXIST
+        File directory = new File(CERT_LOCATION);
+        if (!directory.exists()) {
+            directory.mkdirs(); // CREATE THE WHOLE PATH
+            System.out.println("DIRECTORY CREATED: " + CERT_LOCATION);
+        }
+
+        // NOW BUILD THE FULL PATH TO THE FILE
+        File file = new File(CERT_LOCATION + File.separator + fileName);
+
+        try (FileWriter writer = new FileWriter(file)) {
+            writer.write("===============================================\n\n");
+            writer.write("Thanks for playing The-Escapists \n");
+            writer.write("You completed the game at a level " + difficulty + " difficulty, using " + hintsUsed + " hints.\n");
+            writer.write("Final score: " + score + "\n");
+            writer.write("\n===============================================");
+            System.out.println("FILE WRITTEN SUCCESSFULLY AT: " + file.getAbsolutePath());
+        } catch (IOException e) {
+            System.err.println("SOMETHING WENT WRONG WITH WRITING THIS THING: " + e.getMessage());
+        }
     }
 
     /**

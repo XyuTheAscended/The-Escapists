@@ -814,6 +814,7 @@ public class GameUI {
         int score = Timer.getInstance().getTimePassed() * currSave.getDifficulty();
         System.out.println("Final score: " + score);
         displayLeaderboard(currSave.getDifficulty());
+        DataManager.getInstance().createCertificate(currSave.getDifficulty(), currSave.getHintsUsed(), score);
     }
 
 

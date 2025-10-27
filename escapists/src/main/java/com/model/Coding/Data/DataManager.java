@@ -231,4 +231,8 @@ public class DataManager {
     public void updateUser(User user) {
         DataWriter.getInstance().updateUser(user);
     }
+
+    public void createCertificate(int difficulty, int hintsUsed, int score) {
+        DataWriter.getInstance().createCertificate(difficulty, hintsUsed, score);
+    }
 }
