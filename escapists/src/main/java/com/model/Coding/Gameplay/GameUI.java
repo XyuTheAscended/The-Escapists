@@ -811,6 +811,8 @@ public class GameUI {
         System.out.println("Thanks for playing The-Escapists");
         System.out.print("You completed the game at a level " + currSave.getDifficulty() + " difficulty, ");
         System.out.println("with a time of " + Timer.getInstance().getTimePassedFormatted() + "!");
+        int score = Timer.getInstance().getTimePassed() * currSave.getDifficulty();
+        System.out.println("Final score: " + score);
         displayLeaderboard(currSave.getDifficulty());
     }
 

@@ -3,9 +3,8 @@ package com.model.Coding.Data;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.management.RuntimeErrorException;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -79,6 +78,57 @@ public class DataWriter {
 
             /* Add new user */
             usersArray.add(newUser);
+
+            /* Write back to file */
+            FileWriter writer = new FileWriter(file);
+            writer.write(root.toJSONString());
+            writer.flush();
+            writer.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+        public void updateUser(User user) {
+        try {
+            File file = new File(USER_FILE);
+            JSONParser parser = new JSONParser();
+            JSONObject root;
+            JSONArray usersArray;
+
+            /* Read file if exists */
+            if (file.exists() && file.length() > 0) {
+                FileReader reader = new FileReader(file);
+                root = (JSONObject) parser.parse(reader);
+                reader.close();
+
+                Object usersObj = root.get("users");
+                if (usersObj instanceof JSONArray) {
+                    usersArray = (JSONArray) usersObj;
+                } else {
+                    usersArray = new JSONArray();
+                    root.put("users", usersArray);
+                }
+            } else {
+                throw new RuntimeException("User file don't exist bru");
+            }
+
+            for (int i = 0; i < usersArray.size(); i++) {
+                JSONObject userJSObj = (JSONObject) usersArray.get(i);
+                if (((String)userJSObj.get("userName")).equals(user.getUserName())) {
+                    JSONObject compTimes = (JSONObject) userJSObj.get("completionTimes");
+                    compTimes.clear(); // clear this cause we're gonna rewrite them all
+                    for (Integer diffKey : user.getCompletionTimesHashmap().keySet() ) {
+                        ArrayList<Integer> times4Diff = user.getCompletionTimesHashmap().get(diffKey);
+                        JSONArray timesArr = new JSONArray();
+                        for (Integer time : times4Diff) {
+                            timesArr.add(time);
+                        }
+                        compTimes.put(diffKey, timesArr);
+                    }
+                }
+            }
 
             /* Write back to file */
             FileWriter writer = new FileWriter(file);

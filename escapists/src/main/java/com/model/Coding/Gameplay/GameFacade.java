@@ -268,6 +268,7 @@ public class GameFacade {
 
         this.activeProgress.setRemainingTime(Timer.getInstance().getRemainingTime());
         DataManager.getInstance().saveProgress(currentUser, activeProgress);
+        DataManager.getInstance().updateUser(currentUser);
     }
 
 

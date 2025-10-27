@@ -227,4 +227,8 @@ public class DataManager {
         // }
 
     }
+
+    public void updateUser(User user) {
+        DataWriter.getInstance().updateUser(user);
+    }
 }
