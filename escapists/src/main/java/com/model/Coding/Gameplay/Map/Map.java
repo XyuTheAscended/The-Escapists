@@ -6,7 +6,7 @@ import com.model.Coding.Data.DataManager;
 
 /**
  * Map
- * @author
+ * @author Mason Adams
  */
 public class Map {
     private boolean isOpen = false;

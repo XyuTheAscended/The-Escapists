@@ -18,7 +18,7 @@ import com.model.Coding.Progress.Progress;
 
 /**
  * Game facade to handle interaction between UI and backend
- * @author
+ * @author Mason Adams
  */
 public class GameFacade {
     private static GameFacade gameFacade;

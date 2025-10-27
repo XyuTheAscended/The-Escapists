@@ -3,7 +3,7 @@ import com.model.Coding.Gameplay.InteractItems.Item;
 
 /**
  * A warden character
- * @author
+ * @author Mason Adams
  */
 public class Warden extends Character {
     private String roomID;
