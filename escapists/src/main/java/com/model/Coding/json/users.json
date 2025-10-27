@@ -150,10 +150,48 @@
         },
         {
             "password": "LeniPassword",
-            "saves": [],
+            "saves": [
+                {
+                    "difficulty": 3,
+                    "currentRoom": "Cell",
+                    "achievements": [],
+                    "progressId": "2172b1ae-d996-4f9a-9a97-18a83a085ba4",
+                    "completedRooms": [],
+                    "completedPuzzles": {},
+                    "inventory": {
+                        "items": []
+                    },
+                    "remainingTime": 584
+                },
+                {
+                    "difficulty": 3,
+                    "currentRoom": "Sewage",
+                    "achievements": [],
+                    "progressId": "203fd6d0-de51-4bb6-89b5-4e391dea01f7",
+                    "completedRooms": [],
+                    "completedPuzzles": {
+                        "Sewage": {
+                            "WallRiddle": true
+                        },
+                        "Cell": {
+                            "Toilet": true
+                        }
+                    },
+                    "hintsUsed": 2,
+                    "inventory": {
+                        "items": [
+                            {
+                                "name": "Pickaxe",
+                                "description": "A door that cannot be opened by peaceful means"
+                            }
+                        ]
+                    },
+                    "remainingTime": 534
+                }
+            ],
             "completionTimes": {},
             "userName": "Leni",
-            "currSave": null
+            "currSave": "203fd6d0-de51-4bb6-89b5-4e391dea01f7"
         },
         {
             "password": "BrotherPassword",

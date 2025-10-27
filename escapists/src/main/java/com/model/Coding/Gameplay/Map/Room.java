@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * A room
- * @author Mason Adams
+ * @author Mason Adams and Jeffen
  */
 public class Room {
     private ArrayList<Puzzle> puzzles;

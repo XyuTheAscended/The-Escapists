@@ -22,6 +22,7 @@ public class Progress {
     private int remainingTime;
     private HashMap<String, HashMap<String, Boolean>> completedPuzzles;
     private String currentRoomName;
+    private int hintsUsed = 0;
 
     /**
      * Initializes progress
@@ -65,6 +66,7 @@ public class Progress {
         text += "Progress ID: " + progressId + "\n";
         text += "Difficulty: " + difficulty + "\n";
         text += "Remaining Time: " + remainingTime + " seconds\n";
+        text += "Hints used: " + hintsUsed + "\n";
 
         text += "Completed Puzzles:\n";
         if (completedPuzzles != null && !completedPuzzles.isEmpty()) {
@@ -96,6 +98,7 @@ public class Progress {
      */
     public void setCurrentRoom(Room room) {
         this.currentRoom = room;
+        setCurrentRoomName(room != null ? room.getName() : null);
     }
 
     /**
@@ -128,8 +131,20 @@ public class Progress {
         String roomName = room.getName();
         String puzzleName = puzzle.getName();
         completedPuzzles.putIfAbsent(roomName, new HashMap<>());
-        if (bool) puzzle.setIsCompleted(bool);
+        puzzle.setIsCompleted(bool);
         completedPuzzles.get(roomName).put(puzzleName, bool);
+        room.updateExits(); // exits updated here in case the completed puzzle is meant to trigger an opening
+    }
+
+    // this version of method sets puzzle completed based on the current progress data
+    public void setPuzzleCompleted(Room room, Puzzle puzzle) {
+        String roomName = room.getName();
+        HashMap<String, Boolean> compHash4Room = completedPuzzles.get(roomName); 
+        if (compHash4Room == null) return; 
+        String puzzleName = puzzle.getName();
+        Boolean isComp = compHash4Room.get(puzzleName);
+        if (isComp == null) return; 
+        puzzle.setIsCompleted(isComp);
         room.updateExits(); // exits updated here in case the completed puzzle is meant to trigger an opening
     }
 
@@ -234,5 +249,17 @@ public class Progress {
 
     public void setCurrentRoomName(String roomName) {
         this.currentRoomName = roomName;
+    }
+
+    public void incrementHintsUsed() {
+        ++hintsUsed;
+    }
+
+    public void setHintsUsed(int hintsUsed) {
+        this.hintsUsed = hintsUsed;
+    }
+
+    public int getHintsUsed() {
+        return this.hintsUsed;
     }
 }

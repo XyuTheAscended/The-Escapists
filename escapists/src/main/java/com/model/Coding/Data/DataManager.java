@@ -142,88 +142,89 @@ public class DataManager {
     }
 
     /**
-     * Loads all rooms via DataLoader.
+     * Saves all rooms progress via DataWriter.
      *
-     * @return list of rooms
      */
     private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
 
     @SuppressWarnings("unchecked")
     public void saveProgress(User user, Progress progress) {
-        if (user == null || progress == null) {
-            System.out.println("Cannot save progress: null user or progress");
-            return;
-        }
-        String filePath = USER_FILE;
-        JSONParser parser = new JSONParser();
+        DataWriter.getInstance().saveProgress(user, progress);
 
-        try {
-            File file = new File(filePath);
-            JSONObject root;
-            JSONArray usersArray;
+        // if (user == null || progress == null) {
+        //     System.out.println("Cannot save progress: null user or progress");
+        //     return;
+        // }
+        // String filePath = USER_FILE;
+        // JSONParser parser = new JSONParser();
 
-            /* Read JSON file  */
-            if (file.exists() && file.length() > 0) {
-                FileReader reader = new FileReader(file);
-                root = (JSONObject) parser.parse(reader);
-                reader.close();
-                usersArray = (JSONArray) root.get("users");
+        // try {
+        //     File file = new File(filePath);
+        //     JSONObject root;
+        //     JSONArray usersArray;
 
-            } else {
-                System.out.println("No user file -- cannot save.");
-                return;
-            }
+        //     /* Read JSON file  */
+        //     if (file.exists() && file.length() > 0) {
+        //         FileReader reader = new FileReader(file);
+        //         root = (JSONObject) parser.parse(reader);
+        //         reader.close();
+        //         usersArray = (JSONArray) root.get("users");
 
-            /* Find user in JSON  */
-            for (Object userObj : usersArray) {
-                JSONObject userJson = (JSONObject) userObj;
-                if (user.getUserName().equals(userJson.get("userName"))) {
-                    JSONArray savesArray = (JSONArray) userJson.get("saves");
-                    if (savesArray == null) {
-                        savesArray = new JSONArray();
-                        userJson.put("saves", savesArray);
-                    }
+        //     } else {
+        //         System.out.println("No user file -- cannot save.");
+        //         return;
+        //     }
 
-                    boolean saveFound = false;
-                    for (int i = 0; i < savesArray.size(); i++) {
-                        JSONObject saveJson = (JSONObject) savesArray.get(i);
-                        String idStr = (String) saveJson.get("progressId");
-                        if (idStr != null && idStr.equals(progress.getProgressId().toString())) {
-                            changeCurrSaveJSON(saveJson, progress);
-                            saveFound = true;
-                            break;
-                        }
-                    }
+        //     /* Find user in JSON  */
+        //     for (Object userObj : usersArray) {
+        //         JSONObject userJson = (JSONObject) userObj;
+        //         if (user.getUserName().equals(userJson.get("userName"))) {
+        //             JSONArray savesArray = (JSONArray) userJson.get("saves");
+        //             if (savesArray == null) {
+        //                 savesArray = new JSONArray();
+        //                 userJson.put("saves", savesArray);
+        //             }
 
-                    if (!saveFound) {
-                        JSONObject newSave = new JSONObject();
-                        changeCurrSaveJSON(newSave, progress);
-                        savesArray.add(newSave);
+        //             boolean saveFound = false;
+        //             for (int i = 0; i < savesArray.size(); i++) {
+        //                 JSONObject saveJson = (JSONObject) savesArray.get(i);
+        //                 String idStr = (String) saveJson.get("progressId");
+        //                 if (idStr != null && idStr.equals(progress.getProgressId().toString())) {
+        //                     changeCurrSaveJSON(saveJson, progress);
+        //                     saveFound = true;
+        //                     break;
+        //                 }
+        //             }
 
-                    }
+        //             if (!saveFound) {
+        //                 JSONObject newSave = new JSONObject();
+        //                 changeCurrSaveJSON(newSave, progress);
+        //                 savesArray.add(newSave);
 
-                    /* Update current save pointer */
-                    userJson.put("currSave", progress.getProgressId().toString());
+        //             }
 
-                    /* Write back to file */
-                    FileWriter writer = new FileWriter(filePath);
-                    root.put("users", usersArray);
-                    writer.write(root.toJSONString());
-                    writer.flush();
-                    writer.close();
-                    System.out.println("Progress saved successfully for user: " + user.getUserName());
-                    return;
+        //             /* Update current save pointer */
+        //             userJson.put("currSave", progress.getProgressId().toString());
 
-                }
+        //             /* Write back to file */
+        //             FileWriter writer = new FileWriter(filePath);
+        //             root.put("users", usersArray);
+        //             writer.write(root.toJSONString());
+        //             writer.flush();
+        //             writer.close();
+        //             System.out.println("Progress saved successfully for user: " + user.getUserName());
+        //             return;
 
-            }
+        //         }
 
-            System.out.println("User not found in JSON -- cannot save progress.");
+        //     }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        //     System.out.println("User not found in JSON -- cannot save progress.");
 
-        }
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+
+        // }
 
     }
 }

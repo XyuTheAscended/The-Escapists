@@ -55,20 +55,69 @@ public class GameFacade {
         return gameFacade != null ? gameFacade : new GameFacade();
     }
 
+    public boolean currSaveIsContinuable() {
+        return currentUser != null &&
+            currentUser.getCurrSave() != null && 
+            currentUser.getCurrSave().getCurrentRoomName() != null &&
+            !currentUser.getCurrSave().getCurrentRoomName().equals("OUTSIDE");
+    }
+
+    /**
+     * Loads current save under current user
+     */
+    public void loadCurrSave(){
+        if (currentUser == null) return;
+
+        Progress save = currentUser.getCurrSave();
+
+        this.activeProgress = save; 
+        this.difficulty = save.getDifficulty();
+        this.inventory = save.getInventory();
+        this.map = new Map();
+        this.map.loadFromSave(save); 
+    }
+
+    public void unloadCurrSave() {
+        this.difficulty = 0; 
+        this.inventory = null;
+        this.activeProgress = null;
+    }
+
     /**
      * Starts the game
      */
-    public void startGame(){
+    public void startGame(int diff){
         if (currentUser == null) {
-            System.err.println("Cant start the game without a currnent user...");
-            return;
+            throw new RuntimeException("Cant start the game without a currnent user...");
         }
+
+        if (!currSaveIsContinuable()) {
+            currentUser.createSave(); // creating save automatically sets the curr save to the newly created one
+        }
+
         loadCurrSave();
-        if (difficulty == 0) {
+
+        if (diff > 0)
+            setDifficulty(diff);
+        else {
             System.out.println("Defaulting difficulty to 1");
-            this.setDifficulty(1);
+            setDifficulty(1);
         }
-        Timer.getInstance().start(1800 / difficulty);;
+
+        int startingTime = 1800 / diff;
+        int remaingTimeLeftOffAt = activeProgress.getRemainingTime();
+        if (remaingTimeLeftOffAt > 0) {
+            Timer.getInstance().start(startingTime, remaingTimeLeftOffAt);
+        } else {
+            Timer.getInstance().start(startingTime);
+        }
+    }
+
+    public void endGame() {
+        if (currentUser == null) throw new RuntimeException("Can't end the game without a user");
+        if (activeProgress == null) throw new RuntimeException("CAnt end without an active progress/save");
+        unloadCurrSave(); 
+        Timer.getInstance().reset();
     }
 
     public int getTimePassed() {
@@ -165,6 +214,12 @@ public class GameFacade {
      */
     public void setDifficulty(int level){
         this.difficulty = level;
+        if (activeProgress != null) 
+            activeProgress.setDifficulty(level);
+    }
+
+    public int getDifficulty() {
+        return this.difficulty;
     }
 
     /**
@@ -205,25 +260,16 @@ public class GameFacade {
         if (currentUser == null) return;
         currentUser = null; 
     }
+
     // idk
     public void save(){
-
-    }
-
-    /**
-     * Loads current save under current user
-     */
-    public void loadCurrSave(){
         if (currentUser == null) return;
-        if (currentUser.getCurrSave() == null) currentUser.createSave(); // creating save automatically sets the curr save to the newly created one
-        Progress save = currentUser.getCurrSave();
+        if (activeProgress == null) return;
 
-        this.activeProgress = save; 
-        this.difficulty = save.getDifficulty();
-        this.inventory = save.getInventory();
-        this.map = new Map();
-        this.map.setCurrentRoom("Cell"); // NOTE: hardcoded for now but ill change it later i promise !!
+        this.activeProgress.setRemainingTime(Timer.getInstance().getRemainingTime());
+        DataManager.getInstance().saveProgress(currentUser, activeProgress);
     }
+
 
     /**
      * Wrapper funcs for map's currRoom management methods
@@ -240,7 +286,7 @@ public class GameFacade {
     public void setCurrRoom(Room room) {
         if (map == null) return;
         map.setCurrentRoom(room);
-        this.activeProgress.setCurrentRoom(room);
+        activeProgress.setCurrentRoom(room);
     }
 
     /**

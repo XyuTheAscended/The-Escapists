@@ -26,8 +26,9 @@ public class Item {
     }
 
     public static Item cacheItem(String name, String description) {
-        if (searchForItem(name) != null) { // this search call is case sensitive (so for ex. these two cant exit together: pIsToL, PISTOL)
-            throw new RuntimeException(name + " has already been cached.");
+        Item preexistingItem = searchForItem(name);
+        if (preexistingItem != null) { // this search call is case sensitive (so for ex. these two cant exit together: pIsToL, PISTOL)
+            return preexistingItem;
         }
 
         int nextItemId = allItemsEver.size(); // as long as items never get removed, this will always equal size of the items cache

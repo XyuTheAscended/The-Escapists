@@ -3,6 +3,8 @@ package com.model.Coding.Gameplay.Map;
 import java.util.ArrayList;
 
 import com.model.Coding.Data.DataManager;
+import com.model.Coding.Gameplay.InteractItems.Puzzle;
+import com.model.Coding.Progress.Progress;
 
 /**
  * Map
@@ -70,5 +72,30 @@ public class Map {
             }
         }
         System.err.println(roomName + " not a room! cannot beset as current room");
+    }
+
+    private Room getRoomByName(String roomName) {
+        for (Room room : rooms) { 
+            if (room.getName().equals(roomName)) 
+                return room;
+        }
+        return null;
+    }
+
+    public void loadFromSave(Progress save) {
+        String currRoomName = save.getCurrentRoomName();
+        if (currRoomName == null) {
+            currRoomName = "Cell";
+            System.out.println("Setting default room to " + currRoomName);
+        }
+        Room currRoom = getRoomByName(currRoomName);
+        save.setCurrentRoom(currRoom);
+        setCurrentRoom(currRoom.getName());
+
+        for (Room room : rooms) {
+            for (Puzzle puzzle : room.getPuzzles()) {
+                save.setPuzzleCompleted(room, puzzle);
+            }
+        }
     }
 }

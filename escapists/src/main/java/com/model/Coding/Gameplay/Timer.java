@@ -10,6 +10,7 @@ public class Timer {
     private boolean isRunning = false;
     private static Timer timer;
     private Thread timerThread;
+    private int cachedTimePassed;
 
     /**
      * Initializes startTime and remainingTime
@@ -35,26 +36,30 @@ public class Timer {
      * @param startTime time in seconds timer starts at
      */
     public void start(int startTime) {
+        start(startTime, startTime);
+    }
+
+    public void start(int startTime, int remainingTime) {
         if (isRunning) return;
         isRunning = true;
 
         this.startTime = startTime;
-        this.remainingTime = startTime;
+        this.remainingTime = remainingTime;
 
         timerThread = new Thread(() -> {
-            while (isRunning && remainingTime > 0) {
-                int minutes = remainingTime / 60;
-                int seconds = remainingTime % 60;
+            while (isRunning && this.remainingTime > 0) {
+                int minutes = this.remainingTime / 60;
+                int seconds = this.remainingTime % 60;
                 // System.out.printf("Time remaining: %02d:%02d%n", minutes, seconds);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     break;
                 }
-                remainingTime--;
+                this.remainingTime--;
             }
 
-            if (remainingTime == 0) {
+            if (this.remainingTime == 0) {
                 System.out.println("Time's up!");
                 isRunning = false;
             }
@@ -62,7 +67,7 @@ public class Timer {
         timerThread.start();
     }
 
-    public void start() {
+    private void start() {
         if (isRunning) return;
         isRunning = true;
 
@@ -86,6 +91,7 @@ public class Timer {
                 System.out.println("Time's up!");
                 isRunning = false;
             }
+
         });
         timerThread.start();
     }
@@ -94,6 +100,7 @@ public class Timer {
      * Pauses the timer
      */
     public void pause() {
+        cachedTimePassed = startTime - remainingTime;
         isRunning = false;
     }
 
@@ -101,14 +108,24 @@ public class Timer {
      * Resets the timer
      */
     public void reset() {
+        cachedTimePassed = startTime - remainingTime;
         isRunning = false;
-        remainingTime = startTime;
+        remainingTime = 0;
+        startTime = 0;
     }
 
     /**
      * Resumes the timer
      */
     public void resume() {
+        if (startTime == 0) {
+            System.out.println("Cannot resume. Timer has not been started");
+            return;
+        } else if (remainingTime == 0) {
+            System.out.println("Cannot resume. No time left.");
+            return;
+        }
+
         start();
     }
 
@@ -121,7 +138,11 @@ public class Timer {
     }
 
     public int getTimePassed() {
-        return startTime - remainingTime;
+        if (isRunning) {
+            return startTime - remainingTime;
+        } else {
+            return cachedTimePassed;
+        }
     }
 
     public String getTimePassedFormatted() {

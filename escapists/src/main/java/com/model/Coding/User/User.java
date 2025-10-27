@@ -232,4 +232,8 @@ public class User {
         Integer difficultyKey = Integer.valueOf(difficulty);
         return completionTimes.get(difficultyKey);
     }
+
+    public HashMap<Integer, ArrayList<Integer>> getCompletionTimesHashmap() {
+        return completionTimes;
+    }
 }

@@ -3,6 +3,9 @@ package com.model.Coding.Data;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.HashMap;
+
+import javax.management.RuntimeErrorException;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -91,16 +94,24 @@ public class DataWriter {
     @SuppressWarnings("unchecked")
 
     private void changeCurrSaveJSON(JSONObject saveJson, Progress progress) {
+        saveJson.clear();
+
         /* Progress components */
         saveJson.put("progressId", progress.getProgressId().toString());
         saveJson.put("difficulty", progress.getDifficulty());
         saveJson.put("remainingTime", progress.getRemainingTime());
+        saveJson.put("hintsUsed", progress.getHintsUsed());
 
         /* Current room */
         if (progress.getCurrentRoom() != null) {
-            saveJson.put("currentRoom", progress.getCurrentRoom().toString()); 
+            saveJson.put("currentRoom", progress.getCurrentRoom().getName()); 
         }else {
-            saveJson.put("currentRoom", "Unknown");
+            String currRoomName = progress.getCurrentRoomName();
+            if (currRoomName != null && currRoomName.equals("OUTSIDE")) {
+                saveJson.put("currentRoom", "OUTSIDE");
+            } else {
+                saveJson.put("currentRoom", null);
+            }
         }
 
         /* Completed rooms */
@@ -112,6 +123,15 @@ public class DataWriter {
 
         /* Completed puzzles */
         JSONObject completedPuzzlesJson = new JSONObject();
+        for (String roomName : progress.getCompletedPuzzles().keySet()) {
+            JSONObject roomCompsEntry = new JSONObject();
+            completedPuzzlesJson.put(roomName, roomCompsEntry);
+            HashMap<String, Boolean> puzzleComps = progress.getCompletedPuzzles().get(roomName);
+            for (String puzName : puzzleComps.keySet()) {
+                boolean isComp = puzzleComps.get(puzName);
+                roomCompsEntry.put(puzName, isComp);
+            }
+        }
         saveJson.put("completedPuzzles", completedPuzzlesJson);
 
         /* Inventory */
@@ -119,8 +139,10 @@ public class DataWriter {
         JSONArray itemsArray = new JSONArray();
         if (progress.getInventory() != null && progress.getInventory().getItems() != null) {
             progress.getInventory().getItems().forEach(item -> {
+
+
                 JSONObject itemJson = new JSONObject();
-                itemJson.put("itemId", item.getItemId());
+                // itemJson.put("itemId", item.getItemId()); // removed because Item class creates item Ids based on order item was loaded in. May change in future
                 itemJson.put("name", item.getName());
                 itemJson.put("description", item.getDescription());
                 itemsArray.add(itemJson);
@@ -139,6 +161,8 @@ public class DataWriter {
             });
         }
         saveJson.put("achievements", achievementsArray);
+
+
     }
 
     /**
