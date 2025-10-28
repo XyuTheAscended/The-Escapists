@@ -4,7 +4,7 @@ import com.model.Coding.Gameplay.InteractItems.Puzzle;
 
 /**
  * A drag and drop puzzle
- * @author
+ * @author Tyler Norman
  */
 public class DandDPuzzle extends Puzzle {
     private ArrayList<Item> requiredItems;
