@@ -3,7 +3,7 @@ import com.model.Coding.Gameplay.InteractItems.Item;
 
 /**
  * A NPC Character
- * @author
+ * @author Tyler Norman
  */
 public class Character {
     protected String characterName;
