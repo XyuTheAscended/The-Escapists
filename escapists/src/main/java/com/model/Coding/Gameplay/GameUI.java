@@ -29,6 +29,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 
+/**
+ * This is pretty much our driver. We will delete everything
+ * when its time to implement actual UI
+ * @author Mason, Jeffen, Liam, Tyler
+ */
+
 // this is just a console based test UI for the game. this is where we test our program, and we can hard code
 // certain scenarios to test.
 public class GameUI {
@@ -36,10 +42,16 @@ public class GameUI {
     private Puzzle puzzle;
     private Scanner scan = new Scanner(System.in);
 
+    /**
+     * Constructor for GameUI instance
+     */
     GameUI() {
         puzzle = new Puzzle(null, null, null);
     }
 
+    /**
+     * Test func for puzzles
+     */
     public void scenario1() {
         if (puzzle.checkAnswer(null)) {
             System.out.println("Answer is right");
@@ -47,6 +59,9 @@ public class GameUI {
         System.out.println("Answer is not right");
     }
 
+    /**
+     * Test func for puzzles again
+     */
     public void scenario2() {
         if(Objects.equals(puzzle.userAnswer("yes"), puzzle.getAnswer())) {
             System.out.println("Answer is correct");
@@ -56,6 +71,9 @@ public class GameUI {
 
     // player solves a puzzle, character gives item to inventory, inventory gives item to warden.
     // maybe put all of this in one room
+    /**
+     * Item and inventory and warden test func
+     */
     public void scenario3() {
         Item key = Item.cacheItem("Blue Key", "Open the door.");
         Inventory inven = new Inventory();
@@ -89,6 +107,9 @@ public class GameUI {
         System.out.println(warden.speak("You may proceed"));
     }
 
+    /**
+     * Func for showing save info about a user
+     */
     public void displayProgress() {
         DataManager manager = DataManager.getInstance();
         DataLoader loader = DataLoader.getInstance();
@@ -133,6 +154,9 @@ public class GameUI {
         }
     }
     
+    /**
+     * Test func for testing drag and drop puzzle
+     */
     public void dragAndDropScenario() {
         Item key1 = Item.cacheItem("Blue Key", "Open the door.");
         Item key2 = Item.cacheItem("Red Key", "Open the door.");
@@ -155,6 +179,9 @@ public class GameUI {
         
     }
 
+    /**
+     * Test func for login
+     */
     public void successfulLogin() {
 
         if(GF.login("John", "passworD123")){
@@ -165,6 +192,9 @@ public class GameUI {
         }
     }
 
+    /**
+     * Test func for bad login 
+     */
     public void unsuccessfulLogin() {
 
         if(GF.login("dsa;lijfidsajf", "dsakfa")){
@@ -175,11 +205,18 @@ public class GameUI {
         }
     }
 
+    /**
+     * Func for printing out leaderboard
+     * @param diff difficulty level we want to display leaderboard for
+     */
     public void displayLeaderboard(int diff) {
         // User user = GameFacade.getInstance().getCurrUser();
         System.out.println("Top times for D"+diff+": " + Leaderboard.getInstance().getFormattedOrderedTimes(diff));
     }
 
+    /**
+     * Test func for rooms
+     */
     public void roomWithPuzzles() {
         Puzzle riddle = new Puzzle("A cold", "What can you catch, but cannot throw?", "Riddle");
         Puzzle keypad = new Puzzle("1234", "Enter the correct code: ", "Keypad");
@@ -272,6 +309,9 @@ public class GameUI {
         System.out.printf("Congratulations! Your time was: %02d:%02d%n", minutes, seconds);
     }
 
+    /**
+     * Test func for transitioning btwn rooms w/ exits
+     */
     private void roomTransitionTest() {
         GF.login("John", "passworD123");
         GF.setDifficulty(1);
@@ -295,6 +335,9 @@ public class GameUI {
         }
     }
 
+    /**
+     * Test func for logging out
+     */
     public void logoutAndShowPersistence() {
         GameFacade gf = GameFacade.getInstance();
         DataLoader loader = DataLoader.getInstance();
@@ -399,6 +442,9 @@ public class GameUI {
         }
     }
 
+    /**
+     * Test func for registering but failing
+     */
     public void leniDuplicateUser() {
         GameFacade gf = GameFacade.getInstance();
 
@@ -414,9 +460,12 @@ public class GameUI {
     }
 
     // Leni registers and logs in with new username
+    /**
+     * Test func for a sucessful login
+     */
     public void leniLogIn() {
         GameFacade gf = GameFacade.getInstance();
-        gf.register("Leni", "LeniPassword");
+        gf.register("Leni", "LeniPassword"); // this func does nothing if user is already registered
         if (gf.login("Leni", "LeniPassword")) {
             System.out.println("Successful Login\n" + gf.getCurrUser().toString());
         } else {
@@ -425,6 +474,10 @@ public class GameUI {
     }
 
     // BIG WORK IN PROGRESS. NOT DONE
+    /**
+     * Test func for main menu + game loop
+     * @param skipIntro determines whether we skip intro or not
+     */
     public void enterAnEscapeRoom(boolean skipIntro) {
 
         System.out.println("| Enter An Escape Room & Hearing the Story Scenario! |");
@@ -499,6 +552,9 @@ public class GameUI {
         System.out.println("Exiting game");
     }
 
+    /**
+     * Func for speaking out intro to player
+     */
     private void presentStory() {
         String plot = "\nYou wake up in a cold, dimly lit cell—falsely accused, locked away for a " +
                 "crime you didn’t commit.\nThe walls echo with the whispers of injustice, and your only " +
@@ -512,6 +568,9 @@ public class GameUI {
         Speak.speak(plot);
     }
 
+    /**
+     * Func for clearing out console
+     */
     private void fakeConsoleClear() {
         try {
             String os = System.getProperty("os.name").toLowerCase();
@@ -526,6 +585,11 @@ public class GameUI {
         }
     }
 
+    /**
+     * Puzzle interface interaction loop
+     * @param puzzle Puzzle we're interacting with
+     * @return success condition
+     */
     private boolean genericPuzzleLoop(Puzzle puzzle) {
         System.out.println("Enter answer (type no to give up or hint for help): ");
         String answer = scan.nextLine().trim();
@@ -545,6 +609,11 @@ public class GameUI {
         return false;
     }
 
+    /**
+     * Item puzzle interface interaction loop
+     * @param puzzle Puzzle we're interacting with
+     * @return success condition
+     */
     private boolean itemPuzzleLoop(ItemPuzzle puzzle) {
         System.out.println("What item do you want to use for this puzzle? (say no to give up, or hint for some help)");
         System.out.println(GF.getInventory().displayInventory());
@@ -595,6 +664,11 @@ public class GameUI {
         return false;
     }
 
+    /**
+     * Drag and drop puzzle interface interaction loop
+     * @param puzzle Puzzle we're interacting with
+     * @return success condition
+     */
     private boolean dndPuzzleLoop(DandDPuzzle puzzle) {
         System.out.println("What items shall you drag into this thing? (say no to give up or hint for help)");
         System.out.println(GF.getInventory().displayInventory());
@@ -639,6 +713,11 @@ public class GameUI {
         return true;
     }
 
+    /**
+     * Function for getting hint of puzzle
+     * @param puzzle puzzle in question
+     * @return String hint
+     */
     private String getHint(Puzzle puzzle) {
         String description = puzzle.getDescription();
         description = description == null ? 
@@ -652,6 +731,11 @@ public class GameUI {
         return "About: " + puzzle.getDescription() + " (Answer: "+puzzle.getAnswer()+")";
     }
 
+    /**
+     * Function that hooks the appropriate interaction interface func with a puzzle
+     * @param puzzle puzzle we're prompting
+     * @return whether the puzzle was complete or not after interface was exited from
+     */
     private boolean promptPuzzle(Puzzle puzzle) { // returns true if puzzle was complete
         System.out.println("Puzzle u selected: " + puzzle.getName());
 
@@ -683,6 +767,13 @@ public class GameUI {
 
     final String BARS = "============================================";
     private boolean escaped = false;
+    /**
+     * Hooks interaction functionality for a room
+     * and displays a pseudo menu for choosing interactions
+     * @param room curr room player is in
+     * @param currSave curr save player is using 
+     * @return next room to go to; may be null
+     */
     private Room hookInteractions(Room room, Progress currSave) {
         ArrayList<Puzzle> puzzles = room.getPuzzles();
         Exit[] exits = room.getExits();
@@ -776,6 +867,10 @@ public class GameUI {
         return exit2Use.getNextRoom();
     }
 
+    /**
+     * Initiates main game loop
+     * @param difficulty difficulty we're playing at
+     */
     public void gameLoopTest(int difficulty) {
         if (GF.getCurrUser() == null) {
             System.out.println("Can't play without a logged in user...");
@@ -818,6 +913,10 @@ public class GameUI {
     }
 
 
+    /**
+     * Main func
+     * @param args args
+     */
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
         // gameUI.displayProgress();
@@ -833,7 +932,7 @@ public class GameUI {
 
         // gameUI.leniDuplicateUser();
         // gameUI.leniLogIn();
-        gameUI.enterAnEscapeRoom(true);
+        gameUI.enterAnEscapeRoom(false);
         // gameUI.logoutAndShowPersistence();
         // gameUI.gameLoopTest(1);
     }
