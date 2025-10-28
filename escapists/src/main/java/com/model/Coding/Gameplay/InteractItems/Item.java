@@ -48,14 +48,32 @@ public class Item {
         return item;
     }
 
+    /**
+     * Searches if item was created before by checking item cache
+     * @param name searchee's name
+     * @return thing tha twas found
+     */
     public static Item searchForItem(String name) {
         return searchForItem(name, false);
     }
 
+    /**
+     * Same function as above for searching items but has a case sensitive functionality
+     * @param name searchee's name
+     * @param caseSensitive whether we wanna search by case sensitivity or not
+     * @return item found 
+     */
     public static Item searchForItem(String name, boolean caseSensitive) {
         return searchForItemInList(allItemsEver, name, caseSensitive);
     }
 
+    /**
+     * Searches for item in a given list of items
+     * @param list list in question
+     * @param name name of item we're searching for
+     * @param caseSensitive whether we wanna search with case sensitivity
+     * @return item found 
+     */
     public static Item searchForItemInList(ArrayList<Item> list, String name, boolean caseSensitive) {
         for (Item item : list) {
             if (caseSensitive) { 
@@ -71,6 +89,11 @@ public class Item {
         return null;
     }
 
+    /**
+     * search for an item and gets it BUT returns the Id of the item instead of the item itself
+     * @param name name of searchee
+     * @return item id of the found item
+     */
     public static int searchForItemId(String name) {
         Item item = searchForItem(name);
         return item != null ? item.getItemId() : null;
@@ -91,6 +114,11 @@ public class Item {
 
     }
 
+    /**
+     * Compares two items together based on item id
+     * @param otherItem item we're comparing with the curr item
+     * @return equivalency boolean
+     */
     public boolean equals(Item otherItem) {
         return this.itemId == otherItem.itemId;
     }
