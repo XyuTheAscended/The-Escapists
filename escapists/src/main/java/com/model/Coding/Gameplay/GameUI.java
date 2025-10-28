@@ -311,6 +311,8 @@ public class GameUI {
 
     /**
      * Test func for transitioning btwn rooms w/ exits
+     * Is broken right now but we don't need to use this anymore
+     * so I didnt fix it
      */
     private void roomTransitionTest() {
         GF.login("John", "passworD123");
@@ -920,20 +922,20 @@ public class GameUI {
     public static void main(String[] args) {
         GameUI gameUI = new GameUI();
         // gameUI.displayProgress();
-        //gameUI.dragAndDropScenario();
-        //gameUI.scenario1();
+        // gameUI.dragAndDropScenario();
+        // gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
         // gameUI.successfulLogin();
-        // gameUI.displayLeaderboard();
+        // gameUI.displayLeaderboard(1);
         // gameUI.unsuccessfulLogin();
         // gameUI.roomWithPuzzles();
-        // gameUI.roomTransitionTest();
+        // gameUI.roomTransitionTest(); // broken because of code restructuring in other classes, do not use. use enterAnEscapeRoom instead (shows same stuff)
 
         // gameUI.leniDuplicateUser();
         // gameUI.leniLogIn();
         gameUI.enterAnEscapeRoom(false);
         // gameUI.logoutAndShowPersistence();
-        // gameUI.gameLoopTest(1);
+        // gameUI.gameLoopTest(1); // wont work cause this method by itself doesnt log in a user. use enterAnEscapeRoom instead
     }
 }
