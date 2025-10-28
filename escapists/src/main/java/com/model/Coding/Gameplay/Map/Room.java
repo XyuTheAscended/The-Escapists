@@ -84,12 +84,19 @@ public class Room {
         return name;
     }
 
-    // ion know the rest lol
+    /**
+     * Getter for exits array
+     * @return
+     */
     public Exit[] getExits() {
         return exits; 
     }
 
     // method assumes that ALL prereq puzzles have already been added to the current room; wont work otherwise
+    /**
+     * Sets exits array with a list of exits that the room is connected to
+     * @param exits
+     */ 
     public void setExits(Exit[] exits) {
         // verify all puzzles needed to open exits are puzzles that actually exist in current room
         for (int i = 0; i < exits.length; i++) {
@@ -107,6 +114,10 @@ public class Room {
     }
 
 
+    /**
+     * Loops through all exits associated with the current room
+     * and checks if any of them should be opened
+     */
     public void updateExits() {
         if (exits == null) return; 
         for (int i = 0; i < exits.length; i++) {
@@ -124,6 +135,11 @@ public class Room {
         } 
     }
 
+    /**
+     * Converts room into a string discerning
+     * a bunch of room data
+     * @return room data string that is returned 
+     */
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("ROOM: ").append(name).append("\n");

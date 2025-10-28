@@ -39,6 +39,16 @@ public class Timer {
         start(startTime, startTime);
     }
 
+    /**
+     * Starts timer with a start time, but 
+     * also specifies the remaining time, which
+     * should be always less than the start time
+     * when we use this method or else this won't work;
+     * used for starting time when continuing a game from a
+     * past save
+     * @param startTime time we start at
+     * @param remainingTime time we want remaining time to be at
+     */
     public void start(int startTime, int remainingTime) {
         if (isRunning) return;
         isRunning = true;
@@ -67,6 +77,10 @@ public class Timer {
         timerThread.start();
     }
 
+    /**
+     * Sort of just resumes the timer. Wrapped around 
+     * by a differently named func
+     */
     private void start() {
         if (isRunning) return;
         isRunning = true;
@@ -137,6 +151,10 @@ public class Timer {
         return remainingTime;
     }
 
+    /**
+     * Gets how much time passed since start time 
+     * @return number of seconds passed
+     */
     public int getTimePassed() {
         if (isRunning) {
             return startTime - remainingTime;
@@ -145,6 +163,10 @@ public class Timer {
         }
     }
 
+    /**
+     * Gets time in a stirngified readable format
+     * @return time passed in HH:MM:SS format
+     */
     public String getTimePassedFormatted() {
         int totalSeconds = getTimePassed();
         int hours = totalSeconds / 3600;

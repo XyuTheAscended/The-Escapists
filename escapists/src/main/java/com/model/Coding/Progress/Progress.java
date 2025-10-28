@@ -15,13 +15,13 @@ import com.model.Coding.Gameplay.Map.Room;
 public class Progress {
     private UUID progressId;
     private Room currentRoom;
+    private String currentRoomName;
     private ArrayList<Room> completedRooms;
     private Inventory inventory;
     private ArrayList<Achievement> achievements;
     private int difficulty;
     private int remainingTime;
     private HashMap<String, HashMap<String, Boolean>> completedPuzzles;
-    private String currentRoomName;
     private int hintsUsed = 0;
 
     /**
@@ -161,7 +161,7 @@ public class Progress {
      * @return HashMap of completed puzzles
      */
     public HashMap<String, HashMap<String, Boolean>> getCompletedPuzzles() {
-    HashMap<String, HashMap<String, Boolean>> copy = new HashMap<>();
+        HashMap<String, HashMap<String, Boolean>> copy = new HashMap<>();
 
         for (String roomName : completedPuzzles.keySet()) {
             HashMap<String, Boolean> puzzles = completedPuzzles.get(roomName);
@@ -243,22 +243,44 @@ public class Progress {
         return true;
     }
 
+    /**
+     * Retrieves current room name
+     * @return current room name
+     */
     public String getCurrentRoomName() {
     return currentRoomName;
     }
 
+    /**
+     * Sets current room name. Used for when loading a save
+     * from Json file and this save has the player in some room.
+     * BUT at this point of the program, the room may not be loaded into
+     * the map, so we store the room name instead. 
+     * @param roomName
+     */
     public void setCurrentRoomName(String roomName) {
         this.currentRoomName = roomName;
     }
 
+    /**
+     * Increments amount of hints used during this save
+     */
     public void incrementHintsUsed() {
         ++hintsUsed;
     }
 
+    /**
+     * Sets how many hints were used
+     * @param hintsUsed how many hints to set 
+     */
     public void setHintsUsed(int hintsUsed) {
         this.hintsUsed = hintsUsed;
     }
 
+    /**
+     * Gives how many hints player used during this run
+     * @return number of hints
+     */
     public int getHintsUsed() {
         return this.hintsUsed;
     }
