@@ -2,7 +2,7 @@ package com.model.Coding.Gameplay.InteractItems;
 
 /**
  * An environmental prop
- * @author
+ * @author Tyler Norman
  */
 public class EnvironmentProp {
     private String name;

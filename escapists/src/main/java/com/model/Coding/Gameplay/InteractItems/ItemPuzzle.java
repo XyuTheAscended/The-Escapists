@@ -2,7 +2,7 @@ package com.model.Coding.Gameplay.InteractItems;
 
 /**
  * An item puzzle
- * @author
+ * @author Tyler Norman
  */
 public class ItemPuzzle extends Puzzle {
     private Item requiredItem;
