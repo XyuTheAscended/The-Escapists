@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.ArrayList;
 
 /**
- * An Item
+ * An Item class
  * @author
  */
 public class Item {
@@ -19,12 +19,22 @@ public class Item {
      * @param itemId ID of the item object
      * @param name Name of the item
      * @param description Description of the item
-     */    private Item(int itemId, String name, String description){
+     */    
+    private Item(int itemId, String name, String description){
         this.itemId = itemId;
         this.name = name;
         this.description = description;
     }
 
+    /**
+     * Wrapper function for creating items ONLY if they
+     * have not been created before ever
+     * If an item with same name already exists, no new
+     * item is made
+     * @param name
+     * @param description
+     * @return Item that was either created just now or had been created
+     */
     public static Item cacheItem(String name, String description) {
         Item preexistingItem = searchForItem(name);
         if (preexistingItem != null) { // this search call is case sensitive (so for ex. these two cant exit together: pIsToL, PISTOL)
