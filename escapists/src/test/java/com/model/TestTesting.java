@@ -6,6 +6,6 @@ import static org.junit.Assert.assertTrue;
 public class TestTesting {
     @Test
     public void testTesting(){
-        assertTrue(condition:true);
+        assertTrue(true);
     }
 }
