@@ -86,64 +86,7 @@ public class DataManager {
         return dataLoader.loadRooms();
     }
 
-    @SuppressWarnings("unchecked")
-    private void changeCurrSaveJSON(JSONObject saveJson, Progress progress) {
-        // Progress components
-        saveJson.put("progressId", progress.getProgressId().toString());
-        saveJson.put("difficulty", progress.getDifficulty());
-        saveJson.put("remainingTime", progress.getRemainingTime());
-
-        /* Current room */
-        if (progress.getCurrentRoom() != null) {
-            saveJson.put("currentRoom", progress.getCurrentRoom().toString());
-        } else {
-            saveJson.put("currentRoom", "Unknown");
-        }
-
-        /* Completed rooms */
-        JSONArray completedRoomsArray = new JSONArray();
-
-        if (progress.getCompletedRooms() != null) {
-            progress.getCompletedRooms().forEach(room -> completedRoomsArray.add(room.toString()));
-        }
-        saveJson.put("completedRooms", completedRoomsArray);
-
-        /* Completed Puzzles */
-        JSONObject completedPuzzlesJson = new JSONObject();
-        saveJson.put("completedPuzzles", completedPuzzlesJson);
-
-        /* Inventory */
-        JSONObject inventoryJson = new JSONObject();
-        JSONArray itemsArray = new JSONArray();
-
-        if (progress.getInventory() != null && progress.getInventory().getItems() != null) {
-            progress.getInventory().getItems().forEach(item -> {
-                JSONObject itemJson = new JSONObject();
-                itemJson.put("itemId", item.getItemId());
-                itemJson.put("name", item.getName());
-                itemJson.put("description", item.getDescription());
-                itemsArray.add(itemJson);
-
-            });
-
-        }
-
-        inventoryJson.put("items", itemsArray);
-        saveJson.put("inventory", inventoryJson);
-
-        /* Achievements */
-        JSONArray achievementsArray = new JSONArray();
-        if (progress.getAchievements() != null) {
-            progress.getAchievements().forEach(achievement -> {
-                JSONObject a = new JSONObject();
-                a.put("name", "Sample Achievement");
-                achievementsArray.add(a);
-
-            });
-        }
-
-        saveJson.put("achievements", achievementsArray);
-    }
+   
 
     /**
      * Saves all rooms progress via DataWriter.

@@ -24,6 +24,7 @@ import com.model.Coding.Progress.Progress;
 
 /**
  * Loads user, room, and progress data from JSON files.
+ * @author Liam & Jeffen
  */
 public class DataLoader {
 

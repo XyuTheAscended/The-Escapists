@@ -93,7 +93,11 @@ public class DataWriter {
         }
     }
 
-        public void updateUser(User user) {
+    /**
+     * Updates user's completed times data in json
+     * @param user the one we're updating
+     */
+    public void updateUser(User user) {
         try {
             File file = new File(USER_FILE);
             JSONParser parser = new JSONParser();
