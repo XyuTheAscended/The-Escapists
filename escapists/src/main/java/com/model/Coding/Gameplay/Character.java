@@ -20,6 +20,12 @@ public class Character {
     }
 
     // expand this for each character
+    /**
+     * Gets a string and just slaps the character's name at the beginning
+     * of that string, turning that into a new string
+     * @param dialogue Thing the character is supposed to say
+     * @return The dialogue with the character's name prepended
+     */
     public String speak(String dialogue ){
         return (characterName + ": " + dialogue);
     }
