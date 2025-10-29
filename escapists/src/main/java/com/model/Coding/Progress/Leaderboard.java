@@ -30,6 +30,12 @@ public class Leaderboard {
         return leaderboard != null ? leaderboard : new Leaderboard(); 
     }
     
+    /**
+     * Retrieves best completion time by a user for a certain difficulty
+     * @param user User in question
+     * @param difficulty Difficulty in question
+     * @return Time in seconds
+     */
     private Integer getUserBestTime(User user, int difficulty) {
         ArrayList<Integer> times = user.getCompletionTimes(difficulty);
         Integer best = null; 
@@ -46,8 +52,7 @@ public class Leaderboard {
     } 
 
     /**
-     * Gets the users completion time and difficulty.
-     * @param user Respective user
+     * Gets the completion times of all users for a difficulty 
      * @param difficulty Game difficulty
      * @return ArrayList of the users top times
     */

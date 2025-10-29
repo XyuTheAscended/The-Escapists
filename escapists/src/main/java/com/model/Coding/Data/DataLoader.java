@@ -24,6 +24,7 @@ import com.model.Coding.Progress.Progress;
 
 /**
  * Loads user, room, and progress data from JSON files.
+ * @author Liam & Jeffen
  */
 public class DataLoader {
 
@@ -31,6 +32,9 @@ public class DataLoader {
   private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
   private static final String ROOMS_FILE = "escapists/src/main/java/com/model/Coding/json/rooms.json"; 
 
+    /**
+     * Empty constructor for data loader
+     */
     private DataLoader() {
 
     }
@@ -47,53 +51,21 @@ public class DataLoader {
         return dataLoader;
     }
 
-    // pretty much exact code from load progress method. may wanna be reused there
+    /**
+     * Retrieves a list of saves from a user entry in the json file
+     * @param userJsonObj user json data object
+     * @return list of saves/progresses
+     */
     private ArrayList<Progress> getProgressSavesFromUser(JSONObject userJsonObj) {
         JSONArray savesArray = (JSONArray) userJsonObj.get("saves");
         ArrayList<Progress> savesList = new ArrayList<Progress>();
         if (savesArray != null) {
             for (Object saveObj : savesArray) {
                 JSONObject saveJson = (JSONObject) saveObj;
-                String idStr = (String) saveJson.get("progressId"); // THIS doesnt get saved in progress object?? why??
+                String idStr = (String) saveJson.get("progressId"); 
 
                 if (idStr != null) {
-
-                    JSONArray completedRooms = (JSONArray) saveJson.get("completedRooms");
-                    if (completedRooms != null) {
-                        for (Object roomName : completedRooms) {
-                        }
-                    }
-
-                    JSONObject completedPuzzles = (JSONObject) saveJson.get("completedPuzzles");
-                    HashMap<String, HashMap<String, Boolean>> puzzles = new HashMap<>();
-                    if (completedPuzzles != null) {
-                        for (Object roomKey : completedPuzzles.keySet()) {
-                            JSONObject puzzlesJson = (JSONObject) completedPuzzles.get(roomKey);
-                            HashMap<String, Boolean> puzzleMap = new HashMap<>();
-                            for (Object puzzleKey : puzzlesJson.keySet()) {
-                                puzzleMap.put((String) puzzleKey, (Boolean) puzzlesJson.get(puzzleKey));
-                            }
-                            puzzles.put((String) roomKey, puzzleMap);
-                        }
-                    }
-
-                    // Inventory - need more work before full implementation
-                    JSONObject inventoryJson = (JSONObject) saveJson.get("inventory");
-                    if (inventoryJson != null) {
-                    }
-
-                    // Achievements - need more work before full implementation
-                    JSONArray achievementsJson = (JSONArray) saveJson.get("achievements");
-                    if (achievementsJson != null) {
-                    }
-
-                    Progress progress = new Progress(UUID.fromString(idStr), puzzles);
-                    progress.setDifficulty(((Long) saveJson.get("difficulty")).intValue());
-                    progress.setRemainingTime(((Long) saveJson.get("remainingTime")).intValue());
-                    String currRoomName = (String) saveJson.get("currentRoom");
-                    if (currRoomName != null) {
-                        progress.setCurrentRoomName(currRoomName);
-                    }
+                    Progress progress = getProgressFromSaveJson(saveJson, idStr);
                     savesList.add(progress);
                     
 
@@ -104,6 +76,11 @@ public class DataLoader {
         return savesList;
     }
 
+    /**
+     * Creates the hashmap user objects use to store their completion times during run time. derived from json files
+     * @param userJsonObj User json data we're getting hashmaps from
+     * @return the hashmap
+     */
     private HashMap<Integer, ArrayList<Integer>> getCompletionTimesFromUser(JSONObject userJsonObj) {
         JSONObject timesTable = (JSONObject) userJsonObj.get("completionTimes");
         HashMap<Integer, ArrayList<Integer>> completionTimes = new HashMap<>();
@@ -239,9 +216,9 @@ public class DataLoader {
                         } else { // dnd puzzle case since there are multiple item reqs
                             ArrayList<Item> dndItemsList = new ArrayList<>();
                             for (int i = 0; i < itemReqs.size(); i++) {
-                            String itemName = (String) itemReqs.get(i);
-                            Item itemReq = Item.cacheItem(itemName, desc);
-                            dndItemsList.add(itemReq);
+                                String itemName = (String) itemReqs.get(i);
+                                Item itemReq = Item.cacheItem(itemName, desc);
+                                dndItemsList.add(itemReq);
                             }
 
                             // note that answer and desc may ALSO be null for DnD puzzles
@@ -302,6 +279,72 @@ public class DataLoader {
     }
 
     /**
+     * Helper method to retrieve Progress instances when other methods need to do so
+     * @param saveJson the progress json data, which is supposed to be stored under user data entries in Json
+     * @param progIdStr the progress UUID also derived from the json data
+     * @return the progress instance that we process out of the json data stuff
+     */
+    private Progress getProgressFromSaveJson(JSONObject saveJson, String progIdStr) {
+        JSONArray completedRooms = (JSONArray) saveJson.get("completedRooms");
+        if (completedRooms != null) {
+            for (Object roomName : completedRooms) {
+            }
+        }
+
+        JSONObject completedPuzzles = (JSONObject) saveJson.get("completedPuzzles");
+        HashMap<String, HashMap<String, Boolean>> puzzles = new HashMap<>();
+        if (completedPuzzles != null) {
+            for (Object roomKey : completedPuzzles.keySet()) {
+                JSONObject puzzlesJson = (JSONObject) completedPuzzles.get(roomKey);
+                HashMap<String, Boolean> puzzleMap = new HashMap<>();
+                for (Object puzzleKey : puzzlesJson.keySet()) {
+                    puzzleMap.put((String) puzzleKey, (Boolean) puzzlesJson.get(puzzleKey));
+                }
+                puzzles.put((String) roomKey, puzzleMap);
+            }
+        }
+
+        Progress progress = new Progress(UUID.fromString(progIdStr), puzzles);
+        Long diffData = (Long) saveJson.get("difficulty");
+        if (diffData != null)
+            progress.setDifficulty((diffData).intValue());
+        Long remTimeData = (Long) saveJson.get("remainingTime");
+        if (remTimeData != null)
+            progress.setRemainingTime((remTimeData).intValue());
+        Long hintsData = (Long) saveJson.get("hintsUsed");
+        if (hintsData != null)
+            progress.setHintsUsed((hintsData).intValue());    
+
+        /* Inventory */
+        JSONObject inventoryJson = (JSONObject) saveJson.get("inventory");
+        if (inventoryJson != null) {
+            JSONArray itemsJsonList = (JSONArray) inventoryJson.get("items");
+            for (Object itemObj : itemsJsonList) {
+                JSONObject itemJsobj = (JSONObject) itemObj; 
+                String name = (String) itemJsobj.get("name");
+                // String itemId = (String) itemJsobj.get("name");
+                String description = (String) itemJsobj.get("description");
+                Item item = Item.cacheItem(name, description);
+                progress.getInventory().addItem(item);
+            }
+        }
+
+        /* Achievements */
+        JSONArray achievementsJson = (JSONArray) saveJson.get("achievements");
+        if (achievementsJson != null) {
+        }
+
+        String currRoomName = (String) saveJson.get("currentRoom");
+        if (currRoomName != null) {
+            progress.setCurrentRoomName(currRoomName);
+        }
+
+        
+
+        return progress;
+    }
+
+    /**
      * Loads progress by ID.
      *
      * @param progressId progress identifier
@@ -329,39 +372,7 @@ public class DataLoader {
                     String idStr = (String) saveJson.get("progressId");
                     if (idStr != null && idStr.equals(progressId.toString())) {
 
-                        JSONArray completedRooms = (JSONArray) saveJson.get("completedRooms");
-                        if (completedRooms != null) {
-                            for (Object roomName : completedRooms) {
-                            }
-                        }
-
-                        JSONObject completedPuzzles = (JSONObject) saveJson.get("completedPuzzles");
-                        HashMap<String, HashMap<String, Boolean>> puzzles = new HashMap<>();
-                        if (completedPuzzles != null) {
-                            for (Object roomKey : completedPuzzles.keySet()) {
-                                JSONObject puzzlesJson = (JSONObject) completedPuzzles.get(roomKey);
-                                HashMap<String, Boolean> puzzleMap = new HashMap<>();
-                                for (Object puzzleKey : puzzlesJson.keySet()) {
-                                    puzzleMap.put((String) puzzleKey, (Boolean) puzzlesJson.get(puzzleKey));
-                                }
-                                puzzles.put((String) roomKey, puzzleMap);
-                            }
-                        }
-
-                        /* Inventory */
-                        JSONObject inventoryJson = (JSONObject) saveJson.get("inventory");
-                        if (inventoryJson != null) {
-                        }
-
-                        /* Achievements */
-                        JSONArray achievementsJson = (JSONArray) saveJson.get("achievements");
-                        if (achievementsJson != null) {
-                        }
-
-                        Progress progress = new Progress(UUID.fromString(idStr), puzzles);
-                        progress.setDifficulty(((Long) saveJson.get("difficulty")).intValue());
-                        progress.setRemainingTime(((Long) saveJson.get("remainingTime")).intValue());
-                        return progress;
+                        return getProgressFromSaveJson(saveJson, idStr);
                     }
                 }
             }

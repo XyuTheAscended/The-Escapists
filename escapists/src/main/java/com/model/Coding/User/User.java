@@ -9,7 +9,7 @@ import com.model.Coding.Progress.Progress;
 
 /**
  * A user
- * @author
+ * @author Liam
  */
 public class User {
     private String userName;
@@ -160,18 +160,18 @@ public class User {
      * Saves users progress to json files
      */
     public void pushSaves() {
-            if (saves == null || saves.isEmpty()) {
-                System.out.println("No saves to push for " + userName);
-                return;
-            }
-
-            com.model.Coding.Data.DataManager dataManager = com.model.Coding.Data.DataManager.getInstance();
-
-            for (Progress save : saves) {
-                dataManager.saveProgress(this, save);
-            }
-            System.out.println("Saves pushed for " + userName);
+        if (saves == null || saves.isEmpty()) {
+            System.out.println("No saves to push for " + userName);
+            return;
         }
+
+        com.model.Coding.Data.DataManager dataManager = com.model.Coding.Data.DataManager.getInstance();
+
+        for (Progress save : saves) {
+            dataManager.saveProgress(this, save);
+        }
+        System.out.println("Saves pushed for " + userName);
+    }
 
     /**
      * Changes user's current save
@@ -231,5 +231,13 @@ public class User {
     public ArrayList<Integer> getCompletionTimes(int difficulty) {
         Integer difficultyKey = Integer.valueOf(difficulty);
         return completionTimes.get(difficultyKey);
+    }
+
+    /**
+     * Full hashmap of completion times mapping difficulty level w/ integer list
+     * @return Completion times hashmap
+     */
+    public HashMap<Integer, ArrayList<Integer>> getCompletionTimesHashmap() {
+        return completionTimes;
     }
 }

@@ -3,6 +3,8 @@ package com.model.Coding.Gameplay.Map;
 import java.util.ArrayList;
 
 import com.model.Coding.Data.DataManager;
+import com.model.Coding.Gameplay.InteractItems.Puzzle;
+import com.model.Coding.Progress.Progress;
 
 /**
  * Map
@@ -13,6 +15,9 @@ public class Map {
     private Room currentRoom;
     private ArrayList<Room> rooms;
 
+    /**
+     * COnstructor for making map
+     */
     public Map(){
         rooms = DataManager.getInstance().loadRooms();
         // setCurrentRoom(rooms.get(0)); // PLACEHOLDER
@@ -62,6 +67,10 @@ public class Map {
         currentRoom = room;
     }
 
+    /**
+     * Sets current room player is in
+     * @param roomName room we wanna be in
+     */
     public void setCurrentRoom(String roomName){
         for (Room room : rooms) {
             if (room.getName().equals(roomName)) {
@@ -70,5 +79,39 @@ public class Map {
             }
         }
         System.err.println(roomName + " not a room! cannot beset as current room");
+    }
+
+    /**
+     * Retrieves a room by its name
+     * @param roomName searchee's name
+     * @return room we found
+     */
+    private Room getRoomByName(String roomName) {
+        for (Room room : rooms) { 
+            if (room.getName().equals(roomName)) 
+                return room;
+        }
+        return null;
+    }
+
+    /**
+     * Sets progress state conditions on room and puzzles
+     * @param save save we're basing the tracker changes on
+     */
+    public void loadFromSave(Progress save) {
+        String currRoomName = save.getCurrentRoomName();
+        if (currRoomName == null) {
+            currRoomName = "Cell";
+            System.out.println("Setting default room to " + currRoomName);
+        }
+        Room currRoom = getRoomByName(currRoomName);
+        save.setCurrentRoom(currRoom);
+        setCurrentRoom(currRoom.getName());
+
+        for (Room room : rooms) {
+            for (Puzzle puzzle : room.getPuzzles()) {
+                save.setPuzzleCompleted(room, puzzle);
+            }
+        }
     }
 }

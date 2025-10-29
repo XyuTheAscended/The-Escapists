@@ -10,18 +10,19 @@ import com.model.Coding.Gameplay.Map.Room;
 
 /**
  * Tracks the progress of the user throughout the game
- * @author Mason Adams
+ * @author Liam
  */
 public class Progress {
     private UUID progressId;
     private Room currentRoom;
+    private String currentRoomName;
     private ArrayList<Room> completedRooms;
     private Inventory inventory;
     private ArrayList<Achievement> achievements;
     private int difficulty;
     private int remainingTime;
     private HashMap<String, HashMap<String, Boolean>> completedPuzzles;
-    private String currentRoomName;
+    private int hintsUsed = 0;
 
     /**
      * Initializes progress
@@ -65,6 +66,7 @@ public class Progress {
         text += "Progress ID: " + progressId + "\n";
         text += "Difficulty: " + difficulty + "\n";
         text += "Remaining Time: " + remainingTime + " seconds\n";
+        text += "Hints used: " + hintsUsed + "\n";
 
         text += "Completed Puzzles:\n";
         if (completedPuzzles != null && !completedPuzzles.isEmpty()) {
@@ -96,6 +98,7 @@ public class Progress {
      */
     public void setCurrentRoom(Room room) {
         this.currentRoom = room;
+        setCurrentRoomName(room != null ? room.getName() : null);
     }
 
     /**
@@ -128,8 +131,20 @@ public class Progress {
         String roomName = room.getName();
         String puzzleName = puzzle.getName();
         completedPuzzles.putIfAbsent(roomName, new HashMap<>());
-        if (bool) puzzle.setIsCompleted(bool);
+        puzzle.setIsCompleted(bool);
         completedPuzzles.get(roomName).put(puzzleName, bool);
+        room.updateExits(); // exits updated here in case the completed puzzle is meant to trigger an opening
+    }
+
+    // this version of method sets puzzle completed based on the current progress data
+    public void setPuzzleCompleted(Room room, Puzzle puzzle) {
+        String roomName = room.getName();
+        HashMap<String, Boolean> compHash4Room = completedPuzzles.get(roomName); 
+        if (compHash4Room == null) return; 
+        String puzzleName = puzzle.getName();
+        Boolean isComp = compHash4Room.get(puzzleName);
+        if (isComp == null) return; 
+        puzzle.setIsCompleted(isComp);
         room.updateExits(); // exits updated here in case the completed puzzle is meant to trigger an opening
     }
 
@@ -146,7 +161,7 @@ public class Progress {
      * @return HashMap of completed puzzles
      */
     public HashMap<String, HashMap<String, Boolean>> getCompletedPuzzles() {
-    HashMap<String, HashMap<String, Boolean>> copy = new HashMap<>();
+        HashMap<String, HashMap<String, Boolean>> copy = new HashMap<>();
 
         for (String roomName : completedPuzzles.keySet()) {
             HashMap<String, Boolean> puzzles = completedPuzzles.get(roomName);
@@ -228,11 +243,45 @@ public class Progress {
         return true;
     }
 
+    /**
+     * Retrieves current room name
+     * @return current room name
+     */
     public String getCurrentRoomName() {
     return currentRoomName;
     }
 
+    /**
+     * Sets current room name. Used for when loading a save
+     * from Json file and this save has the player in some room.
+     * BUT at this point of the program, the room may not be loaded into
+     * the map, so we store the room name instead. 
+     * @param roomName
+     */
     public void setCurrentRoomName(String roomName) {
         this.currentRoomName = roomName;
+    }
+
+    /**
+     * Increments amount of hints used during this save
+     */
+    public void incrementHintsUsed() {
+        ++hintsUsed;
+    }
+
+    /**
+     * Sets how many hints were used
+     * @param hintsUsed how many hints to set 
+     */
+    public void setHintsUsed(int hintsUsed) {
+        this.hintsUsed = hintsUsed;
+    }
+
+    /**
+     * Gives how many hints player used during this run
+     * @return number of hints
+     */
+    public int getHintsUsed() {
+        return this.hintsUsed;
     }
 }

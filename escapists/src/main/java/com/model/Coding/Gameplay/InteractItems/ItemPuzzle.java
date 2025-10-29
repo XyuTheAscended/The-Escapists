@@ -2,7 +2,7 @@ package com.model.Coding.Gameplay.InteractItems;
 
 /**
  * An item puzzle
- * @author
+ * @author Tyler Norman
  */
 public class ItemPuzzle extends Puzzle {
     private Item requiredItem;
@@ -46,6 +46,10 @@ public class ItemPuzzle extends Puzzle {
         return false;
     }
 
+    /**
+     * Gets required item needed for the puzzle
+     * @return the item req
+     */
     public Item getRequiredItem() {
         return requiredItem;
     }

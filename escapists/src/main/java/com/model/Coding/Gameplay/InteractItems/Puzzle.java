@@ -96,10 +96,17 @@ public class Puzzle {
         return isCompleted;
     }
 
+    /**
+     * Retrieves type of puzzle
+     * @return puzzle type
+     */
     public PuzzleType getPuzzleType() {
         return puzzleType;
     }
 
+    /**
+     * Converts puzzle into a string displaying its completion status
+     */
     public String toString() {
         return name + ": " + (isCompleted ? "Done =)" : "Not -_-");
     }

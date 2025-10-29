@@ -17,6 +17,7 @@ import com.model.Coding.Gameplay.Map.Room;
 
 /**
  * Coordinates data loading and writing operations.
+ * @author Liam and Jeffen
  */
 public class DataManager {
 
@@ -24,6 +25,9 @@ public class DataManager {
     private DataLoader dataLoader;
     private DataWriter dataWriter;
 
+    /**
+     * Constructor that creates datamanager and initializes the classes that it is a facade for
+     */
     private DataManager() {
         dataLoader = DataLoader.getInstance();
         dataWriter = DataWriter.getInstance();
@@ -82,148 +86,111 @@ public class DataManager {
         return dataLoader.loadRooms();
     }
 
-    @SuppressWarnings("unchecked")
-    private void changeCurrSaveJSON(JSONObject saveJson, Progress progress) {
-        // Progress components
-        saveJson.put("progressId", progress.getProgressId().toString());
-        saveJson.put("difficulty", progress.getDifficulty());
-        saveJson.put("remainingTime", progress.getRemainingTime());
-
-        /* Current room */
-        if (progress.getCurrentRoom() != null) {
-            saveJson.put("currentRoom", progress.getCurrentRoom().toString());
-        } else {
-            saveJson.put("currentRoom", "Unknown");
-        }
-
-        /* Completed rooms */
-        JSONArray completedRoomsArray = new JSONArray();
-
-        if (progress.getCompletedRooms() != null) {
-            progress.getCompletedRooms().forEach(room -> completedRoomsArray.add(room.toString()));
-        }
-        saveJson.put("completedRooms", completedRoomsArray);
-
-        /* Completed Puzzles */
-        JSONObject completedPuzzlesJson = new JSONObject();
-        saveJson.put("completedPuzzles", completedPuzzlesJson);
-
-        /* Inventory */
-        JSONObject inventoryJson = new JSONObject();
-        JSONArray itemsArray = new JSONArray();
-
-        if (progress.getInventory() != null && progress.getInventory().getItems() != null) {
-            progress.getInventory().getItems().forEach(item -> {
-                JSONObject itemJson = new JSONObject();
-                itemJson.put("itemId", item.getItemId());
-                itemJson.put("name", item.getName());
-                itemJson.put("description", item.getDescription());
-                itemsArray.add(itemJson);
-
-            });
-
-        }
-
-        inventoryJson.put("items", itemsArray);
-        saveJson.put("inventory", inventoryJson);
-
-        /* Achievements */
-        JSONArray achievementsArray = new JSONArray();
-        if (progress.getAchievements() != null) {
-            progress.getAchievements().forEach(achievement -> {
-                JSONObject a = new JSONObject();
-                a.put("name", "Sample Achievement");
-                achievementsArray.add(a);
-
-            });
-        }
-
-        saveJson.put("achievements", achievementsArray);
-    }
+   
 
     /**
-     * Loads all rooms via DataLoader.
-     *
-     * @return list of rooms
+     * Saves all rooms progress via DataWriter.
+     * Originally was using copy and pasted code from data writer, but then we just commented it all out
+     * and used the data writer instead
      */
     private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
 
     @SuppressWarnings("unchecked")
     public void saveProgress(User user, Progress progress) {
-        if (user == null || progress == null) {
-            System.out.println("Cannot save progress: null user or progress");
-            return;
-        }
-        String filePath = USER_FILE;
-        JSONParser parser = new JSONParser();
+        DataWriter.getInstance().saveProgress(user, progress);
 
-        try {
-            File file = new File(filePath);
-            JSONObject root;
-            JSONArray usersArray;
+        // if (user == null || progress == null) {
+        //     System.out.println("Cannot save progress: null user or progress");
+        //     return;
+        // }
+        // String filePath = USER_FILE;
+        // JSONParser parser = new JSONParser();
 
-            /* Read JSON file  */
-            if (file.exists() && file.length() > 0) {
-                FileReader reader = new FileReader(file);
-                root = (JSONObject) parser.parse(reader);
-                reader.close();
-                usersArray = (JSONArray) root.get("users");
+        // try {
+        //     File file = new File(filePath);
+        //     JSONObject root;
+        //     JSONArray usersArray;
 
-            } else {
-                System.out.println("No user file -- cannot save.");
-                return;
-            }
+        //     /* Read JSON file  */
+        //     if (file.exists() && file.length() > 0) {
+        //         FileReader reader = new FileReader(file);
+        //         root = (JSONObject) parser.parse(reader);
+        //         reader.close();
+        //         usersArray = (JSONArray) root.get("users");
 
-            /* Find user in JSON  */
-            for (Object userObj : usersArray) {
-                JSONObject userJson = (JSONObject) userObj;
-                if (user.getUserName().equals(userJson.get("userName"))) {
-                    JSONArray savesArray = (JSONArray) userJson.get("saves");
-                    if (savesArray == null) {
-                        savesArray = new JSONArray();
-                        userJson.put("saves", savesArray);
-                    }
+        //     } else {
+        //         System.out.println("No user file -- cannot save.");
+        //         return;
+        //     }
 
-                    boolean saveFound = false;
-                    for (int i = 0; i < savesArray.size(); i++) {
-                        JSONObject saveJson = (JSONObject) savesArray.get(i);
-                        String idStr = (String) saveJson.get("progressId");
-                        if (idStr != null && idStr.equals(progress.getProgressId().toString())) {
-                            changeCurrSaveJSON(saveJson, progress);
-                            saveFound = true;
-                            break;
-                        }
-                    }
+        //     /* Find user in JSON  */
+        //     for (Object userObj : usersArray) {
+        //         JSONObject userJson = (JSONObject) userObj;
+        //         if (user.getUserName().equals(userJson.get("userName"))) {
+        //             JSONArray savesArray = (JSONArray) userJson.get("saves");
+        //             if (savesArray == null) {
+        //                 savesArray = new JSONArray();
+        //                 userJson.put("saves", savesArray);
+        //             }
 
-                    if (!saveFound) {
-                        JSONObject newSave = new JSONObject();
-                        changeCurrSaveJSON(newSave, progress);
-                        savesArray.add(newSave);
+        //             boolean saveFound = false;
+        //             for (int i = 0; i < savesArray.size(); i++) {
+        //                 JSONObject saveJson = (JSONObject) savesArray.get(i);
+        //                 String idStr = (String) saveJson.get("progressId");
+        //                 if (idStr != null && idStr.equals(progress.getProgressId().toString())) {
+        //                     changeCurrSaveJSON(saveJson, progress);
+        //                     saveFound = true;
+        //                     break;
+        //                 }
+        //             }
 
-                    }
+        //             if (!saveFound) {
+        //                 JSONObject newSave = new JSONObject();
+        //                 changeCurrSaveJSON(newSave, progress);
+        //                 savesArray.add(newSave);
 
-                    /* Update current save pointer */
-                    userJson.put("currSave", progress.getProgressId().toString());
+        //             }
 
-                    /* Write back to file */
-                    FileWriter writer = new FileWriter(filePath);
-                    root.put("users", usersArray);
-                    writer.write(root.toJSONString());
-                    writer.flush();
-                    writer.close();
-                    System.out.println("Progress saved successfully for user: " + user.getUserName());
-                    return;
+        //             /* Update current save pointer */
+        //             userJson.put("currSave", progress.getProgressId().toString());
 
-                }
+        //             /* Write back to file */
+        //             FileWriter writer = new FileWriter(filePath);
+        //             root.put("users", usersArray);
+        //             writer.write(root.toJSONString());
+        //             writer.flush();
+        //             writer.close();
+        //             System.out.println("Progress saved successfully for user: " + user.getUserName());
+        //             return;
 
-            }
+        //         }
 
-            System.out.println("User not found in JSON -- cannot save progress.");
+        //     }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        //     System.out.println("User not found in JSON -- cannot save progress.");
 
-        }
+        // } catch (Exception e) {
+        //     e.printStackTrace();
 
+        // }
+
+    }
+
+    /**
+     * Wrapper method for updating users using data writer
+     * @param user
+     */
+    public void updateUser(User user) {
+        DataWriter.getInstance().updateUser(user);
+    }
+
+    /**
+     * Wrapper method for calling data writer's certification functionality
+     * @param difficulty
+     * @param hintsUsed
+     * @param score
+     */
+    public void createCertificate(int difficulty, int hintsUsed, int score) {
+        DataWriter.getInstance().createCertificate(difficulty, hintsUsed, score);
     }
 }

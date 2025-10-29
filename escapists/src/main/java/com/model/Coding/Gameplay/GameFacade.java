@@ -18,7 +18,7 @@ import com.model.Coding.Progress.Progress;
 
 /**
  * Game facade to handle interaction between UI and backend
- * @author Mason Adams
+ * @author Jeffen and Mason mostly I think
  */
 public class GameFacade {
     private static GameFacade gameFacade;
@@ -56,21 +56,85 @@ public class GameFacade {
     }
 
     /**
-     * Starts the game
+     * Function for determining if the current save can be continued from. we use it to check if we should make
+     * a new save for the player or create a new one in some other methods where this thing is called
+     * @return boolean stating if save can be continued from
      */
-    public void startGame(){
-        if (currentUser == null) {
-            System.err.println("Cant start the game without a currnent user...");
-            return;
-        }
-        loadCurrSave();
-        if (difficulty == 0) {
-            System.out.println("Defaulting difficulty to 1");
-            this.setDifficulty(1);
-        }
-        Timer.getInstance().start(1800 / difficulty);;
+    public boolean currSaveIsContinuable() {
+        return currentUser != null &&
+            currentUser.getCurrSave() != null && 
+            currentUser.getCurrSave().getCurrentRoomName() != null &&
+            !currentUser.getCurrSave().getCurrentRoomName().equals("OUTSIDE");
     }
 
+    /**
+     * Loads current save under current user
+     */
+    public void loadCurrSave(){
+        if (currentUser == null) return;
+
+        Progress save = currentUser.getCurrSave();
+
+        this.activeProgress = save; 
+        this.difficulty = save.getDifficulty();
+        this.inventory = save.getInventory();
+        this.map = new Map();
+        this.map.loadFromSave(save); 
+    }
+
+    /**
+     * Actual clean up helper function used by endGame method
+     */
+    public void unloadCurrSave() {
+        this.difficulty = 0; 
+        this.inventory = null;
+        this.activeProgress = null;
+    }
+
+    /**
+     * Starts the game
+     */
+    public void startGame(int diff){
+        if (currentUser == null) {
+            throw new RuntimeException("Cant start the game without a currnent user...");
+        }
+
+        if (!currSaveIsContinuable()) {
+            currentUser.createSave(); // creating save automatically sets the curr save to the newly created one
+        }
+
+        loadCurrSave();
+
+        if (diff > 0)
+            setDifficulty(diff);
+        else {
+            System.out.println("Defaulting difficulty to 1");
+            setDifficulty(1);
+        }
+
+        int startingTime = 1800 / diff;
+        int remaingTimeLeftOffAt = activeProgress.getRemainingTime();
+        if (remaingTimeLeftOffAt > 0) {
+            Timer.getInstance().start(startingTime, remaingTimeLeftOffAt);
+        } else {
+            Timer.getInstance().start(startingTime);
+        }
+    }
+
+    /**
+     * Cleans up variables at end of game. ensures everything is ready for next game if player chooses to start a new one
+     */
+    public void endGame() {
+        if (currentUser == null) throw new RuntimeException("Can't end the game without a user");
+        if (activeProgress == null) throw new RuntimeException("CAnt end without an active progress/save");
+        unloadCurrSave(); 
+        Timer.getInstance().reset();
+    }
+
+    /**
+     * Wrapper over a timer func based on getting how much time passed since the match/game started 
+     * @return time that has passed
+     */
     public int getTimePassed() {
         return Timer.getInstance().getTimePassed();
     }
@@ -165,6 +229,16 @@ public class GameFacade {
      */
     public void setDifficulty(int level){
         this.difficulty = level;
+        if (activeProgress != null) 
+            activeProgress.setDifficulty(level);
+    }
+
+    /**
+     * Retrieves difficulty of current game going on
+     * @return the difficulty level
+     */
+    public int getDifficulty() {
+        return this.difficulty; 
     }
 
     /**
@@ -205,25 +279,19 @@ public class GameFacade {
         if (currentUser == null) return;
         currentUser = null; 
     }
-    // idk
-    public void save(){
 
-    }
-
-    /**
-     * Loads current save under current user
+    /*
+     * Writes saves and updates completedTimes list under user data
      */
-    public void loadCurrSave(){
+    public void save(){
         if (currentUser == null) return;
-        if (currentUser.getCurrSave() == null) currentUser.createSave(); // creating save automatically sets the curr save to the newly created one
-        Progress save = currentUser.getCurrSave();
+        if (activeProgress == null) return;
 
-        this.activeProgress = save; 
-        this.difficulty = save.getDifficulty();
-        this.inventory = save.getInventory();
-        this.map = new Map();
-        this.map.setCurrentRoom("Cell"); // NOTE: hardcoded for now but ill change it later i promise !!
+        this.activeProgress.setRemainingTime(Timer.getInstance().getRemainingTime());
+        DataManager.getInstance().saveProgress(currentUser, activeProgress);
+        DataManager.getInstance().updateUser(currentUser);
     }
+
 
     /**
      * Wrapper funcs for map's currRoom management methods
@@ -240,7 +308,7 @@ public class GameFacade {
     public void setCurrRoom(Room room) {
         if (map == null) return;
         map.setCurrentRoom(room);
-        this.activeProgress.setCurrentRoom(room);
+        activeProgress.setCurrentRoom(room);
     }
 
     /**

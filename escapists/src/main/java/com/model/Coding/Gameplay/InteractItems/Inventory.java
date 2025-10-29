@@ -48,6 +48,11 @@ public class Inventory {
         return items.get(index);
     }
 
+    /**
+     * Retrieves item by name
+     * @param itemName name of item we want
+     * @return item we found
+     */
     public Item getItem(String itemName) {
         for (Item item : items) {
             // case is ignored here as well when search for items 
