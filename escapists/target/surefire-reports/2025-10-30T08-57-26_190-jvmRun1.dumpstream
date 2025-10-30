@@ -1,0 +1,9 @@
+# Created at 2025-10-30T08:57:26.747
+Corrupted channel by directly writing to native stream in forked JVM 1. Stream 'Error occurred during initialization of boot layer'.
+
+# Created at 2025-10-30T08:57:26.749
+Corrupted channel by directly writing to native stream in forked JVM 1. Stream 'java.lang.module.FindException: Error reading module: C:\Users\slane\Documents\GitHub\The-Escapists\escapists\target\classes'.
+
+# Created at 2025-10-30T08:57:26.756
+Corrupted channel by directly writing to native stream in forked JVM 1. Stream 'Caused by: java.lang.module.InvalidModuleDescriptorException: Package com.model not found in module'.
+
