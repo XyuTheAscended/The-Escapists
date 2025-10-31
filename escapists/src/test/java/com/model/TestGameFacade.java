@@ -557,4 +557,23 @@ public class TestGameFacade {
         boolean ok2 = gf.login(null, null);
         assertFalse(ok2);
     }
+
+    @Test
+    public void testStartGameCreatesSaveWhenCurrSaveNotContinuable() throws Exception {
+        GameFacade gf = GameFacade.getInstance();
+
+        com.model.Coding.User.User mockUser = (com.model.Coding.User.User) mockFor("com.model.Coding.User.User");
+        com.model.Coding.Progress.Progress mockSave = (com.model.Coding.Progress.Progress) mockFor("com.model.Coding.Progress.Progress");
+
+        // Make currSaveIsContinuable() false: user.getCurrSave() != null but getCurrentRoomName = "OUTSIDE"
+        Mockito.when(((com.model.Coding.User.User)mockUser).getCurrSave()).thenReturn((com.model.Coding.Progress.Progress) mockSave);
+        Mockito.when(((com.model.Coding.Progress.Progress)mockSave).getCurrentRoomName()).thenReturn("OUTSIDE");
+
+        setPrivateField(gf, "currentUser", mockUser);
+
+        // Call startGame, expecting createSave() to be invoked on user (mock)
+        gf.startGame(1);
+
+        Mockito.verify(mockUser, Mockito.atLeastOnce()).createSave();
+    }
 }
