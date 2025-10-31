@@ -36,6 +36,8 @@ public class Item {
      * @return Item that was either created just now or had been created
      */
     public static Item cacheItem(String name, String description) {
+        if (name == null) return null;
+
         Item preexistingItem = searchForItem(name);
         if (preexistingItem != null) { // this search call is case sensitive (so for ex. these two cant exit together: pIsToL, PISTOL)
             return preexistingItem;
@@ -130,5 +132,13 @@ public class Item {
     public String getDescription(){
         return description;
     
+    }
+
+    /**
+     * Returns the item cache
+     * @return the list of items
+     */
+    public static ArrayList<Item> getAllItemsEver() {
+        return allItemsEver;
     }
 }

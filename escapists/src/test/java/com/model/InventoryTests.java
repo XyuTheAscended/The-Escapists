@@ -33,13 +33,13 @@ public class InventoryTests {
 
   @Test
   public void testInventoryDoesntHaveFakeElement() {
-    assertTrue(!inv.hasItem("Item69"));
+    assertFalse(inv.hasItem("Item69"));
   }
 
   @Test
   public void testItemChecksOnEmptyInventory() {
     Inventory emptyInv = new Inventory();
-    assertTrue(!emptyInv.hasItem("Sword"));
+    assertFalse(emptyInv.hasItem("Sword"));
   }
 
   @Test
@@ -60,31 +60,62 @@ public class InventoryTests {
   public void testItemRemovalFirstItem() {
     Item item = Item.searchForItem("Item1");
     inv.removeItem(item); // probably should overload this method to be able to take itemName as a param
-    assert(!inv.hasItem(item));
+    assertFalse(inv.hasItem(item));
   }
 
   @Test
   public void testItemRemovalLastItem() {
     Item item = Item.searchForItem("Item10");
     inv.removeItem(item); // probably should overload this method to be able to take itemName as a param
-    assert(!inv.hasItem(item));
+    assertFalse(inv.hasItem(item));
   }
 
   @Test
   public void testItemRemovalMiddleItem() {
     Item item = Item.searchForItem("Item5");
     inv.removeItem(item); // probably should overload this method to be able to take itemName as a param
-    assert(!inv.hasItem(item));
+    assertFalse(inv.hasItem(item));
   }
 
   @Test
   public void testFailedItemRemoval() {
     Item itemWeDonthave = Item.cacheItem("Taser", null);
+    int ogInvSize = inv.getItems().size();
     inv.removeItem(itemWeDonthave);
-    assert(!inv.hasItem(itemWeDonthave));
+    assertFalse(inv.hasItem(itemWeDonthave));
+    int newInvSize = inv.getItems().size();
+    assertTrue(newInvSize == ogInvSize);
+  }
+
+  @Test
+  public void testCaseInsensitiveLookup() {
+    assertTrue(inv.hasItem("item1")); // lowercase
+    assertTrue(inv.hasItem("ITEM1")); // lowercase
   }
 
 
+ @Test
+  public void testDuplicateItemsRemovalRemovesSingleInstance() {
+    Item dup = Item.cacheItem("DUP", null);
+    inv.addItem(dup);
+    inv.addItem(dup); // same instance added twice
+    // should contain item twice (backing list)
+    int before = inv.getItems().size();
+    inv.removeItem(dup); // removes first occurrence
+    int after = inv.getItems().size();
+    assertEquals(before - 1, after);
+    // still has one remaining
+    assertTrue(inv.hasItem(dup));
+  }
+
+  @Test
+  // this test gives null pointer error cause i dont check for nulls when adding items to inventory
+  public void testAddingNullLeadsToNpeInHasItem() {
+      // current Inventory.addItem allows null; hasItem(Item) will NPE when it iterates and sees a null element
+      inv.addItem(null);
+      // this line will throw NPE with your current hasItem(Item) implementation:
+      inv.hasItem(Item.cacheItem("Whatever", null));
+  }
 
 
 }
