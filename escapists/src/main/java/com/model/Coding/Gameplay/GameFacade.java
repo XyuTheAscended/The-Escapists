@@ -78,7 +78,7 @@ public class GameFacade {
         this.activeProgress = save; 
         this.difficulty = save.getDifficulty();
         this.inventory = save.getInventory();
-        this.map = new Map();
+        this.map = new Map(DataManager.getInstance().loadRooms());
         this.map.loadFromSave(save); 
     }
 

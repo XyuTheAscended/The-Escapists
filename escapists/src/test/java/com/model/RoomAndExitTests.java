@@ -156,7 +156,7 @@ public class RoomAndExitTests {
   @Test
   public void testRequirementlessExitUpdating() {
     Room rm = new Room("Room of rooms");
-    Puzzle puz = new Puzzle("Bad", "Fill the blank: This room is _", "Bad puzzle")
+    Puzzle puz = new Puzzle("Bad", "Fill the blank: This room is _", "Bad puzzle");
     Puzzle[] reqs = { puz };
     Exit goodExit = new Exit(startRm, reqs);
     Exit lazyExit = new Exit(endRm, null); // exit w/o puzzle requirements
@@ -188,7 +188,7 @@ public class RoomAndExitTests {
   @Test
   public void testSingleNullExitHandling() {
     Room rm = new Room("Room of rooms");
-    Puzzle puz = new Puzzle("Bad", "Fill the blank: This room is _", "Bad puzzle")
+    Puzzle puz = new Puzzle("Bad", "Fill the blank: This room is _", "Bad puzzle");
     Puzzle[] reqs = { puz };
     Exit goodExit = new Exit(startRm, reqs);
     Exit[] exits = { goodExit, null };

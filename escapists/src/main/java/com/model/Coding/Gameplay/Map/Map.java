@@ -18,8 +18,8 @@ public class Map {
     /**
      * COnstructor for making map
      */
-    public Map(){
-        rooms = DataManager.getInstance().loadRooms();
+    public Map(ArrayList<Room> rooms){
+        this.rooms = rooms;
         // setCurrentRoom(rooms.get(0)); // PLACEHOLDER
     }
 
