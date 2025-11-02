@@ -2,6 +2,8 @@ package com.model.Coding.Gameplay.Map;
 
 import java.util.ArrayList;
 
+import org.junit.Test;
+
 import com.model.Coding.Data.DataManager;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Progress.Progress;
@@ -86,7 +88,7 @@ public class Map {
      * @param roomName searchee's name
      * @return room we found
      */
-    private Room getRoomByName(String roomName) {
+    public Room getRoomByName(String roomName) {
         for (Room room : rooms) { 
             if (room.getName().equals(roomName)) 
                 return room;
