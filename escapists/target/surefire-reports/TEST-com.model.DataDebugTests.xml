@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.model.TestTesting" time="0.047" tests="1" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.2" name="com.model.DataDebugTests" time="0.088" tests="1" errors="0" skipped="0" failures="1">
   <properties>
     <property name="java.specification.version" value="25"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -15,9 +15,9 @@
     <property name="user.country" value="US"/>
     <property name="sun.java.launcher" value="SUN_STANDARD"/>
     <property name="sun.boot.library.path" value="C:\oracleJdk-25\bin"/>
-    <property name="sun.java.command" value="C:\Users\slane\AppData\Local\Temp\surefire13993467100056650112\surefirebooter-20251030091922391_3.jar C:\Users\slane\AppData\Local\Temp\surefire13993467100056650112 2025-10-30T09-19-22_274-jvmRun1 surefire-20251030091922391_1tmp surefire_0-20251030091922391_2tmp"/>
+    <property name="sun.java.command" value="C:\Users\slane\AppData\Local\Temp\surefire15845301017647664852\surefirebooter-20251030100305739_3.jar C:\Users\slane\AppData\Local\Temp\surefire15845301017647664852 2025-10-30T10-03-05_639-jvmRun1 surefire-20251030100305739_1tmp surefire_0-20251030100305739_2tmp"/>
     <property name="jdk.debug" value="release"/>
-    <property name="test" value="com.model.TestTesting"/>
+    <property name="test" value="com.model.DataDebugTests#testPushUserSaves"/>
     <property name="surefire.test.class.path" value="C:\Users\slane\Documents\GitHub\The-Escapists\escapists\target\test-classes;C:\Users\slane\Documents\GitHub\The-Escapists\escapists\target\classes;C:\Users\slane\.m2\repository\junit\junit\4.13.2\junit-4.13.2.jar;C:\Users\slane\.m2\repository\org\hamcrest\hamcrest-core\1.3\hamcrest-core-1.3.jar;C:\Users\slane\.m2\repository\org\mobicents\external\freetts\freetts\1.0\freetts-1.0.jar;C:\Users\slane\.m2\repository\org\mobicents\external\freetts\en_us\1.0\en_us-1.0.jar;C:\Users\slane\.m2\repository\org\mobicents\external\freetts\cmu_us_kal\1.0\cmu_us_kal-1.0.jar;C:\Users\slane\.m2\repository\org\mobicents\external\freetts\cmulex\1.0\cmulex-1.0.jar;C:\Users\slane\.m2\repository\org\mobicents\external\freetts\cmudict04\1.0\cmudict04-1.0.jar;C:\Users\slane\.m2\repository\com\googlecode\json-simple\json-simple\1.1.1\json-simple-1.1.1.jar;C:\Users\slane\.m2\repository\org\openjfx\javafx-controls\21\javafx-controls-21.jar;C:\Users\slane\.m2\repository\org\openjfx\javafx-controls\21\javafx-controls-21-win.jar;C:\Users\slane\.m2\repository\org\openjfx\javafx-graphics\21\javafx-graphics-21.jar;C:\Users\slane\.m2\repository\org\openjfx\javafx-graphics\21\javafx-graphics-21-win.jar;C:\Users\slane\.m2\repository\org\openjfx\javafx-base\21\javafx-base-21.jar;C:\Users\slane\.m2\repository\org\openjfx\javafx-base\21\javafx-base-21-win.jar;C:\Users\slane\.m2\repository\org\openjfx\javafx-fxml\21\javafx-fxml-21.jar;C:\Users\slane\.m2\repository\org\openjfx\javafx-fxml\21\javafx-fxml-21-win.jar;"/>
     <property name="sun.cpu.endian" value="little"/>
     <property name="user.home" value="C:\Users\slane"/>
@@ -31,7 +31,7 @@
     <property name="line.separator" value="&#10;"/>
     <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
-    <property name="surefire.real.class.path" value="C:\Users\slane\AppData\Local\Temp\surefire13993467100056650112\surefirebooter-20251030091922391_3.jar"/>
+    <property name="surefire.real.class.path" value="C:\Users\slane\AppData\Local\Temp\surefire15845301017647664852\surefirebooter-20251030100305739_3.jar"/>
     <property name="user.script" value=""/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
     <property name="java.runtime.version" value="25+37-LTS-3491"/>
@@ -61,5 +61,79 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="69.0"/>
   </properties>
-  <testcase name="testTesting" classname="com.model.TestTesting" time="0.003"/>
+  <testcase name="testPushUserSaves" classname="com.model.DataDebugTests" time="0.043">
+    <failure message="DebugTestUser should be found in DataManager" type="java.lang.AssertionError"><![CDATA[java.lang.AssertionError: DebugTestUser should be found in DataManager
+	at org.junit.Assert.fail(Assert.java:89)
+	at org.junit.Assert.assertTrue(Assert.java:42)
+	at com.model.DataDebugTests.testPushUserSaves(DataDebugTests.java:68)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+]]></failure>
+    <system-out><![CDATA[No user file -- cannot save.
+Saves pushed for DebugTestUser
+]]></system-out>
+    <system-err><![CDATA[java.io.FileNotFoundException: escapists\src\main\java\com\model\Coding\json\users.json (The system cannot find the path specified)
+	at java.base/java.io.FileOutputStream.open0(Native Method)
+	at java.base/java.io.FileOutputStream.open(FileOutputStream.java:255)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:210)
+	at java.base/java.io.FileOutputStream.<init>(FileOutputStream.java:171)
+	at java.base/java.io.FileWriter.<init>(FileWriter.java:98)
+	at com.model.Coding.Data.DataWriter.addUser(DataWriter.java:86)
+	at com.model.Coding.Data.DataManager.addUser(DataManager.java:63)
+	at com.model.Coding.User.UserList.createUser(UserList.java:46)
+	at com.model.DataDebugTests.testPushUserSaves(DataDebugTests.java:54)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:565)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:26)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
+	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
+	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
+	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:316)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:240)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:214)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:385)
+	at org.apache.maven.surefire.booter.ForkedBooter.execute(ForkedBooter.java:162)
+	at org.apache.maven.surefire.booter.ForkedBooter.run(ForkedBooter.java:507)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:495)
+]]></system-err>
+  </testcase>
 </testsuite>

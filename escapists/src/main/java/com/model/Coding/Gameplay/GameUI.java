@@ -926,15 +926,15 @@ public class GameUI {
         // gameUI.scenario1();
         //gameUI.scenario2();
         //gameUI.scenario3();
-        // gameUI.successfulLogin();
-        // gameUI.displayLeaderboard(1);
+        //gameUI.successfulLogin();
+         gameUI.displayLeaderboard(1);
         // gameUI.unsuccessfulLogin();
         // gameUI.roomWithPuzzles();
         // gameUI.roomTransitionTest(); // broken because of code restructuring in other classes, do not use. use enterAnEscapeRoom instead (shows same stuff)
 
         // gameUI.leniDuplicateUser();
         // gameUI.leniLogIn();
-        gameUI.enterAnEscapeRoom(false);
+        //gameUI.enterAnEscapeRoom(false);
         // gameUI.logoutAndShowPersistence();
         // gameUI.gameLoopTest(1); // wont work cause this method by itself doesnt log in a user. use enterAnEscapeRoom instead
     }
