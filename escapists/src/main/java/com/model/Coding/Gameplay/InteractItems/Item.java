@@ -26,6 +26,10 @@ public class Item {
         this.description = description;
     }
 
+    public Item(String string, int i) {
+        //TODO Auto-generated constructor stub
+    }
+
     /**
      * Wrapper function for creating items ONLY if they
      * have not been created before ever

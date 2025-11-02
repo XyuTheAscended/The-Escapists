@@ -10,7 +10,7 @@ import com.model.Coding.Progress.Progress;
 
 /**
  * Map
- * @author
+ * @author Mason Adams
  */
 public class Map {
     private boolean isOpen = false;
