@@ -24,6 +24,7 @@ public class RoomAndExitTests {
   public void setup() {
     for (int i = 0; i < 4; ++i) {
       Puzzle puz = new Puzzle("Answer"+i, "Puzzle number "+i, "Puzzle"+i);
+      puzs[i] = puz;
       startRm.addPuzzle(puz);
     }
 
