@@ -21,6 +21,7 @@ import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Exit;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
+import com.model.DataConstants;
 
 /**
  * Loads user, room, and progress data from JSON files.
@@ -29,8 +30,12 @@ import com.model.Coding.Progress.Progress;
 public class DataLoader {
 
   private static DataLoader dataLoader;
-  private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
-  private static final String ROOMS_FILE = "escapists/src/main/java/com/model/Coding/json/rooms.json"; 
+  private static String getUserFile() {
+    return DataConstants.isJUnitTest()
+        ? "escapists/src/test/resources/user_test.json"
+        : "escapists/src/main/resources/users.json";
+  }
+  private static final String ROOMS_FILE = "escapists/src/main/resources/rooms.json"; 
 
     /**
      * Empty constructor for data loader
@@ -110,7 +115,7 @@ public class DataLoader {
     public ArrayList<User> getUsers() {
         ArrayList<User> users = new ArrayList<User>();
         try {
-            File file = new File(USER_FILE);
+            File file = new File(getUserFile());
             JSONParser parser = new JSONParser();
             JSONObject root;
             JSONArray usersArray;
@@ -353,7 +358,7 @@ public class DataLoader {
     @SuppressWarnings("unchecked")
     public Progress loadProgress(UUID progressId) {
         JSONParser parser = new JSONParser();
-        try (FileReader reader = new FileReader("escapists/src/main/java/com/model/Coding/json/users.json")) {
+        try (FileReader reader = new FileReader(getUserFile())) {
             JSONObject root = (JSONObject) parser.parse(reader);
             JSONArray usersArray = (JSONArray) root.get("users");
             if (usersArray == null) {

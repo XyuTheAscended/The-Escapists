@@ -13,6 +13,7 @@ import org.json.simple.parser.JSONParser;
 
 import com.model.Coding.Progress.Progress;
 import com.model.Coding.User.User;
+import com.model.DataConstants;
 
 /**
  * Writes user and progress data to JSON files.
@@ -20,13 +21,15 @@ import com.model.Coding.User.User;
  */
 public class DataWriter {
 
-    private static final String USER_FILE = "escapists/src/main/java/com/model/Coding/json/users.json";
     private static final String CERT_LOCATION = "escapists/../docs";
     private static DataWriter dataWriter;
 
-    private DataWriter() {
+    private String getUserFile() {
+    return DataConstants.isJUnitTest()
+        ? "escapists/src/test/resources/user_test.json"
+        : "escapists/src/main/resources/users.json";
     }
-
+    
     /**
      * Returns instance.
      *
@@ -46,7 +49,7 @@ public class DataWriter {
      */
     public void addUser(User user) {
         try {
-            File file = new File(USER_FILE);
+            File file = new File(getUserFile());
             JSONParser parser = new JSONParser();
             JSONObject root;
             JSONArray usersArray;
@@ -99,7 +102,7 @@ public class DataWriter {
      */
     public void updateUser(User user) {
         try {
-            File file = new File(USER_FILE);
+            File file = new File(getUserFile());
             JSONParser parser = new JSONParser();
             JSONObject root;
             JSONArray usersArray;
@@ -271,7 +274,7 @@ public class DataWriter {
             return;
         }
 
-        String filePath = USER_FILE;
+        String filePath = getUserFile();
         JSONParser parser = new JSONParser();
 
         try {
