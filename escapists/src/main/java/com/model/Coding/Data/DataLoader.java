@@ -32,7 +32,7 @@ public class DataLoader {
   private static DataLoader dataLoader;
   private static String getUserFile() {
     return DataConstants.isJUnitTest()
-        ? "escapists/src/test/resources/user_test.json"
+        ? "escapists/src/test/resources/users_test.json"
         : "escapists/src/main/resources/users.json";
   }
   private static final String ROOMS_FILE = "escapists/src/main/resources/rooms.json"; 

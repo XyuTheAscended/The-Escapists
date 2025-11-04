@@ -1,4 +1,0 @@
---patch-module
-com.escapists=_
---add-reads
-com.escapists=ALL-UNNAMED

@@ -26,7 +26,7 @@ public class DataWriter {
 
     private String getUserFile() {
     return DataConstants.isJUnitTest()
-        ? "escapists/src/test/resources/user_test.json"
+        ? "escapists/src/test/resources/users_test.json"
         : "escapists/src/main/resources/users.json";
     }
     
