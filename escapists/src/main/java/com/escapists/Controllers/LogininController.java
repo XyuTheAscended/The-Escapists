@@ -24,7 +24,7 @@ public class LogininController {
     private TextField txtUsername;
 
     @FXML
-    void btnLoginClicked(ActionEvent event) {
+    void btnLoginClicked(ActionEvent event) throws IOException {
         GameFacade gf = GameFacade.getInstance();
         String username = txtUsername.getText();
         String password = txtPassword.getText();
@@ -34,6 +34,7 @@ public class LogininController {
         } else {
             System.out.println("Unsuccessful Login");
         }
+        App.setRoot("mainMenu");
     }
 
     @FXML
