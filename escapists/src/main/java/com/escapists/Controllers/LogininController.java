@@ -5,6 +5,7 @@ import com.model.Coding.Gameplay.GameFacade;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
@@ -24,17 +25,19 @@ public class LogininController {
     private TextField txtUsername;
 
     @FXML
+    private Label lblError;
+
+    @FXML
     void btnLoginClicked(ActionEvent event) throws IOException {
         GameFacade gf = GameFacade.getInstance();
         String username = txtUsername.getText();
         String password = txtPassword.getText();
 
         if (gf.login(username, password)) {
-            System.out.println("Successful Login\n" + gf.getCurrUser().toString());
+            App.setRoot("mainMenu");
         } else {
-            System.out.println("Unsuccessful Login");
+            lblError.setText("Incorrect username or password!");
         }
-        App.setRoot("mainMenu");
     }
 
     @FXML

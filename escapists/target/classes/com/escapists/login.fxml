@@ -20,5 +20,6 @@
       <Button fx:id="btnLogin" layoutX="292.0" layoutY="175.0" mnemonicParsing="false" onAction="#btnLoginClicked" text="Login" />
       <Button fx:id="btnRegister" layoutX="270.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnRegisterClicked" text="Register Here!" />
       <Button layoutX="28.0" layoutY="22.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Label fx:id="lblError" layoutX="302.0" layoutY="150.0" />
    </children>
 </AnchorPane>

@@ -26,7 +26,7 @@ public class RegisterController {
     private Label lblError;
 
     @FXML
-    void btnRegisterClicked(ActionEvent event) {
+    void btnRegisterClicked(ActionEvent event) throws IOException {
         GameFacade gf = GameFacade.getInstance();
         String username = txtUsername.getText();
         String password = txtPassword.getText();
@@ -34,6 +34,8 @@ public class RegisterController {
         User user = gf.register(username, password);
         if(user == null){
             lblError.setText("Registration Failed, please try again!");
+        } else {
+            App.setRoot("mainMenu");
         }
     }
 
