@@ -1,18 +1,17 @@
 package com.escapists.Controllers;
 
 import com.escapists.App;
+import com.model.Coding.User.User;
 import com.model.Coding.Gameplay.GameFacade;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
-public class LogininController {
-
-    @FXML
-    private Button btnLogin;
+public class RegisterController {
 
     @FXML
     private Button btnRegister;
@@ -24,25 +23,22 @@ public class LogininController {
     private TextField txtUsername;
 
     @FXML
-    void btnLoginClicked(ActionEvent event) {
+    private Label lblError;
+
+    @FXML
+    void btnRegisterClicked(ActionEvent event) {
         GameFacade gf = GameFacade.getInstance();
         String username = txtUsername.getText();
         String password = txtPassword.getText();
 
-        if (gf.login(username, password)) {
-            System.out.println("Successful Login\n" + gf.getCurrUser().toString());
-        } else {
-            System.out.println("Unsuccessful Login");
+        User user = gf.register(username, password);
+        if(user == null){
+            lblError.setText("Registration Failed, please try again!");
         }
     }
 
     @FXML
-    void btnRegisterClicked(ActionEvent event) throws IOException {
-        App.setRoot("register");
-    }
-
-    @FXML
     void back(ActionEvent event) throws IOException {
-        App.setRoot("landing");
+        App.setRoot("login");
     }
 }
