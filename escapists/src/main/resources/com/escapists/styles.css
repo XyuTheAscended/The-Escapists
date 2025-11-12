@@ -1,3 +1,35 @@
-.root{
-    -fx-background-color:#24201F;
+/* App background on every screen (your root panes are AnchorPane) */
+.anchor-pane {
+    -fx-background-color: #24201F;
+}
+
+/* Make all “letters” this color (labels, buttons, text in fields) */
+.label,
+.button,
+.text-field,
+.password-field {
+    -fx-text-fill: #56200B;
+}
+
+/* Optional: placeholder text in fields (if you use promptText) */
+.text-field .text,
+.password-field .text {
+    -fx-fill: #56200B;
+}
+.text-field:focused,
+.password-field:focused {
+    -fx-text-fill: #56200B;
+}
+
+/* Hover color for any box with words in it */
+.label:hover,
+.button:hover,
+.text-field:hover,
+.password-field:hover {
+    -fx-background-color: #676A59;
+}
+
+/* Give labels a bit of padding so the hover bg is visible */
+.label {
+    -fx-padding: 4 6 4 6;
 }

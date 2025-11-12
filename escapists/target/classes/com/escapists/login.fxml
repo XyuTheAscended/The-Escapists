@@ -22,4 +22,7 @@
       <Button layoutX="28.0" layoutY="22.0" mnemonicParsing="false" onAction="#back" text="Back" />
       <Label fx:id="lblError" layoutX="302.0" layoutY="150.0" />
    </children>
+   <stylesheets>
+   <URL value ="@styles.css" />
+   </stylesheets>
 </AnchorPane>
