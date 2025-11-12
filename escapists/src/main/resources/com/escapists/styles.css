@@ -1,6 +1,16 @@
+.root {
+    /* -fx-font-family: Helvetica, sans-serif; */
+    -fx-font-family: 'Times New Roman', Times, serif;
+}
+
 /* App background on every screen (your root panes are AnchorPane) */
-.root /*.anchor-pane*/ {
+.anchor-pane { 
     -fx-background-color: #24201F;
+}
+
+.title-heading {
+    -fx-font-size: 30px;
+    -fx-font-weight: bold;
 }
 
 /* Make all “letters” this color (labels, buttons, text in fields) */
@@ -9,6 +19,14 @@
 .text-field,
 .password-field {
     -fx-text-fill: #56200B;
+}
+
+/*Button specific stuff*/
+.button {
+    -fx-background-color: #B1B1AB;
+    -fx-border: none;
+    -fx-border-radius: 4px;
+    -fx-text-fill: #24201F;
 }
 
 /* Optional: placeholder text in fields (if you use promptText) */
@@ -22,7 +40,7 @@
 }
 
 /* Hover color for any box with words in it */
-.label:hover,
+/* .label:hover, removed label hovering styling cause it looks wrong for stuff like headers */
 .button:hover,
 .text-field:hover,
 .password-field:hover {
