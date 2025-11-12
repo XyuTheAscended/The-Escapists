@@ -6,6 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
+<?import java.lang.String?>
 <AnchorPane fx:id="avatar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#avatarClicked" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.MainMenuController">
    <children>
       <Label layoutX="245.0" layoutY="44.0" text="Escape">
@@ -19,7 +20,7 @@
       <Label fx:id="lblUsername" layoutX="482.0" layoutY="35.0" />
       <Button fx:id="btnAccount" layoutX="526.0" layoutY="14.0" mnemonicParsing="false" onAction="#accountClicked" text="Account" />
    </children>
-   <stylesheets>
-   <URL value ="@styles.css" />
-   </stylesheets>
+    <stylesheets>
+        <String fx:value="@/com/escapists/styles.css"/>
+    </stylesheets>
 </AnchorPane>
