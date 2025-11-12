@@ -1,5 +1,5 @@
 /* App background on every screen (your root panes are AnchorPane) */
-.anchor-pane {
+.root /*.anchor-pane*/ {
     -fx-background-color: #24201F;
 }
 

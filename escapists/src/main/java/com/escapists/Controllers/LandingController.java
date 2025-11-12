@@ -1,4 +1,4 @@
-package com.escapists;
+package com.escapists.Controllers;
 
 public class LandingController {
 }

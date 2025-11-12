@@ -5,6 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import java.net.*?>
 
 <?import java.lang.String?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.LogininController">
@@ -24,6 +25,6 @@
       <Label fx:id="lblError" layoutX="302.0" layoutY="150.0" />
    </children>
      <stylesheets>
-         <String fx:value="/com/escapists/styles.css"/>
+         <URL value="@styles.css"/>
      </stylesheets>
 </AnchorPane>
