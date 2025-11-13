@@ -8,17 +8,17 @@
 .button,
 .text-field,
 .password-field {
-    -fx-text-fill: #56200B;
+    -fx-text-fill: #da6436;
 }
 
 /* Optional: placeholder text in fields (if you use promptText) */
 .text-field .text,
 .password-field .text {
-    -fx-fill: #56200B;
+    -fx-fill: #da6436;
 }
 .text-field:focused,
 .password-field:focused {
-    -fx-text-fill: #56200B;
+    -fx-text-fill: #da6436;
 }
 
 /* Hover color for any box with words in it */
@@ -33,3 +33,8 @@
 .label {
     -fx-padding: 4 6 4 6;
 }
+.root{
+    -fx-background-color: #24201F;
+    -fx-min-width: 768px;
+}
+

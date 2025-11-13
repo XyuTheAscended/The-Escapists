@@ -1,6 +1,7 @@
 .root {
     /* -fx-font-family: Helvetica, sans-serif; */
     -fx-font-family: 'Times New Roman', Times, serif;
+    -fx-background-color:#24201F
 }
 
 /* App background on every screen (your root panes are AnchorPane) */
