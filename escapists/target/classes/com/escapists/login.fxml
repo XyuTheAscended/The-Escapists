@@ -1,30 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import java.net.*?>
 
-<?import java.lang.String?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.LogininController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.LogininController">
    <children>
-      <Label layoutX="115.0" layoutY="14.0" text="Login">
-         <font>
-            <Font size="30.0" />
-         </font>
-      </Label>
-      <Label layoutX="160.0" layoutY="90.0" text="Username:" />
-      <Label layoutX="163.0" layoutY="125.0" text="Password:" />
-      <TextField fx:id="txtUsername" layoutX="241.0" layoutY="86.0" />
-      <TextField fx:id="txtPassword" layoutX="241.0" layoutY="121.0" />
-      <Button fx:id="btnLogin" layoutX="292.0" layoutY="175.0" mnemonicParsing="false" onAction="#btnLoginClicked" text="Login" />
-      <Button fx:id="btnRegister" layoutX="270.0" layoutY="216.0" mnemonicParsing="false" onAction="#btnRegisterClicked" text="Register Here!" />
-      <Button layoutX="28.0" layoutY="22.0" mnemonicParsing="false" onAction="#back" text="Back" />
-      <Label fx:id="lblError" layoutX="302.0" layoutY="150.0" />
+      <VBox alignment="CENTER_RIGHT" layoutX="138.0" layoutY="47.0" prefHeight="675.0" prefWidth="1148.0">
+         <children>
+            <VBox alignment="CENTER" prefHeight="6.0" prefWidth="593.0">
+               <children>
+                  <Label text="Login to ESCAPE" textFill="RED">
+                     <font>
+                        <Font size="48.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="0.0" prefWidth="1280.0">
+               <children>
+                  <Label alignment="CENTER" prefHeight="23.0" prefWidth="81.0" text="Username:" textAlignment="CENTER" />
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="24.0" prefWidth="1277.0">
+               <children>
+                  <TextField fx:id="txtUsername" maxWidth="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="50.0" />
+                  <VBox alignment="CENTER" prefHeight="0.0" prefWidth="1280.0">
+                     <children>
+                        <Label alignment="CENTER" text="Password:" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" prefHeight="18.0" prefWidth="1280.0">
+               <children>
+                  <TextField fx:id="txtPassword" maxWidth="500.0" />
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="1280.0">
+               <children>
+                  <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLoginClicked" text="Login" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
+               </children>
+            </VBox>
+            <VBox alignment="BOTTOM_CENTER" prefHeight="33.0" prefWidth="1280.0">
+               <children>
+                  <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#btnRegisterClicked" text="Register Here!" />
+               </children>
+            </VBox>
+            <Label fx:id="lblError" />
+         </children>
+      </VBox>
    </children>
      <stylesheets>
-         <URL value="@styles.css"/>
+         <URL value="@styles.css" />
      </stylesheets>
 </AnchorPane>
