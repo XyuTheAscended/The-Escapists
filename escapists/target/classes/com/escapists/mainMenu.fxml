@@ -10,10 +10,9 @@
 <?import java.lang.String?>
 <AnchorPane fx:id="avatar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#avatarClicked" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.MainMenuController">
    <children>
-      <Label layoutX="245.0" layoutY="44.0" text="ESCAPE">
+      <Label layoutX="245.0" layoutY="44.0" text="Escape">
          <font>
             <Font size="34.0" />
-            <Font family="Montserrat" />
          </font>
       </Label>
       <Button fx:id="btnLoadSave" layoutX="261.0" layoutY="124.0" mnemonicParsing="false" onAction="#loadSaveClicked" text="Load Save" />
