@@ -19,7 +19,7 @@
 .button,
 .text-field,
 .password-field {
-    -fx-text-fill: #56200B;
+    -fx-text-fill: #ff4800;
 }
 
 /*Button specific stuff*/
