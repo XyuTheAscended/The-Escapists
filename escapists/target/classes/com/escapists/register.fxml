@@ -10,17 +10,22 @@
 <?import java.lang.String?>
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.RegisterController">
    <children>
-      <Label layoutX="168.0" layoutY="34.0" text="Sign Up To Escape">
+      <Label layoutX="168.0" layoutY="34.0" text="SIGN UP TO&#xD;">
          <font>
-            <Font size="30.0" />
+            <Font size="20.0" />
          </font>
       </Label>
-      <Label layoutX="168.0" layoutY="103.0" text="Username:" />
-      <Label layoutX="168.0" layoutY="141.0" text="Password:" />
-      <TextField fx:id="txtUsername" layoutX="255.0" layoutY="99.0" />
-      <TextField fx:id="txtPassword" layoutX="255.0" layoutY="137.0" />
-      <Button fx:id="btnRegister" layoutX="236.0" layoutY="192.0" mnemonicParsing="false" onAction="#btnRegisterClicked" text="Enter The Prison!" />
-      <Label fx:id="lblError" layoutX="281.0" layoutY="243.0" />
+         <Label layoutX="168.0" layoutY="60" text="ESCAPE">
+         <font>
+            <Font size="60.0" />
+         </font>
+      </Label>
+      <Label layoutX="195.0" layoutY="160.0" text="USER:" />
+      <Label layoutX="195.0" layoutY="195.0" text="LOGIN:" />
+      <TextField fx:id="txtUsername" layoutX="255.0" layoutY="159.0" />
+      <TextField fx:id="txtPassword" layoutX="255.0" layoutY="194.0" />
+      <Button fx:id="btnRegister" layoutX="236.0" layoutY="242.0" mnemonicParsing="false" onAction="#btnRegisterClicked" text="ENTER THE PRISON" />
+      <Label fx:id="lblError" layoutX="281.0" layoutY="303.0" />
       <Button layoutX="33.0" layoutY="21.0" mnemonicParsing="false" onAction="#back" text="Back" />
    </children>
     <stylesheets>
