@@ -1,7 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
 .root {
     /* -fx-font-family: Helvetica, sans-serif; */
-    -fx-font-family: 'Times New Roman', Times, serif;
+    -fx-font-family: 'Montserrat', Arial, sans-serif;
     -fx-background-color:#24201F
+}
+
+.body {
+    -fx-font-family: 'Montserrat', Arial, sans-serif;
 }
 
 /* App background on every screen (your root panes are AnchorPane) */
@@ -10,7 +16,7 @@
 }
 
 .title-heading {
-    -fx-font-size: 30px;
+    -fx-font-size: 40px;
     -fx-font-weight: bold;
 }
 
@@ -19,7 +25,7 @@
 .button,
 .text-field,
 .password-field {
-    -fx-text-fill: #ff4800;
+    -fx-text-fill: #B1B1AB;
 }
 
 /*Button specific stuff*/
@@ -28,6 +34,7 @@
     -fx-border: none;
     -fx-border-radius: 4px;
     -fx-text-fill: #24201F;
+    -fx-font-weight: bold;
 }
 
 /* Optional: placeholder text in fields (if you use promptText) */
