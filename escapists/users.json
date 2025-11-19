@@ -1,1 +1,82 @@
-{"users":[{"password":"passworD123","saves":[{"difficulty":2,"currentRoom":"Hallway","achievements":[{"1":"First Puzzle"}],"progressId":"248cea78-82be-4bc1-99e8-9d242b6f09af","completedRooms":["Cell"],"completedPuzzles":{"Cell":{"CellDoorLock":true},"Hallway":{"KeyCode":true,"WallRiddle":false}},"inventory":{"items":[{"itemId":1,"name":"Rusty Key","description":"A heavy key mottled with rust.  It is cool to the touch."}]},"remainingTime":1650}],"userName":"John","currSave":"248cea78-82be-4bc1-99e8-9d242b6f09af"},{"password":"Password321","saves":[{"difficulty":1,"currentRoom":"Cell","achievements":[],"progressId":"f7b9f0df-7ef8-401b-9696-dab58b815e13","completedRooms":[],"completedPuzzles":{"Cell":{"CellDoorLock":false},"Hallway":{"KeyCode":false,"WallRiddle":false}},"inventory":{"items":[{"itemId":2,"name":"Crowbar","description":"The classic tool for a crazy criminal."}]},"remainingTime":3690}],"userName":"Jane","currSave":"f7b9f0df-7ef8-401b-9696-dab58b815e13"},{"password":"40","saves":[],"userName":"Red","currSave":null}]}
+{
+  "users": [
+    {
+      "password": "passworD123",
+      "saves": [
+        {
+          "difficulty": 2,
+          "currentRoom": "Hallway",
+          "achievements": [
+            {
+              "1": "First Puzzle"
+            }
+          ],
+          "progressId": "248cea78-82be-4bc1-99e8-9d242b6f09af",
+          "completedRooms": [
+            "Cell"
+          ],
+          "completedPuzzles": {
+            "Cell": {
+              "CellDoorLock": true
+            },
+            "Hallway": {
+              "KeyCode": true,
+              "WallRiddle": false
+            }
+          },
+          "inventory": {
+            "items": [
+              {
+                "itemId": 1,
+                "name": "Rusty Key",
+                "description": "A heavy key mottled with rust.  It is cool to the touch."
+              }
+            ]
+          },
+          "remainingTime": 1650
+        }
+      ],
+      "userName": "John",
+      "currSave": "248cea78-82be-4bc1-99e8-9d242b6f09af"
+    },
+    {
+      "password": "Password321",
+      "saves": [
+        {
+          "difficulty": 1,
+          "currentRoom": "Cell",
+          "achievements": [],
+          "progressId": "f7b9f0df-7ef8-401b-9696-dab58b815e13",
+          "completedRooms": [],
+          "completedPuzzles": {
+            "Cell": {
+              "CellDoorLock": false
+            },
+            "Hallway": {
+              "KeyCode": false,
+              "WallRiddle": false
+            }
+          },
+          "inventory": {
+            "items": [
+              {
+                "itemId": 2,
+                "name": "Crowbar",
+                "description": "The classic tool for a crazy criminal."
+              }
+            ]
+          },
+          "remainingTime": 3690
+        }
+      ],
+      "userName": "Jane",
+      "currSave": "f7b9f0df-7ef8-401b-9696-dab58b815e13"
+    },
+    {
+      "password": "40",
+      "saves": [],
+      "userName": "Red",
+      "currSave": null
+    }
+  ]
+}

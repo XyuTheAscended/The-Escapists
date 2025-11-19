@@ -6,6 +6,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -22,7 +24,9 @@ public class MainMenuController implements Initializable {
 
     @FXML
     private Button btnAccount;
-    private Label lblAccount;
+
+    @FXML
+    private Text txtAccount;
 
     @FXML
     private Button btnExitGame;
@@ -65,7 +69,7 @@ public class MainMenuController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         User currUser = gf.getCurrUser();
         System.out.println("Logged in " + currUser.getUserName());
-        lblAccount.setText(currUser.getUserName());
+        txtAccount.setText(currUser.getUserName());
     }
 
 }

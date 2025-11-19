@@ -32,8 +32,9 @@ public class LogininController {
         GameFacade gf = GameFacade.getInstance();
         String username = txtUsername.getText();
         String password = txtPassword.getText();
-
+        System.out.println(username + " is tryna log");
         if (gf.login(username, password)) {
+            System.out.println("logged in gu");
             App.setRoot("mainMenu");
         } else {
             lblError.setText("Incorrect username or password!");

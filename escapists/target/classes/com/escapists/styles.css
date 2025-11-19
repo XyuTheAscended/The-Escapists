@@ -24,6 +24,7 @@
 /* Make all “letters” this color (labels, buttons, text in fields) */
 .label,
 .button,
+.text,
 .text-field,
 .password-field {
     -fx-text-fill: #B1B1AB;
