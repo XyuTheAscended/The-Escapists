@@ -23,11 +23,14 @@
 
 /* Make all “letters” this color (labels, buttons, text in fields) */
 .label,
-.button,
-.text,
+/* .button, button text color gets redefined later so i commented this out*/
 .text-field,
 .password-field {
     -fx-text-fill: #B1B1AB;
+}
+
+Text {
+    -fx-fill: #B1B1AB;
 }
 
 .label {
@@ -39,7 +42,7 @@
     -fx-background-color: #B1B1AB;
     -fx-border: none;
     -fx-border-radius: 4px;
-    -fx-text-fill: #24201F;
+    -fx-text-fill: #24201F; 
     -fx-font-weight: bold;
 }
 
