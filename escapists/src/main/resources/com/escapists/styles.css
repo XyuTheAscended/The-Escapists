@@ -58,6 +58,7 @@
 .text-field:hover,
 .password-field:hover {
     -fx-background-color: #676A59;
+    -fx-cursor: hand;
 }
 
 /* Give labels a bit of padding so the hover bg is visible */
