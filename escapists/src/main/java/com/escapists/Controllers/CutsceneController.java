@@ -1,12 +1,16 @@
 package com.escapists.Controllers;
+import com.escapists.App;
 import com.model.Coding.Speech.Speak;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 
+import java.io.IOException;
+
 public class CutsceneController {
 
+    public Button btnBack;
     @FXML
     private TextArea cutsceneTextArea;
     @FXML private Button btnContinue;
@@ -37,5 +41,11 @@ public class CutsceneController {
     }
 
     public void btnContinueClicked(ActionEvent actionEvent) {
+        onSceneExit();
+    }
+
+    public void btnBackClicked(ActionEvent actionEvent) throws IOException {
+        onSceneExit();
+        App.setRoot("mainMenu");
     }
 }

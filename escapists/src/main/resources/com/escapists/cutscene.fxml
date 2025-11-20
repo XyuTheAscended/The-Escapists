@@ -22,7 +22,7 @@
          <children>
             <VBox alignment="CENTER" stylesheets="@styles.css">
                <children>
-                  <TextArea fx:id="cutsceneTextArea" maxWidth="-Infinity" prefHeight="586.0" prefWidth="960.0" text="&#10;&#10;You wake up in a cold, dimly lit cell, falsely accused, locked away for a crime you didn't commit. The walls echo with the whispers of injustice, and your only ally is a cellmate who claims to know a way out. &#10;&#10;Bribing the warden, outsmarting the guards, and uncovering the secrets buried within these prison walls are your only chances at freedom. Every room hides a challenge, every choice a consequence. Can you escape and uncover the truth behind your imprisonment before the prison closes in on you?" wrapText="true" />
+                  <TextArea fx:id="cutsceneTextArea" editable="false" maxWidth="-Infinity" prefHeight="586.0" prefWidth="960.0" text="&#10;&#10;You wake up in a cold, dimly lit cell, falsely accused, locked away for a crime you didn't commit. The walls echo with the whispers of injustice, and your only ally is a cellmate who claims to know a way out. &#10;&#10;Bribing the warden, outsmarting the guards, and uncovering the secrets buried within these prison walls are your only chances at freedom. Every room hides a challenge, every choice a consequence. Can you escape and uncover the truth behind your imprisonment before the prison closes in on you?" wrapText="true" />
                </children>
             </VBox>
             <Button fx:id="btnContinue" alignment="CENTER" mnemonicParsing="false" onAction="#btnContinueClicked" text="Continue" textAlignment="CENTER" StackPane.alignment="CENTER">
@@ -38,6 +38,11 @@
                   <Insets top="-500.0" />
                </StackPane.margin>
             </Label>
+            <Button fx:id="btnBack" mnemonicParsing="false" onAction="#btnBackClicked" text="Back">
+               <StackPane.margin>
+                  <Insets right="850.0" top="-500.0" />
+               </StackPane.margin>
+            </Button>
          </children>
       </StackPane>
    </children>
