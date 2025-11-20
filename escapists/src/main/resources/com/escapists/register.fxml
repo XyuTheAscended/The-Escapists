@@ -1,34 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import java.net.*?>
 
-<?import java.lang.String?>
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.RegisterController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.LogininController">
    <children>
-      <Label layoutX="168.0" layoutY="34.0" text="SIGN UP TO&#xD;">
-         <font>
-            <Font size="20.0" />
-         </font>
-      </Label>
-         <Label layoutX="168.0" layoutY="60" text="ESCAPE">
-         <font>
-            <Font size="60.0" />
-         </font>
-      </Label>
-      <Label layoutX="195.0" layoutY="160.0" text="USER:" />
-      <Label layoutX="195.0" layoutY="195.0" text="LOGIN:" />
-      <TextField fx:id="txtUsername" layoutX="255.0" layoutY="159.0" />
-      <TextField fx:id="txtPassword" layoutX="255.0" layoutY="194.0" />
-      <Button fx:id="btnRegister" layoutX="236.0" layoutY="242.0" mnemonicParsing="false" onAction="#btnRegisterClicked" text="ENTER THE PRISON" />
-      <Label fx:id="lblError" layoutX="281.0" layoutY="303.0" />
-      <Button layoutX="33.0" layoutY="21.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label fx:id="lblError" />
+            <Label text="Register to ESCAPE" textFill="RED">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" text="Username:" textAlignment="CENTER" />
+            <TextField fx:id="txtUsername" maxWidth="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="50.0" />
+            <Label alignment="CENTER" text="Password:" />
+            <TextField fx:id="txtPassword" maxWidth="500.0" />
+            <Button fx:id="btnRegister" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnRegisterClicked" text="Register" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
+            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#btnLoginClicked" text="Login Here!" />
+         </children>
+         <rotationAxis>
+            <Point3D />
+         </rotationAxis>
+      </VBox>
    </children>
-    <stylesheets>
-        <URL value="@styles.css"/>
-    </stylesheets>
+     <stylesheets>
+         <URL value="@styles.css" />
+     </stylesheets>
 </AnchorPane>
