@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -10,49 +11,24 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.LogininController">
    <children>
-      <VBox alignment="CENTER_RIGHT" layoutX="138.0" layoutY="47.0" prefHeight="675.0" prefWidth="1148.0">
+      <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <VBox alignment="CENTER" prefHeight="6.0" prefWidth="593.0">
-               <children>
-                  <Label text="Login to ESCAPE" textFill="RED">
-                     <font>
-                        <Font size="48.0" />
-                     </font>
-                  </Label>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="0.0" prefWidth="1280.0">
-               <children>
-                  <Label alignment="CENTER" prefHeight="23.0" prefWidth="81.0" text="Username:" textAlignment="CENTER" />
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="24.0" prefWidth="1277.0">
-               <children>
-                  <TextField fx:id="txtUsername" maxWidth="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="50.0" />
-                  <VBox alignment="CENTER" prefHeight="0.0" prefWidth="1280.0">
-                     <children>
-                        <Label alignment="CENTER" text="Password:" />
-                     </children>
-                  </VBox>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" prefHeight="18.0" prefWidth="1280.0">
-               <children>
-                  <TextField fx:id="txtPassword" maxWidth="500.0" />
-               </children>
-            </VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="40.0" prefWidth="1280.0">
-               <children>
-                  <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLoginClicked" text="Login" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
-               </children>
-            </VBox>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="33.0" prefWidth="1280.0">
-               <children>
-                  <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#btnRegisterClicked" text="Register Here!" />
-               </children>
-            </VBox>
             <Label fx:id="lblError" />
+            <Label text="Login to ESCAPE" textFill="RED">
+               <font>
+                  <Font size="48.0" />
+               </font>
+            </Label>
+            <Label alignment="CENTER" text="Username:" textAlignment="CENTER" />
+            <TextField fx:id="txtUsername" maxWidth="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="50.0" />
+            <Label alignment="CENTER" text="Password:" />
+            <TextField fx:id="txtPassword" maxWidth="500.0" />
+            <Button fx:id="btnLogin" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnLoginClicked" text="Login" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
+            <Button fx:id="btnRegister" mnemonicParsing="false" onAction="#btnRegisterClicked" text="Register Here!" />
          </children>
+         <rotationAxis>
+            <Point3D />
+         </rotationAxis>
       </VBox>
    </children>
      <stylesheets>
