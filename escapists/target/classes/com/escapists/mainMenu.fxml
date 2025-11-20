@@ -12,9 +12,9 @@
    <children>
       <VBox alignment="CENTER" spacing="20.0" stylesheets="@styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Escape">
+            <Label text="ESCAPE" styleClass="title-heading">
                <font>
-                  <Font size="34.0" />
+                  <Font size="60.0" />
                </font>
             </Label>
             <Button fx:id="btnNewGame" mnemonicParsing="false" onAction="#newGameClicked" text="New Game" />
