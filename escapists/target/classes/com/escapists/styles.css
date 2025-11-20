@@ -69,3 +69,12 @@ Text {
 .label {
     -fx-padding: 4 6 4 6;
 }
+
+.text-area {
+    -fx-control-inner-background: #24201F;
+    -fx-text-fill: #B1B1AB;
+    -fx-background-color: #24201F;
+    -fx-font-family: 'Montserrat', Arial, sans-serif;
+    -fx-font-size: 32px;
+}
+

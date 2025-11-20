@@ -1,1 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.CutsceneController">
+   <children>
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" nodeOrientation="INHERIT" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../prison1.jpg" />
+         </image>
+      </ImageView>
+      <StackPane prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <VBox alignment="CENTER" stylesheets="@styles.css">
+               <children>
+                  <TextArea fx:id="cutsceneTextArea" maxWidth="-Infinity" prefHeight="586.0" prefWidth="960.0" text="&#10;&#10;You wake up in a cold, dimly lit cell, falsely accused, locked away for a crime you didn't commit. The walls echo with the whispers of injustice, and your only ally is a cellmate who claims to know a way out. &#10;&#10;Bribing the warden, outsmarting the guards, and uncovering the secrets buried within these prison walls are your only chances at freedom. Every room hides a challenge, every choice a consequence. Can you escape and uncover the truth behind your imprisonment before the prison closes in on you?" wrapText="true" />
+               </children>
+            </VBox>
+            <Button fx:id="btnContinue" alignment="CENTER" mnemonicParsing="false" onAction="#btnContinueClicked" text="Continue" textAlignment="CENTER" StackPane.alignment="CENTER">
+               <StackPane.margin>
+                  <Insets left="800.0" top="500.0" />
+               </StackPane.margin>
+            </Button>
+            <Label text="Escape">
+               <font>
+                  <Font size="77.0" />
+               </font>
+               <StackPane.margin>
+                  <Insets top="-500.0" />
+               </StackPane.margin>
+            </Label>
+         </children>
+      </StackPane>
+   </children>
+</AnchorPane>

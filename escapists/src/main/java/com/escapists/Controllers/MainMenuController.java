@@ -1,5 +1,6 @@
 package com.escapists.Controllers;
 
+import com.escapists.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +9,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -61,8 +63,8 @@ public class MainMenuController implements Initializable {
     }
 
     @FXML
-    void newGameClicked(ActionEvent event) {
-
+    void newGameClicked(ActionEvent event) throws IOException {
+        App.setRoot("cutscene");
     }
 
     @Override
