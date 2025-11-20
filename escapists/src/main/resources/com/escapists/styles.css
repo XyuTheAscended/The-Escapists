@@ -21,6 +21,11 @@
     -fx-effect: dropshadow(gaussian, rgba(76, 73, 73, 1), 0, 0, 3, 1.5);
 }
 
+.label-heading {
+    -fx-font-weight: bold;
+    -fx-effect: dropshadow(gaussian, rgba(76, 73, 73, 1), 0, 0, 2, 1.5);
+}
+
 /* Make all “letters” this color (labels, buttons, text in fields) */
 .label,
 /* .button, button text color gets redefined later so i commented this out*/

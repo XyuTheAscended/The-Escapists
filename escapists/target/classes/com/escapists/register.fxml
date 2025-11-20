@@ -14,11 +14,12 @@
       <VBox alignment="CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label fx:id="lblError" />
-            <Label text="Register to ESCAPE" textFill="RED">
+            <Label text="Register to ESCAPE" textFill="RED" styleClass="label-heading">
                <font>
                   <Font size="48.0" />
                </font>
             </Label>
+            
             <Label alignment="CENTER" text="Username:" textAlignment="CENTER" />
             <TextField fx:id="txtUsername" maxWidth="500.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="24.0" prefWidth="50.0" />
             <Label alignment="CENTER" text="Password:" />
