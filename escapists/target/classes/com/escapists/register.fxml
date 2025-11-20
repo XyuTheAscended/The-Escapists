@@ -25,7 +25,7 @@
             <Label alignment="CENTER" text="Password:" />
             <TextField fx:id="txtPassword" maxWidth="500.0" />
             <Button fx:id="btnRegister" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#btnRegisterClicked" text="Register" textAlignment="CENTER" textOverrun="CENTER_ELLIPSIS" />
-            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#btnLoginClicked" text="Login Here!" />
+            <Button layoutX="33.0" layoutY="21.0" mnemonicParsing="false" onAction="#back" text="Back" />
          </children>
          <rotationAxis>
             <Point3D />
