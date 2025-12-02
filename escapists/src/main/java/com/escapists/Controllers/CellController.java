@@ -61,7 +61,8 @@ public class CellController {
         for (Room room : rooms) {
             System.out.println(room.getName());
         }
+        Room currRoom = gf.getCurrRoom();
         System.out.println(currRoom);
-        noteRiddleAnswrBox.setText(currRoom.getPuzzle("note").getDescription());
+        noteRiddleAnswrBox.setText(currRoom.getPuzzle("Note").getDescription());
     }
 }
