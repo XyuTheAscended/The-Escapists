@@ -24,8 +24,6 @@ public class CutsceneController {
         ttsThread = new Thread(() -> Speak.speak(storyText));
         ttsThread.setDaemon(true);
         ttsThread.start();
-
-        btnContinue.setOnAction(e -> stopTts());
     }
 
     private void stopTts() {
@@ -40,7 +38,8 @@ public class CutsceneController {
         stopTts();
     }
 
-    public void btnContinueClicked(ActionEvent actionEvent) {
+    public void btnContinueClicked(ActionEvent actionEvent) throws IOException {
+        App.setRoot("cell");
         onSceneExit();
     }
 

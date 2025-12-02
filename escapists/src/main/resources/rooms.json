@@ -3,9 +3,9 @@
     "Cell": {
       "puzzles": [
         {
-          "name": "Toilet",
+          "name": "Sink",
           "answer": "3",
-          "description": "A toilet with a secret if you flush it enough times."
+          "description": "The sink is broken, can you figure out how to fix it?"
         },
         {
           "name": "CellDoorLock",
@@ -15,15 +15,13 @@
           "description": "A lock that may only be unlocked open, or perhaps broken"
         },
         {
-          "name": "CellBarJingle",
-          "answer": "C-E-A-C",
-          "requiredItem": "Eating Utencils",
-          "description": "Play a tune on your cell bars like a xylophone, and maybe some cultured guards might reward you."
+          "name": "Note",
+          "answer": "A Cold",
+          "description": "What can you catch, but cannot throw?"
         }
       ], 
       "exits": {
-        "Hallway": ["CellDoorLock", "CellBarJingle"],
-        "Sewage": ["Toilet"]
+        "Hallway": ["CellDoorLock"]
       }
     },
     "Sewage": {
