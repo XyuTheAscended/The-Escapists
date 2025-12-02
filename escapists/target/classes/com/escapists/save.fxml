@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.escapists.Controllers.SaveGameController"
+            prefWidth="1024.0" prefHeight="724.0"
+            style="-fx-background-color: #24201F;">
+
+    <children>
+
+        <!-- LEFT COLUMN -->
+        <VBox layoutX="0.0" layoutY="0.0" prefWidth="180.0" prefHeight="724.0"
+              style="-fx-background-color: #24201F;">
+            <children>
+                <Label text="Save">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                    <padding>
+                        <Insets top="30" left="20" bottom="0" right="0"/>
+                    </padding>
+                    <textFill>WHITE</textFill>
+                </Label>
+
+                <Label text="Game">
+                    <font>
+                        <Font size="36.0" />
+                    </font>
+                    <padding>
+                        <Insets top="0" left="20" bottom="0" right="0"/>
+                    </padding>
+                    <textFill>WHITE</textFill>
+                </Label>
+
+                <!-- simple spacer -->
+                <Region />
+
+                <!-- Back button row -->
+                <HBox spacing="8.0">
+                    <padding>
+                        <Insets top="20" right="20" bottom="20" left="20"/>
+                    </padding>
+                    <children>
+                        <Label text="◀" textFill="WHITE">
+                            <font>
+                                <Font size="26.0" />
+                            </font>
+                        </Label>
+                        <Button fx:id="backButton" text="Back"
+                                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 26px;"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+
+        <!-- SAVE SLOTS GRID -->
+        <GridPane layoutX="210.0" layoutY="60.0" hgap="60.0" vgap="120.0">
+            <children>
+                <!-- Row 1 -->
+                <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" spacing="10.0">
+                    <children>
+                        <Rectangle width="240.0" height="140.0" />
+                        <Label text="Save 1" textFill="WHITE">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="10.0">
+                    <children>
+                        <Rectangle width="240.0" height="140.0" />
+                        <Label text="Save 2" textFill="WHITE">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <VBox GridPane.rowIndex="0" GridPane.columnIndex="2" spacing="10.0">
+                    <children>
+                        <Rectangle width="240.0" height="140.0" />
+                        <Label text="Save 3" textFill="WHITE">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <!-- Row 2 -->
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="10.0">
+                    <children>
+                        <Rectangle width="240.0" height="140.0" />
+                        <Label text="Save 4" textFill="WHITE">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" spacing="10.0">
+                    <children>
+                        <Rectangle width="240.0" height="140.0" />
+                        <Label text="Save 5" textFill="WHITE">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+
+                <VBox GridPane.rowIndex="1" GridPane.columnIndex="2" spacing="10.0">
+                    <children>
+                        <Rectangle width="240.0" height="140.0" />
+                        <Label text="Save 6" textFill="WHITE">
+                            <font>
+                                <Font size="24.0" />
+                            </font>
+                        </Label>
+                    </children>
+                </VBox>
+            </children>
+        </GridPane>
+
+    </children>
+</AnchorPane>
