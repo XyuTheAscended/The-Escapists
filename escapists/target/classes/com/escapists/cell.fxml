@@ -11,12 +11,12 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.CellController">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../prison1.jpg" />
+            <Image url="@../../prsion2.png" />
          </image>
       </ImageView>
-      <Button fx:id="btnSink" layoutX="1211.0" layoutY="478.0" mnemonicParsing="false" onAction="#btnSinkClicked" opacity="0.0" prefHeight="299.0" prefWidth="132.0" />
+      <Button fx:id="btnSink" layoutX="1298.0" layoutY="478.0" mnemonicParsing="false" onAction="#btnSinkClicked" opacity="0.0" prefHeight="299.0" prefWidth="132.0" />
       <ImageView fitHeight="414.0" fitWidth="422.0" layoutX="771.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../cellmate1.png" />
@@ -37,5 +37,13 @@
       <TextArea fx:id="noteRiddleText" editable="false" layoutX="134.0" layoutY="557.0" prefHeight="220.0" prefWidth="398.0" visible="false" wrapText="true" />
       <TextField fx:id="noteRiddleAnswrBox" layoutX="238.0" layoutY="708.0" visible="false" />
       <Button fx:id="btnEnter" layoutX="305.0" layoutY="740.0" mnemonicParsing="false" onAction="#btnEnterClicked" text="Enter" visible="false" />
+       <Button fx:id="btnTurn"
+               mnemonicParsing="false"
+               onAction="#btnTurnClicked"
+               text="Turn Around"
+               AnchorPane.leftAnchor="900.0"
+               AnchorPane.bottomAnchor="110.0"
+               prefWidth="140.0"
+               prefHeight="36.0"/>
    </children>
 </AnchorPane>

@@ -5,7 +5,7 @@
         {
           "name": "CellDoorLock",
           "requiredItems": [
-            "Bronze Key"
+            "Key"
           ],
           "description": "A lock that may only be unlocked open, or perhaps broken"
         },

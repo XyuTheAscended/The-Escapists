@@ -1,8 +1,6 @@
 package com.model.Coding.Progress;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.UUID;
+import java.util.*;
 
 import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
@@ -23,6 +21,7 @@ public class Progress {
     private int remainingTime;
     private HashMap<String, HashMap<String, Boolean>> completedPuzzles;
     private int hintsUsed = 0;
+
 
     /**
      * Initializes progress
@@ -283,5 +282,16 @@ public class Progress {
      */
     public int getHintsUsed() {
         return this.hintsUsed;
+    }
+
+    public void initializeRoomPuzzles(Room room) {
+        String roomName = room.getName();
+        completedPuzzles.putIfAbsent(roomName, new HashMap<>());
+        Map<String, Boolean> map = completedPuzzles.get(roomName);
+
+        for (Puzzle p : room.getPuzzles()) {
+            // only add the puzzle if it doesn't already exist (won't overwrite true/false)
+            map.putIfAbsent(p.getName(), Boolean.FALSE);
+        }
     }
 }

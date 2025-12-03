@@ -5,6 +5,7 @@ import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
+import com.model.Coding.Progress.UIDataCache;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -16,14 +17,43 @@ public class CellController {
 
 
     GameFacade gf = GameFacade.getInstance();
+    UIDataCache UIDC = UIDataCache.getInstance();
 
     @FXML
     public void initialize() {
         gf.startGame(1);
-        Button closeBtn = (Button) cellMateDialog.lookupButton(ButtonType.CLOSE);
-        closeBtn.setOnAction(e -> cellMateDialog.setVisible(false));
 
+        Room currRoom = gf.getCurrRoom();
+        if (currRoom == null) {
+            System.err.println("CellController.initialize(): currRoom is null - skipping UI restore");
+            return;
+        }
 
+        Progress currSave = gf.getCurrUser().getCurrSave();
+
+        // Ensure save knows about all puzzles in this room (idempotent)
+        currSave.initializeRoomPuzzles(currRoom);
+
+        // Restore UI state from the save (visibility + saved text)
+        noteRiddleAnswrBox.setVisible(UIDC.isUIVisible(currRoom.getName(), "noteRiddleAnswrBox"));
+        noteRiddleText.setVisible(UIDC.isUIVisible(currRoom.getName(), "noteRiddleText"));
+        btnEnter.setVisible(UIDC.isUIVisible(currRoom.getName(), "btnEnter"));
+
+        noteRiddleAnswrBox.setText(UIDC.getUIText(currRoom.getName(), "noteRiddleAnswrBox"));
+        noteRiddleText.setText(UIDC.getUIText(currRoom.getName(), "noteRiddleText"));
+
+        btnEnter.setDisable(UIDC.isUIDisabled(currRoom.getName(), "btnEnter"));
+
+        if (cellMateDialog != null) {
+            Button closeBtn = (Button) cellMateDialog.lookupButton(ButtonType.CLOSE);
+            if (closeBtn != null) {
+                closeBtn.setOnAction(e -> cellMateDialog.setVisible(false));
+            }
+        }
+
+        // Restore dialog visibility
+        boolean dialogVisible = UIDC.isUIVisible(currRoom.getName(), "cellMateDialog");
+        cellMateDialog.setVisible(dialogVisible);
     }
 
     @FXML
@@ -48,8 +78,50 @@ public class CellController {
     private Button btnEnter;
 
     @FXML
-    void btnCellMateClicked(ActionEvent event) {
-        cellMateDialog.setVisible(true);
+    private Button btnTurn;
+
+    @FXML
+    void btnNoteClicked(ActionEvent event) {
+        Room currRoom = gf.getCurrRoom();
+        Progress currSave = gf.getCurrUser().getCurrSave();
+
+        // show UI
+        noteRiddleAnswrBox.setVisible(true);
+        noteRiddleText.setVisible(true);
+        btnEnter.setVisible(true);
+
+        // display riddle text from the model
+        noteRiddleText.setText(currRoom.getPuzzle("Note").getDescription());
+
+        // persist UI visibility
+        UIDC.setUIVisible(currRoom.getName(), "noteRiddleAnswrBox", true);
+        UIDC.setUIVisible(currRoom.getName(), "noteRiddleText", true);
+        UIDC.setUIVisible(currRoom.getName(), "btnEnter", true);
+
+        UIDC.setUIText(currRoom.getName(), "noteRiddleText", noteRiddleText.getText());
+        UIDC.setUIText(currRoom.getName(), "noteRiddleAnswrBox", noteRiddleAnswrBox.getText());
+
+    }
+
+    @FXML
+    void btnEnterClicked(ActionEvent event) {
+        Room currRoom = gf.getCurrRoom();
+        Progress currSave = gf.getCurrUser().getCurrSave();
+
+        String answer = noteRiddleAnswrBox.getText();
+        boolean solved = currRoom.getPuzzle("Note").checkAnswer(currRoom.getPuzzle("Note").userAnswer(answer));
+        if (solved) {
+            noteRiddleAnswrBox.setText("Riddle Completed");
+            noteRiddleText.setText("2436");
+            UIDC.setUIText(currRoom.getName(), "noteRiddleText", "2436");
+            UIDC.setUIText(currRoom.getName(), "noteRiddleAnswrBox", "Riddle Completed");
+            currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("Note"), true);
+            btnEnter.setDisable(true);
+            UIDC.setUIDisabled(currRoom.getName(), "btnEnter", true);
+        } else {
+            noteRiddleAnswrBox.setText("Wrong! Try again");
+            UIDC.setUIText(currRoom.getName(), "noteRiddleAnswrBox", "Wrong! Try again");
+        }
     }
 
     @FXML
@@ -58,25 +130,15 @@ public class CellController {
     }
 
     @FXML
-    void btnNoteClicked(ActionEvent event) {
-
+    void btnCellMateClicked(ActionEvent event) {
         Room currRoom = gf.getCurrRoom();
-        noteRiddleAnswrBox.setVisible(true);
-        noteRiddleText.setVisible(true);
-        btnEnter.setVisible(true);
-        noteRiddleText.setText(currRoom.getPuzzle("Note").getDescription());
+        Progress currSave = gf.getCurrUser().getCurrSave();
+        if (cellMateDialog != null) cellMateDialog.setVisible(true);
+        UIDC.setUIVisible(currRoom.getName(), "cellMateDialog", true);
     }
 
     @FXML
-    void btnEnterClicked(ActionEvent event) {
-        Room currRoom = gf.getCurrRoom();
-        String answer = noteRiddleAnswrBox.getText();
-        if(currRoom.getPuzzle("Note").checkAnswer(currRoom.getPuzzle("Note").userAnswer(answer))) {
-            noteRiddleAnswrBox.setText("Riddle Completed");
-            noteRiddleText.setText("2436");
-            gf.getCurrUser().getCurrSave().setPuzzleCompleted(currRoom, currRoom.getPuzzle("Note"), true);
-        } else {
-            noteRiddleAnswrBox.setText("Wrong! Try again");
-        }
+    void btnTurnClicked(ActionEvent event) throws IOException {
+        App.setRoot("cellDoor");
     }
 }

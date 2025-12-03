@@ -21,6 +21,6 @@ public class CellSinkController {
 
     @FXML
     void btnDrainClicked(ActionEvent event) throws IOException {
-        App.setRoot("sinkWithMoney");
+        App.setRoot("sinkWithKey");
     }
 }

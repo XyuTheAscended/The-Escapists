@@ -3,21 +3,28 @@ package com.escapists.Controllers;
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.InteractItems.Item;
+import com.model.Coding.Progress.UIDataCache;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
 import java.io.IOException;
 
-public class CellSinkMoneyController {
+public class CellSinkKeyController {
 
     GameFacade gf = GameFacade.getInstance();
+    UIDataCache UIDC = UIDataCache.getInstance();
+
+    @FXML
+    public void initialize() {
+        btnKey.setDisable(UIDC.isUIDisabled(gf.getCurrRoom().getName(), "btnKey"));
+    }
 
     @FXML
     private Button btnBack;
 
     @FXML
-    private Button btnMoney;
+    private Button btnKey;
 
     @FXML
     void btnBackClicked(ActionEvent event) throws IOException {
@@ -25,10 +32,12 @@ public class CellSinkMoneyController {
     }
 
     @FXML
-    void btnMoneyClicked(ActionEvent event) {
+    void btnKeyClicked(ActionEvent event) {
         // i think this is supposed to be in json
-        Item money = new Item(1,"Money", "Money to bribe the warden.");
-        gf.getInventory().addItem(money);
+        Item key = new Item(1,"Key", "Key for the cell door lock.");
+        gf.getInventory().addItem(key);
+        btnKey.setDisable(true);
+        UIDC.setUIDisabled(gf.getCurrRoom().getName(), "btnKey", true);
         // temp
         System.out.println(gf.getInventory().displayInventory());
     }

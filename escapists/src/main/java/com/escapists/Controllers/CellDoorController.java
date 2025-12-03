@@ -1,0 +1,61 @@
+package com.escapists.Controllers;
+
+import com.escapists.App;
+import com.model.Coding.Gameplay.GameFacade;
+import com.model.Coding.Gameplay.InteractItems.Item;
+import com.model.Coding.Gameplay.Map.Room;
+import com.model.Coding.Progress.Progress;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
+
+import java.io.IOException;
+
+public class CellDoorController {
+
+    GameFacade gf = GameFacade.getInstance();
+    boolean completed = false;
+
+    @FXML
+    private Button btnLock;
+
+    @FXML
+    private Button btnTurn;
+
+    @FXML
+    private TextArea txtAreaKeyMessage;
+
+    @FXML
+    void btnLockClicked(ActionEvent event) throws IOException {
+
+        Room currRoom = gf.getCurrRoom();
+        Progress currSave = gf.getCurrUser().getCurrSave();
+
+        Item key = gf.getInventory().getItem("key");
+        if(gf.getInventory().hasItem("Key")) {
+            gf.getInventory().removeItem(key);
+            gf.getCurrUser().getCurrSave().setPuzzleCompleted(currRoom, currRoom.getPuzzle("CellDoorLock"), true);
+            System.out.println(gf.getCurrUser());
+            completed = true;
+        }
+
+        if(!completed) {
+            txtAreaKeyMessage.setVisible(true);
+        }
+
+        if(completed) {
+            txtAreaKeyMessage.setText("Hmmm, it seems I'm missing something.");
+            txtAreaKeyMessage.setVisible(true);
+        }
+
+        if(currSave.allPuzzlesCompleted(gf.getCurrRoom())) {
+            App.setRoot("openCellDoor");
+        }
+    }
+
+    @FXML
+    void btnTurnClicked(ActionEvent event) throws IOException {
+        App.setRoot("cell");
+    }
+}
