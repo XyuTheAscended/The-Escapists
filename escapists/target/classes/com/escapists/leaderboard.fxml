@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="leaderboardRoot"
+            prefHeight="720.0" prefWidth="1280.0"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.escapists.Controllers.LeaderboardController">
+
+    <children>
+        <VBox spacing="30" alignment="CENTER"
+              AnchorPane.topAnchor="0" AnchorPane.bottomAnchor="0"
+              AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0">
+
+            <Label text="LEADERBOARD" styleClass="title-heading">
+                <font>
+                    <Font size="60" />
+                </font>
+            </Label>
+
+            <ChoiceBox fx:id="difficultyChoice"
+                       prefWidth="200"
+                       styleClass="label-heading" />
+
+            <ListView fx:id="lvScores"
+                      prefWidth="400"
+                      prefHeight="400"
+                      style="-fx-background-insets: 0;" />
+            <Button fx:id="btnBack"
+                    text="Back"
+                    mnemonicParsing="false"
+                    onAction="#backClicked"
+                    prefWidth="150" />
+
+        </VBox>
+
+    </children>
+
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+</AnchorPane>
