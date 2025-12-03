@@ -43,15 +43,19 @@ public class MainMenuController implements Initializable {
     private Label lblUsername;
 
     @FXML
-    void accountClicked(ActionEvent event) {
-
+    void leaderboardClicked(ActionEvent event) {
+        try {
+            App.setRoot("leaderboard");  // loads leaderboard.fxml
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 
     @FXML
     void avatarClicked(MouseEvent event) {
 
     }
-
     @FXML
     void exitGameClicked(ActionEvent event) {
         System.exit(0);

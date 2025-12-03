@@ -8,24 +8,53 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="avatar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#avatarClicked" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.MainMenuController">
+<AnchorPane fx:id="avatar" maxHeight="-Infinity" maxWidth="-Infinity" 
+            minHeight="-Infinity" minWidth="-Infinity" 
+            onMouseClicked="#avatarClicked" 
+            prefHeight="720.0" prefWidth="1280.0" 
+            xmlns="http://javafx.com/javafx/25" 
+            xmlns:fx="http://javafx.com/fxml/1" 
+            fx:controller="com.escapists.Controllers.MainMenuController">
+
    <children>
-      <VBox alignment="CENTER" spacing="20.0" stylesheets="@styles.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+      <VBox alignment="CENTER" spacing="20.0" stylesheets="@styles.css"
+            AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <Label text="ESCAPE" styleClass="title-heading">
                <font>
                   <Font size="60.0" />
                </font>
             </Label>
-            <Button fx:id="btnNewGame" mnemonicParsing="false" onAction="#newGameClicked" text="New Game" />
-            <Button fx:id="btnLoadSave" mnemonicParsing="false" onAction="#loadSaveClicked" text="Load Save" />
-            <Button fx:id="btnExitGame" mnemonicParsing="false" onAction="#exitGameClicked" text="Exit Game" />
+
+            <Button fx:id="btnNewGame" mnemonicParsing="false" 
+                    onAction="#newGameClicked" text="New Game" />
+
+            <Button fx:id="btnLoadSave" mnemonicParsing="false" 
+                    onAction="#loadSaveClicked" text="Load Save" />
+
+            <Button fx:id="btnExitGame" mnemonicParsing="false" 
+                    onAction="#exitGameClicked" text="Exit Game" />
          </children>
       </VBox>
-      <Text fx:id="txtAccount" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="67.4159984588623" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="29.0" />
-      <Button fx:id="btnAccount" alignment="TOP_RIGHT" mnemonicParsing="false" onAction="#accountClicked" text="Account" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0" />
+
+      <Text fx:id="txtAccount" strokeType="OUTSIDE" strokeWidth="0.0" 
+            text="Leaderboard" textAlignment="CENTER" 
+            wrappingWidth="90" AnchorPane.rightAnchor="110.0" 
+            AnchorPane.topAnchor="29.0" />
+
+   <Button fx:id="btnLeaderboard"
+         text="Leaderboard"
+         onAction="#leaderboardClicked"
+         AnchorPane.topAnchor="25.0"
+         AnchorPane.rightAnchor="25.0"/>
+
+
    </children>
-    <stylesheets>
-        <URL value="@styles.css" />
-    </stylesheets>
+
+   <stylesheets>
+      <URL value="@styles.css" />
+   </stylesheets>
+
 </AnchorPane>
