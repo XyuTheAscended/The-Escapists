@@ -100,7 +100,6 @@ public class CellController {
 
         UIDC.setUIText(currRoom.getName(), "noteRiddleText", noteRiddleText.getText());
         UIDC.setUIText(currRoom.getName(), "noteRiddleAnswrBox", noteRiddleAnswrBox.getText());
-
     }
 
     @FXML
