@@ -20,7 +20,7 @@ public class Item {
      * @param name Name of the item
      * @param description Description of the item
      */    
-    private Item(int itemId, String name, String description){
+    public Item(int itemId, String name, String description){
         this.itemId = itemId;
         this.name = name;
         this.description = description;

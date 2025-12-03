@@ -90,4 +90,7 @@ Text {
     -fx-font-family: 'Montserrat', Arial, sans-serif;
     -fx-font-size: 14px;
 }
-
+.text-field {
+    -fx-font-family: 'Montserrat', Arial, sans-serif;
+    -fx-text-fill: black;
+}

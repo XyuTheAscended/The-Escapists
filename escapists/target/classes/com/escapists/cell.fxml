@@ -29,12 +29,13 @@
          </image>
       </ImageView>
       <Button fx:id="btnNote" layoutX="388.0" layoutY="859.0" mnemonicParsing="false" onAction="#btnNoteClicked" opacity="0.0" prefHeight="60.0" prefWidth="73.0" />
-      <DialogPane fx:id="cellMateDialog" contentText="Heard you got wrongfully locked up, luckily I know a way out. Bribe the warden to get out of the cell. Once you're out, kill the power and the cameras. You may need some tools for that though. Goodluck" expanded="true" headerText="Cellmate:" layoutX="521.0" layoutY="273.0" opacity="0.87" prefHeight="173.0" prefWidth="387.0">
+      <DialogPane fx:id="cellMateDialog" contentText="Heard you got wrongfully locked up, luckily I know a way out. Bribe the warden to get out of the cell. Once you're out, kill the power and the cameras. You may need some tools for that though. Goodluck" expanded="true" headerText="Cellmate:" layoutX="521.0" layoutY="273.0" opacity="0.87" prefHeight="173.0" prefWidth="387.0" visible="false">
          <buttonTypes>
             <ButtonType fx:constant="CLOSE" />
          </buttonTypes>
       </DialogPane>
-      <TextArea fx:id="noteRiddleText" layoutX="134.0" layoutY="557.0" prefHeight="220.0" prefWidth="398.0" />
-      <TextField fx:id="noteRiddleAnswrBox" layoutX="238.0" layoutY="740.0" />
+      <TextArea fx:id="noteRiddleText" editable="false" layoutX="134.0" layoutY="557.0" prefHeight="220.0" prefWidth="398.0" visible="false" wrapText="true" />
+      <TextField fx:id="noteRiddleAnswrBox" layoutX="238.0" layoutY="708.0" visible="false" />
+      <Button fx:id="btnEnter" layoutX="305.0" layoutY="740.0" mnemonicParsing="false" onAction="#btnEnterClicked" text="Enter" visible="false" />
    </children>
 </AnchorPane>

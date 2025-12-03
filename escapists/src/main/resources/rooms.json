@@ -3,11 +3,6 @@
     "Cell": {
       "puzzles": [
         {
-          "name": "Sink",
-          "answer": "3",
-          "description": "The sink is broken, can you figure out how to fix it?"
-        },
-        {
           "name": "CellDoorLock",
           "requiredItems": [
             "Bronze Key"
