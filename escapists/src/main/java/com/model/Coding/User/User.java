@@ -17,6 +17,8 @@ public class User {
     private Progress currSave;
     private ArrayList<Progress> saves;
     private HashMap<Integer, ArrayList<Integer>> completionTimes; // array list of times in seconds keyed by difficulty level
+    private HashMap<Integer, Progress> saveSlots = new HashMap<>();
+
 
     /**
      * Initializes user and user variables
@@ -240,4 +242,17 @@ public class User {
     public HashMap<Integer, ArrayList<Integer>> getCompletionTimesHashmap() {
         return completionTimes;
     }
+
+    public void saveToSlot(int slot, Progress progress) {
+    saveSlots.put(slot, progress);
+    }
+
+    public Progress loadFromSlot(int slot) {
+    return saveSlots.get(slot);
+    }
+
+    public boolean slotExists(int slot) {
+    return saveSlots.containsKey(slot);
+    }
+
 }

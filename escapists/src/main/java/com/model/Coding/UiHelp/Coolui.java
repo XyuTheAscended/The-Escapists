@@ -3,6 +3,7 @@ package com.model.Coding.UiHelp;
 import java.io.IOException;
 
 import com.escapists.App;
+import com.escapists.Controllers.LoadSaveController;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.Timer;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
@@ -51,6 +52,7 @@ public class Coolui {
     return but;
   }
 
+  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
   private static void onPauseButtonClicked() {
     VBox pauseMenuBox = (VBox) pauseMenuBoxHolder.lookup("#pauseMenuBox");
     Button pauseBut = (Button) hudHolder.lookup("#pauseButton");
@@ -62,11 +64,13 @@ public class Coolui {
     }
   }
 
+  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
   private static void onPauseInput(VBox pauseMenuBox, Button pauseButton) {
     pauseMenuBox.setVisible(true);
     pauseButton.getStyleClass().add("toggled");
   }
 
+  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
   private static void onResumeInput(VBox pauseMenuBox, Button pauseButton) {
     pauseMenuBox.setVisible(false);
     pauseButton.getStyleClass().remove("toggled");
@@ -96,7 +100,11 @@ public class Coolui {
     });
 
     saveBut.setOnAction(e -> {App.safeSetRoot("save");});
-    loadBut.setOnAction(e -> {App.safeSetRoot("loadsave");});
+    loadBut.setOnAction(e -> {
+    LoadSaveController.openFromGame();  // ← tell controller we came from the game
+    App.safeSetRoot("loadsave");
+    });
+
     mainMenuBut.setOnAction(e -> {App.safeSetRoot("mainMenu");});
     
     menuBox.setVisible(false);
@@ -105,6 +113,24 @@ public class Coolui {
     centerWrapper.setPadding(new Insets(0, 0, 100, 0)); // shifts menu box a little up to compensate for lost space used by hotbar
     centerWrapper.setPickOnBounds(false);
     return centerWrapper;
+  }
+
+  private static void makeInvSlot(double size) {
+
+  }
+
+  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  private static HBox makeInvFrame(double heightSize) {
+    double spacing = (heightSize * 0.1);
+    HBox invFrame = new HBox(5);
+    invFrame.setId("invFrame");
+    double invfSizeX = 250; 
+    setRegionAbsSize(invFrame, heightSize * 3.1, heightSize);
+    
+    
+
+    
+    return invFrame; 
   }
 
   // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
@@ -128,10 +154,7 @@ public class Coolui {
       Platform.runLater( timerLblUpdater  );
     });
 
-    HBox invFrame = new HBox(5);
-    invFrame.setId("invFrame");
-    double invfSizeX = 250; 
-    setRegionAbsSize(invFrame, invfSizeX, pauseButSize);
+    HBox invFrame = makeInvFrame(pauseButSize);
 
     // holder.prefWidthProperty().bind(parentPane.widthProperty()); // give it the parent's width. if we dont do this, hotbar wont spread across screen
     Region spacer = new Region();

@@ -17,6 +17,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -34,9 +35,7 @@ public class CellController {
 
     @FXML
     public void initialize() {
-        if (gf.getCurrUser() == null) 
-            gf.quickTestLogin();
-    
+        if (gf.getCurrUser() == null) gf.quickTestLogin();
         Coolui.layerPage(mainAp); // this function call adds the Hud
     
         gf.startGame(1);
@@ -104,6 +103,10 @@ public class CellController {
     void btnNoteClicked(ActionEvent event) {
         Room currRoom = gf.getCurrRoom();
         Progress currSave = gf.getCurrUser().getCurrSave();
+
+        ImageView noteImgView = (ImageView) btnNote.getGraphic();
+        System.out.println("HI!!!!!!!!!!!!!!!!");
+        System.out.println(noteImgView.getImage());
 
         // show UI
         noteRiddleAnswrBox.setVisible(true);

@@ -24,39 +24,26 @@
               style="-fx-background-color: #24201F;">
             <children>
                 <Label text="Load">
-                    <font>
-                        <Font size="36.0" />
-                    </font>
-                    <padding>
-                        <Insets top="30" left="20" bottom="0" right="0"/>
-                    </padding>
+                    <font><Font size="36.0"/></font>
+                    <padding><Insets top="30" left="20"/></padding>
                     <textFill>WHITE</textFill>
                 </Label>
 
                 <Label text="Game">
-                    <font>
-                        <Font size="36.0" />
-                    </font>
-                    <padding>
-                        <Insets top="0" left="20" bottom="0" right="0"/>
-                    </padding>
+                    <font><Font size="36.0"/></font>
+                    <padding><Insets left="20"/></padding>
                     <textFill>WHITE</textFill>
                 </Label>
 
-                <!-- simple spacer -->
-                <Region />
+                <Region/>
 
-                <!-- Back button row -->
                 <HBox spacing="8.0">
-                    <padding>
-                        <Insets top="20" right="20" bottom="20" left="20"/>
-                    </padding>
+                    <padding><Insets top="20" right="20" bottom="20" left="20"/></padding>
                     <children>
                         <Label text="◀" textFill="WHITE">
-                            <font>
-                                <Font size="26.0" />
-                            </font>
+                            <font><Font size="26.0"/></font>
                         </Label>
+
                         <Button fx:id="backButton" text="Back"
                                 style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 26px;"/>
                     </children>
@@ -67,73 +54,67 @@
         <!-- LOAD SLOTS GRID -->
         <GridPane layoutX="210.0" layoutY="60.0" hgap="60.0" vgap="120.0">
             <children>
-                <!-- Row 1 -->
-                <VBox GridPane.rowIndex="0" GridPane.columnIndex="0" spacing="10.0">
+
+                <!-- SLOT 1 -->
+                <VBox fx:id="slot1" GridPane.rowIndex="0" GridPane.columnIndex="0" spacing="10.0">
                     <children>
-                        <Rectangle width="240.0" height="140.0" />
-                        <Label text="Load 1" textFill="WHITE">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
+                        <Rectangle fx:id="imgSlot1" width="240.0" height="140.0"/>
+                        <Label fx:id="lblSlot1" text="Load 1" textFill="WHITE">
+                            <font><Font size="24.0"/></font>
                         </Label>
                     </children>
                 </VBox>
 
-                <VBox GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="10.0">
+                <!-- SLOT 2 -->
+                <VBox fx:id="slot2" GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="10.0">
                     <children>
-                        <Rectangle width="240.0" height="140.0" />
-                        <Label text="Load 2" textFill="WHITE">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
+                        <Rectangle fx:id="imgSlot2" width="240.0" height="140.0"/>
+                        <Label fx:id="lblSlot2" text="Load 2" textFill="WHITE">
+                            <font><Font size="24.0"/></font>
                         </Label>
                     </children>
                 </VBox>
 
-                <VBox GridPane.rowIndex="0" GridPane.columnIndex="2" spacing="10.0">
+                <!-- SLOT 3 -->
+                <VBox fx:id="slot3" GridPane.rowIndex="0" GridPane.columnIndex="2" spacing="10.0">
                     <children>
-                        <Rectangle width="240.0" height="140.0" />
-                        <Label text="Load 3" textFill="WHITE">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
+                        <Rectangle fx:id="imgSlot3" width="240.0" height="140.0"/>
+                        <Label fx:id="lblSlot3" text="Load 3" textFill="WHITE">
+                            <font><Font size="24.0"/></font>
                         </Label>
                     </children>
                 </VBox>
 
-                <!-- Row 2 -->
-                <VBox GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="10.0">
+                <!-- SLOT 4 -->
+                <VBox fx:id="slot4" GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="10.0">
                     <children>
-                        <Rectangle width="240.0" height="140.0" />
-                        <Label text="Load 4" textFill="WHITE">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
+                        <Rectangle fx:id="imgSlot4" width="240.0" height="140.0"/>
+                        <Label fx:id="lblSlot4" text="Load 4" textFill="WHITE">
+                            <font><Font size="24.0"/></font>
                         </Label>
                     </children>
                 </VBox>
 
-                <VBox GridPane.rowIndex="1" GridPane.columnIndex="1" spacing="10.0">
+                <!-- SLOT 5 -->
+                <VBox fx:id="slot5" GridPane.rowIndex="1" GridPane.columnIndex="1" spacing="10.0">
                     <children>
-                        <Rectangle width="240.0" height="140.0" />
-                        <Label text="Load 5" textFill="WHITE">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
+                        <Rectangle fx:id="imgSlot5" width="240.0" height="140.0"/>
+                        <Label fx:id="lblSlot5" text="Load 5" textFill="WHITE">
+                            <font><Font size="24.0"/></font>
                         </Label>
                     </children>
                 </VBox>
 
-                <VBox GridPane.rowIndex="1" GridPane.columnIndex="2" spacing="10.0">
+                <!-- SLOT 6 -->
+                <VBox fx:id="slot6" GridPane.rowIndex="1" GridPane.columnIndex="2" spacing="10.0">
                     <children>
-                        <Rectangle width="240.0" height="140.0" />
-                        <Label text="Load 6" textFill="WHITE">
-                            <font>
-                                <Font size="24.0" />
-                            </font>
+                        <Rectangle fx:id="imgSlot6" width="240.0" height="140.0"/>
+                        <Label fx:id="lblSlot6" text="Load 6" textFill="WHITE">
+                            <font><Font size="24.0"/></font>
                         </Label>
                     </children>
                 </VBox>
+
             </children>
         </GridPane>
 

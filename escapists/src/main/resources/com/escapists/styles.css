@@ -100,6 +100,15 @@ Text {
 }
 
 
+.image-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.image-button:hover {
+    -fx-background-color: rgba(250, 221, 135, 0.315);
+
+}
 
 /* ======== HUD STUFF ==========*/
 #pauseButton {
