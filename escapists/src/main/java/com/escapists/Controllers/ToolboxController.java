@@ -12,38 +12,37 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-public class CellSinkKeyController {
+public class ToolboxController {
 
     GameFacade gf = GameFacade.getInstance();
     UIDataCache UIDC = UIDataCache.getInstance();
-    @FXML
-    AnchorPane mainAp;
 
     @FXML
     public void initialize() {
-        btnKey.setDisable(UIDC.isUIDisabled(gf.getCurrRoom().getName(), "btnKey"));
+        btnTools.setDisable(UIDC.isUIDisabled(gf.getCurrRoom().getName(), "btnTools"));
         Coolui.layerPage(mainAp); // this function call adds the Hud
-
     }
+
+    @FXML
+    AnchorPane mainAp;
 
     @FXML
     private Button btnBack;
 
     @FXML
-    private Button btnKey;
+    private Button btnTools;
 
     @FXML
     void btnBackClicked(ActionEvent event) throws IOException {
-        App.setRoot("sink");
+        App.setRoot("storageRoom");
     }
 
     @FXML
-    void btnKeyClicked(ActionEvent event) {
-        // i think this is supposed to be in json
-        Item key = Item.loadItem("Key");
-        gf.getInventory().addItem(key);
-        btnKey.setDisable(true);
-        UIDC.setUIDisabled(gf.getCurrRoom().getName(), "btnKey", true);
+    void btnToolsClicked(ActionEvent event) {
+        Item screwdriver = new Item(2,"Screwdriver", "A screwdriver");
+        gf.getInventory().addItem(screwdriver);
+        btnTools.setDisable(true);
+        UIDC.setUIDisabled(gf.getCurrRoom().getName(), "btnTools", true);
         // temp
         System.out.println(gf.getInventory().displayInventory());
     }

@@ -50,6 +50,8 @@ public class CellController {
             return;
         }
 
+        System.out.println(gf.getRooms());
+
         Progress currSave = gf.getCurrUser().getCurrSave();
 
         // Ensure save knows about all puzzles in this room (idempotent)

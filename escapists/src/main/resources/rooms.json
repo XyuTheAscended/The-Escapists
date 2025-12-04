@@ -19,49 +19,64 @@
         "Hallway": ["CellDoorLock"]
       }
     },
-    "Sewage": {
-      "puzzles": [
-        {
-          "name": "StoneDoor", 
-          "requiredItems": [
-            "Pickaxe"
-          ],
-          "description": "A door that cannot be opened by peaceful means"
-        }, 
-        {
-          "name": "WallRiddle",
-          "answer": "Human",
-          "description": "You hear a mysterious voice echoing in the hallways: \"What creature walks on 4 feet in the morning, 2 feet at noon, and 3 in the evening?\""
-        }
-      ],
-      "exits": {
-        "OUTSIDE": ["WallRiddle", "StoneDoor"]
-      }
-    },
     "Hallway": {
       "puzzles": [
         {
           "name": "KeyCode",
-          "answer": "0960",
+          "answer": "2436",
           "description": "Electronic lock. Needs a passcode"
         },
         {
           "name": "SecurityWires",
           "answer": "red",
-          "description": "Wires hooked up to a keypad. Cutting the right one might do something."
+          "description": "Wires hooked up to a keypad. Cutting the right one might do something. (Red, White, Blue)"
         },
         {
-          "name": "BreakerBox",
+          "name": "Vent",
           "requiredItems": [
-            "Blue Breaker",
-            "Red Breaker",
-            "Yellow Breaker"
+            "KeyCard", "Screwdriver"
           ],
-          "description": "Wires hooked up to a keypad. Cutting the right one might do something."
+          "description": "A lock that may only be unlocked open, or perhaps broken"
         }
       ],
       "exits": {
-        "OUTSIDE": ["SecurityWires", "KeyCode"]
+        "Vent": ["SecurityWires", "KeyCode", "Vent"]
+      }
+    },
+    "StorageRoom": {
+      "puzzles": [
+        {
+          "name": "StorageRiddle",
+          "answer": "A clock",
+          "description": "What has hands, but cannot clap?"
+        }
+      ],
+      "exits": {
+        "Hallway": ["StorageRiddle"]
+      }
+    },
+    "SurveillanceRoom": {
+      "puzzles": [
+        {
+          "name": "Cameras",
+          "answer": "0960",
+          "description": "Electronic lock. Needs a passcode"
+        }
+      ],
+      "exits": {
+        "Hallway": ["Cameras"]
+      }
+    },
+    "Vent": {
+      "puzzles": [
+        {
+          "name": "FinalExit",
+          "answer": "0960",
+          "description": "Electronic lock. Needs a passcode"
+        }
+      ],
+      "exits": {
+        "OUTSIDE": ["FinalExit"]
       }
     }
   }
