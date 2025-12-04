@@ -19,7 +19,7 @@ public class TestEnvProp {
     @Before
     public void setUp() {
         // Create a simple item and inventory
-        testItem = new Item("Gem", 1);
+        testItem = Item.createDebugItem("Gem", 1);
         inventory = new Inventory();
 
         // Create an environment prop holding that item
