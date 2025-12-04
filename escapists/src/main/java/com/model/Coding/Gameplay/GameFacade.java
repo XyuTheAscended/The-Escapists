@@ -347,6 +347,14 @@ public class GameFacade {
         ((User) this.currUser).getSaves().indexOf(p)
     );
     map.loadFromSave(p);
-}
+    }
 
+    public Room findRoomByName(String name) {
+        for (Room room : getRooms()) {
+            if (room.getName().equalsIgnoreCase(name)) {
+                return room;
+            }
+        }
+        return null; // no match found
+    }
 }

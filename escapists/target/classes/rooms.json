@@ -23,17 +23,60 @@
       "puzzles": [
         {
           "name": "KeyCode",
-          "answer": "0960",
+          "answer": "2436",
           "description": "Electronic lock. Needs a passcode"
         },
         {
           "name": "SecurityWires",
           "answer": "red",
-          "description": "Wires hooked up to a keypad. Cutting the right one might do something."
+          "description": "Wires hooked up to a keypad. Cutting the right one might do something. (Red, White, Blue)"
+        },
+        {
+          "name": "Vent",
+          "requiredItems": [
+            "KeyCard", "Screwdriver"
+          ],
+          "description": "A lock that may only be unlocked open, or perhaps broken"
         }
       ],
       "exits": {
-        "Vent": ["SecurityWires", "KeyCode"]
+        "Vent": ["SecurityWires", "KeyCode", "Vent"]
+      }
+    },
+    "StorageRoom": {
+      "puzzles": [
+        {
+          "name": "StorageRiddle",
+          "answer": "A clock",
+          "description": "What has hands, but cannot clap?"
+        }
+      ],
+      "exits": {
+        "Hallway": ["StorageRiddle"]
+      }
+    },
+    "SurveillanceRoom": {
+      "puzzles": [
+        {
+          "name": "Cameras",
+          "answer": "0960",
+          "description": "Electronic lock. Needs a passcode"
+        }
+      ],
+      "exits": {
+        "Hallway": ["Cameras"]
+      }
+    },
+    "Vent": {
+      "puzzles": [
+        {
+          "name": "FinalExit",
+          "answer": "0960",
+          "description": "Electronic lock. Needs a passcode"
+        }
+      ],
+      "exits": {
+        "OUTSIDE": ["FinalExit"]
       }
     }
   }
