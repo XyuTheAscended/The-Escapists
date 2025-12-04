@@ -31,12 +31,12 @@ public class CellController {
     UIDataCache UIDC = UIDataCache.getInstance();
     
     @FXML
-    AnchorPane mainAp;
+    AnchorPane root;
 
     @FXML
     public void initialize() {
         if (gf.getCurrUser() == null) gf.quickTestLogin();
-        Coolui.layerPage(mainAp); // this function call adds the Hud
+        Coolui.layerPage(root); // this function call adds the Hud
         
         gf.startGame(1);
 
