@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
+import com.model.Coding.Gameplay.Timer;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
@@ -118,9 +119,14 @@ public class Coolui {
     int pauseButSize = 80;
     setRegionAbsSize(pauseBut, pauseButSize, pauseButSize);
 
-    Label timerLbl = new Label("69:67:42");
+    Label timerLbl = new Label("--:--:--");
     timerLbl.setId("timerLbl");
     HBox.setMargin(timerLbl, new Insets(0, 0, 0, 150));
+
+    Runnable timerLblUpdater = () -> timerLbl.setText( Timer.getInstance().getTimeRemainingFormatted() );
+    Timer.getInstance().setDisplayRunnable(() -> {
+      Platform.runLater( timerLblUpdater  );
+    });
 
     HBox invFrame = new HBox(5);
     invFrame.setId("invFrame");
