@@ -92,6 +92,18 @@ public class Room {
         return exits; 
     }
 
+    public Exit getExitByNextRoomName(String roomName) {
+        if (roomName == null || exits == null) return null;
+
+        for (Exit exit : exits) {
+            Room next = exit.getNextRoom();
+            if (next != null && roomName.equalsIgnoreCase(next.getName())) {
+                return exit;
+            }
+        }
+        return null;
+    }
+
     // method assumes that ALL prereq puzzles have already been added to the current room; wont work otherwise
     /**
      * Sets exits array with a list of exits that the room is connected to
