@@ -37,10 +37,10 @@ public class CellController {
     public void initialize() {
         if (gf.getCurrUser() == null) gf.quickTestLogin();
         Coolui.layerPage(mainAp); // this function call adds the Hud
-    
+        
         gf.startGame(1);
 
-              Progress save = gf.getCurrUser().getCurrSave();
+        Progress save = gf.getCurrUser().getCurrSave();
         save.setBackgroundImage("prison2.png");
 
         Room currRoom = gf.getCurrRoom();
@@ -101,10 +101,6 @@ public class CellController {
     void btnNoteClicked(ActionEvent event) {
         Room currRoom = gf.getCurrRoom();
         Progress currSave = gf.getCurrUser().getCurrSave();
-
-        ImageView noteImgView = (ImageView) btnNote.getGraphic();
-        System.out.println("HI!!!!!!!!!!!!!!!!");
-        System.out.println(noteImgView.getImage());
 
         // show UI
         noteRiddleAnswrBox.setVisible(true);

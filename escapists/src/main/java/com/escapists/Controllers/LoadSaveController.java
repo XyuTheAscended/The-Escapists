@@ -79,15 +79,17 @@ public class LoadSaveController {
     /** Back button → behave based on where the menu was opened from */
    @FXML
     private void backButtonClicked() {
-    try {
-        if (openedFromGame) {
-            App.setRoot("cell");  // return to in-game screen
-        } else {
-            App.setRoot("mainMenu");  // return to main menu
-        }
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+        // try {
+        //     if (openedFromGame) {
+        //         App.setRoot("cell");  // return to in-game screen
+        //     } else {
+        //         App.setRoot("mainMenu");  // return to main menu
+        //     }
+        // } catch (Exception e) {
+        //     e.printStackTrace();
+        // }
+
+        App.setRootToPrev();
     }
 
 }

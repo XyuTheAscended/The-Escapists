@@ -100,10 +100,7 @@ public class Coolui {
     });
 
     saveBut.setOnAction(e -> {App.safeSetRoot("save");});
-    loadBut.setOnAction(e -> {
-    LoadSaveController.openFromGame();  // ← tell controller we came from the game
-    App.safeSetRoot("loadsave");
-    });
+    loadBut.setOnAction(e -> { App.safeSetRoot("loadsave"); });
 
     mainMenuBut.setOnAction(e -> {App.safeSetRoot("mainMenu");});
     
