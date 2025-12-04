@@ -59,8 +59,8 @@
       "puzzles": [
         {
           "name": "Cameras",
-          "answer": "0960",
-          "description": "Electronic lock. Needs a passcode"
+          "answer": "3",
+          "description": "5 breakers. Flipping one might shut off the cameras."
         }
       ],
       "exits": {
