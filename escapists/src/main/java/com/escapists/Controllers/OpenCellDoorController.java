@@ -17,5 +17,6 @@ public class OpenCellDoorController {
         // App.setRoot("next room here");
         gf.getCurrUser().getCurrSave().markRoomCompleted(gf.getCurrRoom());
         gf.setCurrRoom(gf.getCurrRoom().getExitByNextRoomName("Hallway").getNextRoom());
+        System.out.println(gf.getCurrRoom());
     }
 }
