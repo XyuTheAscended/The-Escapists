@@ -41,6 +41,9 @@ public class CellController {
     
         gf.startGame(1);
 
+              Progress save = gf.getCurrUser().getCurrSave();
+        save.setBackgroundImage("prison2.png");
+
         Room currRoom = gf.getCurrRoom();
         if (currRoom == null) {
             System.err.println("CellController.initialize(): currRoom is null - skipping UI restore");

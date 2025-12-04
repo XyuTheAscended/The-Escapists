@@ -11,42 +11,107 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane fx:id="mainAp" prefHeight="720.0" prefWidth="1280.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.CellController">
+<AnchorPane fx:id="mainAp" prefHeight="720.0" prefWidth="1280.0" stylesheets="@styles.css"
+            xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.escapists.Controllers.CellController">
+
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="bgImage" fitHeight="1080.0" fitWidth="1920.0"
+                 pickOnBounds="true"
+                 AnchorPane.bottomAnchor="0.0"
+                 AnchorPane.leftAnchor="0.0"
+                 AnchorPane.rightAnchor="0.0"
+                 AnchorPane.topAnchor="0.0">
          <image>
-            <Image url="@../../prsion2.png" />
+            <Image url="@../../prison2.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="414.0" fitWidth="422.0" layoutX="771.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true">
+
+      <ImageView fitHeight="414.0" fitWidth="422.0" layoutX="771.0" layoutY="386.0"
+                 pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../cellmate1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="321.0" layoutY="817.0" pickOnBounds="true" preserveRatio="true">
+
+      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="321.0" layoutY="817.0"
+                 pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../note.png" />
          </image>
       </ImageView>
-      <TextArea fx:id="noteRiddleText" editable="false" layoutX="134.0" layoutY="557.0" prefHeight="220.0" prefWidth="398.0" visible="false" wrapText="true" />
-      <VBox alignment="BOTTOM_CENTER" layoutX="124.0" layoutY="119.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+
+      <TextArea fx:id="noteRiddleText" editable="false"
+                layoutX="134.0" layoutY="557.0"
+                prefHeight="220.0" prefWidth="398.0"
+                visible="false" wrapText="true" />
+
+      <VBox alignment="BOTTOM_CENTER"
+            layoutX="124.0" layoutY="119.0"
+            prefHeight="200.0" prefWidth="100.0"
+            AnchorPane.bottomAnchor="0.0"
+            AnchorPane.leftAnchor="0.0"
+            AnchorPane.rightAnchor="0.0"
+            AnchorPane.topAnchor="0.0">
          <children>
-             <Button fx:id="btnTurn" mnemonicParsing="false" onAction="#btnTurnClicked" prefHeight="36.0" prefWidth="140.0" text="Turn Around">
+            <Button fx:id="btnTurn"
+                    mnemonicParsing="false"
+                    onAction="#btnTurnClicked"
+                    prefHeight="36.0" prefWidth="140.0"
+                    text="Turn Around">
                <VBox.margin>
                   <Insets bottom="60.0" />
                </VBox.margin>
             </Button>
          </children>
       </VBox>
-      <Button fx:id="btnSink" layoutX="1298.0" layoutY="478.0" mnemonicParsing="false" onAction="#btnSinkClicked" opacity="0.0" prefHeight="299.0" prefWidth="132.0" />
-      <Button fx:id="btnCellMate" layoutX="893.0" layoutY="422.0" mnemonicParsing="false" onAction="#btnCellMateClicked" opacity="0.0" prefHeight="343.0" prefWidth="204.0" />
-      <Button fx:id="btnNote" layoutX="388.0" layoutY="859.0" mnemonicParsing="false" onAction="#btnNoteClicked" opacity="0.0" prefHeight="60.0" prefWidth="73.0" />
-      <DialogPane fx:id="cellMateDialog" contentText="Heard you got wrongfully locked up, luckily I know a way out. Bribe the warden to get out of the cell. Once you're out, kill the power and the cameras. You may need some tools for that though. Goodluck" expanded="true" headerText="Cellmate:" layoutX="521.0" layoutY="273.0" opacity="0.87" prefHeight="173.0" prefWidth="387.0" visible="false">
+
+      <Button fx:id="btnSink"
+              layoutX="1298.0" layoutY="478.0"
+              mnemonicParsing="false"
+              onAction="#btnSinkClicked"
+              opacity="0.0"
+              prefHeight="299.0" prefWidth="132.0" />
+
+      <Button fx:id="btnCellMate"
+              layoutX="893.0" layoutY="422.0"
+              mnemonicParsing="false"
+              onAction="#btnCellMateClicked"
+              opacity="0.0"
+              prefHeight="343.0" prefWidth="204.0" />
+
+      <Button fx:id="btnNote"
+              layoutX="388.0" layoutY="859.0"
+              mnemonicParsing="false"
+              onAction="#btnNoteClicked"
+              opacity="0.0"
+              prefHeight="60.0" prefWidth="73.0" />
+
+      <DialogPane fx:id="cellMateDialog"
+                  contentText="Heard you got wrongfully locked up, luckily I know a way out. Bribe the warden to get out of the cell. Once you're out, kill the power and the cameras. You may need some tools for that though. Goodluck"
+                  expanded="true"
+                  headerText="Cellmate:"
+                  layoutX="521.0" layoutY="273.0"
+                  opacity="0.87"
+                  prefHeight="173.0" prefWidth="387.0"
+                  visible="false">
          <buttonTypes>
             <ButtonType fx:constant="CLOSE" />
          </buttonTypes>
       </DialogPane>
-      <Button fx:id="btnEnter" layoutX="305.0" layoutY="740.0" mnemonicParsing="false" onAction="#btnEnterClicked" text="Enter" visible="false" />
-      <TextField fx:id="noteRiddleAnswrBox" layoutX="238.0" layoutY="708.0" visible="false" />
+
+      <Button fx:id="btnEnter"
+              layoutX="305.0" layoutY="740.0"
+              mnemonicParsing="false"
+              onAction="#btnEnterClicked"
+              text="Enter"
+              visible="false" />
+
+      <TextField fx:id="noteRiddleAnswrBox"
+                 layoutX="238.0"
+                 layoutY="708.0"
+                 visible="false" />
+
    </children>
 </AnchorPane>
