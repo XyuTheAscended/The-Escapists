@@ -7,6 +7,7 @@ module com.escapists {
     requires javafx.graphics;
     requires javafx.base;
 
+
     opens com.escapists to javafx.fxml;
     opens com.escapists.Controllers to javafx.fxml;
 

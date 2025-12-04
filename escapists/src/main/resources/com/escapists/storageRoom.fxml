@@ -7,8 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane fx:id="mainAp" fx:controller="com.escapists.Controllers.StorageRoomController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="mainAp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.StorageRoomController">
    <children>
       <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
@@ -19,5 +18,6 @@
       <TextArea fx:id="riddleText" layoutX="337.0" layoutY="336.0" prefHeight="188.0" prefWidth="329.0" wrapText="true" />
       <TextField fx:id="riddleAnswr" layoutX="407.0" layoutY="457.0" />
       <Button fx:id="btnEnter" layoutX="469.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnEnterClicked" text="Enter" />
+      <Button fx:id="btnExit" layoutX="1496.0" layoutY="349.0" mnemonicParsing="false" onAction="#btnExitClicked" opacity="0.0" prefHeight="436.0" prefWidth="190.0" />
    </children>
 </AnchorPane>

@@ -2,6 +2,7 @@ package com.escapists.Controllers;
 
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
+import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
@@ -13,6 +14,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 public class StorageRoomController {
 
@@ -63,7 +66,10 @@ public class StorageRoomController {
     private TextArea riddleText;
 
     @FXML
-    void btnEnterClicked(ActionEvent event) {
+    private Button btnExit;
+
+    @FXML
+    void btnEnterClicked(ActionEvent event) throws IOException {
 
         Room currRoom = gf.getCurrRoom();
         Progress currSave = gf.getCurrUser().getCurrSave();
@@ -71,15 +77,14 @@ public class StorageRoomController {
         boolean solved = currRoom.getPuzzle("StorageRiddle").checkAnswer(currRoom.getPuzzle("StorageRiddle").userAnswer(answer));
 
         if (solved) {
-            riddleText.setText("Riddle Completed");
-            riddleAnswr.setText("You may proceed!");
-            UIDC.setUIText(currRoom.getName(), "riddleAnswr", "You May Proceed");
+
+            riddleAnswr.setText("Riddle Completed");
             UIDC.setUIText(currRoom.getName(), "riddleText", "Riddle Completed");
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("StorageRiddle"), true);
             btnEnter.setDisable(true);
             UIDC.setUIDisabled(currRoom.getName(), "btnEnter", true);
             System.out.println(currRoom);
-
+            App.setRoot("toolbox");
         } else {
             riddleAnswr.setText("Wrong! Try again");
             UIDC.setUIText(currRoom.getName(), "riddleAnswr", "Wrong! Try again");
@@ -105,6 +110,19 @@ public class StorageRoomController {
 
         UIDC.setUIText(currRoom.getName(), "riddleText", riddleText.getText());
         UIDC.setUIText(currRoom.getName(), "riddleAnswr", riddleAnswr.getText());
+    }
+
+    @FXML
+    void btnExitClicked(ActionEvent event) throws IOException {
+
+        if(gf.getInventory().hasItem("Screwdriver")) {
+            App.setRoot("hallway");
+            gf.getCurrUser().getCurrSave().markRoomCompleted(gf.getCurrRoom());
+            gf.setCurrRoom(gf.getCurrRoom().getExitByNextRoomName("Hallway").getNextRoom());
+            System.out.println(gf.getCurrRoom());
+        } else {
+
+        }
     }
 
 }

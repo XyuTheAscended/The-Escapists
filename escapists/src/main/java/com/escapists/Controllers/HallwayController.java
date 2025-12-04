@@ -115,6 +115,7 @@ public class HallwayController {
         txtAreaKeyCode.setText(UIDC.getUIText(currRoom.getName(), "txtAreaKeyCode"));
 
         btnEnterStor.setDisable(UIDC.isUIDisabled(currRoom.getName(), "btnEnterStor"));
+        keyPadAnswr.setDisable(UIDC.isUIDisabled(currRoom.getName(), "keyPadAnswr"));
 
         wireAnswr.setVisible(UIDC.isUIVisible(currRoom.getName(), "wireAnswr"));
         txtAreaSurv.setVisible(UIDC.isUIVisible(currRoom.getName(), "txtAreaSurv"));
@@ -131,15 +132,27 @@ public class HallwayController {
     void btnStorClosetClicked(ActionEvent event) {
 
         Room currRoom = gf.getCurrRoom();
-        System.out.println(currRoom);
+        Progress currSave = gf.getCurrUser().getCurrSave();
         Puzzle puzzle = gf.getCurrRoom().getPuzzle("KeyCode");
+
+        if(puzzle.getIsCompleted()){
+            txtAreaKeyCode.setText("Riddle Completed");
+            UIDC.setUIText(currRoom.getName(), "txtAreaKeyCode", "Riddle Completed");
+            btnEnterStor.setDisable(true);
+            keyPadAnswr.setDisable(true);
+            UIDC.setUIDisabled(currRoom.getName(), "btnEnterStor", true);
+            UIDC.setUIDisabled(currRoom.getName(), "keyPadAnswr", true);
+            keyPadAnswr.setVisible(true);
+            txtAreaKeyCode.setVisible(true);
+            btnEnterStor.setVisible(true);
+            return;
+        }
+
         txtAreaKeyCode.setText(puzzle.getDescription());
         // show UI
         keyPadAnswr.setVisible(true);
         txtAreaKeyCode.setVisible(true);
         btnEnterStor.setVisible(true);
-
-
 
         // persist UI visibility
         UIDC.setUIVisible(currRoom.getName(), "keyPadAnswr", true);
@@ -157,6 +170,20 @@ public class HallwayController {
         Room currRoom = gf.getCurrRoom();
         Puzzle puzzle = gf.getCurrRoom().getPuzzle("SecurityWires");
 
+        if(puzzle.getIsCompleted()){
+            txtAreaSurv.setText("Riddle Completed");
+            UIDC.setUIText(currRoom.getName(), "txtAreaSurv", "Riddle Completed");
+            btnEnterSurv.setDisable(true);
+            wireAnswr.setDisable(true);
+            UIDC.setUIDisabled(currRoom.getName(), "btnEnterSurv", true);
+            UIDC.setUIDisabled(currRoom.getName(), "wireAnswr", true);
+            wireAnswr.setVisible(true);
+            txtAreaSurv.setVisible(true);
+            btnEnterSurv.setVisible(true);
+            return;
+        }
+
+
         txtAreaSurv.setText(puzzle.getDescription());
         // show UI
         wireAnswr.setVisible(true);
@@ -170,8 +197,8 @@ public class HallwayController {
         UIDC.setUIVisible(currRoom.getName(), "txtAreaSurv", true);
         UIDC.setUIVisible(currRoom.getName(), "btnEnterSurv", true);
 
-        UIDC.setUIText(currRoom.getName(), "txtAreaKeySurv", txtAreaKeyCode.getText());
-        UIDC.setUIText(currRoom.getName(), "wireAnswr", keyPadAnswr.getText());
+        UIDC.setUIText(currRoom.getName(), "txtAreaSurv", txtAreaSurv.getText());
+        UIDC.setUIText(currRoom.getName(), "wireAnswr", wireAnswr.getText());
     }
 
     @FXML
@@ -198,7 +225,6 @@ public class HallwayController {
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("KeyCode"), true);
             btnEnterStor.setDisable(true);
             UIDC.setUIDisabled(currRoom.getName(), "btnEnterStor", true);
-            System.out.println(currRoom);
             App.setRoot("storageRoom");
         } else {
             keyPadAnswr.setText("Wrong! Try again");
