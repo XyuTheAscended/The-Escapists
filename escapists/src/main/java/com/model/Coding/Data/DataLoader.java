@@ -213,7 +213,7 @@ public class DataLoader {
                         if (itemReqsSize == 1) { // standard item puzzle case 
                             // in future, json should store more comprehensive item data than just the name
                             String itemName = (String) itemReqs.get(0);
-                            Item itemReq = Item.cacheItem(itemName, desc);
+                            Item itemReq = Item.cacheItem(itemName, null); // TEMPROARY: Set to null for now to avoid needing to do items.json stuff cause we on a time crunch
 
                             // note that answer and desc may be null for item puzzles
                             puzzle = new ItemPuzzle(answer, desc, name, itemReq);
@@ -222,7 +222,7 @@ public class DataLoader {
                             ArrayList<Item> dndItemsList = new ArrayList<>();
                             for (int i = 0; i < itemReqs.size(); i++) {
                                 String itemName = (String) itemReqs.get(i);
-                                Item itemReq = Item.cacheItem(itemName, desc);
+                                Item itemReq = Item.cacheItem(itemName, null);
                                 dndItemsList.add(itemReq);
                             }
 

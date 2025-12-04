@@ -40,7 +40,7 @@ public class CellSinkKeyController {
     @FXML
     void btnKeyClicked(ActionEvent event) {
         // i think this is supposed to be in json
-        Item key = new Item(1,"Key", "Key for the cell door lock.");
+        Item key = Item.loadItem("Key");
         gf.getInventory().addItem(key);
         btnKey.setDisable(true);
         UIDC.setUIDisabled(gf.getCurrRoom().getName(), "btnKey", true);

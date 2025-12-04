@@ -20,8 +20,8 @@ public class TestItemPuzzle {
     @Before
     public void setUp() {
         // Setup items
-        requiredItem = new Item("Key", 1);
-        differentItem = new Item("Keycard",2);
+        requiredItem = Item.createDebugItem("Key", 1);
+        differentItem = Item.createDebugItem("Keycard",2);
 
         // Setup inventory
         inventory = new Inventory();

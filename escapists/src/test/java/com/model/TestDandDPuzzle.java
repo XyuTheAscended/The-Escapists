@@ -25,9 +25,9 @@ public class TestDandDPuzzle {
     @Before
     public void setUp() {
         // Setup items
-        item1 = new Item("Gem", 1);
-        item2 = new Item("Key", 2);
-        extraItem = new Item("Rock", 3);
+        item1 = Item.createDebugItem("Gem", 1);
+        item2 = Item.createDebugItem("Key", 2);
+        extraItem = Item.createDebugItem("Rock", 3);
 
         // Required items list
         requiredItems = new ArrayList<>();

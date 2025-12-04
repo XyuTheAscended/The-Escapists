@@ -72,11 +72,13 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void newGameClicked(ActionEvent event) throws IOException {
+        gf.getCurrUser().createSave();
         App.setRoot("cutscene");
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        if (gf.getCurrUser() == null) gf.quickTestLogin(); // FOR TESTING PURPOSES
         User currUser = gf.getCurrUser();
         System.out.println("Logged in " + currUser.getUserName());
         txtAccount.setText(currUser.getUserName());

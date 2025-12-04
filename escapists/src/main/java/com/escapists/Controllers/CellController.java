@@ -3,6 +3,7 @@ package com.escapists.Controllers;
 import com.escapists.App;
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
+import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
@@ -31,12 +32,12 @@ public class CellController {
     UIDataCache UIDC = UIDataCache.getInstance();
     
     @FXML
-    AnchorPane mainAp;
+    AnchorPane root;
 
     @FXML
     public void initialize() {
         if (gf.getCurrUser() == null) gf.quickTestLogin();
-        Coolui.layerPage(mainAp); // this function call adds the Hud
+        Coolui.layerPage(root); // this function call adds the Hud
         
         gf.startGame(1);
 
@@ -49,9 +50,12 @@ public class CellController {
             return;
         }
 
-        System.out.println(gf.getRooms());
 
         Progress currSave = gf.getCurrUser().getCurrSave();
+        System.out.println("REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        for (Item item : gf.getInventory().getItems()) {
+            System.out.println(item.getName());
+        }
 
         // Ensure save knows about all puzzles in this room (idempotent)
         currSave.initializeRoomPuzzles(currRoom);
@@ -120,7 +124,10 @@ public class CellController {
         UIDC.setUIText(currRoom.getName(), "noteRiddleText", noteRiddleText.getText());
         UIDC.setUIText(currRoom.getName(), "noteRiddleAnswrBox", noteRiddleAnswrBox.getText());
 
-        System.out.println(currRoom);
+        // System.out.println(currRoom);
+        for (Item item : Item.getAllItemsEver()) {
+            System.out.println(item.getName());
+        }
     }
 
     @FXML

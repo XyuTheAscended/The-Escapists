@@ -20,14 +20,25 @@ public class Item {
      * @param name Name of the item
      * @param description Description of the item
      */    
-    public Item(int itemId, String name, String description){
+    private Item(int itemId, String name, String description){
         this.itemId = itemId;
         this.name = name;
         this.description = description;
     }
+    
+    /**
+     * For making testing items. DONT USE IN REAL CODE
+     * @param itemId
+     * @param name
+     * @param description
+     * @return
+     */
+    public static Item createDebugItem(int itemId, String name, String description) {
+        return new Item(itemId, name, description);
+    }
 
-    public Item(String string, int i) {
-        //TODO Auto-generated constructor stub
+    public static Item createDebugItem(String name, int itemId) {
+        return new Item(itemId, name, null);
     }
 
     /**
@@ -52,6 +63,22 @@ public class Item {
         allItemsEver.add(item);
         
         return item;
+    }
+
+
+    /**
+     * Alias for item search functions. Use this instead of item constructor to make items,
+     * so you can know if an item has been made or not
+     * @param name
+     * @return
+     */
+    public static Item loadItem(String name) {
+        Item preexistingItem = searchForItem(name);
+        if (preexistingItem != null) { // this search call is case sensitive (so for ex. these two cant exit together: pIsToL, PISTOL)
+            return preexistingItem;
+        } else {
+            throw new Error("Item " + name + " was not loaded as part of the rooms json! (its not included in a puzzle or anything like that)");
+        }
     }
 
     /**
