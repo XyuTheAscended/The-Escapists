@@ -121,7 +121,7 @@ public class CellController {
 
     @FXML
     void btnEnterClicked(ActionEvent event) {
-        Room currRoom = gf.getCurrRoom();
+        Room currRoom = gf.getCurrRoom(); // WARNING: If a user is logged in who has a save thats current room is not the cell, there will be errors cause the wrong puzzles are assumed
         Progress currSave = gf.getCurrUser().getCurrSave();
 
         String answer = noteRiddleAnswrBox.getText();

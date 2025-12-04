@@ -87,8 +87,8 @@ public class GameFacade {
      * Only used for debugging
      */
     public void quickTestLogin() {
-        register("Leni", "LeniPassword"); // this func does nothing if user is already registered
-        if (login("Leni", "LeniPassword")) {
+        register("Testuser", "Password"); // this func does nothing if user is already registered
+        if (login("Testuser", "Password")) {
             System.out.println("Successful Login\n" + getCurrUser().toString());
         } else {
             System.out.println("Unsuccessful Login");
