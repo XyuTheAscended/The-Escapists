@@ -20,6 +20,12 @@ public class Timer {
         
     }
 
+    private Runnable displayRunnable;
+
+    public void setDisplayRunnable(Runnable displayRunnable) {
+        this.displayRunnable = displayRunnable;
+    }
+
     /**
      * If timer doesn't exist, it created one. If it does, it returns the timer
      * @return Timer object
@@ -61,6 +67,7 @@ public class Timer {
                 int minutes = this.remainingTime / 60;
                 int seconds = this.remainingTime % 60;
                 // System.out.printf("Time remaining: %02d:%02d%n", minutes, seconds);
+                if (displayRunnable != null) { displayRunnable.run(); }
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -93,6 +100,7 @@ public class Timer {
                 int minutes = remainingTime / 60;
                 int seconds = remainingTime % 60;
                 // System.out.printf("Time remaining: %02d:%02d%n", minutes, seconds);
+                if (displayRunnable != null) { displayRunnable.run(); }
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {
@@ -149,6 +157,21 @@ public class Timer {
      */
     public int getRemainingTime() {
         return remainingTime;
+    }
+
+    /**
+     * Gets time in a stirngified readable format
+     * @return time passed in HH:MM:SS format
+     */
+    public String getTimeRemainingFormatted() {
+        int totalSeconds = getRemainingTime();
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
+            
+        String formatted = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+
+        return formatted;
     }
 
     /**

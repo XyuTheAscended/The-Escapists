@@ -4,6 +4,9 @@ module com.escapists {
     requires json.simple;
     requires freetts;
     requires junit;
+    requires javafx.graphics;
+    requires javafx.base;
+    // requires com.escapists;
 
     opens com.escapists to javafx.fxml;
     opens com.escapists.Controllers to javafx.fxml;
