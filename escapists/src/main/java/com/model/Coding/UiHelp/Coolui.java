@@ -51,6 +51,7 @@ public class Coolui {
     return but;
   }
 
+  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
   private static void onPauseButtonClicked() {
     VBox pauseMenuBox = (VBox) pauseMenuBoxHolder.lookup("#pauseMenuBox");
     Button pauseBut = (Button) hudHolder.lookup("#pauseButton");
@@ -62,11 +63,13 @@ public class Coolui {
     }
   }
 
+  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
   private static void onPauseInput(VBox pauseMenuBox, Button pauseButton) {
     pauseMenuBox.setVisible(true);
     pauseButton.getStyleClass().add("toggled");
   }
 
+  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
   private static void onResumeInput(VBox pauseMenuBox, Button pauseButton) {
     pauseMenuBox.setVisible(false);
     pauseButton.getStyleClass().remove("toggled");
@@ -107,6 +110,24 @@ public class Coolui {
     return centerWrapper;
   }
 
+  private static void makeInvSlot(double size) {
+
+  }
+
+  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  private static HBox makeInvFrame(double heightSize) {
+    double spacing = (heightSize * 0.1);
+    HBox invFrame = new HBox(5);
+    invFrame.setId("invFrame");
+    double invfSizeX = 250; 
+    setRegionAbsSize(invFrame, heightSize * 3.1, heightSize);
+    
+    
+
+    
+    return invFrame; 
+  }
+
   // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
   private static HBox createHud() {
     HBox holder = new HBox(2);
@@ -128,10 +149,7 @@ public class Coolui {
       Platform.runLater( timerLblUpdater  );
     });
 
-    HBox invFrame = new HBox(5);
-    invFrame.setId("invFrame");
-    double invfSizeX = 250; 
-    setRegionAbsSize(invFrame, invfSizeX, pauseButSize);
+    HBox invFrame = makeInvFrame(pauseButSize);
 
     // holder.prefWidthProperty().bind(parentPane.widthProperty()); // give it the parent's width. if we dont do this, hotbar wont spread across screen
     Region spacer = new Region();
