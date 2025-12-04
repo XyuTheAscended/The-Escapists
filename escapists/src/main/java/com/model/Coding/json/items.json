@@ -61,7 +61,13 @@
                     "name" : "Pinkkey",
                     "color" : "Pink",
                     "description" : "A key that opens a pink lock."
-                }
+                },
+
+              {
+                "name" : "Pinkkey",
+                "color" : "Pink",
+                "description" : "A key that opens a pink lock."
+              }
             ]
 
     }

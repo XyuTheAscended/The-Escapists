@@ -250,7 +250,7 @@ public class HallwayController {
             btnEnterSurv.setDisable(true);
             UIDC.setUIDisabled(currRoom.getName(), "btnEnterSurv", true);
             System.out.println(currRoom);
-            // App.setRoot("surveulenceRom");
+            // App.setRoot("surveillanceRoom");
         } else {
             wireAnswr.setText("Wrong! Try again");
             UIDC.setUIText(currRoom.getName(), "wireAnswr", "Wrong! Try again");
