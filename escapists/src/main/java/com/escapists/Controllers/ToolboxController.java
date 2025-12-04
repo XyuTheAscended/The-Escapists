@@ -39,7 +39,7 @@ public class ToolboxController {
 
     @FXML
     void btnToolsClicked(ActionEvent event) {
-        Item screwdriver = new Item(2,"Screwdriver", "A screwdriver");
+        Item screwdriver = Item.loadItem("Screwdriver");
         gf.getInventory().addItem(screwdriver);
         btnTools.setDisable(true);
         UIDC.setUIDisabled(gf.getCurrRoom().getName(), "btnTools", true);

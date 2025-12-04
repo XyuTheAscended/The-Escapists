@@ -27,7 +27,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        String startingFxml = "landing";
+        String startingFxml = "mainMenu";
         scene = new Scene(loadFXML(startingFxml), 640, 480);
         stage.setScene(scene);
         currFxml = startingFxml;

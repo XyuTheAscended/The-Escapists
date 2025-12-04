@@ -50,9 +50,12 @@ public class CellController {
             return;
         }
 
-        System.out.println(gf.getRooms());
 
         Progress currSave = gf.getCurrUser().getCurrSave();
+        System.out.println("REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+        for (Item item : gf.getInventory().getItems()) {
+            System.out.println(item.getName());
+        }
 
         // Ensure save knows about all puzzles in this room (idempotent)
         currSave.initializeRoomPuzzles(currRoom);

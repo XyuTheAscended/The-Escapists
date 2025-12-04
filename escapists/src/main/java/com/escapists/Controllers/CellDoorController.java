@@ -27,6 +27,7 @@ public class CellDoorController {
     public void initialize() {
         if (gf.getCurrUser() == null) gf.quickTestLogin();
         Coolui.layerPage(root); // this function call adds the Hud
+        
     }
     
     @FXML
@@ -48,7 +49,6 @@ public class CellDoorController {
         if(gf.getInventory().hasItem("Key")) {
             gf.getInventory().removeItem(key);
             gf.getCurrUser().getCurrSave().setPuzzleCompleted(currRoom, currRoom.getPuzzle("CellDoorLock"), true);
-            System.out.println(gf.getCurrUser());
             completed = true;
         }
 
