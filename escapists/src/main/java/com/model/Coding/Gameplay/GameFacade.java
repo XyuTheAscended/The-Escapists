@@ -83,6 +83,20 @@ public class GameFacade {
     }
 
     /**
+     * Function for debugging pages without having to fully go through login process. 
+     * Only used for debugging
+     */
+    public void quickTestLogin() {
+        register("Leni", "LeniPassword"); // this func does nothing if user is already registered
+        if (login("Leni", "LeniPassword")) {
+            System.out.println("Successful Login\n" + getCurrUser().toString());
+        } else {
+            System.out.println("Unsuccessful Login");
+        }
+
+    }
+
+    /**
      * Actual clean up helper function used by endGame method
      */
     public void unloadCurrSave() {

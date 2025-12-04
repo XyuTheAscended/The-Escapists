@@ -17,13 +17,23 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("landing"), 640, 480);
+        scene = new Scene(loadFXML("cell"), 640, 480);
         stage.setScene(scene);
         stage.show();
     }
 
     public static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
+    }
+
+    public static void safeSetRoot(String fxml) {
+      try {
+        setRoot(fxml);
+      } catch (IOException e1) {
+        e1.printStackTrace();
+        throw new Error("Something really bad happened when we tried to set the root");
+      }
+
     }
 
     private static Parent loadFXML(String fxml) throws IOException {

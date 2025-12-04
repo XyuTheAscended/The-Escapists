@@ -75,6 +75,10 @@ Text {
     -fx-padding: 4 6 4 6;
 }
 
+.Pane .HBox {
+    -fx-background-color: #56200B;
+}
+
 .text-area {
     -fx-control-inner-background: #24201F;
     -fx-text-fill: #B1B1AB;
@@ -93,4 +97,43 @@ Text {
 .text-field {
     -fx-font-family: 'Montserrat', Arial, sans-serif;
     -fx-text-fill: black;
+}
+
+
+
+/* ======== HUD STUFF ==========*/
+#pauseButton {
+    -fx-font-size: 30px;
+    -fx-padding: 5px;
+}
+
+#pauseButton.toggled {
+    -fx-background-color: rgb(33, 33, 33);
+    -fx-text-fill: #B1B1AB;
+}
+
+#hotbarHBox {
+    -fx-padding: 20 20;
+}
+
+#invFrame {
+    -fx-background-color: rgba(58, 57, 57, 0.5);
+    -fx-padding: 20;
+
+}
+
+#timerLbl {
+    -fx-font-size: 25px;
+    -fx-text-fill: #f8f8f5;
+}
+
+#pauseMenuBox {
+    -fx-background-color: rgba(25, 25, 25, 0.8);
+    -fx-padding: 40;
+}
+
+
+.menu-header {
+    -fx-font-size: 40px;
+    -fx-text-fill: #f8f8f5;
 }

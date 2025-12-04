@@ -1,26 +1,43 @@
 package com.escapists.Controllers;
 
 import com.escapists.App;
+import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
+import com.model.Coding.UiHelp.Coolui;
+
+import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import com.model.Coding.Progress.UIDataCache;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class CellController {
-
-
     GameFacade gf = GameFacade.getInstance();
     UIDataCache UIDC = UIDataCache.getInstance();
+    
+    @FXML
+    AnchorPane mainAp;
 
     @FXML
     public void initialize() {
+        if (gf.getCurrUser() == null) 
+            gf.quickTestLogin();
+    
+        Coolui.layerPage(mainAp); // this function call adds the Hud
+    
         gf.startGame(1);
 
         Room currRoom = gf.getCurrRoom();
@@ -51,9 +68,6 @@ public class CellController {
             }
         }
 
-        // Restore dialog visibility
-        boolean dialogVisible = UIDC.isUIVisible(currRoom.getName(), "cellMateDialog");
-        cellMateDialog.setVisible(dialogVisible);
     }
 
     @FXML
