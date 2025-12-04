@@ -22,6 +22,9 @@ public class Progress {
     private HashMap<String, HashMap<String, Boolean>> completedPuzzles;
     private int hintsUsed = 0;
     private String backgroundImage;
+    private int saveSlot = 0;
+    private String saveTimestamp;
+
 
 
 
@@ -303,5 +306,22 @@ public class Progress {
     public String getBackgroundImage() {
     return backgroundImage;
     }
+
+    public int getSaveSlot() {
+    return saveSlot;
+    }
+
+    public void setSaveSlot(int saveSlot) {
+    this.saveSlot = saveSlot;
+    }
+
+    public String getSaveTimestamp() {
+    return saveTimestamp;
+    }
+
+    public void setSaveTimestamp(String saveTimestamp) {
+    this.saveTimestamp = saveTimestamp;
+    }   
+
 
 }

@@ -3,6 +3,7 @@ package com.model.Coding.UiHelp;
 import java.io.IOException;
 
 import com.escapists.App;
+import com.escapists.Controllers.LoadSaveController;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.Timer;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
@@ -99,7 +100,11 @@ public class Coolui {
     });
 
     saveBut.setOnAction(e -> {App.safeSetRoot("save");});
-    loadBut.setOnAction(e -> {App.safeSetRoot("loadsave");});
+    loadBut.setOnAction(e -> {
+    LoadSaveController.openFromGame();  // ← tell controller we came from the game
+    App.safeSetRoot("loadsave");
+    });
+
     mainMenuBut.setOnAction(e -> {App.safeSetRoot("mainMenu");});
     
     menuBox.setVisible(false);

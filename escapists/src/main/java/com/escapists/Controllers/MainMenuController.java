@@ -63,8 +63,13 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void loadSaveClicked(ActionEvent event) {
-
+    try {
+        LoadSaveController.openFromMainMenu(); 
+        App.setRoot("loadsave");            
+    } catch (IOException e) {
+        e.printStackTrace();
     }
+}
 
     @FXML
     void newGameClicked(ActionEvent event) throws IOException {
@@ -77,6 +82,8 @@ public class MainMenuController implements Initializable {
         System.out.println("Logged in " + currUser.getUserName());
         txtAccount.setText(currUser.getUserName());
     }
+
+    
 
 }
 
