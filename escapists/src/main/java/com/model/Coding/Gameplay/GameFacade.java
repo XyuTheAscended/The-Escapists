@@ -35,6 +35,7 @@ public class GameFacade {
     private int difficulty = 0;
     private Inventory inventory;
     private Map map;
+    private Object currUser;
 
     /**
      * GameFacade constructor. Initializes currentState, isPaused, leaderboard, and gameFacade
@@ -326,4 +327,12 @@ public class GameFacade {
     public User getCurrUser() {
         return currentUser;
     }
+
+    public void loadProgress(Progress p) {
+    ((User) this.currUser).changeCurrSave(
+        ((User) this.currUser).getSaves().indexOf(p)
+    );
+    map.loadFromSave(p);
+}
+
 }

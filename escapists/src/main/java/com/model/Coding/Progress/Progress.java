@@ -21,6 +21,8 @@ public class Progress {
     private int remainingTime;
     private HashMap<String, HashMap<String, Boolean>> completedPuzzles;
     private int hintsUsed = 0;
+    private String backgroundImage;
+
 
 
     /**
@@ -294,4 +296,12 @@ public class Progress {
             map.putIfAbsent(p.getName(), Boolean.FALSE);
         }
     }
+    public void setBackgroundImage(String img) {
+    this.backgroundImage = img;
+    }
+
+    public String getBackgroundImage() {
+    return backgroundImage;
+    }
+
 }

@@ -35,4 +35,9 @@ public class App extends Application {
         launch();
     }
 
+    public static Scene getScene() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'getScene'");
+    }
+
 }
