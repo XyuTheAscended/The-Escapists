@@ -64,7 +64,6 @@ public class MainMenuController implements Initializable {
     @FXML
     void loadSaveClicked(ActionEvent event) {
     try {
-        LoadSaveController.openFromMainMenu(); 
         App.setRoot("loadsave");            
     } catch (IOException e) {
         e.printStackTrace();
