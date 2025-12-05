@@ -15,6 +15,10 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * Controller for the cell door screen
+ * @author Mason
+ */
 public class CellDoorController {
 
     GameFacade gf = GameFacade.getInstance();
@@ -23,6 +27,9 @@ public class CellDoorController {
     @FXML
     AnchorPane root;
 
+    /**
+     * Initialize method to initialize required things for the room.
+     */
     @FXML
     public void initialize() {
         if (gf.getCurrUser() == null) gf.quickTestLogin();
@@ -39,8 +46,11 @@ public class CellDoorController {
     @FXML
     private TextArea txtAreaKeyMessage;
 
+    /**
+     * When the lock is clicked, if the player has the key and has completed the puzzles in the cell room, it unlocks.
+     */
     @FXML
-    void btnLockClicked(ActionEvent event) throws IOException {
+    void btnLockClicked() throws IOException {
 
         Room currRoom = gf.getCurrRoom();
         Progress currSave = gf.getCurrUser().getCurrSave();
@@ -67,8 +77,11 @@ public class CellDoorController {
         }
     }
 
+    /**
+     * "Turns" around when button is clicked. Sets the screen to the cell.
+     */
     @FXML
-    void btnTurnClicked(ActionEvent event) throws IOException {
+    void btnTurnClicked() throws IOException {
         App.safeSetGameplayRoot("cell");
     }
 }

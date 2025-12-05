@@ -2,30 +2,22 @@ package com.escapists.Controllers;
 
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
-import com.model.Coding.Gameplay.InteractItems.Item;
-import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
 import com.model.Coding.UiHelp.Coolui;
 
-import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import com.model.Coding.Progress.UIDataCache;
+import com.model.Coding.UiHelp.UIDataCache;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
+/**
+ * Controller for the cell screen
+ * @author Mason, Jeffen
+ */
 public class CellController {
     GameFacade gf = GameFacade.getInstance();
     UIDataCache UIDC = UIDataCache.getInstance();
@@ -33,6 +25,9 @@ public class CellController {
     @FXML
     AnchorPane root;
 
+    /**
+     * Initialize method to initialize required things for the room
+     */
     @FXML
     public void initialize() {
         if (gf.getCurrUser() == null) gf.quickTestLogin();
@@ -88,8 +83,11 @@ public class CellController {
     @FXML
     private Button btnTurn;
 
+    /**
+     * Code for when the note is clicked. Makes the riddle visible
+     */
     @FXML
-    void btnNoteClicked(ActionEvent event) {
+    void btnNoteClicked() {
         Room currRoom = gf.getCurrRoom();
         Progress currSave = gf.getCurrUser().getCurrSave();
 
@@ -103,8 +101,11 @@ public class CellController {
 
     }
 
+    /**
+     * Code for enter button for riddle. Does the answer checking logic
+     */
     @FXML
-    void btnEnterClicked(ActionEvent event) {
+    void btnEnterClicked() {
         Room currRoom = gf.getCurrRoom(); // WARNING: If a user is logged in who has a save thats current room is not the cell, there will be errors cause the wrong puzzles are assumed
         Progress currSave = gf.getCurrUser().getCurrSave();
 
@@ -120,20 +121,30 @@ public class CellController {
         }
     }
 
+    /**
+     *
+     * Changes to the sink screen when clicked
+     */
     @FXML
-    void btnSinkClicked(ActionEvent event) throws IOException {
+    void btnSinkClicked() throws IOException {
         App.safeSetGameplayRoot("sink");
     }
 
+    /**
+     * Pops up dialog for cellmate when clicked
+     */
     @FXML
-    void btnCellMateClicked(ActionEvent event) {
+    void btnCellMateClicked() {
         Room currRoom = gf.getCurrRoom();
         if (cellMateDialog != null) cellMateDialog.setVisible(true);
         UIDC.setUIVisible(currRoom.getName(), "cellMateDialog", true);
     }
 
+    /**
+     * "Turns" around when button is clicked. Sets the screen to the cell door.
+     */
     @FXML
-    void btnTurnClicked(ActionEvent event) throws IOException {
+    void btnTurnClicked() throws IOException {
         App.safeSetGameplayRoot("cellDoor");
     }
 }

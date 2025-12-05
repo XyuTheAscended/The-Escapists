@@ -16,11 +16,18 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * Controller for the surveillance room
+ * @author Mason, Jeffen
+ */
 public class SurveillanceRoom {
 
 
     GameFacade gf = GameFacade.getInstance();
 
+    /**
+     *Initialize method to initialize required things for the room
+     */
     @FXML
     public void initialize() {
         Coolui.layerPage(mainAp); // this function call adds the Hud
@@ -78,8 +85,11 @@ public class SurveillanceRoom {
     @FXML
     private TextArea exitMessage;
 
+    /**
+     * Shows UI elements for the camera riddle
+     */
     @FXML
-    void btnCamPuzzleClicked(ActionEvent event) {
+    void btnCamPuzzleClicked() {
 
         Room currRoom = gf.getCurrRoom();
         Puzzle puzzle = gf.getCurrRoom().getPuzzle("Cameras");
@@ -100,8 +110,11 @@ public class SurveillanceRoom {
         btnEnterCams.setVisible(true);
     }
 
+    /**
+     * Checks answer for camera riddle. If correct, cameras turn off
+     */
     @FXML
-    void btnEnterCamsClicked(ActionEvent event) {
+    void btnEnterCamsClicked() {
 
         Room currRoom = gf.getCurrRoom();
         Progress currSave = gf.getCurrUser().getCurrSave();
@@ -120,6 +133,9 @@ public class SurveillanceRoom {
         }
     }
 
+    /**
+     * Handles exit logic for surveillance room. Player can only leave if they have the keycard and have turned off the cameras
+     */
     @FXML
     void btnExitClicked(ActionEvent event) throws IOException {
 
@@ -133,8 +149,11 @@ public class SurveillanceRoom {
         }
     }
 
+    /**
+     * Shows UI elements for drawer riddle
+     */
     @FXML
-    void btnDrawerClicked(ActionEvent event) {
+    void btnDrawerClicked() {
 
         Room currRoom = gf.getCurrRoom();
         Puzzle puzzle = gf.getCurrRoom().getPuzzle("Drawer");
@@ -155,6 +174,9 @@ public class SurveillanceRoom {
         btnEnterDrawer.setVisible(true);
     }
 
+    /**
+     * Checks answer for drawer riddle. Changes to the open drawer screen if correct
+     */
     @FXML
     void btnEnterDrawerClicked(ActionEvent event) throws IOException {
         Room currRoom = gf.getCurrRoom();

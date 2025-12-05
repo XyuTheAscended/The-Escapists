@@ -8,6 +8,10 @@ import javafx.scene.control.TextArea;
 
 import java.io.IOException;
 
+/**
+ * Controller for the cutscene screen
+ * @author Mason
+ */
 public class CutsceneController {
 
     public Button btnBack;
@@ -17,6 +21,9 @@ public class CutsceneController {
 
     private Thread ttsThread;
 
+    /**
+     * Initialize method to initialize required things for the room. Starts TTS
+     */
     @FXML
     public void initialize() {
         String storyText = cutsceneTextArea.getText();
@@ -26,6 +33,9 @@ public class CutsceneController {
         ttsThread.start();
     }
 
+    /**
+     * Stops the TTS
+     */
     private void stopTts() {
         if (ttsThread != null && ttsThread.isAlive()) {
             ttsThread.interrupt();
@@ -33,17 +43,26 @@ public class CutsceneController {
         }
     }
 
+    /**
+     * Stops TTS whenever scene is exited
+     */
     @FXML
     public void onSceneExit() {
         stopTts();
     }
 
-    public void btnContinueClicked(ActionEvent actionEvent) throws IOException {
+    /**
+     * Switches screen to the cell to begin the game
+     */
+    public void btnContinueClicked() throws IOException {
         App.safeSetGameplayRoot("cell");
         onSceneExit();
     }
 
-    public void btnBackClicked(ActionEvent actionEvent) throws IOException {
+    /**
+     * Takes player back to the main menu
+     */
+    public void btnBackClicked() throws IOException {
         onSceneExit();
         App.setRoot("mainMenu");
     }
