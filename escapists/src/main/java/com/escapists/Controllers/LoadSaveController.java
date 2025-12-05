@@ -6,7 +6,6 @@ import com.model.Coding.Progress.Progress;
 import com.model.Coding.User.User;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
@@ -25,18 +24,22 @@ public class LoadSaveController {
     @FXML private Label lblSlot1, lblSlot2, lblSlot3, lblSlot4, lblSlot5, lblSlot6;
 
     @FXML
-    private Button backButton;
-
-    @FXML
     private void initialize() {
         loadSlotVisuals();
-
-        if (backButton != null) {
-            backButton.setOnAction(e -> backButtonClicked());
-        }
+        addClickHandlers();
     }
 
-    /** Load preview images + timestamps just like SaveGameController does */
+    /** Assign clicking to each save slot */
+    private void addClickHandlers() {
+        slot1.setOnMouseClicked(e -> loadSlot(1));
+        slot2.setOnMouseClicked(e -> loadSlot(2));
+        slot3.setOnMouseClicked(e -> loadSlot(3));
+        slot4.setOnMouseClicked(e -> loadSlot(4));
+        slot5.setOnMouseClicked(e -> loadSlot(5));
+        slot6.setOnMouseClicked(e -> loadSlot(6));
+    }
+
+    /** Load preview images + timestamps */
     private void loadSlotVisuals() {
         User user = gf.getCurrUser();
 
@@ -52,44 +55,79 @@ public class LoadSaveController {
         if (user.slotExists(slot)) {
             Progress p = user.loadFromSlot(slot);
 
-            // timestamp text
-            String timestamp = p.getSaveTimestamp() == null ? "Empty" : p.getSaveTimestamp();
+            String timestamp = (p.getSaveTimestamp() == null ? "Empty" : p.getSaveTimestamp());
             lbl.setText("Saved: " + timestamp);
 
-            // image preview
-            if (p.getBackgroundImage() != null) {
-                img.setStyle("-fx-fill: url('" + p.getBackgroundImage() + "'); -fx-background-size: cover;");
-            }
+            img.setStyle("-fx-fill: url('/escapists/images/prison2.png'); -fx-background-size: cover;");
         } else {
             lbl.setText("Empty Slot");
+            img.setStyle("-fx-fill: black;");
         }
     }
 
-    private static boolean openedFromGame = false;
+    /** Load the save from a specific slot */
+    private void loadSlot(int slot) {
+        User user = gf.getCurrUser();
 
-    public static void openFromGame() {
-        openedFromGame = true;
+        if (!user.slotExists(slot)) {
+            System.out.println("No save exists in slot " + slot);
+            return;
         }
 
-    public static void openFromMainMenu() {
-        openedFromGame = false;
+        // Load the Progress object from that slot
+        Progress p = user.loadFromSlot(slot);
+
+        // Set this save as the active save
+        user.changeCurrSave(slot - 1);
+
+        // Load map, inventory, puzzles, current room, etc.
+        gf.loadCurrSave();
+
+        // Determine correct room FXML
+        String roomName = p.getCurrentRoomName();
+        String fxmlToLoad = mapRoomNameToFXML(roomName);
+
+        System.out.println("Loading room from save: " + roomName + " → FXML: " + fxmlToLoad);
+
+        try {
+            App.setRoot(fxmlToLoad);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Failed to load FXML for: " + fxmlToLoad);
         }
+    }
 
+    /**
+     * Converts backend room names (from JSON & Progress) to the correct FXML file names.
+     */
+    private String mapRoomNameToFXML(String roomName) {
+        if (roomName == null) return "cell";
 
-    /** Back button → behave based on where the menu was opened from */
-   @FXML
+        switch (roomName) {
+
+            case "Cell":
+                return "cell";
+
+            case "Hallway":
+                return "hallway";
+
+            case "StorageRoom":
+                return "storageRoom";
+
+            case "SurveillanceRoom":
+                return "surveillanceRoom";
+
+            case "Vent":
+                return "ventRoom"; // CONFIRMED by you
+
+            default:
+                System.out.println("Unknown room: " + roomName + " — defaulting to Cell.");
+                return "cell";
+        }
+    }
+
+    @FXML
     private void backButtonClicked() {
-        // try {
-        //     if (openedFromGame) {
-        //         App.setRoot("cell");  // return to in-game screen
-        //     } else {
-        //         App.setRoot("mainMenu");  // return to main menu
-        //     }
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
-
         App.setRootToPrev();
     }
-
 }
