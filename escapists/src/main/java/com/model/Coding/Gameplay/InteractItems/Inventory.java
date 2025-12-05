@@ -1,5 +1,6 @@
 package com.model.Coding.Gameplay.InteractItems;
 import java.util.ArrayList;
+import java.util.function.Consumer;
 
 /**
  * The players inventory
@@ -7,6 +8,10 @@ import java.util.ArrayList;
  */
 public class Inventory {
     private ArrayList<Item> items;
+
+    private Consumer<Item> itemAddedCallback;
+    private Consumer<Item> itemRemovedCalback;
+
 
     /**
      * Initialized ArrayList representing the inventory
@@ -21,6 +26,7 @@ public class Inventory {
      */
     public void addItem(Item item){
         items.add(item);
+        itemAddedCallback.accept(item);
     }
 
     /**
@@ -29,6 +35,23 @@ public class Inventory {
      */
     public void removeItem(Item item){
         items.remove(item);
+        itemRemovedCalback.accept(item);
+    }
+
+    /**
+     * Sets callback that runs when an item is added
+     * @param cb
+     */
+    public void setItemAddedCallback(Consumer<Item> cb) {
+        this.itemAddedCallback = cb;
+    }
+
+    /**
+     * Sets callback that runs when an item is removed 
+     * @param cb
+     */
+    public void setItemRemovedCallback(Consumer<Item> cb) {
+        this.itemRemovedCalback = cb;
     }
 
     /**

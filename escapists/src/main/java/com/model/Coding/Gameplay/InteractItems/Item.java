@@ -39,6 +39,12 @@ public class Item {
         return new Item(itemId, name, description);
     }
 
+    /**
+     * For making testing items. DONT USE IN REAL CODE
+     * @param itemId
+     * @param name
+     * @return
+     */
     public static Item createDebugItem(String name, int itemId) {
         return new Item(itemId, name, null);
     }
@@ -181,5 +187,13 @@ public class Item {
      */
     public static ArrayList<Item> getAllItemsEver() {
         return allItemsEver;
+    }
+
+    /**
+     * Gets item icon url for UI stuff that needs it
+     * @return Icon url 
+     */
+    public String getIconUrl() {
+        return this.iconUrl;
     }
 }

@@ -1,6 +1,8 @@
 package com.model.Coding.UiHelp;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
@@ -115,16 +117,64 @@ public class Coolui {
     return centerWrapper;
   }
 
+  private static ArrayDeque<StackPane> emptyInvSlots = new ArrayDeque<>();
+  private static ArrayList<StackPane> filledInvSlots = new ArrayList<>();
+
   // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
   private static StackPane makeInvSlot(double size) {
     StackPane iconHolder = new StackPane();
     iconHolder.getStyleClass().add("item-slot");
     ImageView imgView = new ImageView();
     setRegionAbsSize(iconHolder, size, size);
+    imgView.setPreserveRatio(true);
+    imgView.setSmooth(true);
+    imgView.fitWidthProperty().bind(iconHolder.widthProperty());
+    imgView.fitHeightProperty().bind(iconHolder.heightProperty());
     iconHolder.getChildren().add(imgView);
 
     return iconHolder;
   }
+
+  private static void fillInvSlot(Item item) {
+    if (emptyInvSlots.size() <= 0)
+      throw new Error(item.getName() + " can't be put in inv slot cause no more inventory slots available!!!");
+
+
+    StackPane invSlot = emptyInvSlots.removeLast();
+
+    // fill code
+    invSlot.getProperties().put("ItemName", item.getName());
+    ImageView imgView = (ImageView) invSlot.lookup("ImageView");
+    imgView.setImage(new Image(item.getIconUrl()));
+
+    // list updates
+    filledInvSlots.add(invSlot);
+  }
+
+  private static void removeInvSlot(Item item) {
+    for (StackPane slot : filledInvSlots) {
+      String slotItemName = (String) slot.getProperties().get("ItemName");
+      if (!item.getName().equalsIgnoreCase(slotItemName)) continue; 
+
+      // slot clearance code
+      slot.getProperties().put("ItemName", null);
+      ImageView imgView = (ImageView) slot.lookup("ImageView");
+      imgView.setImage(null);
+
+      // list updates
+      filledInvSlots.remove(slot);
+      emptyInvSlots.addLast(slot); // adding last instead of adding first makes the emptyInvSlots work more like a stack than a queue since we also remove last
+
+      return;
+    }
+
+    // code here only ever executes if we never find a slot to remove
+    throw new Error("Invenotry never had a " + item.getName());
+
+
+  }
+
+  
 
   private static int MAX_ITEMS = 5;
   // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
@@ -139,7 +189,18 @@ public class Coolui {
     for (int i = 0; i < MAX_ITEMS; ++i) {
       StackPane slot = makeInvSlot(heightSize*0.9);
       invFrame.getChildren().add(slot);
+      emptyInvSlots.add(slot);
     }
+
+    // getting inventory like this does assume that inventory and user 
+    // and the game save has been initiated before the hud stuff is initiatied. maybe add checks later on to make sure this is the case
+    GameFacade.getInstance().getInventory().setItemAddedCallback((item) -> { 
+      Platform.runLater(() -> fillInvSlot(item));
+    });
+
+    GameFacade.getInstance().getInventory().setItemRemovedCallback((item) -> { 
+      Platform.runLater(() -> removeInvSlot(item));
+    });
     
     return invFrame; 
   }
