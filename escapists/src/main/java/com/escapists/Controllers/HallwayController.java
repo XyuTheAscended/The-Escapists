@@ -80,10 +80,6 @@ public class HallwayController {
         // Ensure save knows about all puzzles in this room (idempotent)
         currSave.initializeRoomPuzzles(currRoom);
 
-
-        // --------- RESTORE UI STATE (unchanged) ----------------
-
-
         if(clicked){
             txtVent.setVisible(true);
         }

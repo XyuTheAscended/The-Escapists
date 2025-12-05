@@ -73,15 +73,9 @@
       }
     },
     "Vent": {
-      "puzzles": [
-        {
-          "name": "FinalExit",
-          "answer": "0960",
-          "description": "Electronic lock. Needs a passcode"
-        }
-      ],
+      "puzzles": [],
       "exits": {
-        "OUTSIDE": ["FinalExit"]
+        "OUTSIDE": []
       }
     }
   }

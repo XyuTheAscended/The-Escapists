@@ -112,7 +112,7 @@ public class CellController {
         boolean solved = currRoom.getPuzzle("Note").checkAnswer(currRoom.getPuzzle("Note").userAnswer(answer));
         if (solved) {
             noteRiddleAnswrBox.setText("Riddle Completed");
-            noteRiddleText.setText("2436");
+            noteRiddleText.setText("2436. This might be useful");
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("Note"), true);
             btnEnter.setDisable(true);
         } else {
@@ -128,7 +128,6 @@ public class CellController {
     @FXML
     void btnCellMateClicked(ActionEvent event) {
         Room currRoom = gf.getCurrRoom();
-        Progress currSave = gf.getCurrUser().getCurrSave();
         if (cellMateDialog != null) cellMateDialog.setVisible(true);
         UIDC.setUIVisible(currRoom.getName(), "cellMateDialog", true);
     }

@@ -47,7 +47,7 @@ public class VentController {
         gf.getInventory().removeItem(inven.getItem("KeyCard"));
         gf.getCurrUser().getCurrSave().setPuzzleCompleted(currRoom, currRoom.getPuzzle("Vent"), true);
         System.out.println(currRoom);
-        // App.setRoot("ventRoom");
+        App.setRoot("ventRoom");
         gf.getCurrUser().getCurrSave().markRoomCompleted(gf.getCurrRoom());
         gf.setCurrRoom(gf.getCurrRoom().getExitByNextRoomName("Vent").getNextRoom());
         System.out.println(gf.getCurrRoom());
