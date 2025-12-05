@@ -1,7 +1,6 @@
 package com.escapists.Controllers;
 
 import com.escapists.App;
-import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
@@ -120,10 +119,6 @@ public class CellController {
         UIDC.setUIText(currRoom.getName(), "noteRiddleText", noteRiddleText.getText());
         UIDC.setUIText(currRoom.getName(), "noteRiddleAnswrBox", noteRiddleAnswrBox.getText());
 
-        // System.out.println(currRoom);
-        for (Item item : Item.getAllItemsEver()) {
-            System.out.println(item.getName());
-        }
     }
 
     @FXML

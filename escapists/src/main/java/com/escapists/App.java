@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayDeque;
+import java.util.HashMap;
 
 /**
  * JavaFX App
@@ -25,6 +26,13 @@ public class App extends Application {
 
     private static Scene scene;
 
+    // this thing is for cacheing fxml pages so we dont have to entirely reload them everytime we switch roots. Now ideally, perhaps
+    private static HashMap<String, Parent> fxmlCache = new HashMap<>();
+
+    public static void clearFxmlCache() {
+      fxmlCache.clear();
+    }
+
     @Override
     public void start(Stage stage) throws IOException {
         String startingFxml = "cell";
@@ -35,20 +43,33 @@ public class App extends Application {
     }
 
     public static void setRoot(String fxml) throws IOException {
-        scene.setRoot(loadFXML(fxml));
-        recordLastFxml(currFxml);
-        currFxml = fxml;
+      setRoot(fxml, true);
+    }
+
+    public static void setRoot(String fxml, boolean recordPageHistory) throws IOException {
+      Parent fxmlPage = fxmlCache.get(fxml); 
+      if (fxmlPage == null) {
+        fxmlPage = loadFXML(fxml);
+        fxmlCache.put(fxml, fxmlPage);
+      }
+      
+      scene.setRoot(fxmlPage);
+      if (recordPageHistory) recordLastFxml(currFxml);
+      currFxml = fxml;
     }
 
     public static void safeSetRoot(String fxml) {
       try {
-        setRoot(fxml);
+        setRoot(fxml, true);
       } catch (IOException e1) {
         e1.printStackTrace();
         throw new Error("Something really bad happened when we tried to set the root");
       }
     }
 
+    /**
+     * Kind of like a back button method for going to last fxml page
+     */
     public static void setRootToPrev() {
       if (lastFxmls.size() <= 0) {
         System.out.println("IMPSOIBLE! nO MORE FXML HISTORY LEFT");
@@ -57,9 +78,8 @@ public class App extends Application {
 
       String lastFxml = lastFxmls.removeLast();
       try {
-        scene.setRoot(loadFXML(lastFxml));
+        setRoot(lastFxml, false);
         // dont record a "lastFxml" here since we're rewinding
-        currFxml = lastFxml;
       } catch (IOException e1) {
         e1.printStackTrace();
         throw new Error("Something really bad happened when we tried to set the root");

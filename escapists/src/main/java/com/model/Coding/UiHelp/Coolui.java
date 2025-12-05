@@ -3,7 +3,6 @@ package com.model.Coding.UiHelp;
 import java.io.IOException;
 
 import com.escapists.App;
-import com.escapists.Controllers.LoadSaveController;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.Timer;
 import com.model.Coding.Gameplay.InteractItems.Item;
@@ -18,8 +17,10 @@ import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -184,48 +185,62 @@ public class Coolui {
   }
 
   // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-  public static void layerPage(AnchorPane oldRoot) {
+  public static void layerPage(AnchorPane root) {
       ChangeListener<Scene> listener = new ChangeListener<>() {
         @Override
         public void changed(ObservableValue<? extends Scene> obs, Scene oldScene, Scene newScene) {
             if (newScene != null) {
+              if (root.lookup("#hudLayer") == null) {
+                System.out.println("THis ran Babeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+                for (Node child : root.getChildren()) {
+                  System.out.println(child.getId());
+                }
                 // run later to avoid reentrant modifications while the scene is still being attached
                 Platform.runLater(() -> {
-                    BorderPane hudLayer = new BorderPane();
-                    hudLayer.setPickOnBounds(false);
-                    
-                    if (pauseMenuBoxHolder == null) {
-                      pauseMenuBoxHolder = createPauseMenu();
-                    }
-                    hudLayer.setCenter(pauseMenuBoxHolder);
-                    
-                    hudLayer.prefWidthProperty().bind(oldRoot.widthProperty());
-                    hudLayer.prefHeightProperty().bind(oldRoot.heightProperty());
-                    if (hudHolder == null) {
-                      hudHolder = createHud();
-                    }
-                    hudLayer.setTop(hudHolder);
-                    
-                    oldRoot.getChildren().add(hudLayer);
-                    // listen to when root gets new children so we can make hudLayer keep going in front of them
-                    oldRoot.getChildren().addListener((ListChangeListener<Node>) change -> {
-                        while (change.next()) {
-                            if (change.wasAdded() || change.wasRemoved()) {
-                                // the weird :: thing schedules toFront instead of calling it right away, to avoid reentrancy during layout passes
-                                Platform.runLater(hudLayer::toFront);
-                            }
-                        }
-                    });
-                    hudLayer.toFront();
+                  // This is hud initialization code
+                  BorderPane hudLayer = new BorderPane();
+                  hudLayer.setId("hudLayer");
+                  hudLayer.setPickOnBounds(false);
+                  
+                  if (pauseMenuBoxHolder == null) {
+                    pauseMenuBoxHolder = createPauseMenu();
+                  }
+                  
+                  hudLayer.prefWidthProperty().bind(root.widthProperty());
+                  hudLayer.prefHeightProperty().bind(root.heightProperty());
+                  if (hudHolder == null) {
+                    hudHolder = createHud();
+                  }
+                  
+                  root.getChildren().add(hudLayer);
+                  // listen to when root gets new children so we can make hudLayer keep going in front of them
+                  root.getChildren().addListener((ListChangeListener<Node>) change -> {
+                      while (change.next()) {
+                          if (change.wasAdded() || change.wasRemoved()) {
+                              // the weird :: thing schedules toFront instead of calling it right away, to avoid reentrancy during layout passes
+                              Platform.runLater(hudLayer::toFront);
+                          }
+                      }
+                  });
+                  hudLayer.toFront();
 
-                    // remove listener so we don't redo this
-                    oldRoot.sceneProperty().removeListener(this);
+                  hudLayer.setCenter(pauseMenuBoxHolder);
+                  hudLayer.setTop(hudHolder);
                 });
+              } else {
+
+                // if hudlayer already exists on the page, that means we've already loaded it before. all we gotta do is reparent the hud stuff
+                BorderPane hudLayer = (BorderPane) root.lookup("#hudLayer");
+                hudLayer.setCenter(pauseMenuBoxHolder);
+                hudLayer.setTop(hudHolder);
+              
+              }
+                
             }
         }
     };
     
-    oldRoot.sceneProperty().addListener(listener);
+    root.sceneProperty().addListener(listener);
         
   }
 
@@ -241,6 +256,9 @@ public class Coolui {
       Item key = Item.loadItem(itemName);
       GameFacade.getInstance().getInventory().addItem(key);
       imageButton.setVisible(false);
+
+      ImageView iv = (ImageView) imageButton.getGraphic();
+      Image itemImg = (iv != null) ? iv.getImage() : null;
 
       imageButton.setOnAction(null); // make it only run once ever
     });
