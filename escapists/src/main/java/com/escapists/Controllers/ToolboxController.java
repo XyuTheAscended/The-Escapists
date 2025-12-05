@@ -18,6 +18,7 @@ public class ToolboxController {
     @FXML
     public void initialize() {
         Coolui.layerPage(mainAp); // this function call adds the Hud
+        Coolui.setupItemPickup(btnTools, "Screwdriver");
     }
 
     @FXML
@@ -36,10 +37,10 @@ public class ToolboxController {
 
     @FXML
     void btnToolsClicked(ActionEvent event) {
-        Item screwdriver = Item.loadItem("Screwdriver");
-        gf.getInventory().addItem(screwdriver);
-        btnTools.setDisable(true);
-        // temp
-        System.out.println(gf.getInventory().displayInventory());
+    //     Item screwdriver = Item.loadItem("Screwdriver");
+    //     gf.getInventory().addItem(screwdriver);
+    //     btnTools.setDisable(true);
+    //     // temp
+    //     System.out.println(gf.getInventory().displayInventory());
     }
 }

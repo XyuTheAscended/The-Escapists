@@ -22,6 +22,10 @@ public class StorageRoomController {
 
     @FXML
     public void initialize() {
+        if (gf.getCurrUser() == null) {
+            gf.quickTestLogin();
+            gf.startGame(1);
+        }
         Coolui.layerPage(mainAp); // this function call adds the Hud
         gf.setCurrRoom(gf.findRoomByName("StorageRoom"));
         Progress currSave = gf.getCurrUser().getCurrSave();

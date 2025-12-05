@@ -191,10 +191,7 @@ public class Coolui {
         public void changed(ObservableValue<? extends Scene> obs, Scene oldScene, Scene newScene) {
             if (newScene != null) {
               if (root.lookup("#hudLayer") == null) {
-                System.out.println("THis ran Babeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-                for (Node child : root.getChildren()) {
-                  System.out.println(child.getId());
-                }
+
                 // run later to avoid reentrant modifications while the scene is still being attached
                 Platform.runLater(() -> {
                   // This is hud initialization code
@@ -244,23 +241,24 @@ public class Coolui {
         
   }
 
+  // this can be used for item buttons that have their icon images inside of them
+  public static void setupItemPickup(Button imageButton, String itemName) {
+      setupItemPickup(imageButton, itemName, null);
+  }
 
-  public static void setupItemPickup(Button imageButton) {
-    String itemName = imageButton.getId();
-    
-    if (itemName == null || Item.searchForItem(itemName) == null) {
-      throw new Error("Item image button sucks: its id is invalid or doesn't exist. Set its css id to the item name it represents.");
-    }
 
-    imageButton.setOnAction(e -> {
-      Item key = Item.loadItem(itemName);
+  public static void setupItemPickup(Button itemButton, String itemName, String resourceUrl) {
+    itemButton.setOnAction(e -> {
+      ImageView iv = (ImageView) itemButton.getGraphic();
+      String itemImgUrl = (iv != null) ? iv.getImage().getUrl() : resourceUrl;
+
+      Item key = Item.loadItem(itemName, itemImgUrl);
       GameFacade.getInstance().getInventory().addItem(key);
-      imageButton.setVisible(false);
+      itemButton.setVisible(false);
 
-      ImageView iv = (ImageView) imageButton.getGraphic();
-      Image itemImg = (iv != null) ? iv.getImage() : null;
+      System.out.println("HEYYYYYYYYYYYYYY LISTENNNNNNNNNNNNNNNNNNNNNNNNN: " + itemImgUrl);
 
-      imageButton.setOnAction(null); // make it only run once ever
+      itemButton.setOnAction(null); // make it only run once ever
     });
   }
 }

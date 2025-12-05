@@ -12,6 +12,7 @@ public class Item {
     private int itemId;
     private String name;
     private String description;
+    private String iconUrl;
     public static ArrayList<Item> allItemsEver = new ArrayList<>();
 
     /**
@@ -24,6 +25,7 @@ public class Item {
         this.itemId = itemId;
         this.name = name;
         this.description = description;
+        this.iconUrl = null;
     }
     
     /**
@@ -69,12 +71,20 @@ public class Item {
     /**
      * Alias for item search functions. Use this instead of item constructor to make items,
      * so you can know if an item has been made or not
+     * IT ALSO sets the icon url for use in UI stuff.
+     * It is appropriate to pass null as the icon Url if the item was already loaded before 
+     * and for some reason you want to retrieve another reference to it, though perhaps just using the searchForItem 
+     * method would be more effective.
      * @param name
      * @return
      */
-    public static Item loadItem(String name) {
+    public static Item loadItem(String name, String iconUrl) {
         Item preexistingItem = searchForItem(name);
         if (preexistingItem != null) { // this search call is case sensitive (so for ex. these two cant exit together: pIsToL, PISTOL)
+            if (iconUrl == null && preexistingItem.iconUrl == null) {
+                throw new Error("This item " + iconUrl + " was loaded without an iconUrl");
+            } 
+            preexistingItem.iconUrl = iconUrl;
             return preexistingItem;
         } else {
             throw new Error("Item " + name + " was not loaded as part of the rooms json! (its not included in a puzzle or anything like that)");

@@ -37,10 +37,9 @@ public class CellSinkKeyController {
     @FXML
     void btnKeyClicked(ActionEvent event) {
         // i think this is supposed to be in json
-        Item key = Item.loadItem("Key");
-        gf.getInventory().addItem(key);
-        btnKey.setDisable(true);
-        // temp
-        System.out.println(gf.getInventory().displayInventory());
+        // gf.getInventory().addItem(key);
+        // btnKey.setDisable(true);
+        // // temp
+        // System.out.println(gf.getInventory().displayInventory());
     }
 }
