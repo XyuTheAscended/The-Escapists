@@ -40,5 +40,11 @@ public class VentRoomController {
         gf.save();
         gf.endGame();
 
+         try {
+        com.escapists.App.setRoot("complete");
+        } catch (Exception e) {
+        e.printStackTrace();
+        }  
+
     }
 }
