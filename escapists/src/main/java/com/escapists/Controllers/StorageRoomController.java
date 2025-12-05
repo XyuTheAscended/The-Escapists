@@ -19,6 +19,7 @@ import java.io.IOException;
 
 public class StorageRoomController {
 
+
     GameFacade gf = GameFacade.getInstance();
     UIDataCache UIDC = UIDataCache.getInstance();
 
@@ -42,13 +43,18 @@ public class StorageRoomController {
 
         riddleAnswr.setVisible(UIDC.isUIVisible(currRoom.getName(), "riddleAnswr"));
         riddleText.setVisible(UIDC.isUIVisible(currRoom.getName(), "riddleText"));
-        btnEnter.setVisible(UIDC.isUIVisible(currRoom.getName(), "btnEnterS"));
+        btnEnter.setVisible(UIDC.isUIVisible(currRoom.getName(), "btnEnter"));
+        exitMessage.setVisible(UIDC.isUIVisible(currRoom.getName(), "exitMessage"));
 
         riddleAnswr.setText(UIDC.getUIText(currRoom.getName(), "riddleAnswr"));
         riddleText.setText(UIDC.getUIText(currRoom.getName(), "riddleText"));
 
         btnEnter.setDisable(UIDC.isUIDisabled(currRoom.getName(), "btnEnter"));
+
     }
+
+    @FXML
+    public TextArea exitMessage;
 
     @FXML
     private Button btnEnter;
@@ -95,9 +101,22 @@ public class StorageRoomController {
     void btnToolBoxClicked(ActionEvent event) {
 
         Room currRoom = gf.getCurrRoom();
-        System.out.println(currRoom);
         Puzzle puzzle = gf.getCurrRoom().getPuzzle("StorageRiddle");
         riddleText.setText(puzzle.getDescription());
+
+        if(puzzle.getIsCompleted()){
+            riddleText.setText("Riddle Completed");
+            UIDC.setUIText(currRoom.getName(), "riddleText", "Riddle Completed");
+            btnEnter.setDisable(true);
+            riddleAnswr.setDisable(true);
+            UIDC.setUIDisabled(currRoom.getName(), "btnEnter", true);
+            UIDC.setUIDisabled(currRoom.getName(), "riddleAnswr", true);
+            riddleAnswr.setVisible(true);
+            riddleText.setVisible(true);
+            riddleAnswr.setVisible(true);
+            return;
+        }
+
 
         riddleText.setVisible(true);
         riddleAnswr.setVisible(true);
@@ -121,8 +140,8 @@ public class StorageRoomController {
             gf.setCurrRoom(gf.getCurrRoom().getExitByNextRoomName("Hallway").getNextRoom());
             System.out.println(gf.getCurrRoom());
         } else {
-
+            exitMessage.setVisible(true);
+            UIDC.setUIVisible(gf.getCurrRoom().getName(), "exitMessage", true);
         }
     }
-
 }

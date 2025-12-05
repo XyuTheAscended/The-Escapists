@@ -8,27 +8,28 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane fx:id="mainAp" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.HallwayController">
+<AnchorPane fx:id="mainAp" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.HallwayController">
     <children>
         <!-- Background fills the AnchorPane -->
-        <ImageView fx:id="bgImage" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <ImageView fx:id="bgImage" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" preserveRatio="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <image>
-                <Image url="@../../hallway.png" />
+                <Image url="@../../hallway1.png" />
             </image>
         </ImageView>
 
         <!-- Overlay Pane: put interactive controls here so we can absolutely position them without AnchorPane interfering -->
         <Pane fx:id="overlayPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <Button fx:id="btnSurvRoom" mnemonicParsing="false" onAction="#btnSurvRoomClicked" opacity="0.0" />
-                <Button fx:id="btnStorCloset" mnemonicParsing="false" onAction="#btnStorClosetClicked" opacity="0.0" />
-                <Button fx:id="btnVent" mnemonicParsing="false" onAction="#btnVentClicked" opacity="0.0" />
-                <TextArea fx:id="txtAreaKeyCode" editable="false" layoutX="1056.0" layoutY="230.0" prefHeight="265.0" prefWidth="427.0" visible="false" wrapText="true" />
-                <TextField fx:id="keyPadAnswr" layoutX="1175.0" layoutY="424.0" visible="false" />
-                <Button fx:id="btnEnterStor" layoutX="1242.0" layoutY="460.0" mnemonicParsing="false" onAction="#btnEnterStorClicked" text="Enter" visible="false" />
-            <TextArea fx:id="txtAreaSurv" layoutX="123.0" layoutY="201.0" prefHeight="301.0" prefWidth="507.0" wrapText="true" />
-            <TextField fx:id="wireAnswr" layoutX="287.0" layoutY="437.0" />
-            <Button fx:id="btnEnterSurv" layoutX="354.0" layoutY="473.0" mnemonicParsing="false" onAction="#btnEnterSurvClicked" text="Enter" />
+                <TextArea fx:id="txtAreaKeyCode" editable="false" layoutX="1270.0" layoutY="292.0" prefHeight="265.0" prefWidth="427.0" visible="false" wrapText="true" />
+                <TextField fx:id="keyPadAnswr" layoutX="1389.0" layoutY="490.0" visible="false" />
+                <Button fx:id="btnEnterStor" layoutX="1456.0" layoutY="528.0" mnemonicParsing="false" onAction="#btnEnterStorClicked" text="Enter" visible="false" />
+            <TextArea fx:id="txtAreaSurv" editable="false" layoutX="123.0" layoutY="201.0" prefHeight="301.0" prefWidth="507.0" visible="false" wrapText="true" />
+            <TextField fx:id="wireAnswr" layoutX="287.0" layoutY="437.0" visible="false" />
+            <Button fx:id="btnEnterSurv" layoutX="354.0" layoutY="473.0" mnemonicParsing="false" onAction="#btnEnterSurvClicked" text="Enter" visible="false" />
+              <Button fx:id="btnSurvRoom" layoutX="157.0" layoutY="519.0" mnemonicParsing="false" onAction="#btnSurvRoomClicked" opacity="0.0" prefHeight="174.0" prefWidth="142.0" />
+              <Button fx:id="btnStorCloset" layoutX="1749.0" layoutY="508.0" mnemonicParsing="false" onAction="#btnStorClosetClicked" opacity="0.0" prefHeight="231.0" prefWidth="99.0" />
+              <Button fx:id="btnVent" layoutX="918.0" layoutY="549.0" mnemonicParsing="false" onAction="#btnVentClicked" opacity="0.0" prefHeight="134.0" prefWidth="42.0" />
+            <TextArea fx:id="txtVent" editable="false" layoutX="719.0" layoutY="299.0" prefHeight="174.0" prefWidth="440.0" wrapText="true" />
             </children>
         </Pane>
     </children>

@@ -59,12 +59,17 @@
       "puzzles": [
         {
           "name": "Cameras",
-          "answer": "3",
-          "description": "5 breakers. Flipping one might shut off the cameras."
+          "answer": "5",
+          "description": "6 breakers. Flipping one might shut off the cameras."
+        },
+        {
+          "name": "Drawer",
+          "answer": "Time",
+          "description": "What flies without wings?"
         }
       ],
       "exits": {
-        "Hallway": ["Cameras"]
+        "Hallway": ["Cameras", "Drawer"]
       }
     },
     "Vent": {
