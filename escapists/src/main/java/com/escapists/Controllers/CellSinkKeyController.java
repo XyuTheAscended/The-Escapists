@@ -11,6 +11,9 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * CLASS NOT USED ANYMORE
+ */
 public class CellSinkKeyController {
 
     GameFacade gf = GameFacade.getInstance();

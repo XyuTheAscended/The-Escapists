@@ -19,7 +19,10 @@ import javafx.scene.layout.Pane;
 
 import java.io.IOException;
 
-
+/**
+ * Controller for the hallway screen/room
+ * @author Mason, Jeffen
+ */
 public class HallwayController {
 
     @FXML
@@ -65,7 +68,9 @@ public class HallwayController {
     private TextArea txtVent;
 
 
-
+    /**
+     * Initialize method to initialize required things for the room
+     */
     @FXML
     public void initialize() {
         Coolui.layerPage(mainAp); // this function call adds the Hud
@@ -85,12 +90,12 @@ public class HallwayController {
         }
     }
 
-
+    /**
+     * Shows UI elements for the storage room riddle.
+     */
     @FXML
-    void btnStorClosetClicked(ActionEvent event) {
+    void btnStorClosetClicked() {
 
-        Room currRoom = gf.getCurrRoom();
-        Progress currSave = gf.getCurrUser().getCurrSave();
         Puzzle puzzle = gf.getCurrRoom().getPuzzle("KeyCode");
 
         if(puzzle.getIsCompleted()){
@@ -111,8 +116,11 @@ public class HallwayController {
         btnEnterStor.setVisible(true);
     }
 
+    /**
+     * Shows UI elements for surveillance room riddle
+     */
     @FXML
-    void btnSurvRoomClicked(ActionEvent event) {
+    void btnSurvRoomClicked() {
 
         Room currRoom = gf.getCurrRoom();
         Puzzle puzzle = gf.getCurrRoom().getPuzzle("SecurityWires");
@@ -127,24 +135,20 @@ public class HallwayController {
             return;
         }
 
-
         txtAreaSurv.setText(puzzle.getDescription());
         // show UI
         wireAnswr.setVisible(true);
         txtAreaSurv.setVisible(true);
         btnEnterSurv.setVisible(true);
 
-
-
-        // persist UI visibility
     }
 
+    /**
+     * If the player has completed the room and has the necessary items, they proceed to the vent to escape
+     */
     @FXML
-    void btnVentClicked(ActionEvent event) throws IOException {
+    void btnVentClicked() throws IOException {
 
-        Room currRoom = gf.getCurrRoom();
-        Progress currSave = gf.getCurrUser().getCurrSave();
-        Puzzle puzzle = gf.getCurrRoom().getPuzzle("Vent");
         Inventory inven = gf.getInventory();
         txtVent.setVisible(true);
         clicked = true;
@@ -165,8 +169,11 @@ public class HallwayController {
         }
     }
 
+    /**
+     * Enters the storage room if player gets the riddle correct
+     */
     @FXML
-    void btnEnterStorClicked(ActionEvent event) throws IOException {
+    void btnEnterStorClicked() throws IOException {
         Room currRoom = gf.getCurrRoom(); // WARNING: If a user is logged in who has a save thats current room is not the cell, there will be errors cause the wrong puzzles are assumed
         Progress currSave = gf.getCurrUser().getCurrSave();
 
@@ -183,8 +190,11 @@ public class HallwayController {
         }
     }
 
+    /**
+     * Enters the surveillance room if player gets the riddle correct
+     */
     @FXML
-    void btnEnterSurvClicked(ActionEvent event) throws IOException {
+    void btnEnterSurvClicked() throws IOException {
         Room currRoom = gf.getCurrRoom();
         Progress currSave = gf.getCurrUser().getCurrSave();
 

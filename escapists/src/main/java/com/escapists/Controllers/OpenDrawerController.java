@@ -2,7 +2,6 @@ package com.escapists.Controllers;
 
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
-import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.UiHelp.Coolui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,10 +10,15 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * Controller for the open drawer screen
+ * @author Mason, Jeffen
+ */
 public class OpenDrawerController {
 
-    GameFacade gf = GameFacade.getInstance();
-
+    /**
+     * Initialize method to initialize required things for the room
+     */
     @FXML
     public void initialize() {
         Coolui.layerPage(mainAp); // this function call adds the Hud
@@ -31,12 +35,15 @@ public class OpenDrawerController {
     @FXML
     AnchorPane mainAp;
 
-
+    /**
+     * Takes the user to the previous page, the surveillance room
+     */
     @FXML
-    void btnBackClicked(ActionEvent event) throws IOException {
+    void btnBackClicked() throws IOException {
         App.safeSetGameplayRoot("surveillanceRoom");
     }
 
+    // UNUSED METHOD
     @FXML
     void btnKeycardClicked(ActionEvent event) {
         // Item keycard = Item.loadItem("KeyCard");

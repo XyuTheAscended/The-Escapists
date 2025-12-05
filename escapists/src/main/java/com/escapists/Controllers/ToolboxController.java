@@ -2,7 +2,6 @@ package com.escapists.Controllers;
 
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
-import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.UiHelp.Coolui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,10 +10,15 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * Controller for the tool box screen
+ * @author Mason, Jeffen
+ */
 public class ToolboxController {
 
-    GameFacade gf = GameFacade.getInstance();
-
+    /**
+     *Initialize method to initialize required things for the room
+     */
     @FXML
     public void initialize() {
         Coolui.layerPage(mainAp); // this function call adds the Hud
@@ -30,11 +34,15 @@ public class ToolboxController {
     @FXML
     private Button btnTools;
 
+    /**
+     * Takes the user back to the storage room
+     */
     @FXML
-    void btnBackClicked(ActionEvent event) throws IOException {
+    void btnBackClicked() throws IOException {
         App.safeSetGameplayRoot("storageRoom");
     }
 
+    // UNUSED METHOD
     @FXML
     void btnToolsClicked(ActionEvent event) {
     //     Item screwdriver = Item.loadItem("Screwdriver");

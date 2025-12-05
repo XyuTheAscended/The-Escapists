@@ -15,11 +15,18 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * Controller for the storage room screen
+ * @author Mason
+ */
 public class StorageRoomController {
 
 
     GameFacade gf = GameFacade.getInstance();
 
+    /**
+     *Initialize method to initialize required things for the room
+     */
     @FXML
     public void initialize() {
         if (gf.getCurrUser() == null) {
@@ -63,8 +70,11 @@ public class StorageRoomController {
     @FXML
     private Button btnExit;
 
+    /**
+     * Checks answer for riddle when clicked. Sets the screen to the toolbox if correct
+     */
     @FXML
-    void btnEnterClicked(ActionEvent event) throws IOException {
+    void btnEnterClicked() throws IOException {
 
         Room currRoom = gf.getCurrRoom();
         Progress currSave = gf.getCurrUser().getCurrSave();
@@ -83,6 +93,9 @@ public class StorageRoomController {
         }
     }
 
+    /**
+     * Shows UI elements for the toolbox riddle
+     */
     @FXML
     void btnToolBoxClicked(ActionEvent event) {
 
@@ -106,8 +119,11 @@ public class StorageRoomController {
         btnEnter.setVisible(true);
     }
 
+    /**
+     * Handles exit logic for storage room. Player can only exit of the have the screwdriver item
+     */
     @FXML
-    void btnExitClicked(ActionEvent event) throws IOException {
+    void btnExitClicked() throws IOException {
 
         if(gf.getInventory().hasItem("Screwdriver")) {
             App.safeSetGameplayRoot("hallway");

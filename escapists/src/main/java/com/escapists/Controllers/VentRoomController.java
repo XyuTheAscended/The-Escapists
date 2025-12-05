@@ -7,11 +7,17 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 
+/**
+ * Controller for the vent room (inside the vent)
+ * @author Mason
+ */
 public class VentRoomController {
-
 
     GameFacade gf = GameFacade.getInstance();
 
+    /**
+     *Initialize method to initialize required things for the room
+     */
     @FXML
     public void initialize() {
         Coolui.layerPage(mainAp); // this function call adds the Hud
@@ -24,12 +30,14 @@ public class VentRoomController {
     @FXML
     public AnchorPane mainAp;
 
+    /**
+     * Saves and ends the game. Player has escaped
+     */
     @FXML
-    void btnOutClicked(ActionEvent event) {
+    void btnOutClicked() {
 
         gf.getCurrUser().getCurrSave().setCurrentRoomName("OUTSIDE");
-        // commented this out so saves aren't created during testing
-        //gf.save();
+        gf.save();
         gf.endGame();
 
     }

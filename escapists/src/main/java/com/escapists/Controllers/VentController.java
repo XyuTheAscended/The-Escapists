@@ -12,16 +12,22 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
+/**
+ * Controller for the vent close up screen]
+ * @author Mason, Jeffen
+ */
 public class VentController {
 
     GameFacade gf = GameFacade.getInstance();
 
+    /**
+     *Initialize method to initialize required things for the room
+     */
     @FXML
     public void initialize() {
         Coolui.layerPage(mainAp); // this function call adds the Hud
 
     }
-
 
     @FXML
     public AnchorPane mainAp;
@@ -32,11 +38,17 @@ public class VentController {
     @FXML
     private Button btnVent;
 
+    /**
+     * Takes the user back to the hallway screen
+     */
     @FXML
-    void btnBackClicked(ActionEvent event) throws IOException {
+    void btnBackClicked() throws IOException {
         App.safeSetGameplayRoot("hallway");
     }
 
+    /**
+     * Handles exit logic for the hallway room. Removes keycard and screwdriver from inventory since they use them to get past the vent. Switches to vent room
+     */
     @FXML
     void btnVentClicked(ActionEvent event) throws IOException {
 

@@ -28,7 +28,7 @@ public class SaveGameController {
         loadVisuals();
     }
 
-    /** Load saved slot previews */
+    /** Loads all six save slot previews */
     private void loadVisuals() {
         User user = gf.getCurrUser();
 
@@ -40,46 +40,58 @@ public class SaveGameController {
         updateSlot(user, 6, imgSlot6, lblSlot6);
     }
 
+    /** Update each slot’s thumbnail + timestamp */
     private void updateSlot(User user, int slot, Rectangle img, Label lbl) {
         if (user.slotExists(slot)) {
             Progress p = user.loadFromSlot(slot);
+
             lbl.setText("Saved: " + (p.getSaveTimestamp() == null ? "Unknown" : p.getSaveTimestamp()));
-            if (p.getBackgroundImage() != null) {
-                img.setStyle("-fx-fill: url('" + p.getBackgroundImage() + "'); -fx-background-size: cover;");
-            }
+
+            // Always use prison2.png as thumbnail
+            img.setStyle("-fx-fill: url('/escapists/images/prison2.png'); -fx-background-size: cover;");
+        } else {
+            lbl.setText("Empty Slot");
+            img.setStyle("-fx-fill: black;");
         }
     }
 
-    /** Handles clicking any save slot */
+    /** Handles saving into a slot when clicked */
     @FXML
     private void handleSlotClick(javafx.scene.input.MouseEvent e) {
 
         int slot = Integer.parseInt(((VBox)e.getSource()).getId().substring(4)); // slot1 → 1
 
-        Progress progress = gf.getCurrUser().getCurrSave();
         User user = gf.getCurrUser();
+        Progress progress = user.getCurrSave();
 
-        // store details
+        // Timestamp
         progress.setSaveTimestamp(LocalDateTime.now().format(fmt));
+
+        // Slot number
         progress.setSaveSlot(slot);
 
-        // background image is stored by room name → perfect!
-        progress.setBackgroundImage(progress.getCurrentRoomName() + ".png");
+        // Save the room the player is currently in
+        if (gf.getCurrRoom() != null) {
+            progress.setCurrentRoom(gf.getCurrRoom());
+        }
 
-        // backend save
+        // Thumbnail image for UI (always prison2.png)
+        progress.setBackgroundImage("prison2.png");
+
+        // Save to user JSON
         user.saveToSlot(slot, progress);
         gf.save();
 
         System.out.println("Saved to slot: " + slot);
 
-        // refresh labels + images
+        // Refresh screen
         loadVisuals();
     }
 
     @FXML
     private void backButtonClicked() {
         try {
-            App.setRootToPrev(); // Go back into the game pause context
+            App.setRootToPrev();
         } catch (Exception e) {
             e.printStackTrace();
         }
