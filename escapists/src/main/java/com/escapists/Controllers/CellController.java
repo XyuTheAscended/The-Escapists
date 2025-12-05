@@ -122,7 +122,7 @@ public class CellController {
 
     @FXML
     void btnSinkClicked(ActionEvent event) throws IOException {
-        App.setRoot("sink");
+        App.safeSetGameplayRoot("sink");
     }
 
     @FXML
@@ -134,6 +134,6 @@ public class CellController {
 
     @FXML
     void btnTurnClicked(ActionEvent event) throws IOException {
-        App.setRoot("cellDoor");
+        App.safeSetGameplayRoot("cellDoor");
     }
 }

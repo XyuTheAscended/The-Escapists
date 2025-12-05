@@ -32,7 +32,7 @@ public class ToolboxController {
 
     @FXML
     void btnBackClicked(ActionEvent event) throws IOException {
-        App.setRoot("storageRoom");
+        App.safeSetGameplayRoot("storageRoom");
     }
 
     @FXML

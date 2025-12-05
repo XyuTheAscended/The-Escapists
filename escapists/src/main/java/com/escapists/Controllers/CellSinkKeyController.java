@@ -31,7 +31,7 @@ public class CellSinkKeyController {
 
     @FXML
     void btnBackClicked(ActionEvent event) throws IOException {
-        App.setRoot("sink");
+        // App.setRoot("sink");
     }
 
     @FXML

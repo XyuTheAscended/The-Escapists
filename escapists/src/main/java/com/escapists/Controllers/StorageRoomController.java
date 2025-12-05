@@ -77,7 +77,7 @@ public class StorageRoomController {
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("StorageRiddle"), true);
             btnEnter.setDisable(true);
             System.out.println(currRoom);
-            App.setRoot("toolbox");
+            App.safeSetGameplayRoot("toolbox");
         } else {
             riddleAnswr.setText("Wrong! Try again");
         }
@@ -110,7 +110,7 @@ public class StorageRoomController {
     void btnExitClicked(ActionEvent event) throws IOException {
 
         if(gf.getInventory().hasItem("Screwdriver")) {
-            App.setRoot("hallway");
+            App.safeSetGameplayRoot("hallway");
             gf.getCurrUser().getCurrSave().markRoomCompleted(gf.getCurrRoom());
             gf.setCurrRoom(gf.getCurrRoom().getExitByNextRoomName("Hallway").getNextRoom());
             System.out.println(gf.getCurrRoom());

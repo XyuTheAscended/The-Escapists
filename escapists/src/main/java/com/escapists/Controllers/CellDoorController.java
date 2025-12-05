@@ -63,12 +63,12 @@ public class CellDoorController {
         }
 
         if(currSave.allPuzzlesCompleted(gf.getCurrRoom())) {
-            App.setRoot("openCellDoor");
+            App.safeSetGameplayRoot("openCellDoor");
         }
     }
 
     @FXML
     void btnTurnClicked(ActionEvent event) throws IOException {
-        App.setRoot("cell");
+        App.safeSetGameplayRoot("cell");
     }
 }

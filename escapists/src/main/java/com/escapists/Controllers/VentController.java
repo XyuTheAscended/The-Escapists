@@ -34,7 +34,7 @@ public class VentController {
 
     @FXML
     void btnBackClicked(ActionEvent event) throws IOException {
-        App.setRoot("hallway");
+        App.safeSetGameplayRoot("hallway");
     }
 
     @FXML
@@ -47,7 +47,7 @@ public class VentController {
         gf.getInventory().removeItem(inven.getItem("KeyCard"));
         gf.getCurrUser().getCurrSave().setPuzzleCompleted(currRoom, currRoom.getPuzzle("Vent"), true);
         System.out.println(currRoom);
-        App.setRoot("ventRoom");
+        App.safeSetGameplayRoot("ventRoom");
         gf.getCurrUser().getCurrSave().markRoomCompleted(gf.getCurrRoom());
         gf.setCurrRoom(gf.getCurrRoom().getExitByNextRoomName("Vent").getNextRoom());
         System.out.println(gf.getCurrRoom());

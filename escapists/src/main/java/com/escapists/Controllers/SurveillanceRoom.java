@@ -124,7 +124,7 @@ public class SurveillanceRoom {
     void btnExitClicked(ActionEvent event) throws IOException {
 
         if(gf.getInventory().hasItem("KeyCard") && gf.getCurrUser().getCurrSave().allPuzzlesCompleted(gf.getCurrRoom())) {
-            App.setRoot("hallway");
+            App.safeSetGameplayRoot("hallway");
             gf.getCurrUser().getCurrSave().markRoomCompleted(gf.getCurrRoom());
             gf.setCurrRoom(gf.getCurrRoom().getExitByNextRoomName("Hallway").getNextRoom());
             System.out.println(gf.getCurrRoom());
@@ -167,7 +167,7 @@ public class SurveillanceRoom {
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("Drawer"), true);
             btnEnterDrawer.setDisable(true);
             System.out.println(currRoom);
-            App.setRoot("openDrawer");
+            App.safeSetGameplayRoot("openDrawer");
         } else {
             riddleAnswrDrawer.setText("Wrong! Try again");
         }

@@ -39,7 +39,7 @@ public class CutsceneController {
     }
 
     public void btnContinueClicked(ActionEvent actionEvent) throws IOException {
-        App.setRoot("cell");
+        App.safeSetGameplayRoot("cell");
         onSceneExit();
     }
 

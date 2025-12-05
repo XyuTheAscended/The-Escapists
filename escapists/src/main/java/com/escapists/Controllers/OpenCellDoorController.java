@@ -27,7 +27,7 @@ public class OpenCellDoorController {
 
     @FXML
     void btnExitClicked(ActionEvent event) throws IOException {
-        App.setRoot("hallway");
+        App.safeSetGameplayRoot("hallway");
         gf.getCurrUser().getCurrSave().markRoomCompleted(gf.getCurrRoom());
         gf.setCurrRoom(gf.getCurrRoom().getExitByNextRoomName("Hallway").getNextRoom());
         System.out.println(gf.getCurrRoom());

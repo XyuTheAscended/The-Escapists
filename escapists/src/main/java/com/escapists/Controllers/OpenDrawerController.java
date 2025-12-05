@@ -34,7 +34,7 @@ public class OpenDrawerController {
 
     @FXML
     void btnBackClicked(ActionEvent event) throws IOException {
-        App.setRoot("surveillanceRoom");
+        App.safeSetGameplayRoot("surveillanceRoom");
     }
 
     @FXML

@@ -160,7 +160,7 @@ public class HallwayController {
             txtVent.setText("Hmmmm, I need something to pop the vent open.");
         }
         else {
-            App.setRoot("vent");
+            App.safeSetGameplayRoot("vent");
             txtVent.setVisible(false);
         }
     }
@@ -177,7 +177,7 @@ public class HallwayController {
             txtAreaKeyCode.setText("Riddle Completed");
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("KeyCode"), true);
             btnEnterStor.setDisable(true);
-            App.setRoot("storageRoom");
+            App.safeSetGameplayRoot("storageRoom");
         } else {
             keyPadAnswr.setText("Wrong! Try again");
         }
@@ -196,7 +196,7 @@ public class HallwayController {
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("SecurityWires"), true);
             btnEnterSurv.setDisable(true);
             System.out.println(currRoom);
-            App.setRoot("surveillanceRoom");
+            App.safeSetGameplayRoot("surveillanceRoom");
         } else {
             wireAnswr.setText("Wrong! Try again");
         }
