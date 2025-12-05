@@ -31,7 +31,7 @@ public class CellSinkController {
         Coolui.layerPage(mainAp); // this function call adds the Hud
         btnKey.setVisible(false);
 
-        Coolui.setupItemPickup(btnKey);
+        Coolui.setupItemPickup(btnKey, "Key");
 
         if (keyTaken) {
             String openSinkImgLink = getClass().getResource("/lootedSink.png").toExternalForm();

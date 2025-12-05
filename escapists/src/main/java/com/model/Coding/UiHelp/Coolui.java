@@ -1,6 +1,8 @@
 package com.model.Coding.UiHelp;
 
 import java.io.IOException;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
@@ -115,16 +117,64 @@ public class Coolui {
     return centerWrapper;
   }
 
+  private static ArrayDeque<StackPane> emptyInvSlots = new ArrayDeque<>();
+  private static ArrayList<StackPane> filledInvSlots = new ArrayList<>();
+
   // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
   private static StackPane makeInvSlot(double size) {
     StackPane iconHolder = new StackPane();
     iconHolder.getStyleClass().add("item-slot");
     ImageView imgView = new ImageView();
     setRegionAbsSize(iconHolder, size, size);
+    imgView.setPreserveRatio(true);
+    imgView.setSmooth(true);
+    imgView.fitWidthProperty().bind(iconHolder.widthProperty());
+    imgView.fitHeightProperty().bind(iconHolder.heightProperty());
     iconHolder.getChildren().add(imgView);
 
     return iconHolder;
   }
+
+  private static void fillInvSlot(Item item) {
+    if (emptyInvSlots.size() <= 0)
+      throw new Error(item.getName() + " can't be put in inv slot cause no more inventory slots available!!!");
+
+
+    StackPane invSlot = emptyInvSlots.removeLast();
+
+    // fill code
+    invSlot.getProperties().put("ItemName", item.getName());
+    ImageView imgView = (ImageView) invSlot.lookup("ImageView");
+    imgView.setImage(new Image(item.getIconUrl()));
+
+    // list updates
+    filledInvSlots.add(invSlot);
+  }
+
+  private static void removeInvSlot(Item item) {
+    for (StackPane slot : filledInvSlots) {
+      String slotItemName = (String) slot.getProperties().get("ItemName");
+      if (!item.getName().equalsIgnoreCase(slotItemName)) continue; 
+
+      // slot clearance code
+      slot.getProperties().put("ItemName", null);
+      ImageView imgView = (ImageView) slot.lookup("ImageView");
+      imgView.setImage(null);
+
+      // list updates
+      filledInvSlots.remove(slot);
+      emptyInvSlots.addLast(slot); // adding last instead of adding first makes the emptyInvSlots work more like a stack than a queue since we also remove last
+
+      return;
+    }
+
+    // code here only ever executes if we never find a slot to remove
+    throw new Error("Invenotry never had a " + item.getName());
+
+
+  }
+
+  
 
   private static int MAX_ITEMS = 5;
   // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
@@ -139,7 +189,18 @@ public class Coolui {
     for (int i = 0; i < MAX_ITEMS; ++i) {
       StackPane slot = makeInvSlot(heightSize*0.9);
       invFrame.getChildren().add(slot);
+      emptyInvSlots.add(slot);
     }
+
+    // getting inventory like this does assume that inventory and user 
+    // and the game save has been initiated before the hud stuff is initiatied. maybe add checks later on to make sure this is the case
+    GameFacade.getInstance().getInventory().setItemAddedCallback((item) -> { 
+      Platform.runLater(() -> fillInvSlot(item));
+    });
+
+    GameFacade.getInstance().getInventory().setItemRemovedCallback((item) -> { 
+      Platform.runLater(() -> removeInvSlot(item));
+    });
     
     return invFrame; 
   }
@@ -191,10 +252,7 @@ public class Coolui {
         public void changed(ObservableValue<? extends Scene> obs, Scene oldScene, Scene newScene) {
             if (newScene != null) {
               if (root.lookup("#hudLayer") == null) {
-                System.out.println("THis ran Babeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-                for (Node child : root.getChildren()) {
-                  System.out.println(child.getId());
-                }
+
                 // run later to avoid reentrant modifications while the scene is still being attached
                 Platform.runLater(() -> {
                   // This is hud initialization code
@@ -244,23 +302,24 @@ public class Coolui {
         
   }
 
+  // this can be used for item buttons that have their icon images inside of them
+  public static void setupItemPickup(Button imageButton, String itemName) {
+      setupItemPickup(imageButton, itemName, null);
+  }
 
-  public static void setupItemPickup(Button imageButton) {
-    String itemName = imageButton.getId();
-    
-    if (itemName == null || Item.searchForItem(itemName) == null) {
-      throw new Error("Item image button sucks: its id is invalid or doesn't exist. Set its css id to the item name it represents.");
-    }
 
-    imageButton.setOnAction(e -> {
-      Item key = Item.loadItem(itemName);
+  public static void setupItemPickup(Button itemButton, String itemName, String resourceUrl) {
+    itemButton.setOnAction(e -> {
+      ImageView iv = (ImageView) itemButton.getGraphic();
+      String itemImgUrl = (iv != null) ? iv.getImage().getUrl() : resourceUrl;
+
+      Item key = Item.loadItem(itemName, itemImgUrl);
       GameFacade.getInstance().getInventory().addItem(key);
-      imageButton.setVisible(false);
+      itemButton.setVisible(false);
 
-      ImageView iv = (ImageView) imageButton.getGraphic();
-      Image itemImg = (iv != null) ? iv.getImage() : null;
+      System.out.println("HEYYYYYYYYYYYYYY LISTENNNNNNNNNNNNNNNNNNNNNNNNN: " + itemImgUrl);
 
-      imageButton.setOnAction(null); // make it only run once ever
+      itemButton.setOnAction(null); // make it only run once ever
     });
   }
 }

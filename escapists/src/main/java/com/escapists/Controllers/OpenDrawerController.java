@@ -18,6 +18,7 @@ public class OpenDrawerController {
     @FXML
     public void initialize() {
         Coolui.layerPage(mainAp); // this function call adds the Hud
+        Coolui.setupItemPickup(btnKeycard, "KeyCard");
     }
 
 
@@ -38,10 +39,10 @@ public class OpenDrawerController {
 
     @FXML
     void btnKeycardClicked(ActionEvent event) {
-        Item keycard = Item.loadItem("KeyCard");
-        gf.getInventory().addItem(keycard);
-        btnKeycard.setDisable(true);
-        // temp
-        System.out.println(gf.getInventory().displayInventory());
+        // Item keycard = Item.loadItem("KeyCard");
+        // gf.getInventory().addItem(keycard);
+        // btnKeycard.setDisable(true);
+        // // temp
+        // System.out.println(gf.getInventory().displayInventory());
     }
 }

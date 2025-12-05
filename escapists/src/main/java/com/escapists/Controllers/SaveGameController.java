@@ -79,7 +79,7 @@ public class SaveGameController {
     @FXML
     private void backButtonClicked() {
         try {
-            App.safeSetRoot("cell"); // Go back into the game pause context
+            App.setRootToPrev(); // Go back into the game pause context
         } catch (Exception e) {
             e.printStackTrace();
         }
