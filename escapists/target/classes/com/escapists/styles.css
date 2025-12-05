@@ -155,3 +155,118 @@ Text {
     -fx-background-color: rgba(43, 43, 43, 0.835);
     -fx-border-radius: 20;
 }
+/* ====== Leaderboard specific additions ====== */
+
+/* Page root — gives a subtle gradient + padding */
+#leaderboardRoot {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #24201F 0%, #141312 60%);
+    -fx-padding: 48;
+}
+
+/* Centering VBox children (your FXML already sets alignment/spacing) */
+#leaderboardRoot .vbox {
+    -fx-alignment: center;
+    -fx-spacing: 30;
+}
+
+/* Tweak the big title (overrides earlier declaration where helpful) */
+.title-heading {
+    -fx-font-size: 56px;          /* slightly smaller fallback to fit smaller windows */
+    -fx-font-weight: 800;
+    -fx-text-fill: linear-gradient(from 0% 0% to 0% 100%, #ffffff 0%, #d8e6ff 100%);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.65), 12, 0.2, 0, 4);
+    -fx-padding: 6 12 6 12;
+    -fx-letter-spacing: 1.2;
+}
+
+/* ChoiceBox: use label-heading base but make it look like a field */
+.label-heading {
+    -fx-font-size: 14px;
+    -fx-text-fill: #E6E8EA;
+    -fx-background-color: rgba(255,255,255,0.03);
+    -fx-background-insets: 0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 12 8 12;
+    -fx-border-color: rgba(255,255,255,0.04);
+}
+
+/* Additional targeting for ChoiceBox popup list */
+.choice-box .list-view {
+    -fx-background-color: rgba(20,20,20,0.94);
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-padding: 6;
+}
+
+/* Primary ListView container */
+#lvScores, .list-view {
+    -fx-pref-width: 420;
+    -fx-pref-height: 400;
+    -fx-background-color: rgba(255,255,255,0.02);
+    -fx-background-insets: 0;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-padding: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 18, 0.15, 0, 6);
+    -fx-border-color: rgba(255,255,255,0.03);
+}
+
+/* Individual cells: card-like rows with subtle separation */
+.list-view .list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 10 14;
+    -fx-font-size: 16px;
+    -fx-text-fill: #E6E8EA;
+    -fx-border-color: transparent;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+
+/* Hover & selection */
+.list-view .list-cell:hover {
+    -fx-background-color: rgba(255,255,255,0.03);
+}
+.list-view .list-cell:selected, .list-view .list-cell:focused {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+    -fx-text-fill: #ffffff;
+}
+
+/* Scrollbar: subtle thumb */
+.list-view .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-background-insets: 2;
+    -fx-background-radius: 8;
+}
+.list-view .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+/* Back button: muted secondary style that fits theme */
+#btnBack {
+    -fx-pref-width: 150;
+    -fx-background-radius: 8;
+    -fx-padding: 8 14;
+    -fx-font-weight: 700;
+    -fx-font-size: 14px;
+    -fx-background-color: linear-gradient(to bottom, #9AA9B8 0%, #6F7F8F 100%);
+    -fx-text-fill: #07121A;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 8, 0.12, 0, 3);
+    -fx-cursor: hand;
+}
+
+/* Back button hover/pressed */
+#btnBack:hover {
+    -fx-background-color: linear-gradient(to bottom, #B5C0C9 0%, #8897A4 100%);
+    -fx-translate-y: -1;
+}
+#btnBack:pressed {
+    -fx-translate-y: 1;
+    -fx-effect: none;
+}
+
+/* Small responsive tweak for narrow windows */
+@media screen and (max-width: 900px) {
+    #lvScores, .list-view { -fx-pref-width: 320; }
+    .title-heading { -fx-font-size: 40px; }
+}
