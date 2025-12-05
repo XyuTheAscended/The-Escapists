@@ -45,6 +45,7 @@ public class CellDoorController {
         Room currRoom = gf.getCurrRoom();
         Progress currSave = gf.getCurrUser().getCurrSave();
 
+
         Item key = gf.getInventory().getItem("key");
         if(gf.getInventory().hasItem("Key")) {
             gf.getInventory().removeItem(key);
