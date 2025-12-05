@@ -3,7 +3,6 @@ package com.escapists.Controllers;
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.InteractItems.Item;
-import com.model.Coding.Progress.UIDataCache;
 import com.model.Coding.UiHelp.Coolui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,11 +14,9 @@ import java.io.IOException;
 public class ToolboxController {
 
     GameFacade gf = GameFacade.getInstance();
-    UIDataCache UIDC = UIDataCache.getInstance();
 
     @FXML
     public void initialize() {
-        btnTools.setDisable(UIDC.isUIDisabled(gf.getCurrRoom().getName(), "btnTools"));
         Coolui.layerPage(mainAp); // this function call adds the Hud
     }
 
@@ -42,7 +39,6 @@ public class ToolboxController {
         Item screwdriver = Item.loadItem("Screwdriver");
         gf.getInventory().addItem(screwdriver);
         btnTools.setDisable(true);
-        UIDC.setUIDisabled(gf.getCurrRoom().getName(), "btnTools", true);
         // temp
         System.out.println(gf.getInventory().displayInventory());
     }

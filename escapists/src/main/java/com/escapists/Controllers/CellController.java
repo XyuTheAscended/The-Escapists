@@ -55,16 +55,6 @@ public class CellController {
         // Ensure save knows about all puzzles in this room (idempotent)
         currSave.initializeRoomPuzzles(currRoom);
 
-        // Restore UI state from the save (visibility + saved text)
-        noteRiddleAnswrBox.setVisible(UIDC.isUIVisible(currRoom.getName(), "noteRiddleAnswrBox"));
-        noteRiddleText.setVisible(UIDC.isUIVisible(currRoom.getName(), "noteRiddleText"));
-        btnEnter.setVisible(UIDC.isUIVisible(currRoom.getName(), "btnEnter"));
-
-        noteRiddleAnswrBox.setText(UIDC.getUIText(currRoom.getName(), "noteRiddleAnswrBox"));
-        noteRiddleText.setText(UIDC.getUIText(currRoom.getName(), "noteRiddleText"));
-
-        btnEnter.setDisable(UIDC.isUIDisabled(currRoom.getName(), "btnEnter"));
-
         if (cellMateDialog != null) {
             Button closeBtn = (Button) cellMateDialog.lookupButton(ButtonType.CLOSE);
             if (closeBtn != null) {
@@ -111,14 +101,6 @@ public class CellController {
         // display riddle text from the model
         noteRiddleText.setText(currRoom.getPuzzle("Note").getDescription());
 
-        // persist UI visibility
-        UIDC.setUIVisible(currRoom.getName(), "noteRiddleAnswrBox", true);
-        UIDC.setUIVisible(currRoom.getName(), "noteRiddleText", true);
-        UIDC.setUIVisible(currRoom.getName(), "btnEnter", true);
-
-        UIDC.setUIText(currRoom.getName(), "noteRiddleText", noteRiddleText.getText());
-        UIDC.setUIText(currRoom.getName(), "noteRiddleAnswrBox", noteRiddleAnswrBox.getText());
-
     }
 
     @FXML
@@ -131,14 +113,10 @@ public class CellController {
         if (solved) {
             noteRiddleAnswrBox.setText("Riddle Completed");
             noteRiddleText.setText("2436");
-            UIDC.setUIText(currRoom.getName(), "noteRiddleText", "2436");
-            UIDC.setUIText(currRoom.getName(), "noteRiddleAnswrBox", "Riddle Completed");
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("Note"), true);
             btnEnter.setDisable(true);
-            UIDC.setUIDisabled(currRoom.getName(), "btnEnter", true);
         } else {
             noteRiddleAnswrBox.setText("Wrong! Try again");
-            UIDC.setUIText(currRoom.getName(), "noteRiddleAnswrBox", "Wrong! Try again");
         }
     }
 

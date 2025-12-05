@@ -2,11 +2,9 @@ package com.escapists.Controllers;
 
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
-import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
-import com.model.Coding.Progress.UIDataCache;
 import com.model.Coding.UiHelp.Coolui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,8 +19,6 @@ public class StorageRoomController {
 
 
     GameFacade gf = GameFacade.getInstance();
-    UIDataCache UIDC = UIDataCache.getInstance();
-
 
     @FXML
     public void initialize() {
@@ -40,17 +36,6 @@ public class StorageRoomController {
 
         // Ensure save knows about all puzzles in this room (idempotent)
         currSave.initializeRoomPuzzles(currRoom);
-
-        riddleAnswr.setVisible(UIDC.isUIVisible(currRoom.getName(), "riddleAnswr"));
-        riddleText.setVisible(UIDC.isUIVisible(currRoom.getName(), "riddleText"));
-        btnEnter.setVisible(UIDC.isUIVisible(currRoom.getName(), "btnEnter"));
-        exitMessage.setVisible(UIDC.isUIVisible(currRoom.getName(), "exitMessage"));
-
-        riddleAnswr.setText(UIDC.getUIText(currRoom.getName(), "riddleAnswr"));
-        riddleText.setText(UIDC.getUIText(currRoom.getName(), "riddleText"));
-
-        btnEnter.setDisable(UIDC.isUIDisabled(currRoom.getName(), "btnEnter"));
-
     }
 
     @FXML
@@ -85,15 +70,12 @@ public class StorageRoomController {
         if (solved) {
 
             riddleAnswr.setText("Riddle Completed");
-            UIDC.setUIText(currRoom.getName(), "riddleText", "Riddle Completed");
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("StorageRiddle"), true);
             btnEnter.setDisable(true);
-            UIDC.setUIDisabled(currRoom.getName(), "btnEnter", true);
             System.out.println(currRoom);
             App.setRoot("toolbox");
         } else {
             riddleAnswr.setText("Wrong! Try again");
-            UIDC.setUIText(currRoom.getName(), "riddleAnswr", "Wrong! Try again");
         }
     }
 
@@ -106,11 +88,8 @@ public class StorageRoomController {
 
         if(puzzle.getIsCompleted()){
             riddleText.setText("Riddle Completed");
-            UIDC.setUIText(currRoom.getName(), "riddleText", "Riddle Completed");
             btnEnter.setDisable(true);
             riddleAnswr.setDisable(true);
-            UIDC.setUIDisabled(currRoom.getName(), "btnEnter", true);
-            UIDC.setUIDisabled(currRoom.getName(), "riddleAnswr", true);
             riddleAnswr.setVisible(true);
             riddleText.setVisible(true);
             riddleAnswr.setVisible(true);
@@ -121,14 +100,6 @@ public class StorageRoomController {
         riddleText.setVisible(true);
         riddleAnswr.setVisible(true);
         btnEnter.setVisible(true);
-
-        // persist UI visibility
-        UIDC.setUIVisible(currRoom.getName(), "riddleAnswr", true);
-        UIDC.setUIVisible(currRoom.getName(), "riddleText", true);
-        UIDC.setUIVisible(currRoom.getName(), "btnEnter", true);
-
-        UIDC.setUIText(currRoom.getName(), "riddleText", riddleText.getText());
-        UIDC.setUIText(currRoom.getName(), "riddleAnswr", riddleAnswr.getText());
     }
 
     @FXML
@@ -141,7 +112,6 @@ public class StorageRoomController {
             System.out.println(gf.getCurrRoom());
         } else {
             exitMessage.setVisible(true);
-            UIDC.setUIVisible(gf.getCurrRoom().getName(), "exitMessage", true);
         }
     }
 }

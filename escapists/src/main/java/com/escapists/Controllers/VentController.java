@@ -4,7 +4,6 @@ import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.Map.Room;
-import com.model.Coding.Progress.UIDataCache;
 import com.model.Coding.UiHelp.Coolui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,7 +15,6 @@ import java.io.IOException;
 public class VentController {
 
     GameFacade gf = GameFacade.getInstance();
-    UIDataCache UIDC = UIDataCache.getInstance();
 
     @FXML
     public void initialize() {

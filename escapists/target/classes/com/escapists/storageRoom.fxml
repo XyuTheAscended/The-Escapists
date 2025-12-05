@@ -15,9 +15,9 @@
          </image>
       </ImageView>
       <Button fx:id="btnToolbox" layoutX="551.0" layoutY="550.0" mnemonicParsing="false" onAction="#btnToolBoxClicked" opacity="0.0" prefHeight="68.0" prefWidth="166.0" />
-      <TextArea fx:id="riddleText" editable="false" layoutX="337.0" layoutY="336.0" prefHeight="188.0" prefWidth="329.0" wrapText="true" />
-      <TextField fx:id="riddleAnswr" layoutX="407.0" layoutY="457.0" />
-      <Button fx:id="btnEnter" layoutX="469.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnEnterClicked" text="Enter" />
+      <TextArea fx:id="riddleText" visible="false" editable="false" layoutX="337.0" layoutY="336.0" prefHeight="188.0" prefWidth="329.0" wrapText="true" />
+      <TextField fx:id="riddleAnswr" layoutX="407.0" layoutY="457.0" visible="false" />
+      <Button fx:id="btnEnter" visible="false" layoutX="469.0" layoutY="489.0" mnemonicParsing="false" onAction="#btnEnterClicked" text="Enter" />
       <Button fx:id="btnExit" layoutX="1496.0" layoutY="349.0" mnemonicParsing="false" onAction="#btnExitClicked" opacity="0.0" prefHeight="436.0" prefWidth="190.0" />
       <TextArea fx:id="exitMessage" editable="false" layoutX="1048.0" layoutY="461.0" prefHeight="107.0" prefWidth="394.0" text="Hmmm, it seems I'm missing something." visible="false" wrapText="true" />
    </children>

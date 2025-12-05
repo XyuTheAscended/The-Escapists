@@ -5,7 +5,6 @@ import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
-import com.model.Coding.Progress.UIDataCache;
 import com.model.Coding.UiHelp.Coolui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +20,6 @@ public class SurveillanceRoom {
 
 
     GameFacade gf = GameFacade.getInstance();
-    UIDataCache UIDC = UIDataCache.getInstance();
 
     @FXML
     public void initialize() {
@@ -38,30 +36,9 @@ public class SurveillanceRoom {
         // Ensure save knows about all puzzles in this room (idempotent)
         currSave.initializeRoomPuzzles(currRoom);
 
-        exitMessage.setVisible(UIDC.isUIVisible(currRoom.getName(), "exitMessage"));
-        bgCamsOff.setVisible(UIDC.isUIVisible(currRoom.getName(), "bgCamsOff"));
-        riddleAnswrDrawer.setVisible(UIDC.isUIVisible(currRoom.getName(), "riddleAnswrDrawer"));
-        txtRiddleDrawer.setVisible(UIDC.isUIVisible(currRoom.getName(), "txtRiddleDrawer"));
-        btnEnterDrawer.setVisible(UIDC.isUIVisible(currRoom.getName(), "btnEnterDrawer"));
-
-        riddleAnswrDrawer.setText(UIDC.getUIText(currRoom.getName(), "riddleAnswrDrawer"));
-        txtRiddleDrawer.setText(UIDC.getUIText(currRoom.getName(), "txtRiddleDrawer"));
-
-        btnEnterDrawer.setDisable(UIDC.isUIDisabled(currRoom.getName(), "btnEnterDrawer"));
-
-        riddleAnswrCams.setVisible(UIDC.isUIVisible(currRoom.getName(), "riddleAnswrCams"));
-        txtRiddleCams.setVisible(UIDC.isUIVisible(currRoom.getName(), "txtRiddleCams"));
-        btnEnterCams.setVisible(UIDC.isUIVisible(currRoom.getName(), "btnEnterCams"));
-
-        riddleAnswrCams.setText(UIDC.getUIText(currRoom.getName(), "riddleAnswrCams"));
-        txtRiddleCams.setText(UIDC.getUIText(currRoom.getName(), "txtRiddleCams"));
-
-        btnEnterCams.setDisable(UIDC.isUIDisabled(currRoom.getName(), "btnEnterCams"));
-
         if(gf.getCurrRoom().getPuzzle("Cameras").getIsCompleted()) {
             System.out.println("ye");
             bgCamsOff.setVisible(true);
-            UIDC.setUIDisabled(currRoom.getName(), "bgCamsOff", true);
         }
     }
 
@@ -110,11 +87,8 @@ public class SurveillanceRoom {
 
         if(puzzle.getIsCompleted()){
             txtRiddleCams.setText("Riddle Completed");
-            UIDC.setUIText(currRoom.getName(), "txtRiddleCams", "Riddle Completed");
             btnEnterCams.setDisable(true);
             riddleAnswrCams.setDisable(true);
-            UIDC.setUIDisabled(currRoom.getName(), "btnEnterCams", true);
-            UIDC.setUIDisabled(currRoom.getName(), "riddleAnswrCams", true);
             riddleAnswrCams.setVisible(true);
             txtRiddleCams.setVisible(true);
             btnEnterCams.setVisible(true);
@@ -124,14 +98,6 @@ public class SurveillanceRoom {
         txtRiddleCams.setVisible(true);
         riddleAnswrCams.setVisible(true);
         btnEnterCams.setVisible(true);
-
-        // persist UI visibility
-        UIDC.setUIVisible(currRoom.getName(), "riddleAnswrCams", true);
-        UIDC.setUIVisible(currRoom.getName(), "txtRiddleCams", true);
-        UIDC.setUIVisible(currRoom.getName(), "btnEnterCams", true);
-
-        UIDC.setUIText(currRoom.getName(), "txtRiddleCams", txtRiddleCams.getText());
-        UIDC.setUIText(currRoom.getName(), "riddleAnswrCams", riddleAnswrCams.getText());
     }
 
     @FXML
@@ -145,16 +111,12 @@ public class SurveillanceRoom {
         if (solved) {
 
             txtRiddleCams.setText("Riddle Completed");
-            UIDC.setUIText(currRoom.getName(), "txtRiddleCams", "Riddle Completed");
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("Cameras"), true);
             btnEnterCams.setDisable(true);
-            UIDC.setUIDisabled(currRoom.getName(), "btnEnterCams", true);
             System.out.println(currRoom);
             bgCamsOff.setVisible(true);
-            UIDC.setUIDisabled(currRoom.getName(), "bgCamsOff", true);
         } else {
             riddleAnswrCams.setText("Wrong! Try again");
-            UIDC.setUIText(currRoom.getName(), "riddleAnswrCams", "Wrong! Try again");
         }
     }
 
@@ -168,7 +130,6 @@ public class SurveillanceRoom {
             System.out.println(gf.getCurrRoom());
         } else {
             exitMessage.setVisible(true);
-            UIDC.setUIVisible(gf.getCurrRoom().getName(), "btnEnterCams", true);
         }
     }
 
@@ -181,11 +142,8 @@ public class SurveillanceRoom {
 
         if(puzzle.getIsCompleted()){
             txtRiddleDrawer.setText("Riddle Completed");
-            UIDC.setUIText(currRoom.getName(), "txtRiddleDrawer", "Riddle Completed");
             btnEnterDrawer.setDisable(true);
             riddleAnswrDrawer.setDisable(true);
-            UIDC.setUIDisabled(currRoom.getName(), "btnEnterDrawer", true);
-            UIDC.setUIDisabled(currRoom.getName(), "riddleAnswrDrawer", true);
             riddleAnswrDrawer.setVisible(true);
             txtRiddleDrawer.setVisible(true);
             riddleAnswrDrawer.setVisible(true);
@@ -195,14 +153,6 @@ public class SurveillanceRoom {
         txtRiddleDrawer.setVisible(true);
         riddleAnswrDrawer.setVisible(true);
         btnEnterDrawer.setVisible(true);
-
-        // persist UI visibility
-        UIDC.setUIVisible(currRoom.getName(), "riddleAnswrDrawer", true);
-        UIDC.setUIVisible(currRoom.getName(), "txtRiddleDrawer", true);
-        UIDC.setUIVisible(currRoom.getName(), "btnEnterDrawer", true);
-
-        UIDC.setUIText(currRoom.getName(), "txtRiddleDrawer", txtRiddleDrawer.getText());
-        UIDC.setUIText(currRoom.getName(), "riddleAnswrDrawer", riddleAnswrDrawer.getText());
     }
 
     @FXML
@@ -214,15 +164,12 @@ public class SurveillanceRoom {
 
         if (solved) {
             txtRiddleDrawer.setText("Riddle Completed");
-            UIDC.setUIText(currRoom.getName(), "txtRiddleDrawer", "Riddle Completed");
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("Drawer"), true);
             btnEnterDrawer.setDisable(true);
-            UIDC.setUIDisabled(currRoom.getName(), "btnEnterDrawer", true);
             System.out.println(currRoom);
             App.setRoot("openDrawer");
         } else {
             riddleAnswrDrawer.setText("Wrong! Try again");
-            UIDC.setUIText(currRoom.getName(), "riddleAnswrDrawer", "Wrong! Try again");
         }
     }
 }

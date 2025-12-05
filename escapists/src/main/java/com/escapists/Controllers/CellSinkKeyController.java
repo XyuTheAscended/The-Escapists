@@ -3,7 +3,6 @@ package com.escapists.Controllers;
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.InteractItems.Item;
-import com.model.Coding.Progress.UIDataCache;
 import com.model.Coding.UiHelp.Coolui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -15,13 +14,11 @@ import java.io.IOException;
 public class CellSinkKeyController {
 
     GameFacade gf = GameFacade.getInstance();
-    UIDataCache UIDC = UIDataCache.getInstance();
     @FXML
     AnchorPane mainAp;
 
     @FXML
     public void initialize() {
-        btnKey.setDisable(UIDC.isUIDisabled(gf.getCurrRoom().getName(), "btnKey"));
         Coolui.layerPage(mainAp); // this function call adds the Hud
 
     }
@@ -43,7 +40,6 @@ public class CellSinkKeyController {
         Item key = Item.loadItem("Key");
         gf.getInventory().addItem(key);
         btnKey.setDisable(true);
-        UIDC.setUIDisabled(gf.getCurrRoom().getName(), "btnKey", true);
         // temp
         System.out.println(gf.getInventory().displayInventory());
     }
