@@ -26,7 +26,7 @@ public class App extends Application {
 
       lastFxmls.add(fxmlName);
     }
-    private static String DEBUG_STARTER_ROOM_NAME = "cell"; // USED to set starter room for testing purposes only. will be null during production
+    private static String DEBUG_STARTER_ROOM_NAME; // USED to set starter room for testing purposes only. will be null during production
 
     private static Scene scene;
 
@@ -47,7 +47,7 @@ public class App extends Application {
           currFxml = DEBUG_STARTER_ROOM_NAME;
         } else {
           String startingFxml = "landing";
-          scene = new Scene(UiBuilder.convertRootToScrollable((AnchorPane)loadFXML(startingFxml)), 640, 480);
+          scene = new Scene(loadFXML(startingFxml), 640, 480);
           stage.setScene(scene);
           currFxml = startingFxml;
         }
