@@ -105,6 +105,10 @@ Text {
     -fx-padding: 0;
 }
 
+.image-button:disabled {
+
+}
+
 .image-button:hover {
     -fx-background-color: rgba(250, 221, 135, 0.315);
 
@@ -126,7 +130,7 @@ Text {
 }
 
 #invFrame {
-    -fx-background-color: rgba(58, 57, 57, 0.5);
+    -fx-background-color: rgba(42, 42, 42, 0.259);
     -fx-padding: 20;
 
 }
@@ -145,4 +149,9 @@ Text {
 .menu-header {
     -fx-font-size: 40px;
     -fx-text-fill: #f8f8f5;
+}
+
+.item-slot {
+    -fx-background-color: rgba(43, 43, 43, 0.835);
+    -fx-border-radius: 20;
 }

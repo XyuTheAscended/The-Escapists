@@ -72,7 +72,7 @@ public class MainMenuController implements Initializable {
 
     @FXML
     void newGameClicked(ActionEvent event) throws IOException {
-        gf.getCurrUser().createSave();
+        gf.getCurrUser().createSave(); // DONT REMOVE THIS PLEASEE
         App.setRoot("cutscene");
     }
 

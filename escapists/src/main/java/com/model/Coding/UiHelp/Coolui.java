@@ -6,6 +6,7 @@ import com.escapists.App;
 import com.escapists.Controllers.LoadSaveController;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.Timer;
+import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
@@ -19,6 +20,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -113,20 +115,30 @@ public class Coolui {
   }
 
   // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
-  private static void makeInvSlot(double size) {
-    
+  private static StackPane makeInvSlot(double size) {
+    StackPane iconHolder = new StackPane();
+    iconHolder.getStyleClass().add("item-slot");
+    ImageView imgView = new ImageView();
+    setRegionAbsSize(iconHolder, size, size);
+    iconHolder.getChildren().add(imgView);
+
+    return iconHolder;
   }
 
+  private static int MAX_ITEMS = 5;
   // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
   private static HBox makeInvFrame(double heightSize) {
-    double spacing = (heightSize * 0.1);
-    HBox invFrame = new HBox(5);
+    double spacing = (heightSize * 0.1 * MAX_ITEMS) / (MAX_ITEMS-2);
+    HBox invFrame = new HBox(spacing);
     invFrame.setId("invFrame");
     double invfSizeX = 250; 
-    setRegionAbsSize(invFrame, heightSize * 3.1, heightSize);
+    setRegionAbsSize(invFrame, (heightSize*1.1) * (MAX_ITEMS), heightSize);
+    invFrame.setAlignment(Pos.CENTER);
     
-    
-
+    for (int i = 0; i < MAX_ITEMS; ++i) {
+      StackPane slot = makeInvSlot(heightSize*0.9);
+      invFrame.getChildren().add(slot);
+    }
     
     return invFrame; 
   }
@@ -215,6 +227,23 @@ public class Coolui {
     
     oldRoot.sceneProperty().addListener(listener);
         
+  }
+
+
+  public static void setupItemPickup(Button imageButton) {
+    String itemName = imageButton.getId();
+    
+    if (itemName == null || Item.searchForItem(itemName) == null) {
+      throw new Error("Item image button sucks: its id is invalid or doesn't exist. Set its css id to the item name it represents.");
+    }
+
+    imageButton.setOnAction(e -> {
+      Item key = Item.loadItem(itemName);
+      GameFacade.getInstance().getInventory().addItem(key);
+      imageButton.setVisible(false);
+
+      imageButton.setOnAction(null); // make it only run once ever
+    });
   }
 }
 

@@ -7,12 +7,21 @@
 
 <AnchorPane fx:id="mainAp" minWidth="-Infinity" prefHeight="720.0" prefWidth="1920.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.CellSinkController">
    <children>
-      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ImageView fx:id="bgImgView" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <image>
             <Image url="@../../daSink.jpg" />
          </image>
       </ImageView>
       <Button fx:id="btnBack" layoutX="20.0" layoutY="120.0" mnemonicParsing="false" onAction="#btnBackClicked" prefHeight="36.0" prefWidth="98.0" text="Back" />
-      <Button fx:id="btnDrain" layoutX="890.0" layoutY="792.0" mnemonicParsing="false" onAction="#btnDrainClicked" opacity="0.0" prefHeight="97.0" prefWidth="140.0" />
+      <Button fx:id="btnDrain" layoutX="890.0" layoutY="792.0" mnemonicParsing="false" onAction="#btnDrainClicked" prefHeight="97.0" prefWidth="140.0" styleClass="image-button" />
+      <Button fx:id="btnKey" id="Key" layoutX="822.0" layoutY="748.0" mnemonicParsing="false" prefHeight="97.0" prefWidth="315.0" rotate="148.2" styleClass="image-button">
+         <graphic>
+            <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../key.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
