@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="com.escapists.Controllers.CompleteController"
+            prefWidth="1280" prefHeight="720">
+
+    <children>
+
+        <!-- Background Image -->
+        <ImageView fitWidth="1280" fitHeight="720" preserveRatio="false">
+            <image>
+                <Image url="@complete.png"/>
+            </image>
+        </ImageView>
+
+        <!-- LEFT PANEL -->
+        <VBox spacing="20"
+              styleClass="left-panel"
+              prefWidth="420" prefHeight="720">
+
+            <padding>
+                <Insets top="40" left="40" />
+            </padding>
+
+            <children>
+
+                <!-- TITLE -->
+                <Label text="You Escaped!" styleClass="title-text" />
+
+                <!-- TIME COMPLETED -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <children>
+                        <Label text="Time Completed:" styleClass="stat-label" />
+                        <Label fx:id="lblTimeCompleted" text="--:--" styleClass="stat-value" />
+                    </children>
+                </HBox>
+
+                <!-- TIME LEFT -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <children>
+                        <Label text="Time Left:" styleClass="stat-label" />
+                        <Label fx:id="lblTimeLeft" text="--:--" styleClass="stat-value" />
+                    </children>
+                </HBox>
+
+                <!-- SCORE -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <children>
+                        <Label text="Score:" styleClass="stat-label" />
+                        <Label fx:id="lblScore" text="----" styleClass="stat-value" />
+                    </children>
+                </HBox>
+
+                <!-- HINTS USED -->
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <children>
+                        <Label text="Hints Used:" styleClass="stat-label" />
+                        <Label fx:id="lblHints" text="0" styleClass="stat-value" />
+                    </children>
+                </HBox>
+
+                <!-- TOP SCORES -->
+                <Label text="Top Scores" styleClass="top-score-title" />
+
+                <VBox spacing="8" prefWidth="350">
+
+                    <!-- FIVE EMPTY SCORE BOXES -->
+                    <HBox styleClass="score-box" />
+                    <HBox styleClass="score-box" />
+                    <HBox styleClass="score-box" />
+                    <HBox styleClass="score-box" />
+                    <HBox styleClass="score-box" />
+
+                </VBox>
+
+            </children>
+        </VBox>
+
+        <!-- CONTINUE BUTTON -->
+        <Button fx:id="btnContinue"
+                text="Continue ►"
+                layoutX="1100" layoutY="650"
+                prefWidth="150" prefHeight="45" />
+
+    </children>
+</AnchorPane>
