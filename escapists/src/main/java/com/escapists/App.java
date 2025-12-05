@@ -61,10 +61,6 @@ public class App extends Application {
     public static void setRoot(String fxml, boolean recordPageHistory, boolean isGameplayPage) throws IOException {
       Parent fxmlPage = fxmlCache.get(fxml); 
       if (fxmlPage == null) {
-        System.out.println("MAkin new page REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE");
-        for (String fxmlName : fxmlCache.keySet()) {
-          System.out.println("Key: "+fxmlName);
-        }
         fxmlPage = loadFXML(fxml);
         if (isGameplayPage) fxmlPage = UiBuilder.convertRootToScrollable((AnchorPane) fxmlPage);
         fxmlCache.put(fxml, fxmlPage);

@@ -75,12 +75,14 @@ public class Coolui {
   private static void onPauseInput(VBox pauseMenuBox, Button pauseButton) {
     pauseMenuBox.setVisible(true);
     pauseButton.getStyleClass().add("toggled");
+    Timer.getInstance().pause();
   }
 
   // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
   private static void onResumeInput(VBox pauseMenuBox, Button pauseButton) {
     pauseMenuBox.setVisible(false);
     pauseButton.getStyleClass().remove("toggled");
+    Timer.getInstance().resume();
     
   }
 
@@ -109,7 +111,10 @@ public class Coolui {
     saveBut.setOnAction(e -> {App.safeSetRoot("save");});
     loadBut.setOnAction(e -> { App.safeSetRoot("loadsave"); });
 
-    mainMenuBut.setOnAction(e -> {App.safeSetRoot("mainMenu");});
+    mainMenuBut.setOnAction(e -> {
+      Timer.getInstance().reset();
+      App.safeSetRoot("mainMenu");
+    });
     
     menuBox.setVisible(false);
 

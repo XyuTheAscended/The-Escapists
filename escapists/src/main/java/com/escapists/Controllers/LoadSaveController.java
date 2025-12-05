@@ -65,30 +65,10 @@ public class LoadSaveController {
         }
     }
 
-    private static boolean openedFromGame = false;
-
-    public static void openFromGame() {
-        openedFromGame = true;
-        }
-
-    public static void openFromMainMenu() {
-        openedFromGame = false;
-        }
-
 
     /** Back button → behave based on where the menu was opened from */
    @FXML
     private void backButtonClicked() {
-        // try {
-        //     if (openedFromGame) {
-        //         App.setRoot("cell");  // return to in-game screen
-        //     } else {
-        //         App.setRoot("mainMenu");  // return to main menu
-        //     }
-        // } catch (Exception e) {
-        //     e.printStackTrace();
-        // }
-
         App.setRootToPrev();
     }
 
