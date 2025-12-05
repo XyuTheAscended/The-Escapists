@@ -1,8 +1,10 @@
 package com.escapists.Controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import com.escapists.App;
 import com.model.Coding.Progress.Leaderboard;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -42,5 +44,10 @@ public class LeaderboardController implements Initializable {
     @FXML
     private void backClicked() {
         System.out.println("Back clicked");
+        try {
+            App.setRoot("mainMenu");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

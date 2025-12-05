@@ -2,6 +2,7 @@ package com.escapists.Controllers;
 
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
+import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
@@ -30,6 +31,7 @@ public class HallwayController {
 
     GameFacade gf = GameFacade.getInstance();
     UIDataCache UIDC = UIDataCache.getInstance();
+    private boolean clicked = false;
 
     @FXML
     AnchorPane mainAp;
@@ -61,6 +63,10 @@ public class HallwayController {
     @FXML
     private TextArea txtAreaKeyCode;
 
+    @FXML
+    private TextArea txtVent;
+
+
 
     @FXML
     public void initialize() {
@@ -76,43 +82,16 @@ public class HallwayController {
         // Ensure save knows about all puzzles in this room (idempotent)
         currSave.initializeRoomPuzzles(currRoom);
 
-        // 1) Make background always fill the AnchorPane
-        bgImage.fitWidthProperty().bind(mainAp.widthProperty());
-        bgImage.fitHeightProperty().bind(mainAp.heightProperty());
-
-        // zero out any leftover layout offsets (safe)
-        btnSurvRoom.setLayoutX(0); btnSurvRoom.setLayoutY(0);
-        btnStorCloset.setLayoutX(0); btnStorCloset.setLayoutY(0);
-        btnVent.setLayoutX(0); btnVent.setLayoutY(0);
-
-        // --------- SURV/STORE/VENT buttons (use layout in overlayPane) ----------
-        // btnSurvRoom (orig x=122, y=562, w=164, h=162)
-        btnSurvRoom.layoutXProperty().bind(overlayPane.widthProperty().multiply(0.0635));
-        btnSurvRoom.layoutYProperty().bind(overlayPane.heightProperty().multiply(0.5203));
-        btnSurvRoom.prefWidthProperty().bind(overlayPane.widthProperty().multiply(0.0854166667));
-        btnSurvRoom.prefHeightProperty().bind(overlayPane.heightProperty().multiply(0.15));
-
-        // btnStorCloset (orig x=1765, y=568, w=130, h=220)
-        btnStorCloset.layoutXProperty().bind(overlayPane.widthProperty().multiply(0.9192708333));
-        btnStorCloset.layoutYProperty().bind(overlayPane.heightProperty().multiply(0.5259259259));
-        btnStorCloset.prefWidthProperty().bind(overlayPane.widthProperty().multiply(0.0677083333));
-        btnStorCloset.prefHeightProperty().bind(overlayPane.heightProperty().multiply(0.2037037037));
-
-        // btnVent (orig x=1095, y=583, w=73, h=58)
-        btnVent.layoutXProperty().bind(overlayPane.widthProperty().multiply(0.5703125));
-        btnVent.layoutYProperty().bind(overlayPane.heightProperty().multiply(0.5398148148));
-        btnVent.prefWidthProperty().bind(overlayPane.widthProperty().multiply(0.0380208333));
-        btnVent.prefHeightProperty().bind(overlayPane.heightProperty().multiply(0.0537037037));
-
-
 
         // --------- RESTORE UI STATE (unchanged) ----------------
         keyPadAnswr.setVisible(UIDC.isUIVisible(currRoom.getName(), "keyPadAnswr"));
         txtAreaKeyCode.setVisible(UIDC.isUIVisible(currRoom.getName(), "txtAreaKeyCode"));
         btnEnterStor.setVisible(UIDC.isUIVisible(currRoom.getName(), "btnEnterStor"));
+        txtVent.setVisible(UIDC.isUIVisible(currRoom.getName(), "txtVent"));
 
         keyPadAnswr.setText(UIDC.getUIText(currRoom.getName(), "keyPadAnswr"));
         txtAreaKeyCode.setText(UIDC.getUIText(currRoom.getName(), "txtAreaKeyCode"));
+        txtVent.setText(UIDC.getUIText(currRoom.getName(), "txtVent"));
 
         btnEnterStor.setDisable(UIDC.isUIDisabled(currRoom.getName(), "btnEnterStor"));
         keyPadAnswr.setDisable(UIDC.isUIDisabled(currRoom.getName(), "keyPadAnswr"));
@@ -125,6 +104,11 @@ public class HallwayController {
         txtAreaSurv.setText(UIDC.getUIText(currRoom.getName(), "txtAreaSurv"));
 
         btnEnterSurv.setDisable(UIDC.isUIDisabled(currRoom.getName(), "btnEnterSurv"));
+
+        if(clicked){
+            txtVent.setVisible(true);
+            UIDC.setUIVisible(currRoom.getName(), "txtVent", true);
+        }
     }
 
 
@@ -202,11 +186,34 @@ public class HallwayController {
     }
 
     @FXML
-    void btnVentClicked(ActionEvent event) {
+    void btnVentClicked(ActionEvent event) throws IOException {
 
         Room currRoom = gf.getCurrRoom();
         Progress currSave = gf.getCurrUser().getCurrSave();
+        Puzzle puzzle = gf.getCurrRoom().getPuzzle("Vent");
+        Inventory inven = gf.getInventory();
+        txtVent.setVisible(true);
+        UIDC.setUIVisible(currRoom.getName(), "txtVent", true);
+        clicked = true;
 
+
+        if(!inven.hasItem("Screwdriver") && !inven.hasItem("KeyCard")) {
+            txtVent.setText("Hmmmm, I need something to pop the vent open and disable the security measures.");
+            UIDC.setUIText(currRoom.getName(), "txtVent", txtVent.getText());
+        }
+        else if(!inven.hasItem("KeyCard")) {
+            txtVent.setText("Hmmmm, I need something to disable the security measures.");
+            UIDC.setUIText(currRoom.getName(), "txtVent", txtVent.getText());
+        }
+        else if(!inven.hasItem("Screwdriver")) {
+            txtVent.setText("Hmmmm, I need something to pop the vent open.");
+            UIDC.setUIText(currRoom.getName(), "txtVent", txtVent.getText());
+        }
+        else {
+            App.setRoot("vent");
+            txtVent.setVisible(false);
+            UIDC.setUIVisible(currRoom.getName(), "txtVent", false);
+        }
     }
 
     @FXML
@@ -219,9 +226,7 @@ public class HallwayController {
 
         if (solved) {
             txtAreaKeyCode.setText("Riddle Completed");
-            keyPadAnswr.setText("You may proceed!");
-            UIDC.setUIText(currRoom.getName(), "txtAreaKeyCode", "You May Proceed");
-            UIDC.setUIText(currRoom.getName(), "keyPadAnswr", "Riddle Completed");
+            UIDC.setUIText(currRoom.getName(), "txtAreaKeyCode", "Riddle Completed");
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("KeyCode"), true);
             btnEnterStor.setDisable(true);
             UIDC.setUIDisabled(currRoom.getName(), "btnEnterStor", true);
@@ -234,7 +239,7 @@ public class HallwayController {
 
 
     @FXML
-    void btnEnterSurvClicked(ActionEvent event) {
+    void btnEnterSurvClicked(ActionEvent event) throws IOException {
         Room currRoom = gf.getCurrRoom();
         Progress currSave = gf.getCurrUser().getCurrSave();
 
@@ -243,14 +248,12 @@ public class HallwayController {
 
         if (solved) {
             txtAreaSurv.setText("Riddle Completed");
-            wireAnswr.setText("You may proceed!");
-            UIDC.setUIText(currRoom.getName(), "txtAreaSurv", "You May Proceed");
-            UIDC.setUIText(currRoom.getName(), "wireAnswr", "Riddle Completed");
+            UIDC.setUIText(currRoom.getName(), "txtAreaSurv", "Riddle Completed");
             currSave.setPuzzleCompleted(currRoom, currRoom.getPuzzle("SecurityWires"), true);
             btnEnterSurv.setDisable(true);
             UIDC.setUIDisabled(currRoom.getName(), "btnEnterSurv", true);
             System.out.println(currRoom);
-            // App.setRoot("surveulenceRom");
+            App.setRoot("surveillanceRoom");
         } else {
             wireAnswr.setText("Wrong! Try again");
             UIDC.setUIText(currRoom.getName(), "wireAnswr", "Wrong! Try again");

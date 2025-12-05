@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane fx:id="mainAp" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1080.0" prefWidth="1920.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.SurveillanceRoom">
+   <children>
+      <ImageView fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../surveillanceRoom.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="bgCamsOff" fitHeight="1080.0" fitWidth="1920.0" pickOnBounds="true" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@../../camsOff.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="btnDrawer" layoutX="284.0" layoutY="721.0" mnemonicParsing="false" onAction="#btnDrawerClicked" opacity="0.0" prefHeight="49.0" prefWidth="135.0" rotate="-4.9" />
+      <Button fx:id="btnCamPuzzle" layoutX="1189.0" layoutY="293.0" mnemonicParsing="false" onAction="#btnCamPuzzleClicked" opacity="0.0" prefHeight="107.0" prefWidth="71.0" />
+      <Button fx:id="btnExit" layoutX="1581.0" layoutY="281.0" mnemonicParsing="false" onAction="#btnExitClicked" opacity="0.0" prefHeight="555.0" prefWidth="256.0" />
+      <TextArea fx:id="txtRiddleDrawer" editable="false" layoutX="90.0" layoutY="400.0" prefHeight="230.0" prefWidth="359.0" visible="false" wrapText="true" />
+      <TextField fx:id="riddleAnswrDrawer" layoutX="175.0" layoutY="559.0" visible="false" />
+      <Button fx:id="btnEnterDrawer" layoutX="237.0" layoutY="594.0" mnemonicParsing="false" onAction="#btnEnterDrawerClicked" text="Enter" visible="false" />
+      <TextArea fx:id="txtRiddleCams" editable="false" layoutX="766.0" layoutY="166.0" prefHeight="251.0" prefWidth="394.0" visible="false" wrapText="true" />
+      <TextField fx:id="riddleAnswrCams" layoutX="868.0" layoutY="347.0" visible="false" />
+      <Button fx:id="btnEnterCams" layoutX="935.0" layoutY="375.0" mnemonicParsing="false" onAction="#btnEnterCamsClicked" text="Enter" visible="false" />
+      <TextArea fx:id="exitMessage" editable="false" layoutX="1099.0" layoutY="669.0" prefHeight="107.0" prefWidth="436.0" text="Hmmm, it seems like I'm missing something." visible="false" wrapText="true" />
+   </children>
+</AnchorPane>
