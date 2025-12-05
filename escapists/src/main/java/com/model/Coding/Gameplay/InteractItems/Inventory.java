@@ -26,7 +26,7 @@ public class Inventory {
      */
     public void addItem(Item item){
         items.add(item);
-        itemAddedCallback.accept(item);
+        if (itemAddedCallback != null) itemAddedCallback.accept(item);
     }
 
     /**
@@ -35,7 +35,7 @@ public class Inventory {
      */
     public void removeItem(Item item){
         items.remove(item);
-        itemRemovedCalback.accept(item);
+        if (itemRemovedCalback != null) itemRemovedCalback.accept(item);
     }
 
     /**

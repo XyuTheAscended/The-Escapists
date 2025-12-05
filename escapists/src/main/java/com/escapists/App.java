@@ -35,7 +35,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        String startingFxml = "storageRoom";
+        String startingFxml = "landing";
         scene = new Scene(loadFXML(startingFxml), 640, 480);
         stage.setScene(scene);
         currFxml = startingFxml;
