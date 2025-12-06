@@ -3,6 +3,7 @@ package com.escapists.Controllers;
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.Timer;
+import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Progress.Progress;
 import com.model.Coding.User.User;
 
@@ -34,6 +35,9 @@ public class SaveGameController {
 
     @FXML
     public void initialize() {
+        for (Item item : Item.getAllItemsEver()) {
+            System.out.println(item.getName());
+        }
         loadSaveVisuals();
     }
 

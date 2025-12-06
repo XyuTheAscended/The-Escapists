@@ -8,6 +8,7 @@ import com.escapists.App;
 import com.escapists.Controllers.SaveGameController;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.Timer;
+import com.model.Coding.Gameplay.InteractItems.Inventory;
 import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
@@ -211,6 +212,13 @@ public class Coolui {
     GameFacade.getInstance().getInventory().setItemRemovedCallback((item) -> { 
       Platform.runLater(() -> removeInvSlot(item));
     });
+
+    Inventory inv = GameFacade.getInstance().getInventory();
+    if (inv != null && inv.getItems().size() > 0) {
+      for (Item tem : inv.getItems()) {
+        Platform.runLater(() -> fillInvSlot(tem));
+      }
+    }
     
     return invFrame; 
   }
