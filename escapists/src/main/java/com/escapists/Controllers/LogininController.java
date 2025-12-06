@@ -10,6 +10,10 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 
+/**
+ * Controller for the log-in screen
+ * @author Mason
+ */
 public class LogininController {
 
     @FXML
@@ -27,8 +31,11 @@ public class LogininController {
     @FXML
     private Label lblError;
 
+    /**
+     * Attempts to log the user in with given credentials
+     */
     @FXML
-    void btnLoginClicked(ActionEvent event) throws IOException {
+    void btnLoginClicked() throws IOException {
         GameFacade gf = GameFacade.getInstance();
         String username = txtUsername.getText();
         String password = txtPassword.getText();
@@ -41,13 +48,11 @@ public class LogininController {
         }
     }
 
+    /**
+     * Takes the user to the register screen
+     */
     @FXML
-    void btnRegisterClicked(ActionEvent event) throws IOException {
+    void btnRegisterClicked() throws IOException {
         App.setRoot("register");
-    }
-
-    @FXML
-    void back(ActionEvent event) throws IOException {
-        App.setRoot("landing");
     }
 }

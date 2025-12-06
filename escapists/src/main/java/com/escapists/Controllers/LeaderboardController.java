@@ -1,17 +1,18 @@
 package com.escapists.Controllers;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import com.escapists.App;
 import com.model.Coding.Progress.Leaderboard;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ListView;
 
-public class LeaderboardController implements Initializable {
+/**
+ * Controller for leaderboard
+ * @author Liam
+ */
+public class LeaderboardController {
 
     @FXML
     private ChoiceBox<String> difficultyChoice;
@@ -19,8 +20,11 @@ public class LeaderboardController implements Initializable {
     @FXML
     private ListView<String> lvScores;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    /**
+     * Gets things initialized for leaderboard
+     */
+    @FXML
+    public void initialize() {
         difficultyChoice.getItems().addAll("Easy", "Medium", "Hard");
 
         difficultyChoice.setValue("Easy");
@@ -34,6 +38,10 @@ public class LeaderboardController implements Initializable {
         });
     }
 
+    /**
+     * Loads the information to needed to display
+     * @param difficulty the difficulty the game was completed on
+     */
     private void loadLeaderboard(int difficulty) {
         lvScores.getItems().clear();
         lvScores.getItems().addAll(
@@ -41,9 +49,11 @@ public class LeaderboardController implements Initializable {
         );
     }
 
+    /**
+     * Returns user back to the main menu
+     */
     @FXML
     private void backClicked() {
-        System.out.println("Back clicked");
         try {
             App.setRoot("mainMenu");
         } catch (IOException e) {

@@ -18,7 +18,11 @@ import com.model.Coding.User.User;
 
 import javafx.fxml.Initializable;
 
-public class MainMenuController implements Initializable {
+/**
+ * Controller for the main menu screen
+ * @author Mason, Tyler, Jeffen, Liam
+ */
+public class MainMenuController {
     private static GameFacade gf = GameFacade.getInstance();
 
     @FXML
@@ -42,8 +46,11 @@ public class MainMenuController implements Initializable {
     @FXML
     private Label lblUsername;
 
+    /**
+     * Takes the user to the leaderboard
+     */
     @FXML
-    void leaderboardClicked(ActionEvent event) {
+    void leaderboardClicked() {
         try {
             App.setRoot("leaderboard");  // loads leaderboard.fxml
         } catch (IOException e) {
@@ -51,40 +58,44 @@ public class MainMenuController implements Initializable {
         }
     }
 
-
+    /**
+     * Exits the game
+     */
     @FXML
-    void avatarClicked(MouseEvent event) {
-
-    }
-    @FXML
-    void exitGameClicked(ActionEvent event) {
+    void exitGameClicked() {
         System.exit(0);
     }
 
+    /**
+     * Takes the user to the load-save menu
+     */
     @FXML
-    void loadSaveClicked(ActionEvent event) {
+    void loadSaveClicked() {
     try {
         App.setRoot("loadsave");            
     } catch (IOException e) {
         e.printStackTrace();
+        }
     }
-}
 
+    /**
+     * Creates a new save for user and sends them along their way
+     */
     @FXML
-    void newGameClicked(ActionEvent event) throws IOException {
+    void newGameClicked() throws IOException {
         gf.getCurrUser().createSave(); // DONT REMOVE THIS PLEASEE
         App.setRoot("cutscene");
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    /**
+     * Initialize method for main menu.
+     */
+    @FXML
+    public void initialize() {
         if (gf.getCurrUser() == null) gf.quickTestLogin(); // FOR TESTING PURPOSES
         User currUser = gf.getCurrUser();
         System.out.println("Logged in " + currUser.getUserName());
         txtAccount.setText(currUser.getUserName());
     }
-
-    
-
 }
 

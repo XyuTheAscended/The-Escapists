@@ -19,6 +19,10 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Controller for the end completion screen
+ * @author Tyler, Mason
+ */
 public class CompleteController implements Initializable {
 
     private final GameFacade gf = GameFacade.getInstance();
