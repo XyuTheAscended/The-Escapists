@@ -24,7 +24,18 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 
+/**
+ * Class for UI building stuff that must be called from App class. 
+ * Coolui cant have this stuff since that would cause circular dependency
+ * @author Jeffen
+ */
 public class UiBuilder {
+  /**
+   * Converts a root anchor pane to a scrollable thing by wrapping it under a scroll pane
+   * That scroll pane becomes the new root of pages
+   * @param root old root
+   * @return new root
+   */
   public static Parent convertRootToScrollable(AnchorPane root) {
     Group group = new Group();
 

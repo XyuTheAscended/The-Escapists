@@ -38,7 +38,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
 /**
- * The true UI class
+ * The true UI class that handles creation for important ui stuff like HUD and pause menu
  * @author Jeffen 
  */
 
@@ -46,14 +46,24 @@ public class Coolui {
   private static StackPane pauseMenuBoxHolder;
   private static HBox hudHolder; 
 
-  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  /**
+   * Sets the absoliute size of a region thing
+   * @param layoutThing thing we're resizing
+   * @param sizeX
+   * @param sizeY
+   */
   public static void setRegionAbsSize(Region layoutThing /*all sizable nodes inherit from region*/, double sizeX, double sizeY) {
     layoutThing.setMinSize(sizeX, sizeY);
     layoutThing.setPrefSize(sizeX, sizeY);
     layoutThing.setMaxSize(sizeX, sizeY);
   }
 
-  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  /**
+   * Creates a button for the pause menu
+   * @param text
+   * @param parent should be the pause menu holder itself
+   * @return the button made
+   */
   private static Button makePauseMenuButton(String text, Pane parent /*all layouts inherit from pane*/) {
     Button but = new Button(text);
     but.setPrefSize(Double.MAX_VALUE, 70);
@@ -61,7 +71,9 @@ public class Coolui {
     return but;
   }
 
-  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  /**
+   * Callback for functionality when pause button is clicked
+   */
   private static void onPauseButtonClicked() {
     VBox pauseMenuBox = (VBox) pauseMenuBoxHolder.lookup("#pauseMenuBox");
     Button pauseBut = (Button) hudHolder.lookup("#pauseButton");
@@ -73,14 +85,22 @@ public class Coolui {
     }
   }
 
-  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  /**
+   * Functionality for pause input
+   * @param pauseMenuBox
+   * @param pauseButton
+   */
   private static void onPauseInput(VBox pauseMenuBox, Button pauseButton) {
     pauseMenuBox.setVisible(true);
     pauseButton.getStyleClass().add("toggled");
     Timer.getInstance().pause();
   }
 
-  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  /**
+   * Functinoality for resume input
+   * @param pauseMenuBox
+   * @param pauseButton
+   */
   private static void onResumeInput(VBox pauseMenuBox, Button pauseButton) {
     pauseMenuBox.setVisible(false);
     pauseButton.getStyleClass().remove("toggled");
@@ -88,7 +108,10 @@ public class Coolui {
     
   }
 
-  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  /**
+   * Pause menu creation function
+   * @return stackpane holding the pause menu
+   */
   private static StackPane createPauseMenu() {
     StackPane centerWrapper = new StackPane(); // holder for our menu box which. make this stack pane will center it ig
     Label header =  new Label("Paused"); 
@@ -131,7 +154,11 @@ public class Coolui {
   private static ArrayDeque<StackPane> emptyInvSlots = new ArrayDeque<>();
   private static ArrayList<StackPane> filledInvSlots = new ArrayList<>();
 
-  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  /**
+   * creates an inventory slot
+   * @param size
+   * @return stack pane that is the square holding the item picture
+   */
   private static StackPane makeInvSlot(double size) {
     StackPane iconHolder = new StackPane();
     iconHolder.getStyleClass().add("item-slot");
@@ -146,6 +173,10 @@ public class Coolui {
     return iconHolder;
   }
 
+  /**
+   * Fills inventory slot with item data/picture 
+   * @param item
+   */
   private static void fillInvSlot(Item item) {
     if (emptyInvSlots.size() <= 0)
       throw new Error(item.getName() + " can't be put in inv slot cause no more inventory slots available!!!");
@@ -162,6 +193,11 @@ public class Coolui {
     filledInvSlots.add(invSlot);
   }
 
+
+  /**
+   * Removes inventory slot by removing its item icon
+   * @param item item we're removing
+   */
   private static void removeInvSlot(Item item) {
     for (StackPane slot : filledInvSlots) {
       String slotItemName = (String) slot.getProperties().get("ItemName");
@@ -188,7 +224,11 @@ public class Coolui {
   
 
   private static int MAX_ITEMS = 5;
-  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  /**
+   * Creates the entire inventory bar
+   * @param heightSize height of the inventory bar. also determines its width (5*)
+   * @return HBox composing of the inventory bar
+   */
   private static HBox makeInvFrame(double heightSize) {
     double spacing = (heightSize * 0.1 * MAX_ITEMS) / (MAX_ITEMS-2);
     HBox invFrame = new HBox(spacing);
@@ -223,7 +263,10 @@ public class Coolui {
     return invFrame; 
   }
 
-  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  /**
+   * Hud creation
+   * @return HBox that is holding the Hud
+   */
   private static HBox createHud() {
     HBox holder = new HBox(2);
     // parentPane.getChildren().add(holder); 
@@ -266,7 +309,10 @@ public class Coolui {
 
 
 
-  // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC
+  /**
+   * Sets up the root of a page by layer a hud over it. only called for gameplay pages instead of menus
+   * @param root the anchor pane of a gameplay page
+   */
   public static void layerPage(AnchorPane root) {
       ChangeListener<Scene> listener = new ChangeListener<>() {
         @Override
@@ -325,12 +371,21 @@ public class Coolui {
         
   }
 
-  // this can be used for item buttons that have their icon images inside of them
+  /**
+   * this can be used for item buttons that have their icon images inside of them
+   * @param imageButton item pickup button with an image view directly childed to it
+   * @param itemName name of item associated
+   */
   public static void setupItemPickup(Button imageButton, String itemName) {
       setupItemPickup(imageButton, itemName, null);
   }
 
-
+  /**
+   * Hooks functionality for a button that activates item pickup
+   * @param itemButton button of that thing
+   * @param itemName item name button represents
+   * @param resourceUrl URL to the image of the item
+   */
   public static void setupItemPickup(Button itemButton, String itemName, String resourceUrl) {
     itemButton.setOnAction(e -> {
       ImageView iv = (ImageView) itemButton.getGraphic();
