@@ -21,9 +21,11 @@ import javafx.scene.shape.Rectangle;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 /**
- * @author Tyler Norman
- */import java.util.ArrayList;
+ * Controller for the save screen
+ * @author Tyler Norman, Jeffen
+ */
 
 public class SaveGameController {
 
@@ -44,6 +46,12 @@ public class SaveGameController {
         loadSaveVisuals();
     }
 
+    /**
+     * Makes a save entry as well as display the save information related to the sane
+     * @param save the user's progress at that time the save was created
+     * @param saveInd number of save
+     * @return A horizontal box of the save display and information
+     */
     private HBox makeSaveEntry(Progress save, int saveInd) {
         int remainingTime = save.getRemainingTime();
         int difficulty = save.getDifficulty();
@@ -90,7 +98,10 @@ public class SaveGameController {
         return row;
     }
 
-
+    /**
+     * Loads the user's save
+     * @param save the user's progress being loaded
+     */
     private void onSaveLoaded(Progress save) {
         User currUser = gf.getCurrUser();
         for (Progress sv : currUser.getSaves()) {
@@ -109,6 +120,10 @@ public class SaveGameController {
     }
 
     private static int lastSaveIndex = 0;
+
+    /**
+     * Saves the user's progress and creates a save for it in the menu
+     */
     private void onSaveAdded() {
         gf.save();
         HBox saveEntry = makeSaveEntry(gf.getCurrUser().getCurrSave(), lastSaveIndex++);
@@ -116,7 +131,9 @@ public class SaveGameController {
     }
 
 
-    /** Loads all six save slot previews */
+    /**
+     * Loads all six save slot previews
+     */
     private void loadSaveVisuals() {
         User user = gf.getCurrUser();
         ArrayList<Progress> saves = user.getSaves();
@@ -141,11 +158,19 @@ public class SaveGameController {
         }
     }
 
+    /**
+     * Sets the visibility of the save button
+     * @param toggled True of toggled, false if not
+     */
     public static void toggleNewSaveButton(boolean toggled) {
         newSaveButton.setVisible(toggled);
     }
 
-
+    /**
+     * Gets the fxml files for given room
+     * @param roomName name of room for desired fxml file
+     * @return String containing the name of the fxml file
+     */
     private String mapRoomNameToFXML(String roomName) {
         if (roomName == null) return "cell";
 
@@ -172,7 +197,9 @@ public class SaveGameController {
         }
     }
 
-    /** Handles saving into a slot when clicked */
+    /*
+    * Handles saving into a slot when clicked
+    */
     @FXML
     private void handleSlotClick(javafx.scene.input.MouseEvent e) {
 
@@ -204,6 +231,9 @@ public class SaveGameController {
         // Refresh screen
     }
 
+    /**
+     * Takes the user back to the main menu
+     */
     @FXML
     private void backButtonClicked() {
         try {

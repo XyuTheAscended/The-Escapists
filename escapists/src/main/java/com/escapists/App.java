@@ -28,7 +28,7 @@ public class App extends Application {
       lastFxmls.add(fxmlName);
     }
     private static String DEBUG_STARTER_ROOM_NAME = null; // USED to set starter room for testing purposes only. will be null during production
-    private static String PRODUCTION_STARTER_PAGE = "mainMenu"; // USED to set starter room for testing purposes only. will be null during production
+    private static String PRODUCTION_STARTER_PAGE = "landing"; // USED to set starter room for testing purposes only. will be null during production
 
     private static Scene scene;
 
