@@ -11,7 +11,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 /**
- * @author Tyler Norman
+ * THIS CLASS IS NOT USED
  */
 public class LoadSaveController {
 
