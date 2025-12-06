@@ -64,7 +64,7 @@ public class MainMenuController implements Initializable {
     @FXML
     void loadSaveClicked(ActionEvent event) {
     try {
-        App.setRoot("loadsave");            
+        App.setRoot("save");            
     } catch (IOException e) {
         e.printStackTrace();
     }
@@ -74,6 +74,7 @@ public class MainMenuController implements Initializable {
     void newGameClicked(ActionEvent event) throws IOException {
         gf.getCurrUser().createSave(); // DONT REMOVE THIS PLEASEE
         App.setRoot("cutscene");
+        
     }
 
     @Override

@@ -5,6 +5,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 import com.escapists.App;
+import com.escapists.Controllers.SaveGameController;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.Timer;
 import com.model.Coding.Gameplay.InteractItems.Item;
@@ -99,8 +100,8 @@ public class Coolui {
 
     menuBox.setMargin(header, new Insets(15, 0, 15, 0));
     Button resumeBut = makePauseMenuButton("Resume", menuBox);
-    Button loadBut = makePauseMenuButton("Load", menuBox);
-    Button saveBut = makePauseMenuButton("Save", menuBox);
+    // Button loadBut = makePauseMenuButton("Load", menuBox);
+    Button saveBut = makePauseMenuButton("Saves", menuBox);
     Button mainMenuBut = makePauseMenuButton("Main Menu", menuBox);
     
     resumeBut.setOnAction(e -> {
@@ -108,11 +109,13 @@ public class Coolui {
       onResumeInput(menuBox, pauseBut);
     });
 
-    saveBut.setOnAction(e -> {App.safeSetRoot("save");});
-    loadBut.setOnAction(e -> { App.safeSetRoot("loadsave"); });
+    saveBut.setOnAction(e -> {
+      App.safeSetRoot("save");
+    });
+    // loadBut.setOnAction(e -> { App.safeSetRoot("loadsave"); });
 
     mainMenuBut.setOnAction(e -> {
-      Timer.getInstance().reset();
+      GameFacade.getInstance().endGame();
       App.safeSetRoot("mainMenu");
     });
     

@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayDeque;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import com.model.Coding.UiHelp.UiBuilder;
@@ -26,7 +27,8 @@ public class App extends Application {
 
       lastFxmls.add(fxmlName);
     }
-    private static String DEBUG_STARTER_ROOM_NAME; // USED to set starter room for testing purposes only. will be null during production
+    private static String DEBUG_STARTER_ROOM_NAME = null; // USED to set starter room for testing purposes only. will be null during production
+    private static String PRODUCTION_STARTER_PAGE = "mainMenu"; // USED to set starter room for testing purposes only. will be null during production
 
     private static Scene scene;
 
@@ -37,6 +39,10 @@ public class App extends Application {
       fxmlCache.clear();
     }
 
+    public static String[] CACHE_BLACK_LIST = {
+      "save"
+    };
+
     @Override
     public void start(Stage stage) throws IOException {
         if (DEBUG_STARTER_ROOM_NAME != null) {
@@ -46,7 +52,7 @@ public class App extends Application {
           fxmlCache.put(DEBUG_STARTER_ROOM_NAME, gameplayPage);
           currFxml = DEBUG_STARTER_ROOM_NAME;
         } else {
-          String startingFxml = "landing";
+          String startingFxml = PRODUCTION_STARTER_PAGE;
           scene = new Scene(loadFXML(startingFxml), 640, 480);
           stage.setScene(scene);
           currFxml = startingFxml;
@@ -63,7 +69,8 @@ public class App extends Application {
       if (fxmlPage == null) {
         fxmlPage = loadFXML(fxml);
         if (isGameplayPage) fxmlPage = UiBuilder.convertRootToScrollable((AnchorPane) fxmlPage);
-        fxmlCache.put(fxml, fxmlPage);
+
+        if (!Arrays.asList(CACHE_BLACK_LIST).contains(fxml)) fxmlCache.put(fxml, fxmlPage);
       }
       
       scene.setRoot(fxmlPage);
@@ -115,6 +122,10 @@ public class App extends Application {
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
+    }
+
+    public static String getLastPageName() {
+      return lastFxmls.peekLast();
     }
 
     public static void main(String[] args) {
