@@ -64,10 +64,16 @@ Text {
 /* Hover color for any box with words in it */
 /* .label:hover, removed label hovering styling cause it looks wrong for stuff like headers */
 .button:hover,
+.add-save-button.save-entry:hover,
 .text-field:hover,
 .password-field:hover {
     -fx-background-color: #676A59;
     -fx-cursor: hand;
+}
+
+.add-save-button.save-entry:active {
+    -fx-background-color: #494a40;
+
 }
 
 /* Give labels a bit of padding so the hover bg is visible */
@@ -229,6 +235,21 @@ Text {
 #btnBack:pressed {
     -fx-translate-y: 1;
     -fx-effect: none;
+}
+
+
+#saveDisplay {
+    -fx-padding: 150 150;
+}
+
+.save-entry {
+    -fx-background-color: rgb(47, 47, 47);
+    -fx-padding: 20 10;
+
+}
+
+.add-save-button.save-entry {
+    -fx-background-color: #B1B1AB;
 }
 
 @media screen and (max-width: 900px) {

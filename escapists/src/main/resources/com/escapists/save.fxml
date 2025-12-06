@@ -4,133 +4,47 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.escapists.Controllers.SaveGameController"
-            prefWidth="1024.0" prefHeight="724.0"
-            style="-fx-background-color: #24201F;">
+<AnchorPane prefHeight="724.0" prefWidth="1024.0" style="-fx-background-color: #24201F;" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.escapists.Controllers.SaveGameController">
 
     <children>
-
+        <VBox id="saveDisplay" fx:id="saveDisplay"
+              AnchorPane.leftAnchor="180.0"
+              AnchorPane.topAnchor="0.0"
+              AnchorPane.rightAnchor="0.0"
+              AnchorPane.bottomAnchor="0.0"
+              maxWidth="Infinity">
+        </VBox>
         <!-- LEFT COLUMN -->
-        <VBox layoutX="0.0" layoutY="0.0" prefWidth="180.0" prefHeight="724.0"
-              style="-fx-background-color: #24201F;">
+        <VBox prefHeight="724.0" prefWidth="180.0" style="-fx-background-color: #24201F;">
             <children>
                 <Label text="Save">
                     <font>
-                        <Font size="36.0"/>
+                        <Font size="36.0" />
                     </font>
                     <padding>
-                        <Insets top="30" left="20" bottom="0" right="0"/>
+                        <Insets bottom="0" left="20" right="0" top="30" />
                     </padding>
                     <textFill>WHITE</textFill>
                 </Label>
 
                 <Label text="Game">
                     <font>
-                        <Font size="36.0"/>
+                        <Font size="36.0" />
                     </font>
                     <padding>
-                        <Insets top="0" left="20" bottom="0" right="0"/>
+                        <Insets bottom="0" left="20" right="0" top="0" />
                     </padding>
                     <textFill>WHITE</textFill>
                 </Label>
 
-                <Region/>
-
-                <HBox spacing="8.0">
-                    <padding>
-                        <Insets top="20" right="20" bottom="20" left="20"/>
-                    </padding>
-                    <children>
-                        <Label text="◀" textFill="WHITE">
-                            <font><Font size="26.0"/></font>
-                        </Label>
-                        <Button fx:id="backButton" text="Back"
-                                style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 26px;"
-                                onAction="#backButtonClicked"/>
-                    </children>
-                </HBox>
+                <Region />
+                  <Button fx:id="backButton" onAction="#backButtonClicked" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 26px;" text="◀ Back" />
             </children>
         </VBox>
-
-        <!-- SAVE SLOTS GRID -->
-        <GridPane layoutX="210.0" layoutY="60.0" hgap="60.0" vgap="120.0">
-
-            <!-- SLOT 1 -->
-            <VBox fx:id="slot1" GridPane.rowIndex="0" GridPane.columnIndex="0" spacing="10.0"
-                  onMouseClicked="#handleSlotClick">
-                <children>
-                    <Rectangle fx:id="imgSlot1" width="240.0" height="140.0"/>
-                    <Label fx:id="lblSlot1" text="Save 1" textFill="WHITE">
-                        <font><Font size="24.0"/></font>
-                    </Label>
-                </children>
-            </VBox>
-
-            <!-- SLOT 2 -->
-            <VBox fx:id="slot2" GridPane.rowIndex="0" GridPane.columnIndex="1" spacing="10.0"
-                  onMouseClicked="#handleSlotClick">
-                <children>
-                    <Rectangle fx:id="imgSlot2" width="240.0" height="140.0"/>
-                    <Label fx:id="lblSlot2" text="Save 2" textFill="WHITE">
-                        <font><Font size="24.0"/></font>
-                    </Label>
-                </children>
-            </VBox>
-
-            <!-- SLOT 3 -->
-            <VBox fx:id="slot3" GridPane.rowIndex="0" GridPane.columnIndex="2" spacing="10.0"
-                  onMouseClicked="#handleSlotClick">
-                <children>
-                    <Rectangle fx:id="imgSlot3" width="240.0" height="140.0"/>
-                    <Label fx:id="lblSlot3" text="Save 3" textFill="WHITE">
-                        <font><Font size="24.0"/></font>
-                    </Label>
-                </children>
-            </VBox>
-
-            <!-- SLOT 4 -->
-            <VBox fx:id="slot4" GridPane.rowIndex="1" GridPane.columnIndex="0" spacing="10.0"
-                  onMouseClicked="#handleSlotClick">
-                <children>
-                    <Rectangle fx:id="imgSlot4" width="240.0" height="140.0"/>
-                    <Label fx:id="lblSlot4" text="Save 4" textFill="WHITE">
-                        <font><Font size="24.0"/></font>
-                    </Label>
-                </children>
-            </VBox>
-
-            <!-- SLOT 5 -->
-            <VBox fx:id="slot5" GridPane.rowIndex="1" GridPane.columnIndex="1" spacing="10.0"
-                  onMouseClicked="#handleSlotClick">
-                <children>
-                    <Rectangle fx:id="imgSlot5" width="240.0" height="140.0"/>
-                    <Label fx:id="lblSlot5" text="Save 5" textFill="WHITE">
-                        <font><Font size="24.0"/></font>
-                    </Label>
-                </children>
-            </VBox>
-
-            <!-- SLOT 6 -->
-            <VBox fx:id="slot6" GridPane.rowIndex="1" GridPane.columnIndex="2" spacing="10.0"
-                  onMouseClicked="#handleSlotClick">
-                <children>
-                    <Rectangle fx:id="imgSlot6" width="240.0" height="140.0"/>
-                    <Label fx:id="lblSlot6" text="Save 6" textFill="WHITE">
-                        <font><Font size="24.0"/></font>
-                    </Label>
-                </children>
-            </VBox>
-
-        </GridPane>
 
     </children>
 </AnchorPane>

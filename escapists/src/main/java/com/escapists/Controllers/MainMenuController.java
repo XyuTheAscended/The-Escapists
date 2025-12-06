@@ -72,7 +72,7 @@ public class MainMenuController {
     @FXML
     void loadSaveClicked() {
     try {
-        App.setRoot("loadsave");            
+        App.setRoot("save");            
     } catch (IOException e) {
         e.printStackTrace();
         }
@@ -85,6 +85,7 @@ public class MainMenuController {
     void newGameClicked() throws IOException {
         gf.getCurrUser().createSave(); // DONT REMOVE THIS PLEASEE
         App.setRoot("cutscene");
+        
     }
 
     /**

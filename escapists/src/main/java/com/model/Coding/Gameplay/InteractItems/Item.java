@@ -1,7 +1,7 @@
 package com.model.Coding.Gameplay.InteractItems;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.util.ArrayList;
 
 /**
@@ -14,6 +14,12 @@ public class Item {
     private String description;
     private String iconUrl;
     public static ArrayList<Item> allItemsEver = new ArrayList<>();
+
+    public static HashMap<String, String> iconFallbacks = new HashMap<>() {{
+        put("Key", getClass().getResource("/key.png").toExternalForm());
+        put("KeyCard", getClass().getResource("/Keycard.png").toExternalForm());
+        put("Screwdriver", getClass().getResource("/Screwdriver.png").toExternalForm());
+    }};; 
 
     /**
      * Sets name, description, and ID of items
@@ -88,7 +94,9 @@ public class Item {
         Item preexistingItem = searchForItem(name);
         if (preexistingItem != null) { // this search call is case sensitive (so for ex. these two cant exit together: pIsToL, PISTOL)
             if (iconUrl == null && preexistingItem.iconUrl == null) {
-                throw new Error("This item " + iconUrl + " was loaded without an iconUrl");
+                iconUrl = iconFallbacks.get(name);
+                if (iconUrl == null)
+                    throw new Error("This item " + iconUrl + " was loaded without an iconUrl");
             } 
             preexistingItem.iconUrl = iconUrl;
             return preexistingItem;

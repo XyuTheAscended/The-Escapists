@@ -174,6 +174,23 @@ public class Timer {
         return formatted;
     }
 
+
+    /**
+     * FOr formatting time to good fformat
+     * @param totalSeconds
+     * @return
+     */
+    public static String formatTime(int totalSeconds) {
+        int hours = totalSeconds / 3600;
+        int minutes = (totalSeconds % 3600) / 60;
+        int seconds = totalSeconds % 60;
+            
+        String formatted = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+
+        return formatted;
+    }
+
+
     /**
      * Gets how much time passed since start time 
      * @return number of seconds passed

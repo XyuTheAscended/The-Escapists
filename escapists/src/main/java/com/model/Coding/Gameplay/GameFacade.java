@@ -106,6 +106,11 @@ public class GameFacade {
         this.activeProgress = null;
     }
 
+    // NEEDS JAVADOCCCCCCCCCCCCCCCCCCCCCCCCCCcc
+    public boolean gameRunning() {
+        return this.activeProgress != null;
+    }
+
     /**
      * Starts the game
      */
@@ -343,10 +348,7 @@ public class GameFacade {
     }
 
     public void loadProgress(Progress p) {
-    ((User) this.currUser).changeCurrSave(
-        ((User) this.currUser).getSaves().indexOf(p)
-    );
-    map.loadFromSave(p);
+        map.loadFromSave(p);
     }
 
     public Room findRoomByName(String name) {
