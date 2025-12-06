@@ -108,7 +108,7 @@ public class Map {
         }
         Room currRoom = getRoomByName(currRoomName);
         if (currRoom == null) {
-            System.out.println("WARNING AHHHHHHHHH!!!!!! currRoom not found from save we're loading into Map class :(. Defaulting to first room");
+            System.out.println("MAP WARNING: currRoom not found from save we're loading into Map class :(. Defaulting to first room");
             currRoom = rooms.get(0);
         } 
         save.setCurrentRoom(currRoom);
