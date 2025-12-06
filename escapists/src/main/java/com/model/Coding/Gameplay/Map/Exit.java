@@ -13,10 +13,12 @@ public class Exit {
 
     // added this part to make sure exit gets opened by default if there are no puzzles in it
     boolean allPuzzlesComplete = true;
-    for (Puzzle puzzle : prereqPuzzles) {
-      if (!puzzle.getIsCompleted()) {
-        allPuzzlesComplete = false;
-        break;
+    if (prereqPuzzles != null) {
+      for (Puzzle puzzle : prereqPuzzles) {
+        if (!puzzle.getIsCompleted()) {
+          allPuzzlesComplete = false;
+          break;
+        }
       }
     }
 
