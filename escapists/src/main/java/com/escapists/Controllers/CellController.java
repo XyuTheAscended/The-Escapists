@@ -2,6 +2,7 @@ package com.escapists.Controllers;
 
 import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
+import com.model.Coding.Gameplay.InteractItems.Puzzle;
 import com.model.Coding.Gameplay.Map.Room;
 import com.model.Coding.Progress.Progress;
 import com.model.Coding.UiHelp.Coolui;
@@ -89,7 +90,16 @@ public class CellController {
     @FXML
     void btnNoteClicked() {
         Room currRoom = gf.getCurrRoom();
-        Progress currSave = gf.getCurrUser().getCurrSave();
+        Puzzle puzzle = gf.getCurrRoom().getPuzzle("Note");
+
+        if(puzzle.getIsCompleted()){
+            btnEnter.setDisable(true);
+            noteRiddleAnswrBox.setDisable(true);
+            noteRiddleAnswrBox.setVisible(true);
+            noteRiddleText.setVisible(true);
+            btnEnter.setVisible(true);
+            return;
+        }
 
         // show UI
         noteRiddleAnswrBox.setVisible(true);

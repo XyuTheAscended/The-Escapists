@@ -97,5 +97,8 @@ public class MainMenuController {
         System.out.println("Logged in " + currUser.getUserName());
         txtAccount.setText(currUser.getUserName());
     }
+
+    public void avatarClicked(MouseEvent mouseEvent) {
+    }
 }
 
