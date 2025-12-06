@@ -20,8 +20,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * Controller for the end completion screen
- * @author Tyler, Mason
+ * Controller for end completion screen
+ * @author Tyler Norman
  */
 public class CompleteController implements Initializable {
 
