@@ -60,6 +60,11 @@ public class App extends Application {
         stage.show();
     }
 
+    /**
+     * Sets root of the scene
+     * @param fxml name of fxml page we want
+     * @throws IOException for if something goes wrong when loading FXML
+     */
     public static void setRoot(String fxml) throws IOException {
       setRoot(fxml, true, false);
     }
@@ -78,6 +83,10 @@ public class App extends Application {
       currFxml = fxml;
     }
 
+    /**
+     * Way to safely set root of scene when its a gameplay page. handles errors via try block
+     * @param fxml
+     */
     public static void safeSetGameplayRoot(String fxml) {
       try {
         setRoot(fxml, true, true);
@@ -86,6 +95,11 @@ public class App extends Application {
         throw new Error("Something really bad happened when we tried to set the root");
       }
     }
+
+    /**
+     * Way to safely set root of scene when its a normal page via try blokcs
+     * @param fxml
+     */
     public static void safeSetRoot(String fxml) {
       try {
         setRoot(fxml, true, false);
@@ -95,6 +109,11 @@ public class App extends Application {
       }
     }
 
+    /**
+     * Overwrites a page stored in cache, repalcing what Parent object is cached as its root
+     * @param fxmlKey
+     * @param fxmlPage
+     */
     public static void overwritePageCache(String fxmlKey, Parent fxmlPage) {
       fxmlCache.put(fxmlKey, fxmlPage);
     }
@@ -119,22 +138,32 @@ public class App extends Application {
         
     }
 
+    /**
+     * Loads fxml file from our resources
+     * @param fxml name of fxml without the .fxml extension
+     * @return raw root of the fxml page
+     * @throws IOException
+     */
     private static Parent loadFXML(String fxml) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
         return fxmlLoader.load();
     }
 
+    /**
+     * Gets the last page name from our page history
+     * @return
+     */
     public static String getLastPageName() {
       return lastFxmls.peekLast();
     }
 
+    /**
+     * launches stuff so things render
+     * @param args
+     */
     public static void main(String[] args) {
         launch();
     }
 
-    public static Scene getScene() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getScene'");
-    }
 
 }
