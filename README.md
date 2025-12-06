@@ -8,6 +8,3 @@ https://www.youtube.com/watch?v=8jkddbLA_Dw
 https://mockitt.com/proto/Zax3dSyUt59z0pTRTBvxzm/sharing?view_mode=device&screen=rbpV1ibUOEJogbiwz&canvasId=rcV1ibUOEuzeZ4oa #The Escapists Prototype-分享
 # Prototype Presentation Link
 https://www.youtube.com/watch?v=ttCymEIEUe4
-
-#Full GUI Presentation YT Video
-https://youtu.be/lrX1r04ce_Y
