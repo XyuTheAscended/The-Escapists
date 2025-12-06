@@ -19,6 +19,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * @author Tyler Norman
+ */
 public class CompleteController implements Initializable {
 
     private final GameFacade gf = GameFacade.getInstance();
