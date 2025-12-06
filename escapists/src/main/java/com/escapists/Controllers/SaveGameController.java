@@ -5,6 +5,7 @@ import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.Timer;
 import com.model.Coding.Gameplay.InteractItems.Item;
 import com.model.Coding.Progress.Progress;
+import com.model.Coding.UiHelp.Coolui;
 import com.model.Coding.User.User;
 
 import javafx.fxml.FXML;
@@ -100,19 +101,16 @@ public class SaveGameController {
      * @param save the user's progress being loaded
      */
     private void onSaveLoaded(Progress save) {
-        User currUser = gf.getCurrUser();
-        for (Progress sv : currUser.getSaves()) {
-            System.out.println(sv.getCurrentRoomName() + " | " + sv.getProgressId().equals(save.getProgressId()));
-        }
-        System.out.println("WHYYYYYYYYYYYYYYYYYYYYYYy");
         App.clearFxmlCache();
         if (gf.gameRunning()) {
             gf.endGame();
         }
+        
         gf.loadCurrSave();
         gf.setCurrRoom(save.getCurrentRoom());
         gf.startGame(save.getDifficulty());
         String fxmlToGoTo = mapRoomNameToFXML(save.getCurrentRoomName());
+        Coolui.resetHud();
         App.safeSetGameplayRoot(fxmlToGoTo);
     }
 

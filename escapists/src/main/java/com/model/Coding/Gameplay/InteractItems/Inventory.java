@@ -25,6 +25,9 @@ public class Inventory {
      * @param item An item object
      */
     public void addItem(Item item){
+        if (item == null) {
+            throw new Error("INVENTORY ERROR: Tried to add a null as an item");
+        }
         items.add(item);
         if (itemAddedCallback != null) itemAddedCallback.accept(item);
     }

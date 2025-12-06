@@ -34,7 +34,6 @@ public class CellController {
         if (gf.getCurrUser() == null) gf.quickTestLogin();
         Coolui.layerPage(root); // this function call adds the Hud
         
-        gf.startGame(1);
 
         Progress save = gf.getCurrUser().getCurrSave();
         save.setBackgroundImage("prison2.png");

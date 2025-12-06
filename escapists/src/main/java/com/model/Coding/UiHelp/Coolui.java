@@ -5,7 +5,6 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 
 import com.escapists.App;
-import com.escapists.Controllers.SaveGameController;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Gameplay.Timer;
 import com.model.Coding.Gameplay.InteractItems.Inventory;
@@ -106,6 +105,14 @@ public class Coolui {
     pauseButton.getStyleClass().remove("toggled");
     Timer.getInstance().resume();
     
+  }
+
+  /**
+   * Clears out hud elements so they get recreated next screen load
+   */
+  public static void resetHud() {
+    hudHolder = null;
+    pauseMenuBoxHolder = null;
   }
 
   /**
@@ -256,6 +263,7 @@ public class Coolui {
     Inventory inv = GameFacade.getInstance().getInventory();
     if (inv != null && inv.getItems().size() > 0) {
       for (Item tem : inv.getItems()) {
+        tem.loadItem(tem.getName(), null); // inventory doesnt automatically load these so we need this call
         Platform.runLater(() -> fillInvSlot(tem));
       }
     }
@@ -395,7 +403,6 @@ public class Coolui {
       GameFacade.getInstance().getInventory().addItem(key);
       itemButton.setVisible(false);
 
-      System.out.println("HEYYYYYYYYYYYYYY LISTENNNNNNNNNNNNNNNNNNNNNNNNN: " + itemImgUrl);
 
       itemButton.setOnAction(null); // make it only run once ever
     });

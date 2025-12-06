@@ -1,6 +1,9 @@
 package com.escapists.Controllers;
 import com.escapists.App;
+import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.Speech.Speak;
+import com.model.Coding.UiHelp.Coolui;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -62,6 +65,11 @@ public class CutsceneController {
      * Switches screen to the cell to begin the game
      */
     public void btnContinueClicked() throws IOException {
+        App.clearFxmlCache();
+        GameFacade gf = GameFacade.getInstance();
+        gf.getCurrUser().createSave();
+        gf.startGame(1);
+        Coolui.resetHud();
         App.safeSetGameplayRoot("cell");
         onSceneExit();
     }

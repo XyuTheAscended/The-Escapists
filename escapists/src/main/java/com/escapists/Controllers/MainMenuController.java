@@ -83,7 +83,6 @@ public class MainMenuController {
      */
     @FXML
     void newGameClicked() throws IOException {
-        gf.getCurrUser().createSave(); // DONT REMOVE THIS PLEASEE
         App.setRoot("cutscene");
         
     }

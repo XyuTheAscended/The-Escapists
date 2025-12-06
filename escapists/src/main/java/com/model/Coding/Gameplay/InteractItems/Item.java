@@ -16,10 +16,17 @@ public class Item {
     public static ArrayList<Item> allItemsEver = new ArrayList<>();
 
     public static HashMap<String, String> iconFallbacks = new HashMap<>() {{
-        put("Key", getClass().getResource("/key.png").toExternalForm());
-        put("KeyCard", getClass().getResource("/Keycard.png").toExternalForm());
-        put("Screwdriver", getClass().getResource("/Screwdriver.png").toExternalForm());
+        put("key", getClass().getResource("/key.png").toExternalForm());
+        put("keycard", getClass().getResource("/Keycard.png").toExternalForm());
+        put("screwdriver", getClass().getResource("/Screwdriver.png").toExternalForm());
     }};; 
+
+    static {
+        for (String val : iconFallbacks.values()) {
+            System.out.println("Yah yeeeat");
+            System.out.println(val);
+        }
+    }
 
     /**
      * Sets name, description, and ID of items
@@ -94,7 +101,7 @@ public class Item {
         Item preexistingItem = searchForItem(name);
         if (preexistingItem != null) { // this search call is case sensitive (so for ex. these two cant exit together: pIsToL, PISTOL)
             if (iconUrl == null && preexistingItem.iconUrl == null) {
-                iconUrl = iconFallbacks.get(name);
+                iconUrl = iconFallbacks.get(name.toLowerCase());
                 if (iconUrl == null)
                     throw new Error("This item " + iconUrl + " was loaded without an iconUrl");
             } 
