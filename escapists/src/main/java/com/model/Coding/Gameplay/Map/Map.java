@@ -107,6 +107,10 @@ public class Map {
             System.out.println("Setting default room to " + currRoomName);
         }
         Room currRoom = getRoomByName(currRoomName);
+        if (currRoom == null) {
+            System.out.println("WARNING AHHHHHHHHH!!!!!! currRoom not found from save we're loading into Map class :(. Defaulting to first room");
+            currRoom = rooms.get(0);
+        } 
         save.setCurrentRoom(currRoom);
         setCurrentRoom(currRoom.getName());
 
