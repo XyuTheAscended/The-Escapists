@@ -5,6 +5,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
@@ -14,7 +16,12 @@ import java.io.IOException;
  */
 public class CutsceneController {
 
+    @FXML
     public Button btnBack;
+    @FXML
+    public ImageView bgImage;
+    @FXML
+    public AnchorPane root;
     @FXML
     private TextArea cutsceneTextArea;
     @FXML private Button btnContinue;

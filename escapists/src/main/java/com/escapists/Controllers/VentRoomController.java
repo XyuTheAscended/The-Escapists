@@ -1,11 +1,14 @@
 package com.escapists.Controllers;
 
+import com.escapists.App;
 import com.model.Coding.Gameplay.GameFacade;
 import com.model.Coding.UiHelp.Coolui;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+
+import java.io.IOException;
 
 /**
  * Controller for the vent room (inside the vent)
@@ -34,17 +37,11 @@ public class VentRoomController {
      * Saves and ends the game. Player has escaped
      */
     @FXML
-    void btnOutClicked() {
+    void btnOutClicked() throws IOException {
 
         gf.getCurrUser().getCurrSave().setCurrentRoomName("OUTSIDE");
         gf.save();
         gf.endGame();
-
-         try {
-        com.escapists.App.setRoot("complete");
-        } catch (Exception e) {
-        e.printStackTrace();
-        }  
-
+        App.setRoot("complete");
     }
 }

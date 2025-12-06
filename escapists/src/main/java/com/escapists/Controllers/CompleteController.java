@@ -6,10 +6,13 @@ import com.model.Coding.Gameplay.Timer;
 import com.model.Coding.Progress.Leaderboard;
 import com.model.Coding.Progress.Progress;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
@@ -19,6 +22,9 @@ import java.util.ResourceBundle;
 public class CompleteController implements Initializable {
 
     private final GameFacade gf = GameFacade.getInstance();
+
+    @FXML
+    public ImageView bgImage;
 
     @FXML private Label lblTimeLeft;
     @FXML private Label lblScore;
@@ -33,6 +39,9 @@ public class CompleteController implements Initializable {
     @FXML private Label score5;
 
     @FXML private Button btnContinue;
+
+    @FXML
+    private VBox vBox;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -59,14 +68,7 @@ public class CompleteController implements Initializable {
         // LEADERBOARD
         loadLeaderboard(p);
 
-        // CONTINUE BUTTON
-        btnContinue.setOnAction(e -> {
-            try {
-                App.setRoot("mainMenu");
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-        });
+        vBox.setStyle("-fx-background-color: #24201F;");
     }
 
     /**
@@ -83,5 +85,9 @@ public class CompleteController implements Initializable {
         if (times.size() > 2) score3.setText(times.get(2));
         if (times.size() > 3) score4.setText(times.get(3));
         if (times.size() > 4) score5.setText(times.get(4));
+    }
+
+    public void btnContinue(ActionEvent actionEvent) throws IOException {
+        App.setRoot("mainMenu");
     }
 }
