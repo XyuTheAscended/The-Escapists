@@ -40,9 +40,6 @@ public class SaveGameController {
 
     @FXML
     public void initialize() {
-        for (Item item : Item.getAllItemsEver()) {
-            System.out.println(item.getName());
-        }
         loadSaveVisuals();
     }
 
@@ -147,6 +144,7 @@ public class SaveGameController {
         }
         lastSaveIndex = saveIndex;
 
+        System.out.println("HIIIIIIIIIIII look at this: " + App.getLastPageName());
         if (App.getLastPageName() != null && !App.getLastPageName().equals("mainMenu")) {
             newSaveButton = new Button("Add new save");
             newSaveButton.getStyleClass().add("save-entry");

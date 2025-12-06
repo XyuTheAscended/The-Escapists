@@ -69,7 +69,16 @@ public class App extends Application {
       setRoot(fxml, true, false);
     }
 
+    /**
+     * Sets root of fxml page while also specifying other things
+     * @param fxml
+     * @param recordPageHistory determines if we cache this page's root so later we dont gotta rerender it
+     * @param isGameplayPage determines if next page we switch to 
+     * @throws IOException
+     */
     public static void setRoot(String fxml, boolean recordPageHistory, boolean isGameplayPage) throws IOException {
+      if (recordPageHistory) recordLastFxml(currFxml);
+      currFxml = fxml;
       Parent fxmlPage = fxmlCache.get(fxml); 
       if (fxmlPage == null) {
         fxmlPage = loadFXML(fxml);
@@ -78,9 +87,8 @@ public class App extends Application {
         if (!Arrays.asList(CACHE_BLACK_LIST).contains(fxml)) fxmlCache.put(fxml, fxmlPage);
       }
       
+      
       scene.setRoot(fxmlPage);
-      if (recordPageHistory) recordLastFxml(currFxml);
-      currFxml = fxml;
     }
 
     /**

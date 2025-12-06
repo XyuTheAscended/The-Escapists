@@ -42,6 +42,7 @@ public class RegisterController {
         if(user == null){
             lblError.setText("Registration Failed, please try again!");
         } else {
+            if (!gf.login(username, password)) throw new Error("Login failed, even after registering for some reason. very bad");
             App.setRoot("mainMenu");
         }
     }
